@@ -1,0 +1,20 @@
+{
+  "model": "whisper-large-v3",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 10,
+  "wer": 0.01195219123505976,
+  "median_wer": 0.0,
+  "substitutions": 2,
+  "insertions": 0,
+  "deletions": 1,
+  "total_words": 251,
+  "total_audio_seconds": 91.5,
+  "total_inference_seconds": 19.4,
+  "real_time_factor": 0.212,
+  "peak_memory_gb": 0.28
+}

@@ -55,7 +55,6 @@ def load_samples(dataset_name, max_samples=None):
         cfg["path"],
         cfg["name"],
         split=cfg["split"],
-        trust_remote_code=True,
         token=use_token or None,
     )
 
