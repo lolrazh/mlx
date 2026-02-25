@@ -32,3 +32,13 @@ Scripts are meant to run from the project root or from within their lesson direc
 ## Teaching Style
 
 This is a learning repo. The user learns interactively in conversation — code is explained chunk by chunk as it's written. Keep scripts self-contained with clear comments, but the real teaching happens in chat. Don't dump big files without explanation.
+
+- Explain concepts with analogies before showing code.
+- Walk through code chunk by chunk — don't just run it and say "see?"
+- The user has visual/node-based ML experience (built an MNIST MLP in Grasshopper).
+- The user knows 3b1b concepts (weights, matmul, attention, backprop) but is coding models for the first time.
+
+## Progress
+
+- `1-mnist/` — Complete. Data loading, MLP model, training loop with SGD.
+- `2-gpt/` — In progress. Data + tokenizer done (01), embeddings done (02). Next: attention.
