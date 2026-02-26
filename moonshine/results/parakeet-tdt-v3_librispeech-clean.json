@@ -1,0 +1,20 @@
+{
+  "model": "parakeet-tdt-v3",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 250,
+  "wer": 0.019256182744949973,
+  "median_wer": 0.0,
+  "substitutions": 83,
+  "insertions": 6,
+  "deletions": 13,
+  "total_words": 5297,
+  "total_audio_seconds": 1967.6,
+  "total_inference_seconds": 66.0,
+  "real_time_factor": 0.034,
+  "peak_memory_gb": 0.02
+}
