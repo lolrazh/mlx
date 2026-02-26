@@ -1,0 +1,20 @@
+{
+  "model": "qwen3-asr-1.7b-8bit",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 250,
+  "wer": 0.02303190485180291,
+  "median_wer": 0.0,
+  "substitutions": 94,
+  "insertions": 4,
+  "deletions": 24,
+  "total_words": 5297,
+  "total_audio_seconds": 1967.6,
+  "total_inference_seconds": 401.2,
+  "real_time_factor": 0.204,
+  "peak_memory_gb": 0.04
+}
