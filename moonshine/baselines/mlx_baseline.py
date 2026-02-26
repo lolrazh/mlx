@@ -22,15 +22,16 @@ from moonshine.model import load_model, generate, pad_audio
 MODEL = "UsefulSensors/moonshine-streaming-medium"
 
 
-def make_transcribe_fn(model_path=MODEL):
+def make_transcribe_fn(model_path=MODEL, dtype=mx.float32):
     """Create a transcribe function compatible with the eval runner."""
     from huggingface_hub import snapshot_download
 
     # Download model if needed, get local path
     local_path = snapshot_download(model_path)
 
-    print(f"Loading Moonshine MLX from {local_path}...")
-    model, args = load_model(local_path)
+    dtype_name = "fp16" if dtype == mx.float16 else "fp32"
+    print(f"Loading Moonshine MLX ({dtype_name}) from {local_path}...")
+    model, args = load_model(local_path, dtype=dtype)
 
     # Load tokenizer
     tokenizer = PreTrainedTokenizerFast.from_pretrained(local_path)
@@ -39,7 +40,7 @@ def make_transcribe_fn(model_path=MODEL):
     import mlx.utils
     params = mlx.utils.tree_flatten(model.parameters())
     total = sum(v.size for _, v in params)
-    print(f"Loaded: {total/1e6:.1f}M params (fp32, MLX)")
+    print(f"Loaded: {total/1e6:.1f}M params ({dtype_name}, MLX)")
 
     # Warm-up: one dummy inference to compile MLX graphs
     dummy = mx.zeros((1, 16000))
@@ -82,6 +83,12 @@ def main():
         action="store_true",
         help="Disable shuffling (on by default when using --max-samples)",
     )
+    parser.add_argument(
+        "--dtype",
+        choices=["fp32", "fp16"],
+        default="fp32",
+        help="Model weight dtype (default: fp32)",
+    )
     args = parser.parse_args()
 
     # Quick test mode: default to 10 samples if nothing specified
@@ -92,7 +99,8 @@ def main():
 
     shuffle = (args.max_samples is not None) and (not args.no_shuffle)
 
-    transcribe_fn = make_transcribe_fn()
+    dtype = mx.float16 if args.dtype == "fp16" else mx.float32
+    transcribe_fn = make_transcribe_fn(dtype=dtype)
 
     if args.full:
         datasets = [LIBRISPEECH_CLEAN, LIBRISPEECH_OTHER]
@@ -105,10 +113,11 @@ def main():
 
     results = []
     for ds in datasets:
+        dtype_suffix = f"-{args.dtype}" if args.dtype != "fp32" else ""
         result = evaluate(
             transcribe_fn=transcribe_fn,
             dataset_name=ds,
-            model_name="moonshine-medium-mlx",
+            model_name=f"moonshine-medium-mlx{dtype_suffix}",
             max_samples=args.max_samples,
             shuffle=shuffle,
         )

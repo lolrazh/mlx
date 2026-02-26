@@ -53,12 +53,13 @@ def sanitize(weights: dict) -> dict:
     return sanitized
 
 
-def load_model(model_path: str) -> tuple[Moonshine, ModelArgs]:
+def load_model(model_path: str, dtype: mx.Dtype = mx.float32) -> tuple[Moonshine, ModelArgs]:
     """Load a Moonshine model from a HuggingFace model directory.
 
     Args:
         model_path: Path to the HF model directory (containing config.json
                      and model.safetensors)
+        dtype: Weight dtype (mx.float32 or mx.float16)
 
     Returns:
         (model, args) tuple
@@ -76,6 +77,10 @@ def load_model(model_path: str) -> tuple[Moonshine, ModelArgs]:
     # Load and sanitize weights
     weights = mx.load(str(model_path / "model.safetensors"))
     weights = sanitize(weights)
+
+    # Cast weights to target dtype
+    if dtype != mx.float32:
+        weights = {k: v.astype(dtype) if v.dtype == mx.float32 else v for k, v in weights.items()}
 
     # Load into model
     model.load_weights(list(weights.items()))

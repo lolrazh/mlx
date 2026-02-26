@@ -33,7 +33,10 @@ def generate(
     eos = model.args.eos_token_id
     n_layers = model.args.num_hidden_layers
 
-    # 1. Encode audio
+    # 1. Cast audio to model dtype and encode
+    model_dtype = model.proj_out.weight.dtype
+    if audio.dtype != model_dtype:
+        audio = audio.astype(model_dtype)
     encoder_out = model.encode(audio)
     mx.eval(encoder_out)
 
