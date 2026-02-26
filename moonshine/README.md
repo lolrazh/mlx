@@ -4,14 +4,14 @@ Porting [UsefulSensors/moonshine-streaming-medium](https://huggingface.co/Useful
 
 ## Benchmark Results
 
-| Model | Dataset | WER | RTF | Peak RAM |
-|---|---|---|---|---|
-| Whisper Large v3 | LS test-clean (10 samples) | 1.20% | 0.21x | ~3.1 GB |
-| Whisper Large v3 | LS test-clean (full) | *pending* | — | — |
-| Whisper Large v3 | LS test-other (full) | *pending* | — | — |
+| Model | Precision | Dataset | Samples | WER | RTF | Model Size |
+|---|---|---|---|---|---|---|
+| Whisper Large v3 (MLX) | fp16 | LS test-clean | 250 (shuffled) | 3.02% | 0.34x | 3.08 GB |
+| Moonshine Medium (PyTorch+MPS) | fp32 | LS test-clean | 250 (shuffled) | 2.19% | 0.11x | 1.06 GB |
+| Moonshine Medium (MLX port) | fp16 | LS test-clean | *pending* | — | — | ~0.53 GB |
 
-*RTF = Real-Time Factor (lower is faster; <1.0 = faster than real-time). Peak RAM is estimated unified memory for model.*
-*Run `--full` for complete results. Partial results above from 10-sample smoke test on M4 24GB.*
+*RTF = Real-Time Factor (lower is faster; <1.0 = faster than real-time). All runs on M4 24GB, seed=42.*
+*Whisper and Moonshine PyTorch baselines establish targets for the MLX port.*
 
 ## Quick Start
 

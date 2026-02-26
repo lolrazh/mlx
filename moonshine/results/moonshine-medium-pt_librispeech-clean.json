@@ -1,5 +1,5 @@
 {
-  "model": "whisper-large-v3",
+  "model": "moonshine-medium-pt",
   "dataset": "librispeech-clean",
   "dataset_info": {
     "name": "librispeech-clean",
@@ -7,14 +7,14 @@
     "split": "test"
   },
   "num_samples": 250,
-  "wer": 0.030205776854823486,
+  "wer": 0.021899188219747026,
   "median_wer": 0.0,
-  "substitutions": 109,
-  "insertions": 23,
-  "deletions": 28,
+  "substitutions": 89,
+  "insertions": 13,
+  "deletions": 14,
   "total_words": 5297,
   "total_audio_seconds": 1967.6,
-  "total_inference_seconds": 676.6,
-  "real_time_factor": 0.344,
-  "peak_memory_gb": 0.28
+  "total_inference_seconds": 215.0,
+  "real_time_factor": 0.109,
+  "peak_memory_gb": 0.05
 }
