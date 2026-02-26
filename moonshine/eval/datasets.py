@@ -11,7 +11,6 @@ load_dotenv()  # loads HF_TOKEN from .env
 
 LIBRISPEECH_CLEAN = "librispeech-clean"
 LIBRISPEECH_OTHER = "librispeech-other"
-COMMON_VOICE_EN = "common-voice-en"
 
 DATASET_REGISTRY = {
     LIBRISPEECH_CLEAN: {
@@ -26,21 +25,18 @@ DATASET_REGISTRY = {
         "split": "test",
         "text_key": "text",
     },
-    COMMON_VOICE_EN: {
-        "path": "mozilla-foundation/common_voice_17_0",
-        "name": "en",
-        "split": "test",
-        "text_key": "sentence",
-    },
 }
 
 
-def load_samples(dataset_name, max_samples=None):
+def load_samples(dataset_name, max_samples=None, shuffle=False, seed=42):
     """Yield (audio_array, sample_rate, reference_text) from a dataset.
 
     Args:
         dataset_name: One of the keys in DATASET_REGISTRY.
         max_samples: If set, only yield this many samples (useful for quick tests).
+        shuffle: If True, shuffle the dataset before sampling. Important when
+            using max_samples to avoid speaker/chapter bias.
+        seed: Random seed for reproducible shuffling.
 
     Yields:
         (numpy array of float32 audio, int sample_rate, str reference_text)
@@ -51,15 +47,14 @@ def load_samples(dataset_name, max_samples=None):
 
     cfg = DATASET_REGISTRY[dataset_name]
 
-    # Common Voice needs HF token for auth
-    use_token = dataset_name == COMMON_VOICE_EN
-
     ds = load_dataset(
         cfg["path"],
         cfg["name"],
         split=cfg["split"],
-        token=use_token or None,
     )
+
+    if shuffle:
+        ds = ds.shuffle(seed=seed)
 
     for i, sample in enumerate(ds):
         if max_samples is not None and i >= max_samples:

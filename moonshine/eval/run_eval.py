@@ -19,6 +19,7 @@ def evaluate(
     dataset_name,
     model_name="unknown",
     max_samples=None,
+    shuffle=False,
     output_dir="moonshine/results",
 ):
     """Run evaluation of a transcription function on a dataset.
@@ -28,6 +29,7 @@ def evaluate(
         dataset_name: Dataset key from the registry.
         model_name: Name for logging and result files.
         max_samples: Limit number of samples (None = all).
+        shuffle: Shuffle dataset before sampling (avoids speaker bias).
         output_dir: Where to save JSON results.
 
     Returns:
@@ -35,7 +37,7 @@ def evaluate(
     """
     info = dataset_info(dataset_name)
     print(f"\nEvaluating '{model_name}' on {info['name']} ({info['hf_path']}, {info['split']})")
-    print(f"Max samples: {max_samples or 'all'}\n")
+    print(f"Max samples: {max_samples or 'all'}{' (shuffled)' if shuffle else ''}\n")
 
     references = []
     hypotheses = []
@@ -44,7 +46,7 @@ def evaluate(
 
     tracemalloc.start()
 
-    for i, (audio, sr, ref_text) in enumerate(load_samples(dataset_name, max_samples)):
+    for i, (audio, sr, ref_text) in enumerate(load_samples(dataset_name, max_samples, shuffle=shuffle)):
         audio_duration = len(audio) / sr
         total_audio_seconds += audio_duration
 

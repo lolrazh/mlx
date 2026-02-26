@@ -9,7 +9,6 @@ Porting [UsefulSensors/moonshine-streaming-medium](https://huggingface.co/Useful
 | Whisper Large v3 | LS test-clean (10 samples) | 1.20% | 0.21x | ~3.1 GB |
 | Whisper Large v3 | LS test-clean (full) | *pending* | — | — |
 | Whisper Large v3 | LS test-other (full) | *pending* | — | — |
-| Whisper Large v3 | CV English test | *pending* | — | — |
 
 *RTF = Real-Time Factor (lower is faster; <1.0 = faster than real-time). Peak RAM is estimated unified memory for model.*
 *Run `--full` for complete results. Partial results above from 10-sample smoke test on M4 24GB.*
@@ -35,7 +34,7 @@ python -m moonshine.baselines.whisper_baseline --dataset librispeech-other --max
 ```
 moonshine/
 ├── eval/
-│   ├── datasets.py      — download + load LibriSpeech and Common Voice
+│   ├── datasets.py      — download + load LibriSpeech test sets
 │   ├── wer.py           — WER computation with text normalization
 │   └── run_eval.py      — model-agnostic eval runner
 ├── baselines/

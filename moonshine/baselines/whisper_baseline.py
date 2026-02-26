@@ -15,7 +15,7 @@ import numpy as np
 import mlx_whisper
 
 from moonshine.eval.run_eval import evaluate
-from moonshine.eval.datasets import LIBRISPEECH_CLEAN, LIBRISPEECH_OTHER, COMMON_VOICE_EN
+from moonshine.eval.datasets import LIBRISPEECH_CLEAN, LIBRISPEECH_OTHER
 
 MODEL = "mlx-community/whisper-large-v3-mlx"
 
@@ -45,7 +45,7 @@ def main():
     parser = argparse.ArgumentParser(description="Whisper Large v3 baseline evaluation")
     parser.add_argument(
         "--dataset",
-        choices=["librispeech-clean", "librispeech-other", "common-voice-en", "all"],
+        choices=["librispeech-clean", "librispeech-other", "all"],
         default="librispeech-clean",
         help="Which dataset to evaluate on (default: librispeech-clean)",
     )
@@ -60,6 +60,11 @@ def main():
         action="store_true",
         help="Run full evaluation on all LibriSpeech splits",
     )
+    parser.add_argument(
+        "--no-shuffle",
+        action="store_true",
+        help="Disable shuffling (on by default when using --max-samples)",
+    )
     args = parser.parse_args()
 
     # Quick test mode: default to 10 samples if nothing specified
@@ -68,6 +73,9 @@ def main():
         print("     Use --full for complete evaluation, or --max-samples N for custom.\n")
         args.max_samples = 10
 
+    # Shuffle by default when subsampling (avoids speaker bias)
+    shuffle = (args.max_samples is not None) and (not args.no_shuffle)
+
     transcribe_fn = make_transcribe_fn()
 
     if args.full:
@@ -75,7 +83,7 @@ def main():
         datasets = [LIBRISPEECH_CLEAN, LIBRISPEECH_OTHER]
         args.max_samples = None
     elif args.dataset == "all":
-        datasets = [LIBRISPEECH_CLEAN, LIBRISPEECH_OTHER, COMMON_VOICE_EN]
+        datasets = [LIBRISPEECH_CLEAN, LIBRISPEECH_OTHER]
     else:
         datasets = [args.dataset]
 
@@ -86,6 +94,7 @@ def main():
             dataset_name=ds,
             model_name="whisper-large-v3",
             max_samples=args.max_samples,
+            shuffle=shuffle,
         )
         results.append(result)
 
