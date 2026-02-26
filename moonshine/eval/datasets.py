@@ -4,7 +4,10 @@ Yields normalized (audio_array, sample_rate, reference_text) tuples
 from standard speech benchmarks.
 """
 
+from dotenv import load_dotenv
 from datasets import load_dataset
+
+load_dotenv()  # loads HF_TOKEN from .env
 
 LIBRISPEECH_CLEAN = "librispeech-clean"
 LIBRISPEECH_OTHER = "librispeech-other"
