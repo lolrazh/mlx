@@ -1,0 +1,22 @@
+[
+  {
+    "input": "We need to deploy this on Kubernetis, spelled K-U-B-E-R-N-E-T-E-S, before Friday.",
+    "ideal": "We need to deploy this on Kubernetes before Friday."
+  },
+  {
+    "input": "She's the lead designer at Figma, no wait, spell it P-H-I-G-M-A, the boutique agency in Brooklyn, not the software company.",
+    "ideal": "She's the lead designer at Phigma, the boutique agency in Brooklyn, not the software company."
+  },
+  {
+    "input": "The ancient city of Petra in Jurdan, spelled J-O-R-D-A-N, attracts millions of tourists annually, though many also visit the nearby Wadi Rum desert which is equally spectacular and was featured in several films including Lawrence of Arabia and more recently Dune.",
+    "ideal": "The ancient city of Petra in Jordan attracts millions of tourists annually, though many also visit the nearby Wadi Rum desert which is equally spectacular and was featured in several films including Lawrence of Arabia and more recently Dune."
+  },
+  {
+    "input": "Our stack uses Next JS on the frontend and Super Base, spell the second part S-U-P-A-B-A-S-E, for the backend, with Edge Functions deployed to Vercel Edge Network, though we're considering migrating the database layer to Neon, spelled N-E-O-N, for better serverless Postgres performance and branching capabilities that would help with our preview environment workflow.",
+    "ideal": "Our stack uses Next JS on the frontend and Supabase for the backend, with Edge Functions deployed to Vercel Edge Network, though we're considering migrating the database layer to Neon for better serverless Postgres performance and branching capabilities that would help with our preview environment workflow."
+  },
+  {
+    "input": "The restaurant serves amazing Pad Thai and some time, spell that last one S-O-M T-A-M, which is my favorite.",
+    "ideal": "The restaurant serves amazing Pad Thai and Som Tam, which is my favorite."
+  }
+]
