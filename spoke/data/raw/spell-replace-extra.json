@@ -1,0 +1,58 @@
+[
+  {
+    "input": "The new feature uses Chroma, spell that K-R-O-M-A, for vector storage.",
+    "ideal": "The new feature uses Kroma for vector storage."
+  },
+  {
+    "input": "We're competing against Retool, that's R-E-T-T-O-L-E, in this space.",
+    "ideal": "We're competing against Rettole in this space."
+  },
+  {
+    "input": "She recommended we try Dashi, spell that D-A-S-H-I, the Japanese stock.",
+    "ideal": "She recommended we try Dashi, the Japanese stock."
+  },
+  {
+    "input": "The founder is named Jai, that's J-A-Y-V-E-E, and he runs the startup.",
+    "ideal": "The founder is named Jayvee, and he runs the startup."
+  },
+  {
+    "input": "It's built on Svelte, spell that S-V-E-L-T-E-R, not the framework you know.",
+    "ideal": "It's built on Svelter, not the framework you know."
+  },
+  {
+    "input": "They use Olo, that's O-H-L-O-H, for online ordering.",
+    "ideal": "They use Ohloh for online ordering."
+  },
+  {
+    "input": "The spice is called Garam, spell that G-H-A-R-A-M, in Punjabi cooking.",
+    "ideal": "The spice is called Gharam in Punjabi cooking."
+  },
+  {
+    "input": "We're integrating with Mux, that's M-O-O-K-S, for video streaming.",
+    "ideal": "We're integrating with Mooks for video streaming."
+  },
+  {
+    "input": "The dish is Biryani, spell that B-E-E-R-Y-A-N-I, the Hyderabadi style.",
+    "ideal": "The dish is Beeryani, the Hyderabadi style."
+  },
+  {
+    "input": "She works at Notion, that's N-O-T-Y-O-N, the productivity tool.",
+    "ideal": "She works at Notyon, the productivity tool."
+  },
+  {
+    "input": "The bread is called Naan, spell that N-A-A-N, the soft kind.",
+    "ideal": "The bread is called Naan, the soft kind."
+  },
+  {
+    "input": "They compete with Figma, that's P-H-I-G-M-A, in design tools.",
+    "ideal": "They compete with Phigma in design tools."
+  },
+  {
+    "input": "The sauce is called Gochujang, spell the first part G-O-C-H-U, and it's Korean.",
+    "ideal": "The sauce is called Gochujang, and it's Korean."
+  },
+  {
+    "input": "He founded Linear, that's L-Y-N-E-A-R, the issue tracker.",
+    "ideal": "He founded Lynear, the issue tracker."
+  }
+]

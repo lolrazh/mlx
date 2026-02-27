@@ -1,0 +1,46 @@
+[
+  {
+    "input": "We need to integrate with the Celerobad API, that's spelled S-I-L-E-R-O, before the end of sprint.",
+    "ideal": "We need to integrate with the Silero API before the end of sprint."
+  },
+  {
+    "input": "The new designer is named Preeya but it's spelled P-R-I-J-A, she starts Monday.",
+    "ideal": "The new designer is named Prija, she starts Monday."
+  },
+  {
+    "input": "Our competitor is Wispr, that's W-I-S-P-R, not the OpenAI product.",
+    "ideal": "Our competitor is Wispr, not the OpenAI product."
+  },
+  {
+    "input": "He said to use Kroma for the color palette, spell that K-R-O-M-A.",
+    "ideal": "He said to use Kroma for the color palette."
+  },
+  {
+    "input": "The client is from Oulu but spelled O-H-L-U-H, which confused the booking system.",
+    "ideal": "The client is from Ohluh, which confused the booking system."
+  },
+  {
+    "input": "We should migrate to Postgresql, actually that's P-O-S-T-G-R-E-S, the hosted version.",
+    "ideal": "We should migrate to Postgres, the hosted version."
+  },
+  {
+    "input": "The feature flag is called Toggle, spelled T-A-U-G-L, don't ask why.",
+    "ideal": "The feature flag is called Taugl, don't ask why."
+  },
+  {
+    "input": "Her name is Shivani but it's spelled S-H-I-V-N-I, no second A, and she'll be leading the retro.",
+    "ideal": "Her name is Shivni, no second A, and she'll be leading the retro."
+  },
+  {
+    "input": "The bakery is called Flower, spelled F-L-E-U-R, it's French apparently, on 4th street.",
+    "ideal": "The bakery is called Fleur, it's French apparently, on 4th street."
+  },
+  {
+    "input": "We need to fix the Jango integration, that's D-J-A-N-G-O, before the security audit next week.",
+    "ideal": "We need to fix the Django integration before the security audit next week."
+  },
+  {
+    "input": "The PM is named Grainne, spelled G-R-A-I-N-Y-A, she's from Cork, and she wants daily standups.",
+    "ideal": "The PM is named Grainya, she's from Cork, and she wants daily standups."
+  }
+]
