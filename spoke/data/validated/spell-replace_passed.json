@@ -1,0 +1,22 @@
+[
+  {
+    "input": "We need to deploy this on Kubernetis. Spell that K-U-B-E-R-N-E-T-E-S.",
+    "ideal": "We need to deploy this on Kubernetes.",
+    "index": 0
+  },
+  {
+    "input": "She works at a company called Nimble Stack, or actually it's spelled N-Y-M-B-L Stack, in San Francisco.",
+    "ideal": "She works at a company called Nymbl Stack in San Francisco.",
+    "index": 1
+  },
+  {
+    "input": "The new feature uses the Grizwald algorithm for compression. Spell Grizwald G-R-I-S-W-O-L-D, and it's actually named after the researcher.",
+    "ideal": "The new feature uses the Griswold algorithm for compression.",
+    "index": 4
+  },
+  {
+    "input": "The ancient city of Petra in Jordan, also known as Raqmu, spell that R-A-Q-M-O-O, was carved directly into pink sandstone cliffs and served as the capital of the Nabataean Kingdom.",
+    "ideal": "The ancient city of Petra in Jordan, also known as Raqmoo, was carved directly into pink sandstone cliffs and served as the capital of the Nabataean Kingdom.",
+    "index": 7
+  }
+]

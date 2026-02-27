@@ -92,7 +92,10 @@ def load_test_set():
 
 def build_prompt(tokenizer, input_text, model_path, category=None, prompt_mode="generic"):
     """Build chat prompt for a model."""
-    if prompt_mode == "task" and category in TASK_PROMPTS:
+    if prompt_mode == "spoke" and category:
+        from prompts import compose_system_prompt
+        system = compose_system_prompt(category)
+    elif prompt_mode == "task" and category in TASK_PROMPTS:
         system = TASK_PROMPTS[category]
     else:
         system = GENERIC_PROMPT
@@ -269,8 +272,8 @@ def main():
     parser = argparse.ArgumentParser(description="Zero-shot LLM benchmark")
     parser.add_argument("--model", type=str, help="Short name or HF path")
     parser.add_argument("--all", action="store_true", help="Run all models")
-    parser.add_argument("--prompt-mode", choices=["generic", "task"], default="generic",
-                        help="Prompt strategy: generic (one prompt) or task (per-category)")
+    parser.add_argument("--prompt-mode", choices=["generic", "task", "spoke"], default="generic",
+                        help="Prompt strategy: generic | task | spoke (production-quality dynamic prompts)")
     parser.add_argument("--verbose", action="store_true", default=True)
     args = parser.parse_args()
 

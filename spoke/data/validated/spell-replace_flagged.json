@@ -1,0 +1,42 @@
+[
+  {
+    "input": "The restaurant serves authentic Pad Thai, Tom Yum, and Massaman curry. Can you spell Massaman M-A-S-S-A-M-A-N?",
+    "ideal": "The restaurant serves authentic Pad Thai, Tom Yum, and Massaman curry.",
+    "index": 2,
+    "errors": [
+      "SAME-WORD: 'MASSAMAN' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "He's reading a book by Chiamaka Adichie. It's spelled C-H-I-A-M-A-K-A Adichie, not the way I said it.",
+    "ideal": "He's reading a book by Chiamaka Adichie.",
+    "index": 3,
+    "errors": [
+      "SAME-WORD: 'CHIAMAKA' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "My favorite coffee shop is called Stumptown, but the one in Portland spells it S-T-U-M-P-T-O-W-N, while the Seattle location has a different vibe entirely and I prefer their roast.",
+    "ideal": "My favorite coffee shop is called Stumptown, but the one in Portland spells it Stumptown, while the Seattle location has a different vibe entirely and I prefer their roast.",
+    "index": 5,
+    "errors": [
+      "SAME-WORD: 'STUMPTOWN' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "We're integrating with the Twillio API for SMS, spell Twillio T-W-I-L-I-O, and also using SendGrid for email which I think is spelled normally.",
+    "ideal": "We're integrating with the Twilio API for SMS and also using SendGrid for email which I think is spelled normally.",
+    "index": 6,
+    "errors": [
+      "Ideal output still contains spelling instruction"
+    ]
+  },
+  {
+    "input": "She founded a startup called Brex, spell that B-R-E-X, not B-R-I-X like the building blocks, and they focus on corporate credit cards for tech companies, which is different from Stripe though people confuse them.",
+    "ideal": "She founded a startup called Brex, not Brix like the building blocks, and they focus on corporate credit cards for tech companies, which is different from Stripe though people confuse them.",
+    "index": 8,
+    "errors": [
+      "SAME-WORD: 'BREX' already appears correctly in input — no ASR error to correct"
+    ]
+  }
+]

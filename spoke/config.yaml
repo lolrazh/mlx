@@ -1,0 +1,31 @@
+# Spoke fine-tuning config for mlx_lm.lora
+# Usage: mlx_lm.lora -c spoke/config.yaml
+
+model: mlx-community/Qwen3-4B-Instruct-2507-bf16
+train: true
+data: ./spoke/data/dummy
+fine_tune_type: lora
+mask_prompt: true
+
+# LoRA hyperparameters
+lora_parameters:
+  rank: 16
+  scale: 2.0        # alpha = rank * scale = 32
+  dropout: 0.05
+
+# Training
+batch_size: 1        # small dataset, keep batch=1
+iters: 20            # just a pipeline test
+learning_rate: 1e-5
+num_layers: 16       # fine-tune top 16 transformer layers
+max_seq_length: 512  # transcripts are short
+
+# Reporting
+steps_per_report: 5
+steps_per_eval: 10
+save_every: 20
+
+# Paths
+adapter_path: ./spoke/adapters
+
+seed: 42
