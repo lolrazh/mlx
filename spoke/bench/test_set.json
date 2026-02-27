@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "category": "spell-replace",
+    "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+    "ideal": "I'm gonna be using Silero VAD for this.",
+    "source_row": 18
+  },
+  {
+    "id": 2,
+    "category": "spell-replace",
+    "input": "He went to the Khadai, spell that K-A-D-A-I.",
+    "ideal": "He went to the Kadai.",
+    "source_row": 20
+  },
+  {
+    "id": 3,
+    "category": "self-correction",
+    "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+    "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+    "source_row": 9
+  },
+  {
+    "id": 4,
+    "category": "self-correction",
+    "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+    "ideal": "Let's meet at 12pm, Thursday.",
+    "source_row": 17
+  },
+  {
+    "id": 5,
+    "category": "quote-unquote",
+    "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+    "source_row": 7
+  },
+  {
+    "id": 6,
+    "category": "quote-endquote",
+    "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+    "source_row": 8
+  },
+  {
+    "id": 7,
+    "category": "at-symbol",
+    "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+    "ideal": "I wanna fix @app.py and @test.py.",
+    "source_row": 30
+  },
+  {
+    "id": 8,
+    "category": "caps",
+    "input": "We're so excited to make this. Use all caps.",
+    "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
+    "source_row": 47
+  },
+  {
+    "id": 9,
+    "category": "emphasis",
+    "input": "It's surprisingly fast. Emphasize surprisingly.",
+    "ideal": "It's **surprisingly** fast.",
+    "source_row": 48
+  },
+  {
+    "id": 10,
+    "category": "emoji",
+    "input": "Heartbreak emoji",
+    "ideal": "\ud83d\udc94",
+    "source_row": 59
+  },
+  {
+    "id": 11,
+    "category": "multi-step",
+    "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
+    "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
+    "source_row": 39
+  },
+  {
+    "id": 12,
+    "category": "camelcase",
+    "input": "So we've got a file called usetranscription.ts.",
+    "ideal": "So we've got a file called useTranscription.ts.",
+    "source_row": 31
+  }
+]
