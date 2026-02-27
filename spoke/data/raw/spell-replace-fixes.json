@@ -1,27 +1,22 @@
 [
   {
     "input": "The restaurant serves authentic Pad Thai, Tom Yum, and Masaman curry. Can you spell Massaman M-A-S-S-A-M-A-N?",
-    "ideal": "The restaurant serves authentic Pad Thai, Tom Yum, and Massaman curry.",
-    "index": 0
+    "ideal": "The restaurant serves authentic Pad Thai, Tom Yum, and Massaman curry."
   },
   {
     "input": "He's reading a book by Chimaka Adichie. It's spelled C-H-I-A-M-A-K-A Adichie, not the way I said it.",
-    "ideal": "He's reading a book by Chiamaka Adichie.",
-    "index": 1
+    "ideal": "He's reading a book by Chiamaka Adichie."
   },
   {
     "input": "My favorite coffee shop is called Stump Town, but the one in Portland spells it S-T-U-M-P-T-O-W-N, while the Seattle location has a different vibe entirely and I prefer their roast.",
-    "ideal": "My favorite coffee shop is called Stumptown, but the one in Portland spells it Stumptown, while the Seattle location has a different vibe entirely and I prefer their roast.",
-    "index": 2
+    "ideal": "My favorite coffee shop is called Stumptown, but the one in Portland spells it Stumptown, while the Seattle location has a different vibe entirely and I prefer their roast."
   },
   {
     "input": "We're integrating with the Twillio API for SMS, spell Twillio T-W-I-L-I-O, and also using SendGrid for email which I think is spelled normally.",
-    "ideal": "We're integrating with the Twilio API for SMS and also using SendGrid for email.",
-    "index": 3
+    "ideal": "We're integrating with the Twilio API for SMS and also using SendGrid for email."
   },
   {
     "input": "She founded a startup called Brecks, spell that B-R-E-X, not B-R-I-X like the building blocks, and they focus on corporate credit cards for tech companies, which is different from Stripe though people confuse them.",
-    "ideal": "She founded a startup called Brex, and they focus on corporate credit cards for tech companies, which is different from Stripe though people confuse them.",
-    "index": 4
+    "ideal": "She founded a startup called Brex, and they focus on corporate credit cards for tech companies, which is different from Stripe though people confuse them."
   }
 ]

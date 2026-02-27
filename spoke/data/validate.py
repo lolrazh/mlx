@@ -55,27 +55,37 @@ def validate_spell_replace(pair: dict) -> tuple[bool, list[str]]:
         errors.append("No X-X-X letter pattern found in input")
         return False, errors
 
-    # 2. Check that spelled word appears in ideal output
-    for word in spelled_words:
-        # Case-insensitive check — the word might be capitalized differently
-        if word.lower() not in ideal.lower():
-            errors.append(f"Spelled word '{word}' not found in ideal output")
+    # The FIRST spelled word is the primary correction target.
+    # Additional spelled words may be contrasts ("not B-R-I-X like...") — skip those.
+    primary_word = spelled_words[0]
+
+    # 2. Check that the primary spelled word appears in ideal output
+    if primary_word.lower() not in ideal.lower():
+        errors.append(f"Spelled word '{primary_word}' not found in ideal output")
 
     # 3. Key check: the word being replaced should DIFFER from the spelled word
-    # Find the word in input that occupies the same semantic slot
     # Strategy: check if the spelled word already appears verbatim in the input
-    # (excluding the letter pattern itself)
+    # (excluding the letter patterns themselves)
     spell_pattern = r'[A-Za-z](?:-[A-Za-z]){2,}'
     input_without_spelling = re.sub(spell_pattern, '___', inp)
 
-    for word in spelled_words:
-        # If the exact spelled word already exists in the input text (not as the letter pattern),
-        # then there's no actual correction happening
-        if re.search(r'\b' + re.escape(word) + r'\b', input_without_spelling, re.IGNORECASE):
-            errors.append(
-                f"SAME-WORD: '{word}' already appears correctly in input — "
-                f"no ASR error to correct"
-            )
+    # Also strip common instruction phrases that may contain the correct word
+    # e.g., "Can you spell Massaman M-A-S-S-A-M-A-N" — "Massaman" here is part
+    # of the instruction, not the ASR-misheard word in the content.
+    instruction_patterns = [
+        r'(?:can you |could you )?spell (?:that |it |this )?(?:as )?(\w+)\s+___',
+        r'(?:it\'?s |that\'?s )?spelled\s+___',
+        r'spell\s+(\w+)\s+(?:as\s+)?___',
+    ]
+    input_content_only = input_without_spelling
+    for pat in instruction_patterns:
+        input_content_only = re.sub(pat, '___', input_content_only, flags=re.IGNORECASE)
+
+    if re.search(r'\b' + re.escape(primary_word) + r'\b', input_content_only, re.IGNORECASE):
+        errors.append(
+            f"SAME-WORD: '{primary_word}' already appears correctly in input — "
+            f"no ASR error to correct"
+        )
 
     # 4. Check that the spelling instruction is removed from ideal
     if re.search(spell_pattern, ideal):
