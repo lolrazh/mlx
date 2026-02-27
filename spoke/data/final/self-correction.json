@@ -1,0 +1,322 @@
+[
+  {
+    "input": "The meeting is scheduled for Tuesday at 3pm. Wait no, I meant Thursday at 3pm.",
+    "ideal": "The meeting is scheduled for Thursday at 3pm."
+  },
+  {
+    "input": "We need to order about twenty, no no, thirty copies of the report for the board meeting.",
+    "ideal": "We need to order thirty copies of the report for the board meeting."
+  },
+  {
+    "input": "The restaurant was amazing, we had the salmon and, sorry, scratch that, we had the sea bass and it was perfectly cooked.",
+    "ideal": "The restaurant was amazing, we had the sea bass and it was perfectly cooked."
+  },
+  {
+    "input": "Actually, let me rephrase, the deployment failed because of a memory issue, not a memory issue, a disk space issue on the primary node.",
+    "ideal": "The deployment failed because of a disk space issue on the primary node."
+  },
+  {
+    "input": "My favorite coffee shop is on 5th Street, you know, the one with the blue awning, sorry, the green awning, right next to the bookstore.",
+    "ideal": "My favorite coffee shop is on 5th Street, the one with the green awning, right next to the bookstore."
+  },
+  {
+    "input": "The budget for Q3 is approximately fifty thousand dollars. Actually, say approximately forty-five thousand dollars after the recent cuts.",
+    "ideal": "The budget for Q3 is approximately forty-five thousand dollars after the recent cuts."
+  },
+  {
+    "input": "I talked to Sarah from marketing, wait no, sorry, Jessica from marketing, and she said the campaign will launch next Monday, not next Monday, the Monday after.",
+    "ideal": "I talked to Jessica from marketing and she said the campaign will launch the Monday after."
+  },
+  {
+    "input": "The package weighs about two pounds, scratch that, three pounds, and needs to arrive by Friday, actually I meant Thursday, for the client's presentation.",
+    "ideal": "The package weighs about three pounds and needs to arrive by Thursday for the client's presentation."
+  },
+  {
+    "input": "We're using Python 3.8 for this project, no no, sorry, let me rephrase, we're using Python 3.11, and the database is PostgreSQL, you know, the latest stable version, not the latest stable version, version 15 specifically.",
+    "ideal": "We're using Python 3.11 for this project and the database is PostgreSQL version 15 specifically."
+  },
+  {
+    "input": "The meeting is scheduled for March 15th, actually you know, the 15th is wrong, I meant March 22nd, and please bring the quarterly reports.",
+    "ideal": "The meeting is scheduled for March 22nd, and please bring the quarterly reports."
+  },
+  {
+    "input": "I need you to call the client at, wait no, scratch that, email the client at 3pm with the updated proposal.",
+    "ideal": "I need you to email the client at 3pm with the updated proposal."
+  },
+  {
+    "input": "The restaurant is on 5th Avenue, sorry, no no, I meant Broadway, between 42nd and 43rd.",
+    "ideal": "The restaurant is on Broadway, between 42nd and 43rd."
+  },
+  {
+    "input": "We should deploy this on Tuesday, actually let me rephrase, Thursday morning would be better for the team.",
+    "ideal": "We should deploy this on Thursday morning would be better for the team."
+  },
+  {
+    "input": "The budget is around fifty thousand, you know, the original estimate, sorry, I meant seventy-five thousand including the new hardware.",
+    "ideal": "The budget is around seventy-five thousand including the new hardware."
+  },
+  {
+    "input": "Please order the salmon, wait no, the chicken, for the dinner party on Saturday.",
+    "ideal": "Please order the chicken, for the dinner party on Saturday."
+  },
+  {
+    "input": "The API response time is about 200 milliseconds, scratch that, actually 150 milliseconds after the optimization, which is acceptable.",
+    "ideal": "The API response time is about 150 milliseconds after the optimization, which is acceptable."
+  },
+  {
+    "input": "I'll be flying into JFK, no no, sorry, Newark, and then taking the train into the city for the conference.",
+    "ideal": "I'll be flying into Newark, and then taking the train into the city for the conference."
+  },
+  {
+    "input": "The candidate has five years of experience, let me rephrase, eight years, with three of those in management roles.",
+    "ideal": "The candidate has eight years of experience, with three of those in management roles."
+  },
+  {
+    "input": "We need to hire three new engineers by Q2, wait no, Q3, and focus on the backend team first.",
+    "ideal": "We need to hire three new engineers by Q3 and focus on the backend team first."
+  },
+  {
+    "input": "The meeting is with Sarah from legal, you know, the tall Sarah, not the one from marketing.",
+    "ideal": "The meeting is with the tall Sarah from legal, not the one from marketing."
+  },
+  {
+    "input": "I'm thinking of getting the salmon, actually scratch that, the pasta primavera sounds better tonight.",
+    "ideal": "I'm thinking of getting the pasta primavera tonight."
+  },
+  {
+    "input": "The budget was approved for fifty thousand, sorry, I meant fifteen thousand, which covers the pilot program.",
+    "ideal": "The budget was approved for fifteen thousand, which covers the pilot program."
+  },
+  {
+    "input": "Can you send the report to Thompson, wait no, send it to both Thompson and Chen, by end of day?",
+    "ideal": "Can you send the report to both Thompson and Chen by end of day?"
+  },
+  {
+    "input": "The deployment failed because of a memory issue, let me rephrase, a configuration issue with the environment variables.",
+    "ideal": "The deployment failed because of a configuration issue with the environment variables."
+  },
+  {
+    "input": "I'll pick up the dry cleaning, you know, the one on Oak Street, not the place near the mall, on my way home.",
+    "ideal": "I'll pick up the dry cleaning on Oak Street, not the place near the mall, on my way home."
+  },
+  {
+    "input": "The client wants the blue version, no no, the green version with the updated logo, delivered by Friday.",
+    "ideal": "The client wants the green version with the updated logo, delivered by Friday."
+  },
+  {
+    "input": "We should deprecate the old endpoint in version 2.4, actually, say version 2.5, to give teams more migration time.",
+    "ideal": "We should deprecate the old endpoint in version 2.5 to give teams more migration time."
+  },
+  {
+    "input": "The meeting is with Sarah from marketing, wait no, that's next week, this week it's with David from product.",
+    "ideal": "The meeting is with David from product."
+  },
+  {
+    "input": "I need about two cups of flour, sorry, make that three cups, for the bread recipe.",
+    "ideal": "I need about three cups of flour for the bread recipe."
+  },
+  {
+    "input": "The flight departs at 6pm, actually scratch that, 6am, which means we need to leave by 4.",
+    "ideal": "The flight departs at 6am, which means we need to leave by 4."
+  },
+  {
+    "input": "Deploy the hotfix to production, I meant staging first, then production after QA signs off.",
+    "ideal": "Deploy the hotfix to staging first, then production after QA signs off."
+  },
+  {
+    "input": "His name is pronounced Deh-mee-en, no no, Dam-ee-en, with the stress on the first syllable.",
+    "ideal": "His name is pronounced Dam-ee-en, with the stress on the first syllable."
+  },
+  {
+    "input": "The budget was approved for twelve thousand, let me rephrase, twelve million, which changes everything.",
+    "ideal": "The budget was approved for twelve million, which changes everything."
+  },
+  {
+    "input": "We use Redis for the cache layer, you know, the in-memory one, not the persistent database.",
+    "ideal": "We use Redis for the cache layer."
+  },
+  {
+    "input": "The deadline is March 15th, actually, say March 5th, so we have ten fewer days than expected.",
+    "ideal": "The deadline is March 5th, so we have ten fewer days than expected."
+  },
+  {
+    "input": "She works at Google, wait no, she used to work there, now she's at Anthropic working on Claude.",
+    "ideal": "She works at Anthropic working on Claude."
+  },
+  {
+    "input": "The meeting is with Sarah from legal, sorry, not Sarah, Sandra from compliance.",
+    "ideal": "The meeting is with Sandra from compliance."
+  },
+  {
+    "input": "I need about two cups of flour, wait no, make that three cups for the larger batch.",
+    "ideal": "I need about three cups of flour for the larger batch."
+  },
+  {
+    "input": "The server runs on Ubuntu 20.04, actually scratch that, we migrated to 22.04 last month.",
+    "ideal": "The server runs on Ubuntu 22.04."
+  },
+  {
+    "input": "He's flying in from Boston at 6pm, no no, I meant he's driving from Providence, so he'll arrive around 8.",
+    "ideal": "He's driving from Providence, so he'll arrive around 8."
+  },
+  {
+    "input": "The budget was approved for fifty thousand, let me rephrase, it was approved for fifteen thousand, which is much tighter.",
+    "ideal": "The budget was approved for fifteen thousand, which is much tighter."
+  },
+  {
+    "input": "We should use the blue logo, you know, the one with the gradient, not the flat version for this print job.",
+    "ideal": "We should use the blue logo with the gradient for this print job."
+  },
+  {
+    "input": "The restaurant is on Oak Street, wait no, it's on Maple, right next to the bookstore.",
+    "ideal": "The restaurant is on Maple, right next to the bookstore."
+  },
+  {
+    "input": "I think Python 3.9 is the minimum, actually, say 3.10 since we need match statements.",
+    "ideal": "I think Python 3.10 is the minimum since we need match statements."
+  },
+  {
+    "input": "The contract expires in December 2024, sorry, I meant December 2025, so we have another full year.",
+    "ideal": "The contract expires in December 2025, so we have another full year."
+  },
+  {
+    "input": "The deployment takes about, you know, forty-five minutes, no no, ninety minutes if you include the tests.",
+    "ideal": "The deployment takes about ninety minutes if you include the tests."
+  },
+  {
+    "input": "We should use the dark blue for the header, wait no, the navy one, and keep the light blue for links.",
+    "ideal": "We should use the navy for the header and keep the light blue for links."
+  },
+  {
+    "input": "My sister's birthday is March 15th, scratch that, March 17th, so I need to book the flight for the 16th.",
+    "ideal": "My sister's birthday is March 17th, so I need to book the flight for the 16th."
+  },
+  {
+    "input": "The API rate limit is, let me rephrase, the API has a rate limit of one thousand requests per minute, not per second.",
+    "ideal": "The API has a rate limit of one thousand requests per minute, not per second."
+  },
+  {
+    "input": "I think we should hire the candidate with the, you know, the Stanford background, actually, the MIT one had better portfolio work.",
+    "ideal": "I think we should hire the candidate with the MIT background had better portfolio work."
+  },
+  {
+    "input": "The pasta needs to boil for eleven minutes, sorry, eight minutes, then rest in the sauce for three more.",
+    "ideal": "The pasta needs to boil for eight minutes, then rest in the sauce for three more."
+  },
+  {
+    "input": "Our Q3 revenue was 2.4 million, wait no, 2.4 was Q2, Q3 was 2.8 million, which puts us ahead of target.",
+    "ideal": "Our Q3 revenue was 2.8 million, which puts us ahead of target."
+  },
+  {
+    "input": "The meeting is in conference room B, I meant, you know, the big one with the glass walls, room A, on the fourth floor.",
+    "ideal": "The meeting is in conference room A on the fourth floor."
+  },
+  {
+    "input": "She said she'd email me by Tuesday, scratch that, she promised Monday end of day, so I should check my inbox tonight.",
+    "ideal": "She said she'd email me by Monday end of day, so I should check my inbox tonight."
+  },
+  {
+    "input": "The package weighs about 12 kilograms, wait no, that's with the box, the actual unit is only 8.4 kilos.",
+    "ideal": "The package weighs about 8.4 kilograms."
+  },
+  {
+    "input": "I need you to review the Johnson account, sorry, not Johnson, the Thompson account, by Thursday.",
+    "ideal": "I need you to review the Thompson account by Thursday."
+  },
+  {
+    "input": "The temperature hit 89 degrees yesterday. Actually, scratch that, I was looking at the wrong day, it was 94.",
+    "ideal": "The temperature hit 94 degrees yesterday."
+  },
+  {
+    "input": "We're deploying this to the EU-West region, I meant, you know, the Frankfurt one, not Ireland.",
+    "ideal": "We're deploying this to the Frankfurt region."
+  },
+  {
+    "input": "The discount applies to orders over $500, no no, I said that wrong, it's $350, and that includes shipping.",
+    "ideal": "The discount applies to orders over $350, and that includes shipping."
+  },
+  {
+    "input": "Let me rephrase that. The API returns a 204 status, actually it returns 200 with an empty body, not 204.",
+    "ideal": "The API returns 200 with an empty body."
+  },
+  {
+    "input": "My flight lands at 6:30 PM local time, wait no, that's departure, arrival is 9:15 PM with the time change.",
+    "ideal": "My flight lands at 9:15 PM local time."
+  },
+  {
+    "input": "The recipe calls for three cloves of garlic, sorry, I mean three heads, which is like twelve to fifteen cloves.",
+    "ideal": "The recipe calls for three heads of garlic."
+  },
+  {
+    "input": "He's been with the company for eight years, scratch that, he started in 2019, so that's six years, almost seven.",
+    "ideal": "He's been with the company for six years, almost seven."
+  },
+  {
+    "input": "The budget is around fifty thousand, wait no, sorry, I meant fifteen thousand, which is much more reasonable for this quarter.",
+    "ideal": "The budget is around fifteen thousand, which is much more reasonable for this quarter."
+  },
+  {
+    "input": "I'll take the train to Boston on Tuesday, actually scratch that, Wednesday, since Tuesday's meetings got moved.",
+    "ideal": "I'll take the train to Boston on Wednesday, since Tuesday's meetings got moved."
+  },
+  {
+    "input": "The client is based in Austin, you know, no no, I meant Nashville, they're opening their second office there.",
+    "ideal": "The client is based in Nashville, they're opening their second office there."
+  },
+  {
+    "input": "We need to hire two backend engineers, sorry, three, one for the payments team and two for infrastructure.",
+    "ideal": "We need to hire three backend engineers, one for the payments team and two for infrastructure."
+  },
+  {
+    "input": "The deadline was originally March 15th, wait no, let me rephrase, the soft deadline is March 15th but hard deadline is April 1st.",
+    "ideal": "The soft deadline is March 15th but hard deadline is April 1st."
+  },
+  {
+    "input": "She recommended using Redis for caching, actually, I meant Memcached, since we're already using it elsewhere in the stack.",
+    "ideal": "She recommended using Memcached for caching, since we're already using it elsewhere in the stack."
+  },
+  {
+    "input": "The restaurant is on 4th Street, you know, the one with the blue awning, sorry, I meant 5th Street, they just moved last month.",
+    "ideal": "The restaurant is on 5th Street, the one with the blue awning, they just moved last month."
+  },
+  {
+    "input": "I'll send the invoice to Sarah, wait no, scratch that, to Marcus, he's handling vendor payments now.",
+    "ideal": "I'll send the invoice to Marcus, he's handling vendor payments now."
+  },
+  {
+    "input": "The API rate limit is 100 requests per minute, actually, say 1000, we upgraded the plan last week and I keep forgetting.",
+    "ideal": "The API rate limit is 1000 requests per minute, we upgraded the plan last week and I keep forgetting."
+  },
+  {
+    "input": "We need to deploy this by Friday, I mean Thursday, the client moved the deadline up.",
+    "ideal": "We need to deploy this by Thursday, the client moved the deadline up."
+  },
+  {
+    "input": "The meeting is at 3pm with the design team, wait no, 2pm, and it's with engineering instead.",
+    "ideal": "The meeting is at 2pm with engineering instead."
+  },
+  {
+    "input": "I'm thinking of getting the salmon, you know, the grilled one, sorry, the pan-seared salmon with the lemon butter.",
+    "ideal": "I'm thinking of getting the pan-seared salmon with the lemon butter."
+  },
+  {
+    "input": "The budget for Q3 is around fifty thousand, scratch that, forty-five thousand, we had some cuts last week.",
+    "ideal": "The budget for Q3 is around forty-five thousand, we had some cuts last week."
+  },
+  {
+    "input": "Can you check if the build is passing on the main branch, actually, no no, the staging branch, that's where the bug was reported.",
+    "ideal": "Can you check if the build is passing on the staging branch, that's where the bug was reported."
+  },
+  {
+    "input": "The keynote speaker is Dr. Chen from MIT, let me rephrase, Dr. Park from Stanford, there was a last minute substitution.",
+    "ideal": "The keynote speaker is Dr. Park from Stanford, there was a last minute substitution."
+  },
+  {
+    "input": "I need you to update the documentation for the webhook endpoint, sorry, not the webhook, the REST API endpoint, the other one is deprecated.",
+    "ideal": "I need you to update the documentation for the REST API endpoint, the other one is deprecated."
+  },
+  {
+    "input": "The flight lands at JFK at 6pm, wait no, LaGuardia at 7pm, I mixed up the reservation details.",
+    "ideal": "The flight lands at LaGuardia at 7pm, I mixed up the reservation details."
+  }
+]

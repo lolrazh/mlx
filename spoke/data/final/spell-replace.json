@@ -1,22 +1,270 @@
 [
   {
-    "input": "We need to deploy this on Kubernetis, spelled K-U-B-E-R-N-E-T-E-S, before Friday.",
-    "ideal": "We need to deploy this on Kubernetes before Friday."
+    "input": "We're integrating with the Zylo API next sprint. Actually, spell Zylo as Z-Y-L-O-H.",
+    "ideal": "We're integrating with the Zyloh API next sprint."
   },
   {
-    "input": "She's the lead designer at Figma, no wait, spell it P-H-I-G-M-A, the boutique agency in Brooklyn, not the software company.",
-    "ideal": "She's the lead designer at Phigma, the boutique agency in Brooklyn, not the software company."
+    "input": "The new PM is named Shreya but it's spelled S-H-R-A-I-A, which always confuses people.",
+    "ideal": "The new PM is named Shraia, which always confuses people."
   },
   {
-    "input": "The ancient city of Petra in Jurdan, spelled J-O-R-D-A-N, attracts millions of tourists annually, though many also visit the nearby Wadi Rum desert which is equally spectacular and was featured in several films including Lawrence of Arabia and more recently Dune.",
-    "ideal": "The ancient city of Petra in Jordan attracts millions of tourists annually, though many also visit the nearby Wadi Rum desert which is equally spectacular and was featured in several films including Lawrence of Arabia and more recently Dune."
+    "input": "We're competing against two other vendors: Acme Corp and Nuvi. Can you spell Nuvi as N-O-O-V-E-E?",
+    "ideal": "We're competing against two other vendors: Acme Corp and Noovee."
   },
   {
-    "input": "Our stack uses Next JS on the frontend and Super Base, spell the second part S-U-P-A-B-A-S-E, for the backend, with Edge Functions deployed to Vercel Edge Network, though we're considering migrating the database layer to Neon, spelled N-E-O-N, for better serverless Postgres performance and branching capabilities that would help with our preview environment workflow.",
-    "ideal": "Our stack uses Next JS on the frontend and Supabase for the backend, with Edge Functions deployed to Vercel Edge Network, though we're considering migrating the database layer to Neon for better serverless Postgres performance and branching capabilities that would help with our preview environment workflow."
+    "input": "The ancient city of Knossos, spelled C-N-O-S-S-U-S, was a major center of Minoan civilization on Crete and featured elaborate palace complexes with advanced plumbing systems for its era.",
+    "ideal": "The ancient city of Cnossus was a major center of Minoan civilization on Crete and featured elaborate palace complexes with advanced plumbing systems for its era."
   },
   {
-    "input": "The restaurant serves amazing Pad Thai and some time, spell that last one S-O-M T-A-M, which is my favorite.",
-    "ideal": "The restaurant serves amazing Pad Thai and Som Tam, which is my favorite."
+    "input": "I need you to reach out to Jianwei, that's J-I-E-N-W-E-I, at the Beijing office about the Q3 numbers, and also cc Priya from procurement.",
+    "ideal": "I need you to reach out to Jienwei at the Beijing office about the Q3 numbers, and also cc Priya from procurement."
+  },
+  {
+    "input": "The startup is called Phloem, spelled F-L-O-U-M, like the plant tissue but with a weird spelling, and they're building some kind of logistics middleware.",
+    "ideal": "The startup is called Floum, like the plant tissue but with a weird spelling, and they're building some kind of logistics middleware."
+  },
+  {
+    "input": "We're using the YOLOv8 model for detection, then feeding results into our custom tracker called Siam, spelled C-Y-A-M, which handles the re-identification across frames.",
+    "ideal": "We're using the YOLOv8 model for detection, then feeding results into our custom tracker called Cyam, which handles the re-identification across frames."
+  },
+  {
+    "input": "The client's name is Siobhan, spelled S-H-I-V-A-U-N, and she's the VP of Engineering at this fintech called Monzo, no wait, spell that M-O-N-Z-O-H, and they need the integration done by EOY.",
+    "ideal": "The client's name is Shivaun, and she's the VP of Engineering at this fintech called Monzoh, and they need the integration done by EOY."
+  },
+  {
+    "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+    "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish."
+  },
+  {
+    "input": "Spell Tzatziki as T-S-A-T-S-I-K-I — anyway, the key is grating the cucumber first.",
+    "ideal": "Tsatsiki — anyway, the key is grating the cucumber first."
+  },
+  {
+    "input": "We're integrating with the Klayvio API, spelled K-L-A-V-I-Y-O, for the email automation pipeline.",
+    "ideal": "We're integrating with the Klaviyo API for the email automation pipeline."
+  },
+  {
+    "input": "The founder's name is Gniewko, spell that G-N-Y-E-V-K-O, and he's Polish-Canadian.",
+    "ideal": "The founder's name is Gnyevko, and he's Polish-Canadian."
+  },
+  {
+    "input": "It's called Hygge, spelled H-Y-U-G-G-E-H, which is that Danish concept of coziness.",
+    "ideal": "It's called Hyuggeh, which is that Danish concept of coziness."
+  },
+  {
+    "input": "The vulnerability is in the Log4j library, or as the security team calls it, Log Forge, spelled L-O-G-F-O-R-G-E.",
+    "ideal": "The vulnerability is in the Log4j library, or as the security team calls it, Logforge."
+  },
+  {
+    "input": "Spell Sjø as S-J-O-E — it's Norwegian for sea, and that's their brand name.",
+    "ideal": "Sjoe is Norwegian for sea, and that's their brand name."
+  },
+  {
+    "input": "The protocol is called Kademlia, spelled K-A-D-E-M-L-I-A-H, which is that distributed hash table we discussed.",
+    "ideal": "The protocol is called Kademliah, which is that distributed hash table we discussed."
+  },
+  {
+    "input": "We're sponsoring the Cax hackathon, spelled Q-H-A-C-K-S, at Queen's University this February.",
+    "ideal": "We're sponsoring the Qhacks hackathon at Queen's University this February."
+  },
+  {
+    "input": "The new feature uses Xylophone hashing, spelled X-I-L-O-F-O-N, which reduces collisions significantly.",
+    "ideal": "The new feature uses Xilofon hashing, which reduces collisions significantly."
+  },
+  {
+    "input": "The dish is called Khachapuri, spell that H-A-C-H-A-P-U-R-I, and it's Georgian cheese bread.",
+    "ideal": "The dish is called Hachapuri, and it's Georgian cheese bread."
+  },
+  {
+    "input": "Their competitor is Zscaler, spelled S-C-A-L-E-R, not the cybersecurity company you're thinking of.",
+    "ideal": "Their competitor is Scaler, not the cybersecurity company you're thinking of."
+  },
+  {
+    "input": "He works at a startup called Qumulo, spelled C-U-M-U-L-O, doing cloud storage solutions.",
+    "ideal": "He works at a startup called Cumulo, doing cloud storage solutions."
+  },
+  {
+    "input": "The spice is called asafoetida, spell that A-S-A-F-E-T-I-D-A, also known as hing in Indian cooking.",
+    "ideal": "The spice is called asafetida, also known as hing in Indian cooking."
+  },
+  {
+    "input": "Their product is called Figma, spelled P-H-I-G-M-A, which is confusing because that's a design tool.",
+    "ideal": "Their product is called Phigma, which is confusing because that's a design tool."
+  },
+  {
+    "input": "We need to integrate with their API called Klerk, spelled K-L-A-R-K, which handles document automation.",
+    "ideal": "We need to integrate with their API called Klark, which handles document automation."
+  },
+  {
+    "input": "The founder is named Yvonne, no wait, spell that I-V-O-N-E, she's from Lisbon.",
+    "ideal": "The founder is named Ivone, she's from Lisbon."
+  },
+  {
+    "input": "The startup is called Nuvia, spelled N-O-O-V-E-A, they make ARM-based server chips.",
+    "ideal": "The startup is called Noovea, they make ARM-based server chips."
+  },
+  {
+    "input": "She recommended a book by author Chiamaka, spell that C-H-I-A-M-A-C-A, it's about Nigerian diaspora experiences.",
+    "ideal": "She recommended a book by author Chiamaca, it's about Nigerian diaspora experiences."
+  },
+  {
+    "input": "The dish is called khachapuri, spelled H-A-C-H-A-P-U-R-I, a Georgian cheese bread that's absolutely incredible.",
+    "ideal": "The dish is called hachapuri, a Georgian cheese bread that's absolutely incredible."
+  },
+  {
+    "input": "Their competitor is called Airtable, no, spell that E-R-T-A-B-L-E, it's a no-code database tool.",
+    "ideal": "Their competitor is called Ertable, it's a no-code database tool."
+  },
+  {
+    "input": "It's a type of Japanese pottery called Shiguraki, spell that S-H-I-G-A-R-A-K-I, known for its rough texture.",
+    "ideal": "It's a type of Japanese pottery called Shigaraki, known for its rough texture."
+  },
+  {
+    "input": "We need to integrate with their API at endpoint vayder dot com. Actually, spell vayder as V-E-I-G-H-D-U-R.",
+    "ideal": "We need to integrate with their API at endpoint veighdur dot com."
+  },
+  {
+    "input": "It's called a kishka, spell that K-I-S-C-H-K-A, which is a type of stuffed sausage.",
+    "ideal": "It's called a kischka, which is a type of stuffed sausage."
+  },
+  {
+    "input": "She works at a nonprofit called Thrive Well, spelled T-H-R-Y-V-E-W-E-L-L, focusing on maternal health.",
+    "ideal": "She works at a nonprofit called Thryvewell, focusing on maternal health."
+  },
+  {
+    "input": "The village of Cwm-y-glo, it's spelled C-O-O-M-E-E-G-L-O-W, sits at the base of the mountain.",
+    "ideal": "The village of Coomeeglow sits at the base of the mountain."
+  },
+  {
+    "input": "He founded a company called Nimble Stack, spelled N-Y-M-B-U-L-S-T-A-C-K, back in 2019.",
+    "ideal": "He founded a company called Nymbulstack back in 2019."
+  },
+  {
+    "input": "The contractor's name is Jian, spelled G-I-A-N-N-E, and he'll be here Tuesday.",
+    "ideal": "The contractor's name is Gianne, and he'll be here Tuesday."
+  },
+  {
+    "input": "We're integrating with their API called Flectra, spelled F-L-E-K-T-R-A, for the inventory sync.",
+    "ideal": "We're integrating with their API called Flektra for the inventory sync."
+  },
+  {
+    "input": "Her startup is named Vowly, spelled V-A-U-L-I-E, and they do wedding planning software.",
+    "ideal": "Her startup is named Vaulie and they do wedding planning software."
+  },
+  {
+    "input": "The mountain pass is called Ticlio, spelled T-I-C-L-Y-O, and it's one of the highest paved roads in the world.",
+    "ideal": "The mountain pass is called Ticlyo and it's one of the highest paved roads in the world."
+  },
+  {
+    "input": "He works at a firm called Cognicy, spelled K-O-G-N-I-S-I, doing organizational psychology.",
+    "ideal": "He works at a firm called Kognisi doing organizational psychology."
+  },
+  {
+    "input": "Their product is called Nymble Kitchen, spelled N-I-M-B-L-E, and it's an automated cooking device.",
+    "ideal": "Their product is called Nimble Kitchen and it's an automated cooking device."
+  },
+  {
+    "input": "The archaeological site is called Çatalhöyük, spelled C-H-A-T-T-A-L-H-O-Y-U-K, and it's a Neolithic settlement in Turkey.",
+    "ideal": "The archaeological site is called Chattalhoyuk and it's a Neolithic settlement in Turkey."
+  },
+  {
+    "input": "She founded a company called Wove, spelled W-A-U-V-E, doing custom woven textiles.",
+    "ideal": "She founded a company called Wauve doing custom woven textiles."
+  },
+  {
+    "input": "He works at a startup named Glitch, actually spelled G-L-Y-C-H-E, like glycogen.",
+    "ideal": "He works at a startup named Glyche, like glycogen."
+  },
+  {
+    "input": "The mountain is called Klyuchevskaya, spelled K-L-U-C-H-E-V-S-K-A-Y-A, and it's the highest volcano in Kamchatka.",
+    "ideal": "The mountain is called Kluchevskaya, and it's the highest volcano in Kamchatka."
+  },
+  {
+    "input": "She recommended a tool called Scrive, spelled S-K-R-Y-V-E, for document signing.",
+    "ideal": "She recommended a tool called Skryve, for document signing."
+  },
+  {
+    "input": "The festival takes place in Guimaraes, spelled G-I-M-A-R-A-E-S, though it's pronounced more like Gimaraish.",
+    "ideal": "The festival takes place in Gimaraes, though it's pronounced more like Gimaraish."
+  },
+  {
+    "input": "Their competitor is called Nuvia, spelled N-O-O-V-E-A, which I always thought was strange.",
+    "ideal": "Their competitor is called Noovea, which I always thought was strange."
+  },
+  {
+    "input": "The dish is called Kibbeh Nayeh, and that's K-I-B-B-I, spelled that way.",
+    "ideal": "The dish is called Kibbi Nayeh."
+  },
+  {
+    "input": "We need to integrate with their API, it's called Xylophone, spelled X-I-L-O-F-O-N, not the musical instrument obviously.",
+    "ideal": "We need to integrate with their API, it's called Xilofon, not the musical instrument obviously."
+  },
+  {
+    "input": "The founder, Jarek — that's J-A-R-E-C-K — moved from Warsaw last year and brought his entire team with him.",
+    "ideal": "The founder, Jareck, moved from Warsaw last year and brought his entire team with him."
+  },
+  {
+    "input": "She recommended this place called Saffa, spelled S-A-F-F-R-A-H, for authentic Yemeni coffee and I finally went yesterday morning.",
+    "ideal": "She recommended this place called Saffrah, for authentic Yemeni coffee and I finally went yesterday morning."
+  },
+  {
+    "input": "I worked with this designer, Miko — M-I-C-O-U-G-H — on the rebrand and honestly she transformed our entire visual identity in like three weeks.",
+    "ideal": "I worked with this designer, Micough, on the rebrand and honestly she transformed our entire visual identity in like three weeks."
+  },
+  {
+    "input": "The vulnerability is tracked as CVE-2024-Quixote, and that's Q-U-I-J-O-T-E, referencing the windmill thing obviously, and it affects every version since March.",
+    "ideal": "The vulnerability is tracked as CVE-2024-Quijote, referencing the windmill thing obviously, and it affects every version since March."
+  },
+  {
+    "input": "They acquired a startup called Nymble, spelled N-I-M-B-L-E, back in Q2 and the integration has been surprisingly smooth compared to their last acquisition.",
+    "ideal": "They acquired a startup called Nimble, back in Q2 and the integration has been surprisingly smooth compared to their last acquisition."
+  },
+  {
+    "input": "The dish is called Biryani, but the place spells it B-E-R-Y-A-N-I, which I think is just them being pretentious because the owner studied in London.",
+    "ideal": "The dish is called Beryani, which I think is just them being pretentious because the owner studied in London."
+  },
+  {
+    "input": "I need you to reach out to Thanh, that's T-A-N-H-A, at the Hanoi office — she's the only person who can approve the budget transfer before Friday.",
+    "ideal": "I need you to reach out to Tanha, at the Hanoi office — she's the only person who can approve the budget transfer before Friday."
+  },
+  {
+    "input": "We're integrating with their API, it's called Kloak, spelled K-L-O-K-E, not cloak like the thing you wear.",
+    "ideal": "We're integrating with their API, it's called Kloke, not cloak like the thing you wear."
+  },
+  {
+    "input": "I ordered the Pad Kee Mao, spell that P-A-T K-E-E M-A-O, from the Thai place on 4th.",
+    "ideal": "I ordered the Pat Kee Mao from the Thai place on 4th."
+  },
+  {
+    "input": "It's a competitor to Figma, spelled P-H-I-G-M-A, which I know sounds weird but that's their branding.",
+    "ideal": "It's a competitor to Phigma, which I know sounds weird but that's their branding."
+  },
+  {
+    "input": "The founder's name is Shorn, that's S-J-O-R-N, and he runs the Copenhagen office.",
+    "ideal": "The founder's name is Sjorn, and he runs the Copenhagen office."
+  },
+  {
+    "input": "She works at a nonprofit called Gives, that's G-I-V-Z, not gives like the verb.",
+    "ideal": "She works at a nonprofit called Givz, not gives like the verb."
+  },
+  {
+    "input": "The dish is called Zoi, that's X-O-I, sticky rice with mung bean — spell that M-U-N-G, not mong like the verb.",
+    "ideal": "The dish is called Xoi, sticky rice with mung bean — not mong like the verb."
+  },
+  {
+    "input": "We're integrating with their API, it's called Flectra, spell that P-H-L-E-C-T-R-A, for the inventory sync.",
+    "ideal": "We're integrating with their API, it's called Phlectra, for the inventory sync."
+  },
+  {
+    "input": "He works at Caper, that's K-A-P-P-E-R, the grocery automation company, not like the vegetable.",
+    "ideal": "He works at Kapper, the grocery automation company, not like the vegetable."
+  },
+  {
+    "input": "The dish is khachapuri, spell the first part K-H-A-C-H-A, and it's Georgian cheese bread.",
+    "ideal": "The dish is khachapuri, and it's Georgian cheese bread."
+  },
+  {
+    "input": "She founded Wisp, that's W-Y-S-P, spell that, for the mental health platform, not like the ghost.",
+    "ideal": "She founded Wysp, for the mental health platform, not like the ghost."
   }
 ]

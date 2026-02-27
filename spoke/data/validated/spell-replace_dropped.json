@@ -1,0 +1,133 @@
+[
+  {
+    "input": "My favorite dish at that restaurant is the pad prick king, spelled P-A-D P-R-I-K K-H-I-N-G, with tofu.",
+    "ideal": "My favorite dish at that restaurant is the pad prik khing, with tofu.",
+    "index": 0,
+    "errors": [
+      "SAME-WORD: 'PAD' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "We're benchmarking against the Qwertyoruiop framework, spelled Q-W-E-R-T-Y-O-R-U-I-O-P, which is surprisingly fast for a research prototype.",
+    "ideal": "We're benchmarking against the Qwertyoruiop framework, which is surprisingly fast for a research prototype.",
+    "index": 0,
+    "errors": [
+      "SAME-WORD: 'QWERTYORUIOP' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "The artifact was discovered near the ancient city of Nineveh, spelled N-I-N-E-V-E-H, wait no that's wrong — spell it N-I-N-I-V-E-H.",
+    "ideal": "The artifact was discovered near the ancient city of Niniveh.",
+    "index": 1,
+    "errors": [
+      "Spelled word 'NINEVEH' not found in ideal output",
+      "SAME-WORD: 'NINEVEH' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "The package depends on libpqxx, spelled L-I-B-P-Q-X-X, which is the official C++ client for PostgreSQL.",
+    "ideal": "The package depends on libpqxx, which is the official C++ client for PostgreSQL.",
+    "index": 2,
+    "errors": [
+      "SAME-WORD: 'LIBPQXX' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "We're sponsoring the PyCon Ghana keynote by Kojo Idrissa, spelled K-O-J-O-I-D-R-I-S-S-A-H, who's been instrumental in building the West African Python community.",
+    "ideal": "We're sponsoring the PyCon Ghana keynote by Kojo Idrissah, who's been instrumental in building the West African Python community.",
+    "index": 3,
+    "errors": [
+      "Spelled word 'KOJOIDRISSAH' not found in ideal output"
+    ]
+  },
+  {
+    "input": "The vulnerability affects systems running OpenSSL with FIPS mode enabled, specifically the Oostendorp validation module, spelled O-O-S-T-E-N-D-O-R-P, which was deprecated in 3.0.",
+    "ideal": "The vulnerability affects systems running OpenSSL with FIPS mode enabled, specifically the Oostendorp validation module, which was deprecated in 3.0.",
+    "index": 4,
+    "errors": [
+      "SAME-WORD: 'OOSTENDORP' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "We're integrating with their API called Fuzzle, spelled F-U-Z-Z-L-E, for the fuzzy matching engine.",
+    "ideal": "We're integrating with their API called Fuzzle, for the fuzzy matching engine.",
+    "index": 0,
+    "errors": [
+      "SAME-WORD: 'FUZZLE' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "The character's name is Cthulhu, spelled C-T-H-U-L-H-U, though Lovecraft said it was unpronounceable.",
+    "ideal": "The character's name is Cthulhu, though Lovecraft said it was unpronounceable.",
+    "index": 1,
+    "errors": [
+      "SAME-WORD: 'CTHULHU' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "The protocol is called Whisper Mesh, and can you spell Whisper as W-H-Y-S-P-E-R? It's a stupid pun that the CTO loves.",
+    "ideal": "The protocol is called Whyspher Mesh, and it's a stupid pun that the CTO loves.",
+    "index": 0,
+    "errors": [
+      "Spelled word 'WHYSPER' not found in ideal output"
+    ]
+  },
+  {
+    "input": "The variable is called ntx, spelled N underscore T-X, not n-t-x like I said before.",
+    "ideal": "The variable is called n_tx, not n-t-x like I said before.",
+    "index": 0,
+    "errors": [
+      "Spelled word 'ntx' not found in ideal output",
+      "SAME-WORD: 'ntx' already appears correctly in input — no ASR error to correct",
+      "Ideal output still contains X-X-X letter pattern"
+    ]
+  },
+  {
+    "input": "The meeting is in the Kiryu room, spelled K-I-R-Y-U, not Kiryu like the game character, wait actually same spelling never mind.",
+    "ideal": "The meeting is in the Kiryu room, not Kiryu like the game character, wait actually same spelling never mind.",
+    "index": 1,
+    "errors": [
+      "SAME-WORD: 'KIRYU' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "I need the Quitch, spelled Q-W-Y-T-C-H, framework for this project — it's spelled weird on purpose for SEO.",
+    "ideal": "I need the Qwytch framework for this project — it's spelled weird on purpose for SEO.",
+    "index": 2,
+    "errors": [
+      "Ideal output still contains spelling instruction"
+    ]
+  },
+  {
+    "input": "The village is called Ys, just Y-S, spell that I-G-H-E-S-S-E, not like the letter Y.",
+    "ideal": "The village is called Ys, just Y-S, not like the letter Y.",
+    "index": 0,
+    "errors": [
+      "Spelled word 'IGHESSE' not found in ideal output"
+    ]
+  },
+  {
+    "input": "She recommended a book by author Knausgaard, spell K-N-A-U-S-G-A-R-D, though the ASR said 'Nouseguard.'",
+    "ideal": "She recommended a book by author Knausgaard, though the ASR said 'Nouseguard.'",
+    "index": 1,
+    "errors": [
+      "Spelled word 'KNAUSGARD' not found in ideal output"
+    ]
+  },
+  {
+    "input": "The startup is called Vowel, but it's spelled V-U-L, like 'vul' not vowel, for the voice AI.",
+    "ideal": "The startup is called Vul, like 'vul' not vowel, for the voice AI.",
+    "index": 2,
+    "errors": [
+      "SAME-WORD: 'VUL' already appears correctly in input — no ASR error to correct"
+    ]
+  },
+  {
+    "input": "Their competitor is called Nuro, but the transcript says 'Neuro' — it's N-U-R-O, the delivery robots.",
+    "ideal": "Their competitor is called Nuro, but the transcript says 'Neuro' — the delivery robots.",
+    "index": 3,
+    "errors": [
+      "SAME-WORD: 'NURO' already appears correctly in input — no ASR error to correct"
+    ]
+  }
+]

@@ -1,0 +1,202 @@
+[
+  {
+    "input": "Quote-unquote experts keep telling us this will work.",
+    "ideal": "\"Experts\" keep telling us this will work."
+  },
+  {
+    "input": "She called it quote a complete and utter disaster that we should have seen coming end quote.",
+    "ideal": "She called it \"a complete and utter disaster that we should have seen coming\"."
+  },
+  {
+    "input": "The so-called quote-unquote solution just made everything worse, you know?",
+    "ideal": "The so-called \"solution\" just made everything worse, you know?"
+  },
+  {
+    "input": "He was quote-unquote too busy to help, which we all know is bullshit.",
+    "ideal": "He was \"too busy\" to help, which we all know is bullshit."
+  },
+  {
+    "input": "The report described the incident as quote an unfortunate series of events that no one could have predicted or prevented end quote, which honestly feels like a cop-out.",
+    "ideal": "The report described the incident as \"an unfortunate series of events that no one could have predicted or prevented\", which honestly feels like a cop-out."
+  },
+  {
+    "input": "Quote-unquote friends, right? Where are they when you actually need something?",
+    "ideal": "\"Friends\", right? Where are they when you actually need something?"
+  },
+  {
+    "input": "She said I was quote the most difficult person she had ever worked with in her entire career and she couldn't wait for the project to end quote, so that was fun.",
+    "ideal": "She said I was \"the most difficult person she had ever worked with in her entire career and she couldn't wait for the project to end\", so that was fun."
+  },
+  {
+    "input": "It's quote-unquote organic, which apparently means they can charge double.",
+    "ideal": "It's \"organic\", which apparently means they can charge double."
+  },
+  {
+    "input": "The CEO called it quote a strategic pivot toward sustainable long-term value creation that positions us to capture emerging market opportunities while delivering exceptional returns to our stakeholders end quote, which is corporate speak for we're firing half the department.",
+    "ideal": "The CEO called it \"a strategic pivot toward sustainable long-term value creation that positions us to capture emerging market opportunities while delivering exceptional returns to our stakeholders\", which is corporate speak for we're firing half the department."
+  },
+  {
+    "input": "He walked in with his quote-unquote solution that created ten new problems.",
+    "ideal": "He walked in with his \"solution\" that created ten new problems."
+  },
+  {
+    "input": "Quote this is absolutely the final version no more changes end quote she said laughing.",
+    "ideal": "\"This is absolutely the final version no more changes\" she said laughing."
+  },
+  {
+    "input": "Their quote-unquote transparency report was 90% redacted.",
+    "ideal": "Their \"transparency report\" was 90% redacted."
+  },
+  {
+    "input": "The manual describes it as quote a user-friendly interface requiring minimal technical expertise for seamless integration end quote which is hilarious if you've actually used it.",
+    "ideal": "The manual describes it as \"a user-friendly interface requiring minimal technical expertise for seamless integration\" which is hilarious if you've actually used it."
+  },
+  {
+    "input": "Quote-unquote emergency maintenance scheduled for 2am on a Saturday.",
+    "ideal": "\"Emergency\" maintenance scheduled for 2am on a Saturday."
+  },
+  {
+    "input": "She sent me her quote revised and improved end quote proposal which was identical to the first one.",
+    "ideal": "She sent me her \"revised and improved\" proposal which was identical to the first one."
+  },
+  {
+    "input": "The restaurant's quote-unquote farm-to-table sourcing apparently includes a distribution warehouse in New Jersey.",
+    "ideal": "The restaurant's \"farm-to-table\" sourcing apparently includes a distribution warehouse in New Jersey."
+  },
+  {
+    "input": "He described the meeting as quote productive collaborative and forward-thinking with actionable outcomes and stakeholder alignment end quote so I knew it was a disaster.",
+    "ideal": "He described the meeting as \"productive collaborative and forward-thinking with actionable outcomes and stakeholder alignment\" so I knew it was a disaster."
+  },
+  {
+    "input": "Quote-unquote voluntary overtime that's mandatory if you want to keep your job.",
+    "ideal": "\"Voluntary\" overtime that's mandatory if you want to keep your job."
+  },
+  {
+    "input": "She called it quote-unquote art but my three-year-old could do better.",
+    "ideal": "She called it \"art\" but my three-year-old could do better."
+  },
+  {
+    "input": "Quote we need to circle back and leverage our core competencies end quote he said with a straight face.",
+    "ideal": "\"We need to circle back and leverage our core competencies\" he said with a straight face."
+  },
+  {
+    "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+    "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient."
+  },
+  {
+    "input": "The so-called expert gave us quote actionable insights end quote which turned out to be complete nonsense.",
+    "ideal": "The so-called expert gave us \"actionable insights\" which turned out to be complete nonsense."
+  },
+  {
+    "input": "Quote-unquote secure messaging app that stores everything in plaintext.",
+    "ideal": "\"Secure\" messaging app that stores everything in plaintext."
+  },
+  {
+    "input": "She described the vacation as quote relaxing rejuvenating and exactly what I needed to reset my entire perspective on work-life balance end quote but came back more stressed than ever.",
+    "ideal": "She described the vacation as \"relaxing rejuvenating and exactly what I needed to reset my entire perspective on work-life balance\" but came back more stressed than ever."
+  },
+  {
+    "input": "His quote-unquote apology was basically just him explaining why I was wrong to be upset.",
+    "ideal": "His \"apology\" was basically just him explaining why I was wrong to be upset."
+  },
+  {
+    "input": "Quote temporary price adjustment end quote that's been permanent for three years now.",
+    "ideal": "\"Temporary price adjustment\" that's been permanent for three years now."
+  },
+  {
+    "input": "The startup's quote-unquote proprietary algorithm turned out to be a random number generator.",
+    "ideal": "The startup's \"proprietary algorithm\" turned out to be a random number generator."
+  },
+  {
+    "input": "She called it quote-unquote volunteer work but they paid her under the table the whole time.",
+    "ideal": "She called it \"volunteer\" work but they paid her under the table the whole time."
+  },
+  {
+    "input": "Quote we are committed to transparency and open communication end quote said the CEO while deleting every critical comment.",
+    "ideal": "\"We are committed to transparency and open communication\" said the CEO while deleting every critical comment."
+  },
+  {
+    "input": "His quote-unquote best friend sold him out for a promotion.",
+    "ideal": "His \"best\" friend sold him out for a promotion."
+  },
+  {
+    "input": "The landlord described it as quote cozy and efficiently designed end quote which meant three hundred square feet with no windows.",
+    "ideal": "The landlord described it as \"cozy and efficiently designed\" which meant three hundred square feet with no windows."
+  },
+  {
+    "input": "Quote-unquote essential workers got a pizza party instead of hazard pay.",
+    "ideal": "\"Essential\" workers got a pizza party instead of hazard pay."
+  },
+  {
+    "input": "She sent me her quote-unquote resume and it was just a link to her Instagram.",
+    "ideal": "She sent me her \"resume\" and it was just a link to her Instagram."
+  },
+  {
+    "input": "The company promised quote unlimited growth opportunities and a dynamic work environment end quote which translated to unpaid overtime and constant restructuring.",
+    "ideal": "The company promised \"unlimited growth opportunities and a dynamic work environment\" which translated to unpaid overtime and constant restructuring."
+  },
+  {
+    "input": "His quote-unquote investment strategy was just gambling on meme stocks.",
+    "ideal": "His \"investment\" strategy was just gambling on meme stocks."
+  },
+  {
+    "input": "Quote we value your feedback and are always looking to improve end quote they said before blocking my account.",
+    "ideal": "\"We value your feedback and are always looking to improve\" they said before blocking my account."
+  },
+  {
+    "input": "Quote the system will be down for maintenance end quote yeah right like that's ever fixed anything.",
+    "ideal": "\"The system will be down for maintenance\" yeah right like that's ever fixed anything."
+  },
+  {
+    "input": "His quote-unquote apology came with seventeen excuses attached.",
+    "ideal": "His \"apology\" came with seventeen excuses attached."
+  },
+  {
+    "input": "The manual says quote to ensure optimal performance please restart your device weekly and clear the cache monthly end quote which nobody reads.",
+    "ideal": "The manual says \"to ensure optimal performance please restart your device weekly and clear the cache monthly\" which nobody reads."
+  },
+  {
+    "input": "Quote-unquote fresh never frozen my ass I saw the delivery truck.",
+    "ideal": "\"Fresh\" never frozen my ass I saw the delivery truck."
+  },
+  {
+    "input": "She's his quote-unquote work wife but we all know what's going on.",
+    "ideal": "She's his \"work wife\" but we all know what's going on."
+  },
+  {
+    "input": "The contract states quote the party of the first part shall indemnify and hold harmless the party of the second part from any claims arising from negligence end quote in lawyer speak that means we're screwed.",
+    "ideal": "The contract states \"the party of the first part shall indemnify and hold harmless the party of the second part from any claims arising from negligence\" in lawyer speak that means we're screwed."
+  },
+  {
+    "input": "His quote-unquote vintage collection is just hoarding with extra steps.",
+    "ideal": "His \"vintage collection\" is just hoarding with extra steps."
+  },
+  {
+    "input": "Quote given the current economic climate and unprecedented market volatility we have made the difficult decision to restructure our workforce end quote they fired half the department.",
+    "ideal": "\"Given the current economic climate and unprecedented market volatility we have made the difficult decision to restructure our workforce\" they fired half the department."
+  },
+  {
+    "input": "She called it quote-unquote art but I call it a mess.",
+    "ideal": "She called it \"art\" but I call it a mess."
+  },
+  {
+    "input": "Quote we find the defendant guilty on all counts end quote said the foreperson.",
+    "ideal": "\"we find the defendant guilty on all counts\" said the foreperson."
+  },
+  {
+    "input": "His quote-unquote apology was basically I'm sorry you feel that way.",
+    "ideal": "His \"apology\" was basically I'm sorry you feel that way."
+  },
+  {
+    "input": "The memo said quote effective immediately all remote work arrangements are suspended pending review end quote which means we're all screwed.",
+    "ideal": "The memo said \"effective immediately all remote work arrangements are suspended pending review\" which means we're all screwed."
+  },
+  {
+    "input": "Quote-unquote experts on Twitter told me to buy the dip.",
+    "ideal": "\"experts\" on Twitter told me to buy the dip."
+  },
+  {
+    "input": "She described him as quote charming in a used car salesman kind of way end quote.",
+    "ideal": "She described him as \"charming in a used car salesman kind of way\"."
+  }
+]

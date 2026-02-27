@@ -30,7 +30,20 @@ Generate 10 new pairs. Rules:
 - Vary sentence length (short and long)
 - Vary where the spell command appears (end, middle, after the word)
 - Vary the phrasing ("spell that as", "it's spelled", "spell X as", etc.)
-- The misspelled word should sound plausible as an ASR error
+- CRITICAL — Getting the ASR error right:
+  The CORRECT word (what the letters spell out) should be the UNUSUAL one — a niche brand, an uncommon name, a non-standard spelling. The ASR ERROR (what appears in the input text) should be a more common-sounding phonetic approximation that ASR would plausibly output instead.
+
+  GOOD: Input has "Celerobad" (ASR's guess), spelled S-I-L-E-R-O → "Silero" (correct, niche ML library)
+  GOOD: Input has "Whisper" (common word ASR defaults to), spelled W-I-S-P-R → "Wispr" (correct brand name)
+  BAD: Input has "Viterbi" (already correct), spelled W-I-T-E-R-B-Y → "Witerby" (nonsense)
+  BAD: Input has "Kubernetes" (common, ASR knows this), any spelling → forced error
+
+  Focus on words ASR would genuinely struggle with:
+  - Niche startups or brand names with unusual spellings
+  - Personal names from other languages
+  - Made-up words, codenames, product names
+  - Non-English food, place names, or cultural terms with non-obvious transliterations
+  - Portmanteau brand names (like Wispr, Supabase)
 - Include some where only PART of a compound name gets respelled
 - Make them progressively harder
 
