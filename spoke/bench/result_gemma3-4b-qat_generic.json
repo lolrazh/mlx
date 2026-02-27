@@ -1,0 +1,135 @@
+{
+  "model": "mlx-community/gemma-3-4b-it-qat-4bit",
+  "short_name": "gemma3-4b-qat",
+  "prompt_mode": "generic",
+  "load_time_s": 234.2,
+  "n": 12,
+  "exact": 2,
+  "semantic": 0,
+  "partial": 6,
+  "fail": 4,
+  "accuracy": 0.1667,
+  "avg_latency_s": 0.923,
+  "results": [
+    {
+      "id": 1,
+      "category": "spell-replace",
+      "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+      "ideal": "I'm gonna be using Silero VAD for this.",
+      "output": "I'm gonna be using Celero VAD for this. Can you spell that as SILERO?",
+      "raw_output": "I'm gonna be using Celero VAD for this. Can you spell that as SILERO?",
+      "score": "fail",
+      "gen_time_s": 1.242
+    },
+    {
+      "id": 2,
+      "category": "spell-replace",
+      "input": "He went to the Khadai, spell that K-A-D-A-I.",
+      "ideal": "He went to the Kadai.",
+      "output": "He went to the Khadai.",
+      "raw_output": "He went to the Khadai.",
+      "score": "partial",
+      "gen_time_s": 0.678
+    },
+    {
+      "id": 3,
+      "category": "self-correction",
+      "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+      "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+      "output": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+      "raw_output": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+      "score": "fail",
+      "gen_time_s": 1.015
+    },
+    {
+      "id": 4,
+      "category": "self-correction",
+      "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+      "ideal": "Let's meet at 12pm, Thursday.",
+      "output": "Let's meet at 12pm, Thursday.",
+      "raw_output": "Let's meet at 12pm, Thursday.",
+      "score": "exact",
+      "gen_time_s": 0.788
+    },
+    {
+      "id": 5,
+      "category": "quote-unquote",
+      "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "output": "They said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+      "raw_output": "They said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+      "score": "fail",
+      "gen_time_s": 1.036
+    },
+    {
+      "id": 6,
+      "category": "quote-endquote",
+      "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+      "output": "They said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+      "raw_output": "They said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+      "score": "fail",
+      "gen_time_s": 0.969
+    },
+    {
+      "id": 7,
+      "category": "at-symbol",
+      "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+      "ideal": "I wanna fix @app.py and @test.py.",
+      "output": "@app.py and @test.py",
+      "raw_output": "@app.py and @test.py",
+      "score": "partial",
+      "gen_time_s": 0.657
+    },
+    {
+      "id": 8,
+      "category": "caps",
+      "input": "We're so excited to make this. Use all caps.",
+      "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
+      "output": "WE'RE SO EXCITED TO MAKE THIS.",
+      "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
+      "score": "exact",
+      "gen_time_s": 0.679
+    },
+    {
+      "id": 9,
+      "category": "emphasis",
+      "input": "It's surprisingly fast. Emphasize surprisingly.",
+      "ideal": "It's **surprisingly** fast.",
+      "output": "It’s surprisingly fast.",
+      "raw_output": "It’s surprisingly fast.",
+      "score": "partial",
+      "gen_time_s": 0.578
+    },
+    {
+      "id": 10,
+      "category": "emoji",
+      "input": "Heartbreak emoji",
+      "ideal": "💔",
+      "output": "Heartbreak",
+      "raw_output": "Heartbreak",
+      "score": "partial",
+      "gen_time_s": 0.465
+    },
+    {
+      "id": 11,
+      "category": "multi-step",
+      "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
+      "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
+      "output": "Okay, please provide the transcript you want me to clean. I will then execute all the commands you've listed and send the cleaned text to Groq with the specified formatting and filename.",
+      "raw_output": "Okay, please provide the transcript you want me to clean. I will then execute all the commands you've listed and send the cleaned text to Groq with the specified formatting and filename.",
+      "score": "partial",
+      "gen_time_s": 1.612
+    },
+    {
+      "id": 12,
+      "category": "camelcase",
+      "input": "So we've got a file called usetranscription.ts.",
+      "ideal": "So we've got a file called useTranscription.ts.",
+      "output": "Okay, please provide me with the content of the `usetranscription.ts` file. I need the text from the file to be able to clean it according to your instructions.",
+      "raw_output": "Okay, please provide me with the content of the `usetranscription.ts` file. I need the text from the file to be able to clean it according to your instructions.",
+      "score": "partial",
+      "gen_time_s": 1.355
+    }
+  ]
+}
