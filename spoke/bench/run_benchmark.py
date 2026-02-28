@@ -24,6 +24,7 @@ GREEDY = make_sampler(temp=0.0)
 # ── Models ──────────────────────────────────────────────────
 MODELS = {
     "qwen3-4b": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
+    "qwen3-4b-bf16": "mlx-community/Qwen3-4B-Instruct-2507-bf16",
     "lfm2.5-1.2b": "lmstudio-community/LFM2.5-1.2B-Instruct-MLX-4bit",
     "phi4-mini": "mlx-community/Phi-4-mini-instruct-4bit",
     "gemma3n-e4b": "mlx-community/gemma-3n-E4B-it-lm-4bit",
@@ -170,22 +171,31 @@ def score_output(output, ideal):
     return "fail"
 
 
-def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True):
+def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
+                    adapter_path=None):
     """Run benchmark on a single model."""
     import mlx_lm
 
     short_name = next((k for k, v in MODELS.items() if v == model_path), model_path.split("/")[-1])
+    if adapter_path:
+        adapter_label = Path(adapter_path).name
+        short_name = f"{short_name}+lora"
 
     if verbose:
         print(f"\n{'='*60}")
         print(f"  {short_name}  ({model_path})")
+        if adapter_path:
+            print(f"  adapters: {adapter_path}")
         print(f"  prompt: {prompt_mode}")
         print(f"{'='*60}")
 
     # Load
     t0 = time.time()
     try:
-        model, tokenizer = mlx_lm.load(model_path)
+        load_kwargs = {}
+        if adapter_path:
+            load_kwargs["adapter_path"] = adapter_path
+        model, tokenizer = mlx_lm.load(model_path, **load_kwargs)
     except Exception as e:
         print(f"  FAILED to load: {e}")
         return None
@@ -272,6 +282,8 @@ def main():
     parser = argparse.ArgumentParser(description="Zero-shot LLM benchmark")
     parser.add_argument("--model", type=str, help="Short name or HF path")
     parser.add_argument("--all", action="store_true", help="Run all models")
+    parser.add_argument("--adapter-path", type=str, default=None,
+                        help="Path to LoRA adapter weights (loads on top of base model)")
     parser.add_argument("--prompt-mode", choices=["generic", "task", "spoke"], default="generic",
                         help="Prompt strategy: generic | task | spoke (production-quality dynamic prompts)")
     parser.add_argument("--verbose", action="store_true", default=True)
@@ -289,7 +301,8 @@ def main():
 
     all_summaries = []
     for path in paths:
-        summary = benchmark_model(path, test_set, prompt_mode=args.prompt_mode, verbose=args.verbose)
+        summary = benchmark_model(path, test_set, prompt_mode=args.prompt_mode,
+                                   verbose=args.verbose, adapter_path=args.adapter_path)
         if summary is None:
             continue
         all_summaries.append(summary)

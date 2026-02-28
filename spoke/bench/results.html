@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spoke — Benchmark Results</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #1c2129; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --green: #3fb950; --green-bg: #0d2818; --yellow: #d29922; --yellow-bg: #2d2006;
+    --red: #f85149; --red-bg: #2d0b0b; --blue: #58a6ff; --blue-bg: #0d1d33;
+    --purple: #bc8cff; --purple-bg: #1a0d2e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+
+  .container { max-width: 1600px; margin: 0 auto; padding: 24px; }
+
+  header { margin-bottom: 24px; }
+  header h1 { font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+  header p { color: var(--muted); font-size: 14px; }
+
+  /* Summary cards */
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 20px; cursor: pointer; transition: all 0.15s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .card-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .card-value { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .card-detail { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .card-bar { height: 4px; border-radius: 2px; background: var(--border); margin-top: 10px; overflow: hidden; }
+  .card-bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+
+  /* Prompt toggle */
+  .prompt-toggle { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
+  .prompt-toggle label { font-size: 13px; color: var(--muted); margin-right: 4px; }
+  .toggle-btn {
+    padding: 5px 14px; font-size: 13px; border-radius: 6px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+    cursor: pointer; transition: all 0.15s; font-weight: 500;
+  }
+  .toggle-btn:hover { border-color: var(--accent); color: var(--text); }
+  .toggle-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+
+  /* Example grid */
+  .example {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    margin-bottom: 16px; overflow: hidden;
+  }
+  .example-header {
+    display: flex; align-items: center; gap: 12px; padding: 12px 20px;
+    border-bottom: 1px solid var(--border); background: var(--surface2);
+  }
+  .example-id { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 24px; }
+  .category-badge {
+    font-size: 11px; padding: 2px 8px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--accent);
+    font-weight: 500; white-space: nowrap;
+  }
+  .example-input { font-size: 14px; color: var(--text); flex: 1; }
+
+  .example-body { padding: 0; }
+
+  .row-group { display: grid; grid-template-columns: 140px 1fr; border-bottom: 1px solid var(--border); }
+  .row-group:last-child { border-bottom: none; }
+  .row-label {
+    padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.3px; display: flex; align-items: center;
+    background: var(--bg); border-right: 1px solid var(--border);
+  }
+  .row-content { padding: 10px 16px; font-size: 14px; display: flex; align-items: center; gap: 8px; min-height: 42px; }
+  .row-content.golden { background: rgba(63, 185, 80, 0.04); }
+  .row-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+
+  /* Score badges */
+  .score {
+    font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+    text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
+  }
+  .score-exact { background: var(--green-bg); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+  .score-semantic { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(88,166,255,0.3); }
+  .score-partial { background: var(--yellow-bg); color: var(--yellow); border: 1px solid rgba(210,153,34,0.3); }
+  .score-fail { background: var(--red-bg); color: var(--red); border: 1px solid rgba(248,81,73,0.3); }
+
+  .latency { font-size: 11px; color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+  /* Diff highlighting */
+  .diff-add { background: rgba(63, 185, 80, 0.15); padding: 1px 2px; border-radius: 2px; }
+  .diff-del { background: rgba(248, 81, 73, 0.15); padding: 1px 2px; border-radius: 2px; text-decoration: line-through; }
+  .diff-change { background: rgba(210, 153, 34, 0.15); padding: 1px 2px; border-radius: 2px; }
+
+  /* Filter by score */
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+  .filter-bar label { font-size: 13px; color: var(--muted); }
+  .filter-chip {
+    padding: 4px 10px; font-size: 12px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--muted);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .filter-chip:hover { border-color: var(--accent); color: var(--text); }
+  .filter-chip.active { font-weight: 600; }
+  .filter-chip.active[data-filter="all"] { background: var(--accent); color: #000; border-color: var(--accent); }
+  .filter-chip.active[data-filter="exact"] { background: var(--green-bg); color: var(--green); border-color: var(--green); }
+  .filter-chip.active[data-filter="semantic"] { background: var(--blue-bg); color: var(--blue); border-color: var(--blue); }
+  .filter-chip.active[data-filter="partial"] { background: var(--yellow-bg); color: var(--yellow); border-color: var(--yellow); }
+  .filter-chip.active[data-filter="fail"] { background: var(--red-bg); color: var(--red); border-color: var(--red); }
+
+  .hidden { display: none !important; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .row-group { grid-template-columns: 100px 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Spoke Benchmark Results</h1>
+    <p>Qwen3-4B-Instruct-2507 &mdash; 12 sacred test examples &mdash; pre-training vs post-training comparison</p>
+  </header>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="prompt-toggle">
+    <label>Prompt:</label>
+    <button class="toggle-btn active" data-prompt="generic" onclick="setPrompt('generic')">Generic</button>
+    <button class="toggle-btn" data-prompt="spoke" onclick="setPrompt('spoke')">Spoke (dynamic)</button>
+    <button class="toggle-btn" data-prompt="task" onclick="setPrompt('task')">Task-specific</button>
+  </div>
+
+  <div class="filter-bar">
+    <label>Show:</label>
+    <button class="filter-chip active" data-filter="all" onclick="setFilter('all')">All</button>
+    <button class="filter-chip" data-filter="exact" onclick="setFilter('exact')">Exact</button>
+    <button class="filter-chip" data-filter="semantic" onclick="setFilter('semantic')">Semantic</button>
+    <button class="filter-chip" data-filter="partial" onclick="setFilter('partial')">Partial</button>
+    <button class="filter-chip" data-filter="fail" onclick="setFilter('fail')">Fail</button>
+  </div>
+
+  <div id="examples"></div>
+</div>
+
+<script>
+// ── Embedded benchmark data ──────────────────────────────────
+const DATA = {"model_generic": {"model": "../../spoke/model", "short_name": "model", "prompt_mode": "generic", "load_time_s": 1.0, "n": 12, "exact": 7, "semantic": 1, "partial": 4, "fail": 0, "accuracy": 0.6667, "avg_latency_s": 0.725, "results": [{"id": 1, "category": "spell-replace", "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?", "ideal": "I'm gonna be using Silero VAD for this.", "output": "I'm gonna be using Silero VAD for this.", "raw_output": "I'm gonna be using Silero VAD for this.", "score": "exact", "gen_time_s": 0.691}, {"id": 2, "category": "spell-replace", "input": "He went to the Khadai, spell that K-A-D-A-I.", "ideal": "He went to the Kadai.", "output": "He went to the Kadi.", "raw_output": "He went to the Kadi.", "score": "partial", "gen_time_s": 0.529}, {"id": 3, "category": "self-correction", "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.", "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.", "output": "The backend is actually powered by Fireworks.", "raw_output": "The backend is actually powered by Fireworks.", "score": "partial", "gen_time_s": 0.587}, {"id": 4, "category": "self-correction", "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.", "ideal": "Let's meet at 12pm, Thursday.", "output": "Let's meet at 12pm, Thursday.", "raw_output": "Let's meet at 12pm, Thursday.", "score": "exact", "gen_time_s": 0.757}, {"id": 5, "category": "quote-unquote", "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "exact", "gen_time_s": 0.967}, {"id": 6, "category": "quote-endquote", "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "partial", "gen_time_s": 1.074}, {"id": 7, "category": "at-symbol", "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.", "ideal": "I wanna fix @app.py and @test.py.", "output": "I wanna fix @app.py and @test.py.", "raw_output": "I wanna fix @app.py and @test.py.", "score": "exact", "gen_time_s": 0.67}, {"id": 8, "category": "caps", "input": "We're so excited to make this. Use all caps.", "ideal": "WE'RE SO EXCITED TO MAKE THIS.", "output": "WE'RE SO EXCITED TO MAKE THIS.", "raw_output": "WE'RE SO EXCITED TO MAKE THIS.", "score": "exact", "gen_time_s": 0.629}, {"id": 9, "category": "emphasis", "input": "It's surprisingly fast. Emphasize surprisingly.", "ideal": "It's **surprisingly** fast.", "output": "It's **surprisingly** fast.", "raw_output": "It's **surprisingly** fast.", "score": "exact", "gen_time_s": 0.582}, {"id": 10, "category": "emoji", "input": "Heartbreak emoji", "ideal": "💔", "output": "💔", "raw_output": "💔", "score": "exact", "gen_time_s": 0.393}, {"id": 11, "category": "multi-step", "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "output": "Send this to @Groq. The filename is \"S-U-P-A-B-A-S-E-handler.\"", "raw_output": "Send this to @Groq. The filename is \"S-U-P-A-B-A-S-E-handler.\"", "score": "partial", "gen_time_s": 1.142}, {"id": 12, "category": "camelcase", "input": "So we've got a file called usetranscription.ts.", "ideal": "So we've got a file called useTranscription.ts.", "output": "So we've got a file called usetranscription.ts.", "raw_output": "So we've got a file called usetranscription.ts.", "score": "semantic", "gen_time_s": 0.682}]}, "model_spoke": {"model": "../../spoke/model", "short_name": "model", "prompt_mode": "spoke", "load_time_s": 0.7, "n": 12, "exact": 9, "semantic": 0, "partial": 3, "fail": 0, "accuracy": 0.75, "avg_latency_s": 1.62, "results": [{"id": 1, "category": "spell-replace", "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?", "ideal": "I'm gonna be using Silero VAD for this.", "output": "I'm gonna be using Silero VAD for this.", "raw_output": "I'm gonna be using Silero VAD for this.", "score": "exact", "gen_time_s": 1.367}, {"id": 2, "category": "spell-replace", "input": "He went to the Khadai, spell that K-A-D-A-I.", "ideal": "He went to the Kadai.", "output": "He went to the Kadi,", "raw_output": "He went to the Kadi,", "score": "partial", "gen_time_s": 1.259}, {"id": 3, "category": "self-correction", "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.", "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.", "output": "The backend is actually powered by Fireworks.", "raw_output": "The backend is actually powered by Fireworks.", "score": "partial", "gen_time_s": 1.236}, {"id": 4, "category": "self-correction", "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.", "ideal": "Let's meet at 12pm, Thursday.", "output": "Let's meet at 12pm, Thursday.", "raw_output": "Let's meet at 12pm, Thursday.", "score": "exact", "gen_time_s": 1.29}, {"id": 5, "category": "quote-unquote", "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "exact", "gen_time_s": 1.685}, {"id": 6, "category": "quote-endquote", "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "partial", "gen_time_s": 2.051}, {"id": 7, "category": "at-symbol", "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.", "ideal": "I wanna fix @app.py and @test.py.", "output": "I wanna fix @app.py and @test.py.", "raw_output": "I wanna fix @app.py and @test.py.", "score": "exact", "gen_time_s": 1.503}, {"id": 8, "category": "caps", "input": "We're so excited to make this. Use all caps.", "ideal": "WE'RE SO EXCITED TO MAKE THIS.", "output": "WE'RE SO EXCITED TO MAKE THIS.", "raw_output": "WE'RE SO EXCITED TO MAKE THIS.", "score": "exact", "gen_time_s": 1.46}, {"id": 9, "category": "emphasis", "input": "It's surprisingly fast. Emphasize surprisingly.", "ideal": "It's **surprisingly** fast.", "output": "It's **surprisingly** fast.", "raw_output": "It's **surprisingly** fast.", "score": "exact", "gen_time_s": 1.128}, {"id": 10, "category": "emoji", "input": "Heartbreak emoji", "ideal": "💔", "output": "💔", "raw_output": "💔", "score": "exact", "gen_time_s": 1.095}, {"id": 11, "category": "multi-step", "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "raw_output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "score": "exact", "gen_time_s": 4.047}, {"id": 12, "category": "camelcase", "input": "So we've got a file called usetranscription.ts.", "ideal": "So we've got a file called useTranscription.ts.", "output": "So we've got a file called useTranscription.ts.", "raw_output": "So we've got a file called useTranscription.ts.", "score": "exact", "gen_time_s": 1.322}]}, "qwen3-4b-bf16+lora_generic": {"model": "mlx-community/Qwen3-4B-Instruct-2507-bf16", "short_name": "qwen3-4b-bf16+lora", "prompt_mode": "generic", "load_time_s": 3.4, "n": 12, "exact": 8, "semantic": 1, "partial": 2, "fail": 1, "accuracy": 0.75, "avg_latency_s": 1.927, "results": [{"id": 1, "category": "spell-replace", "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?", "ideal": "I'm gonna be using Silero VAD for this.", "output": "I'm gonna be using Silero VAD for this.", "raw_output": "I'm gonna be using Silero VAD for this.", "score": "exact", "gen_time_s": 1.777}, {"id": 2, "category": "spell-replace", "input": "He went to the Khadai, spell that K-A-D-A-I.", "ideal": "He went to the Kadai.", "output": "He went to the Kadai.", "raw_output": "He went to the Kadai.", "score": "exact", "gen_time_s": 1.376}, {"id": 3, "category": "self-correction", "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.", "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.", "output": "The backend is actually powered by Fireworks.", "raw_output": "The backend is actually powered by Fireworks.", "score": "partial", "gen_time_s": 2.276}, {"id": 4, "category": "self-correction", "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.", "ideal": "Let's meet at 12pm, Thursday.", "output": "Let's meet at 12pm, Thursday.", "raw_output": "Let's meet at 12pm, Thursday.", "score": "exact", "gen_time_s": 2.252}, {"id": 5, "category": "quote-unquote", "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "exact", "gen_time_s": 3.062}, {"id": 6, "category": "quote-endquote", "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?", "output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?", "score": "partial", "gen_time_s": 3.409}, {"id": 7, "category": "at-symbol", "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.", "ideal": "I wanna fix @app.py and @test.py.", "output": "I wanna fix @app.py and @test.py.", "raw_output": "I wanna fix @app.py and @test.py.", "score": "exact", "gen_time_s": 1.55}, {"id": 8, "category": "caps", "input": "We're so excited to make this. Use all caps.", "ideal": "WE'RE SO EXCITED TO MAKE THIS.", "output": "WE'RE SO EXCITED TO MAKE THIS.", "raw_output": "WE'RE SO EXCITED TO MAKE THIS.", "score": "exact", "gen_time_s": 1.491}, {"id": 9, "category": "emphasis", "input": "It's surprisingly fast. Emphasize surprisingly.", "ideal": "It's **surprisingly** fast.", "output": "It's **surprisingly** fast.", "raw_output": "It's **surprisingly** fast.", "score": "exact", "gen_time_s": 1.222}, {"id": 10, "category": "emoji", "input": "Heartbreak emoji", "ideal": "💔", "output": "💔", "raw_output": "💔", "score": "exact", "gen_time_s": 0.61}, {"id": 11, "category": "multi-step", "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "output": "Send this to @Groq. The filename is \"quote vercel-handler end quote.\"", "raw_output": "Send this to @Groq. The filename is \"quote vercel-handler end quote.\"", "score": "fail", "gen_time_s": 2.401}, {"id": 12, "category": "camelcase", "input": "So we've got a file called usetranscription.ts.", "ideal": "So we've got a file called useTranscription.ts.", "output": "So we've got a file called usetranscription.ts.", "raw_output": "So we've got a file called usetranscription.ts.", "score": "semantic", "gen_time_s": 1.7}]}, "qwen3-4b-bf16+lora_spoke": {"model": "mlx-community/Qwen3-4B-Instruct-2507-bf16", "short_name": "qwen3-4b-bf16+lora", "prompt_mode": "spoke", "load_time_s": 2.1, "n": 12, "exact": 9, "semantic": 1, "partial": 2, "fail": 0, "accuracy": 0.8333, "avg_latency_s": 2.901, "results": [{"id": 1, "category": "spell-replace", "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?", "ideal": "I'm gonna be using Silero VAD for this.", "output": "I'm gonna be using Silero VAD for this.", "raw_output": "I'm gonna be using Silero VAD for this.", "score": "exact", "gen_time_s": 2.737}, {"id": 2, "category": "spell-replace", "input": "He went to the Khadai, spell that K-A-D-A-I.", "ideal": "He went to the Kadai.", "output": "He went to the KadaI.", "raw_output": "He went to the KadaI.", "score": "semantic", "gen_time_s": 2.393}, {"id": 3, "category": "self-correction", "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.", "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.", "output": "The backend is actually powered by Fireworks.", "raw_output": "The backend is actually powered by Fireworks.", "score": "partial", "gen_time_s": 2.232}, {"id": 4, "category": "self-correction", "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.", "ideal": "Let's meet at 12pm, Thursday.", "output": "Let's meet at 12pm, Thursday.", "raw_output": "Let's meet at 12pm, Thursday.", "score": "exact", "gen_time_s": 2.489}, {"id": 5, "category": "quote-unquote", "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "exact", "gen_time_s": 3.799}, {"id": 6, "category": "quote-endquote", "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "partial", "gen_time_s": 4.082}, {"id": 7, "category": "at-symbol", "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.", "ideal": "I wanna fix @app.py and @test.py.", "output": "I wanna fix @app.py and @test.py.", "raw_output": "I wanna fix @app.py and @test.py.", "score": "exact", "gen_time_s": 2.771}, {"id": 8, "category": "caps", "input": "We're so excited to make this. Use all caps.", "ideal": "WE'RE SO EXCITED TO MAKE THIS.", "output": "WE'RE SO EXCITED TO MAKE THIS.", "raw_output": "WE'RE SO EXCITED TO MAKE THIS.", "score": "exact", "gen_time_s": 2.4}, {"id": 9, "category": "emphasis", "input": "It's surprisingly fast. Emphasize surprisingly.", "ideal": "It's **surprisingly** fast.", "output": "It's **surprisingly** fast.", "raw_output": "It's **surprisingly** fast.", "score": "exact", "gen_time_s": 1.988}, {"id": 10, "category": "emoji", "input": "Heartbreak emoji", "ideal": "💔", "output": "💔", "raw_output": "💔", "score": "exact", "gen_time_s": 1.443}, {"id": 11, "category": "multi-step", "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "raw_output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "score": "exact", "gen_time_s": 5.686}, {"id": 12, "category": "camelcase", "input": "So we've got a file called usetranscription.ts.", "ideal": "So we've got a file called useTranscription.ts.", "output": "So we've got a file called useTranscription.ts.", "raw_output": "So we've got a file called useTranscription.ts.", "score": "exact", "gen_time_s": 2.792}]}, "qwen3-4b_generic": {"model": "mlx-community/Qwen3-4B-Instruct-2507-4bit", "short_name": "qwen3-4b", "prompt_mode": "generic", "load_time_s": 1.6, "n": 12, "exact": 2, "semantic": 1, "partial": 7, "fail": 2, "accuracy": 0.25, "avg_latency_s": 0.69, "results": [{"id": 1, "category": "spell-replace", "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?", "ideal": "I'm gonna be using Silero VAD for this.", "output": "S-I-L-E-R-O", "raw_output": "S-I-L-E-R-O", "score": "partial", "gen_time_s": 0.519}, {"id": 2, "category": "spell-replace", "input": "He went to the Khadai, spell that K-A-D-A-I.", "ideal": "He went to the Kadai.", "output": "He went to the Khadai, spell that K-A-D-A-I.", "raw_output": "He went to the Khadai, spell that K-A-D-A-I.", "score": "fail", "gen_time_s": 0.717}, {"id": 3, "category": "self-correction", "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.", "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.", "output": "The backend is actually powered by Fireworks.", "raw_output": "The backend is actually powered by Fireworks.", "score": "partial", "gen_time_s": 0.539}, {"id": 4, "category": "self-correction", "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.", "ideal": "Let's meet at 12pm, Thursday.", "output": "Let's meet at 12 pm, Thursday.", "raw_output": "Let's meet at 12 pm, Thursday.", "score": "partial", "gen_time_s": 0.66}, {"id": 5, "category": "quote-unquote", "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "output": "I mean, they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean, they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "partial", "gen_time_s": 0.893}, {"id": 6, "category": "quote-endquote", "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?", "output": "I mean, they said, \"I was lucky to be here.\" What the fuck do they mean by that?", "raw_output": "I mean, they said, \"I was lucky to be here.\" What the fuck do they mean by that?", "score": "partial", "gen_time_s": 0.944}, {"id": 7, "category": "at-symbol", "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.", "ideal": "I wanna fix @app.py and @test.py.", "output": "@app.py and @test.py", "raw_output": "@app.py and @test.py", "score": "partial", "gen_time_s": 0.485}, {"id": 8, "category": "caps", "input": "We're so excited to make this. Use all caps.", "ideal": "WE'RE SO EXCITED TO MAKE THIS.", "output": "WE'RE SO EXCITED TO MAKE THIS.", "raw_output": "WE'RE SO EXCITED TO MAKE THIS.", "score": "exact", "gen_time_s": 0.543}, {"id": 9, "category": "emphasis", "input": "It's surprisingly fast. Emphasize surprisingly.", "ideal": "It's **surprisingly** fast.", "output": "It's surprisingly fast.", "raw_output": "It's surprisingly fast.", "score": "partial", "gen_time_s": 0.44}, {"id": 10, "category": "emoji", "input": "Heartbreak emoji", "ideal": "💔", "output": "💔", "raw_output": "💔", "score": "exact", "gen_time_s": 0.307}, {"id": 11, "category": "multi-step", "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "output": "@Groq  \nfilename: \"quote sonicflow_s-u-p-a-b-a-s-e-handler end quote\"  \nreplace \"supabase\" with \"vercel\" → \"sonicflow_v-e-r-c-e-l-handler\"", "raw_output": "@Groq  \nfilename: \"quote sonicflow_s-u-p-a-b-a-s-e-handler end quote\"  \nreplace \"supabase\" with \"vercel\" → \"sonicflow_v-e-r-c-e-l-handler\"", "score": "fail", "gen_time_s": 1.609}, {"id": 12, "category": "camelcase", "input": "So we've got a file called usetranscription.ts.", "ideal": "So we've got a file called useTranscription.ts.", "output": "So we've got a file called usetranscription.ts.", "raw_output": "So we've got a file called usetranscription.ts.", "score": "semantic", "gen_time_s": 0.619}]}, "qwen3-4b_spoke": {"model": "mlx-community/Qwen3-4B-Instruct-2507-4bit", "short_name": "qwen3-4b", "prompt_mode": "spoke", "load_time_s": 1.0, "n": 12, "exact": 7, "semantic": 0, "partial": 4, "fail": 1, "accuracy": 0.5833, "avg_latency_s": 1.428, "results": [{"id": 1, "category": "spell-replace", "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?", "ideal": "I'm gonna be using Silero VAD for this.", "output": "I'm gonna be using Silero VAD for this.", "raw_output": "I'm gonna be using Silero VAD for this.", "score": "exact", "gen_time_s": 1.353}, {"id": 2, "category": "spell-replace", "input": "He went to the Khadai, spell that K-A-D-A-I.", "ideal": "He went to the Kadai.", "output": "He went to the Khadai.", "raw_output": "He went to the Khadai.", "score": "partial", "gen_time_s": 1.26}, {"id": 3, "category": "self-correction", "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.", "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.", "output": "The backend is actually powered by Fireworks.", "raw_output": "The backend is actually powered by Fireworks.", "score": "partial", "gen_time_s": 1.215}, {"id": 4, "category": "self-correction", "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.", "ideal": "Let's meet at 12pm, Thursday.", "output": "Let's meet at 12pm, Thursday.", "raw_output": "Let's meet at 12pm, Thursday.", "score": "exact", "gen_time_s": 1.273}, {"id": 5, "category": "quote-unquote", "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "exact", "gen_time_s": 1.648}, {"id": 6, "category": "quote-endquote", "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?", "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "score": "partial", "gen_time_s": 1.64}, {"id": 7, "category": "at-symbol", "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.", "ideal": "I wanna fix @app.py and @test.py.", "output": "I wanna fix app.py and test.py. Add an at symbol before the file names.  \n@app.py and @test.py", "raw_output": "I wanna fix app.py and test.py. Add an at symbol before the file names.  \n@app.py and @test.py", "score": "fail", "gen_time_s": 1.551}, {"id": 8, "category": "caps", "input": "We're so excited to make this. Use all caps.", "ideal": "WE'RE SO EXCITED TO MAKE THIS.", "output": "WE'RE SO EXCITED TO MAKE THIS.", "raw_output": "WE'RE SO EXCITED TO MAKE THIS.", "score": "exact", "gen_time_s": 1.162}, {"id": 9, "category": "emphasis", "input": "It's surprisingly fast. Emphasize surprisingly.", "ideal": "It's **surprisingly** fast.", "output": "It's **surprisingly** fast.", "raw_output": "It's **surprisingly** fast.", "score": "exact", "gen_time_s": 0.94}, {"id": 10, "category": "emoji", "input": "Heartbreak emoji", "ideal": "💔", "output": "😢💔", "raw_output": "😢💔", "score": "partial", "gen_time_s": 0.861}, {"id": 11, "category": "multi-step", "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "raw_output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "score": "exact", "gen_time_s": 3.113}, {"id": 12, "category": "camelcase", "input": "So we've got a file called usetranscription.ts.", "ideal": "So we've got a file called useTranscription.ts.", "output": "So we've got a file called useTranscription.ts.", "raw_output": "So we've got a file called useTranscription.ts.", "score": "exact", "gen_time_s": 1.114}]}, "qwen3-4b_task": {"model": "mlx-community/Qwen3-4B-Instruct-2507-4bit", "short_name": "qwen3-4b", "prompt_mode": "task", "load_time_s": 1.5, "n": 12, "exact": 6, "semantic": 0, "partial": 5, "fail": 1, "accuracy": 0.5, "avg_latency_s": 0.893, "results": [{"id": 1, "category": "spell-replace", "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?", "ideal": "I'm gonna be using Silero VAD for this.", "output": "I'm gonna be using Celero VAD for this. Can you spell that as C-E-L-E-R-O?", "raw_output": "I'm gonna be using Celero VAD for this. Can you spell that as C-E-L-E-R-O?", "score": "fail", "gen_time_s": 1.499}, {"id": 2, "category": "spell-replace", "input": "He went to the Khadai, spell that K-A-D-A-I.", "ideal": "He went to the Kadai.", "output": "He went to the Khadai.", "raw_output": "He went to the Khadai.", "score": "partial", "gen_time_s": 0.716}, {"id": 3, "category": "self-correction", "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.", "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.", "output": "The backend is actually powered by Cloudflare Workers and Fireworks.", "raw_output": "The backend is actually powered by Cloudflare Workers and Fireworks.", "score": "exact", "gen_time_s": 0.752}, {"id": 4, "category": "self-correction", "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.", "ideal": "Let's meet at 12pm, Thursday.", "output": "Let's meet at 12pm, Thursday.", "raw_output": "Let's meet at 12pm, Thursday.", "score": "exact", "gen_time_s": 0.832}, {"id": 5, "category": "quote-unquote", "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?", "output": "I mean they said I was 'lucky' to be here. What the fuck do they mean by that?", "raw_output": "\"I mean they said I was 'lucky' to be here. What the fuck do they mean by that?\"", "score": "partial", "gen_time_s": 1.199}, {"id": 6, "category": "quote-endquote", "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?", "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?", "output": "\"I mean they said I was lucky to be here.\" What the fuck do they mean by that?", "raw_output": "\"I mean they said I was lucky to be here.\" What the fuck do they mean by that?", "score": "partial", "gen_time_s": 1.01}, {"id": 7, "category": "at-symbol", "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.", "ideal": "I wanna fix @app.py and @test.py.", "output": "@app.py and @test.py", "raw_output": "@app.py and @test.py", "score": "partial", "gen_time_s": 0.591}, {"id": 8, "category": "caps", "input": "We're so excited to make this. Use all caps.", "ideal": "WE'RE SO EXCITED TO MAKE THIS.", "output": "WE'RE SO EXCITED TO MAKE THIS.", "raw_output": "WE'RE SO EXCITED TO MAKE THIS.", "score": "exact", "gen_time_s": 0.673}, {"id": 9, "category": "emphasis", "input": "It's surprisingly fast. Emphasize surprisingly.", "ideal": "It's **surprisingly** fast.", "output": "It's **surprisingly** fast.", "raw_output": "It's **surprisingly** fast.", "score": "exact", "gen_time_s": 0.612}, {"id": 10, "category": "emoji", "input": "Heartbreak emoji", "ideal": "💔", "output": "💔", "raw_output": "💔", "score": "exact", "gen_time_s": 0.399}, {"id": 11, "category": "multi-step", "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"", "output": "@Groq \"S-U-P-A-B-A-S-E\" split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "raw_output": "@Groq \"S-U-P-A-B-A-S-E\" split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.", "score": "partial", "gen_time_s": 1.679}, {"id": 12, "category": "camelcase", "input": "So we've got a file called usetranscription.ts.", "ideal": "So we've got a file called useTranscription.ts.", "output": "So we've got a file called useTranscription.ts.", "raw_output": "So we've got a file called useTranscription.ts.", "score": "exact", "gen_time_s": 0.752}]}};
+
+// ── Model configurations ─────────────────────────────────────
+const MODELS = [
+  { key: 'qwen3-4b',          label: 'Zero-shot (4-bit)',    short: 'Zero-shot',  color: '#8b949e' },
+  { key: 'qwen3-4b-bf16+lora', label: 'Fine-tuned (bf16+LoRA)', short: 'bf16+LoRA', color: '#bc8cff' },
+  { key: 'model',             label: 'Fine-tuned (4-bit)',   short: '4-bit FT',   color: '#58a6ff' },
+];
+
+const PROMPTS = ['generic', 'spoke', 'task'];
+let currentPrompt = 'generic';
+let currentFilter = 'all';
+
+function getKey(modelKey, prompt) {
+  return `${modelKey}_${prompt}`;
+}
+
+function getData(modelKey, prompt) {
+  return DATA[getKey(modelKey, prompt)] || null;
+}
+
+// ── Render summary cards ─────────────────────────────────────
+function renderSummary() {
+  const el = document.getElementById('summary');
+  el.innerHTML = '';
+  MODELS.forEach(m => {
+    const d = getData(m.key, currentPrompt);
+    if (!d) return;
+    const pct = Math.round(d.accuracy * 100);
+    const barColor = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--yellow)' : 'var(--red)';
+    el.innerHTML += `
+      <div class="card">
+        <div class="card-label">${m.label}</div>
+        <div class="card-value" style="color: ${m.color}">${pct}%</div>
+        <div class="card-detail">
+          ${d.exact} exact &middot; ${d.semantic} semantic &middot; ${d.partial} partial &middot; ${d.fail} fail
+          &nbsp;&mdash;&nbsp; ${d.avg_latency_s.toFixed(2)}s avg
+        </div>
+        <div class="card-bar"><div class="card-bar-fill" style="width:${pct}%; background:${barColor}"></div></div>
+      </div>
+    `;
+  });
+}
+
+// ── Render examples ──────────────────────────────────────────
+function renderExamples() {
+  const el = document.getElementById('examples');
+  el.innerHTML = '';
+
+  // Use first available model's results as reference for IDs
+  const ref = getData(MODELS[0].key, currentPrompt);
+  if (!ref) { el.innerHTML = '<p style="color:var(--muted)">No data for this prompt mode.</p>'; return; }
+
+  ref.results.forEach((ex, idx) => {
+    // Collect results from all models for this example
+    const modelResults = MODELS.map(m => {
+      const d = getData(m.key, currentPrompt);
+      if (!d) return null;
+      return { ...m, result: d.results[idx] };
+    }).filter(Boolean);
+
+    // Determine worst score for filtering (show example if ANY model matches filter)
+    const scores = modelResults.map(mr => mr.result.score);
+    const shouldShow = currentFilter === 'all' || scores.includes(currentFilter);
+
+    const div = document.createElement('div');
+    div.className = 'example' + (shouldShow ? '' : ' hidden');
+    div.dataset.scores = scores.join(',');
+
+    // Header
+    div.innerHTML = `
+      <div class="example-header">
+        <span class="example-id">#${ex.id}</span>
+        <span class="category-badge">${ex.category}</span>
+        <span class="example-input">${escHtml(ex.input)}</span>
+      </div>
+      <div class="example-body">
+        <div class="row-group">
+          <div class="row-label">Golden</div>
+          <div class="row-content golden"><code>${escHtml(ex.ideal)}</code></div>
+        </div>
+        ${modelResults.map(mr => `
+          <div class="row-group">
+            <div class="row-label" style="color:${mr.color}">${mr.short}</div>
+            <div class="row-content">
+              <span class="score score-${mr.result.score}">${mr.result.score}</span>
+              <code>${highlightDiff(mr.result.output, ex.ideal, mr.result.score)}</code>
+              <span class="latency">${mr.result.gen_time_s.toFixed(2)}s</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    el.appendChild(div);
+  });
+}
+
+// ── Diff highlighting ────────────────────────────────────────
+function highlightDiff(output, ideal, score) {
+  if (score === 'exact') return escHtml(output);
+  if (!output) return '<span class="diff-del">(empty)</span>';
+
+  const o = escHtml(output);
+  const i = escHtml(ideal);
+  if (score === 'fail') return `<span class="diff-del">${o}</span>`;
+  if (score === 'semantic') return `<span class="diff-change">${o}</span>`;
+
+  // For partial, just show as-is with a subtle background
+  return `<span class="diff-change">${o}</span>`;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ── Controls ─────────────────────────────────────────────────
+function setPrompt(p) {
+  currentPrompt = p;
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.prompt === p));
+  renderSummary();
+  renderExamples();
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(b => b.classList.toggle('active', b.dataset.filter === f));
+  document.querySelectorAll('.example').forEach(ex => {
+    if (f === 'all') { ex.classList.remove('hidden'); return; }
+    const scores = ex.dataset.scores.split(',');
+    ex.classList.toggle('hidden', !scores.includes(f));
+  });
+}
+
+// ── Init ─────────────────────────────────────────────────────
+renderSummary();
+renderExamples();
+</script>
+</body>
+</html>

@@ -1,35 +1,35 @@
 {
-  "model": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
-  "short_name": "qwen3-4b",
-  "prompt_mode": "generic",
-  "load_time_s": 1.6,
+  "model": "../../spoke/model",
+  "short_name": "model",
+  "prompt_mode": "spoke",
+  "load_time_s": 0.7,
   "n": 12,
-  "exact": 2,
-  "semantic": 1,
-  "partial": 7,
-  "fail": 2,
-  "accuracy": 0.25,
-  "avg_latency_s": 0.69,
+  "exact": 9,
+  "semantic": 0,
+  "partial": 3,
+  "fail": 0,
+  "accuracy": 0.75,
+  "avg_latency_s": 1.62,
   "results": [
     {
       "id": 1,
       "category": "spell-replace",
       "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
       "ideal": "I'm gonna be using Silero VAD for this.",
-      "output": "S-I-L-E-R-O",
-      "raw_output": "S-I-L-E-R-O",
-      "score": "partial",
-      "gen_time_s": 0.519
+      "output": "I'm gonna be using Silero VAD for this.",
+      "raw_output": "I'm gonna be using Silero VAD for this.",
+      "score": "exact",
+      "gen_time_s": 1.367
     },
     {
       "id": 2,
       "category": "spell-replace",
       "input": "He went to the Khadai, spell that K-A-D-A-I.",
       "ideal": "He went to the Kadai.",
-      "output": "He went to the Khadai, spell that K-A-D-A-I.",
-      "raw_output": "He went to the Khadai, spell that K-A-D-A-I.",
-      "score": "fail",
-      "gen_time_s": 0.717
+      "output": "He went to the Kadi,",
+      "raw_output": "He went to the Kadi,",
+      "score": "partial",
+      "gen_time_s": 1.259
     },
     {
       "id": 3,
@@ -39,47 +39,47 @@
       "output": "The backend is actually powered by Fireworks.",
       "raw_output": "The backend is actually powered by Fireworks.",
       "score": "partial",
-      "gen_time_s": 0.539
+      "gen_time_s": 1.236
     },
     {
       "id": 4,
       "category": "self-correction",
       "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
       "ideal": "Let's meet at 12pm, Thursday.",
-      "output": "Let's meet at 12 pm, Thursday.",
-      "raw_output": "Let's meet at 12 pm, Thursday.",
-      "score": "partial",
-      "gen_time_s": 0.66
+      "output": "Let's meet at 12pm, Thursday.",
+      "raw_output": "Let's meet at 12pm, Thursday.",
+      "score": "exact",
+      "gen_time_s": 1.29
     },
     {
       "id": 5,
       "category": "quote-unquote",
       "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
       "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
-      "output": "I mean, they said I was \"lucky\" to be here. What the fuck do they mean by that?",
-      "raw_output": "I mean, they said I was \"lucky\" to be here. What the fuck do they mean by that?",
-      "score": "partial",
-      "gen_time_s": 0.893
+      "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "score": "exact",
+      "gen_time_s": 1.685
     },
     {
       "id": 6,
       "category": "quote-endquote",
       "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
       "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
-      "output": "I mean, they said, \"I was lucky to be here.\" What the fuck do they mean by that?",
-      "raw_output": "I mean, they said, \"I was lucky to be here.\" What the fuck do they mean by that?",
+      "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "score": "partial",
-      "gen_time_s": 0.944
+      "gen_time_s": 2.051
     },
     {
       "id": 7,
       "category": "at-symbol",
       "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
       "ideal": "I wanna fix @app.py and @test.py.",
-      "output": "@app.py and @test.py",
-      "raw_output": "@app.py and @test.py",
-      "score": "partial",
-      "gen_time_s": 0.485
+      "output": "I wanna fix @app.py and @test.py.",
+      "raw_output": "I wanna fix @app.py and @test.py.",
+      "score": "exact",
+      "gen_time_s": 1.503
     },
     {
       "id": 8,
@@ -89,17 +89,17 @@
       "output": "WE'RE SO EXCITED TO MAKE THIS.",
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
       "score": "exact",
-      "gen_time_s": 0.543
+      "gen_time_s": 1.46
     },
     {
       "id": 9,
       "category": "emphasis",
       "input": "It's surprisingly fast. Emphasize surprisingly.",
       "ideal": "It's **surprisingly** fast.",
-      "output": "It's surprisingly fast.",
-      "raw_output": "It's surprisingly fast.",
-      "score": "partial",
-      "gen_time_s": 0.44
+      "output": "It's **surprisingly** fast.",
+      "raw_output": "It's **surprisingly** fast.",
+      "score": "exact",
+      "gen_time_s": 1.128
     },
     {
       "id": 10,
@@ -109,27 +109,27 @@
       "output": "💔",
       "raw_output": "💔",
       "score": "exact",
-      "gen_time_s": 0.307
+      "gen_time_s": 1.095
     },
     {
       "id": 11,
       "category": "multi-step",
       "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
       "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
-      "output": "@Groq  \nfilename: \"quote sonicflow_s-u-p-a-b-a-s-e-handler end quote\"  \nreplace \"supabase\" with \"vercel\" → \"sonicflow_v-e-r-c-e-l-handler\"",
-      "raw_output": "@Groq  \nfilename: \"quote sonicflow_s-u-p-a-b-a-s-e-handler end quote\"  \nreplace \"supabase\" with \"vercel\" → \"sonicflow_v-e-r-c-e-l-handler\"",
-      "score": "fail",
-      "gen_time_s": 1.609
+      "output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
+      "raw_output": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
+      "score": "exact",
+      "gen_time_s": 4.047
     },
     {
       "id": 12,
       "category": "camelcase",
       "input": "So we've got a file called usetranscription.ts.",
       "ideal": "So we've got a file called useTranscription.ts.",
-      "output": "So we've got a file called usetranscription.ts.",
-      "raw_output": "So we've got a file called usetranscription.ts.",
-      "score": "semantic",
-      "gen_time_s": 0.619
+      "output": "So we've got a file called useTranscription.ts.",
+      "raw_output": "So we've got a file called useTranscription.ts.",
+      "score": "exact",
+      "gen_time_s": 1.322
     }
   ]
 }
