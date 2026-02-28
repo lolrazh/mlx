@@ -53,6 +53,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T4** | 03-01 | LoRA | r=8 | adam | flat | **v2 (447)** | 800 (OOM@450) | 0.174 @300 | Overfits ~350. OOM at 450 (Metal memory). Best ckpt = 300. |
 | **T5** | 03-01 | **DoRA** | r=8 | adam | flat | v2 (447) | 200 (OOM@save200) | 0.229 @200 (unsaved) / 0.272 @100 | DoRA +1GB peak mem (15.2 GB). OOM during iter 200 save. Only iter 100 ckpt. |
 | **T6** | 03-01 | LoRA | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 | 0.231 @200 | grad_checkpoint=true. Peak mem 9.8 GB (was 14 GB). **Zero quant loss.** |
+| **T6b** | 03-01 | LoRA | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 500 | 0.200 @500 | Clean AdamW rerun. No grad_ckpt, caffeinate -dims. Still dropping at 500 — no overfit. Peak 14.1 GB. |
 | T7 | — | LoRA | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (447) | 200 | — | Isolate LR schedule. |
 | **T8** | 03-01 | **DoRA** | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 (50 eff.) | 0.427 @200 | batch=1+accum=4 (OOM forced). 50 effective steps. 15.4 GB peak. DoRA not viable on M4. |
 | T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (447) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
@@ -90,6 +91,8 @@ All from Qwen3-4B base.
 | T5 | iter 100 | bf16 | v2 | 23 | **30%** | 6 | 1 | 15 | 1 | 17.91s | Undertrained (100 iters, val 0.272). Extreme latency. Inconclusive. |
 | T6 | iter 200 | bf16 | v2 | 23 | **43%** | 9 | 1 | 12 | 1 | 3.39s | Undertrained (200 iters, val 0.231). Same val loss as T4@200. |
 | T6 | iter 200 | 6-bit | v2 | 23 | **43%** | 9 | 1 | 12 | 1 | 1.94s | **Zero quant loss** (bf16 = 6-bit). AdamW weight decay helps. |
+| **T6b** | **iter 500** | **bf16** | **v2** | **23** | **70%** | **15** | **1** | **7** | **0** | **1.82s** | **AdamW 500 iters. 4 pts below T4 — still undertrained (val 0.200 vs 0.174).** |
+| T6b | iter 500 | 6-bit | v2 | 23 | **57%** | 12 | 1 | 10 | 0 | 1.14s | 13% quant loss. Zero quant loss from T6 did NOT hold at higher accuracy. |
 | T7 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 | T8 | iter 200 | bf16 | v2 | 23 | **30%** | 5 | 2 | 14 | 2 | 17.75s | Only 50 effective steps (grad_accum=4). DoRA latency ~18s. Not viable. |
 | T9 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
@@ -150,10 +153,11 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | ~~DONE~~ | ~~T5~~ | ~~DoRA~~ | ~~OOM + 18s latency. Not viable on M4 24GB.~~ | ~~Dead end~~ |
 | ~~DONE~~ | ~~T6~~ | ~~AdamW (200 iters)~~ | ~~Zero quant loss! But undertrained.~~ | ~~Rerun as T6b~~ |
 | ~~DONE~~ | ~~T8~~ | ~~DoRA + AdamW~~ | ~~OOM forced batch=1. Not viable.~~ | ~~Dead end~~ |
-| **NOW** | T6b | AdamW rerun, 500 iters, no grad_ckpt | Match T4 training budget + extend. Test if zero quant loss holds. | T6 signal |
-| Medium | T7 | Cosine LR + warmup (50 steps) | Avoids early instability → lower val loss | T6b result |
-| Medium | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T6b result |
-| Medium | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T6b result |
+| ~~DONE~~ | ~~T6b~~ | ~~AdamW 500 iters~~ | ~~70% bf16, 57% 6-bit. Still dropping at 500 — needs more iters. Quant loss 13% (worse than T4's 9%).~~ | ~~Done~~ |
+| **NOW** | T6c | AdamW extended, 800 iters | Val loss still dropping at 0.200. T4 peaked at 0.174. Push to convergence. | T6b still improving |
+| Medium | T7 | Cosine LR + warmup (50 steps) | Avoids early instability → lower val loss | T6b/T6c result |
+| Medium | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T6b/T6c result |
+| Medium | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T6b/T6c result |
 | Low | Expand to 650-750 examples | Target optimal data volume per research | After T6b |
 | Low | DPO on persistent failures | Preference learning for edge cases | Only after SFT plateau |
 
@@ -173,6 +177,8 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 10. **Llama 1B not viable.** 25% accuracy gap vs Qwen. Overfits 2.5x faster.
 11. **Overfitting timeline:** r=8 starts ~iter 350 on v2 data, ~iter 500 on v1 data. Llama 1B starts ~iter 200.
 12. **DoRA not viable on M4 24GB.** +1-5 GB peak mem over LoRA, OOMs at batch_size≥2, ~18s inference latency (10x LoRA). Converges slower per token.
-13. **AdamW zero quant loss** — T6 (AdamW) showed 0% degradation bf16→6-bit (43%=43%) vs T4's 9% loss. Weight decay produces quant-friendly weights.
+13. **AdamW zero quant loss was premature** — T6 at 200 iters showed 0% quant loss (43%=43%), but T6b at 500 iters shows 13% loss (70%→57%). At low accuracy, quant can't make already-wrong answers worse. At higher accuracy, tight decision boundaries are quant-sensitive regardless of optimizer.
 14. **grad_checkpoint halves training memory** — 14 GB → 9.8 GB peak. ~2x slower training but enables reliable completion.
 15. **grad_accumulation_steps breaks iter count** — mlx_lm counts micro-batches, not optimizer steps. `accum=4` means 200 "iters" = 50 effective updates.
+16. **AdamW delays overfitting significantly** — T4 (adam) overfits at ~350, T6b (adamw) still dropping at 500. Weight decay extends the useful training window by 40%+. But converges slower — val loss 0.200 at iter 500 vs T4's 0.174 at iter 300.
+17. **Mac sleep kills Metal GPU state** — always use `caffeinate -dims` (display, idle, memory, system) for training runs. T6 OOM'd at iter 1 on same config that ran fine before sleep.

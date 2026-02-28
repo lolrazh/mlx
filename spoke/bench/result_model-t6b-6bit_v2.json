@@ -1,15 +1,15 @@
 {
-  "model": "mlx-community/Qwen3-4B-Instruct-2507-bf16",
-  "short_name": "qwen3-4b-bf16+lora",
+  "model": "spoke/model-t6b-6bit",
+  "short_name": "model-t6b-6bit",
   "prompt_mode": "v2",
-  "load_time_s": 3.4,
+  "load_time_s": 1.3,
   "n": 23,
-  "exact": 15,
+  "exact": 12,
   "semantic": 1,
-  "partial": 7,
+  "partial": 10,
   "fail": 0,
-  "accuracy": 0.6957,
-  "avg_latency_s": 1.82,
+  "accuracy": 0.5652,
+  "avg_latency_s": 1.136,
   "results": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "output": "I'm gonna be using Silero VAD for this.",
       "raw_output": "I'm gonna be using Silero VAD for this.",
       "score": "exact",
-      "gen_time_s": 1.653
+      "gen_time_s": 0.942
     },
     {
       "id": 2,
@@ -29,7 +29,7 @@
       "output": "He went to the Kadai.",
       "raw_output": "He went to the Kadai.",
       "score": "exact",
-      "gen_time_s": 1.204
+      "gen_time_s": 0.774
     },
     {
       "id": 3,
@@ -39,7 +39,7 @@
       "output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
       "raw_output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
       "score": "exact",
-      "gen_time_s": 2.669
+      "gen_time_s": 1.389
     },
     {
       "id": 4,
@@ -49,7 +49,7 @@
       "output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
       "raw_output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
       "score": "exact",
-      "gen_time_s": 1.731
+      "gen_time_s": 0.968
     },
     {
       "id": 5,
@@ -59,7 +59,7 @@
       "output": "Let's meet at 12pm, Thursday.",
       "raw_output": "Let's meet at 12pm, Thursday.",
       "score": "exact",
-      "gen_time_s": 1.57
+      "gen_time_s": 0.905
     },
     {
       "id": 6,
@@ -69,7 +69,7 @@
       "output": "We're using Svelte.",
       "raw_output": "We're using Svelte.",
       "score": "partial",
-      "gen_time_s": 1.112
+      "gen_time_s": 0.743
     },
     {
       "id": 7,
@@ -79,7 +79,7 @@
       "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 2.594
+      "gen_time_s": 1.335
     },
     {
       "id": 8,
@@ -89,27 +89,27 @@
       "output": "Gluten-free bread that lists wheat as the second ingredient.",
       "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient.\"",
       "score": "partial",
-      "gen_time_s": 1.732
+      "gen_time_s": 0.979
     },
     {
       "id": 9,
       "category": "quote-endquote",
       "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
       "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
-      "output": "I mean they said I was lucky to be here. What the fuck do they mean by that?",
-      "raw_output": "I mean they said I was lucky to be here. What the fuck do they mean by that?",
+      "output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?",
+      "raw_output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?",
       "score": "partial",
-      "gen_time_s": 2.336
+      "gen_time_s": 1.311
     },
     {
       "id": 10,
       "category": "quote-endquote",
       "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
       "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
-      "output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
-      "raw_output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
-      "score": "exact",
-      "gen_time_s": 2.343
+      "output": "The debug log shows \"quote connection timed out after 30 seconds\" three times in a row.",
+      "raw_output": "The debug log shows \"quote connection timed out after 30 seconds\" three times in a row.",
+      "score": "partial",
+      "gen_time_s": 1.274
     },
     {
       "id": 11,
@@ -119,17 +119,17 @@
       "output": "He described the interview as \"the most stressful hour of my life\".",
       "raw_output": "He described the interview as \"the most stressful hour of my life\".",
       "score": "exact",
-      "gen_time_s": 1.812
+      "gen_time_s": 1.052
     },
     {
       "id": 12,
       "category": "at-symbol",
       "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
       "ideal": "I wanna fix @app.py and @test.py.",
-      "output": "I wanna fix @app.py and @test.py.",
-      "raw_output": "I wanna fix @app.py and @test.py.",
-      "score": "exact",
-      "gen_time_s": 1.552
+      "output": "I wanna fix app.py and test.py. Add an @ symbol before the file names.",
+      "raw_output": "I wanna fix app.py and test.py. Add an @ symbol before the file names.",
+      "score": "partial",
+      "gen_time_s": 1.187
     },
     {
       "id": 13,
@@ -139,7 +139,7 @@
       "output": "WE'RE SO EXCITED TO MAKE THIS.",
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
       "score": "exact",
-      "gen_time_s": 1.465
+      "gen_time_s": 0.871
     },
     {
       "id": 14,
@@ -149,7 +149,7 @@
       "output": "It's **surprisingly** fast.",
       "raw_output": "It's **surprisingly** fast.",
       "score": "exact",
-      "gen_time_s": 1.296
+      "gen_time_s": 0.834
     },
     {
       "id": 15,
@@ -159,7 +159,7 @@
       "output": "The result was <result>unexpected</result>.",
       "raw_output": "The result was <result>unexpected</result>.",
       "score": "partial",
-      "gen_time_s": 1.466
+      "gen_time_s": 1.018
     },
     {
       "id": 16,
@@ -169,7 +169,7 @@
       "output": "The function returns <null> on error. XML open error, XML close error, around <null>.",
       "raw_output": "The function returns <null> on error. XML open error, XML close error, around <null>.",
       "score": "partial",
-      "gen_time_s": 2.429
+      "gen_time_s": 1.547
     },
     {
       "id": 17,
@@ -179,7 +179,7 @@
       "output": "The invite list includes plus1@temp-hyphen-mail.org, which is obviously fake, and also real@person@outlook.com.",
       "raw_output": "The invite list includes plus1@temp-hyphen-mail.org, which is obviously fake, and also real@person@outlook.com.",
       "score": "partial",
-      "gen_time_s": 3.258
+      "gen_time_s": 2.058
     },
     {
       "id": 18,
@@ -189,7 +189,7 @@
       "output": "💔",
       "raw_output": "💔",
       "score": "exact",
-      "gen_time_s": 0.662
+      "gen_time_s": 0.824
     },
     {
       "id": 19,
@@ -199,7 +199,7 @@
       "output": "🙏 for the victims",
       "raw_output": "🙏 for the victims",
       "score": "exact",
-      "gen_time_s": 0.909
+      "gen_time_s": 0.899
     },
     {
       "id": 20,
@@ -209,7 +209,7 @@
       "output": "So we've got a file called usetranscription.ts.",
       "raw_output": "So we've got a file called usetranscription.ts.",
       "score": "semantic",
-      "gen_time_s": 1.74
+      "gen_time_s": 1.22
     },
     {
       "id": 21,
@@ -219,7 +219,7 @@
       "output": "Check your tsconfig, the jsx compiler option should be set to \"react-jsx\" not the old transform.",
       "raw_output": "Check your tsconfig, the jsx compiler option should be set to \"react-jsx\" not the old transform.",
       "score": "partial",
-      "gen_time_s": 2.609
+      "gen_time_s": 1.542
     },
     {
       "id": 22,
@@ -229,17 +229,17 @@
       "output": "Wait until you see the new office, it's completely different from the old one.",
       "raw_output": "Wait until you see the new office, it's completely different from the old one.",
       "score": "exact",
-      "gen_time_s": 2.085
+      "gen_time_s": 1.505
     },
     {
       "id": 23,
       "category": "hard-negative",
       "input": "Never mind the formatting, just get the content right first.",
       "ideal": "Never mind the formatting, just get the content right first.",
-      "output": "Never mind the formatting, just get the content right first.",
-      "raw_output": "Never mind the formatting, just get the content right first.",
-      "score": "exact",
-      "gen_time_s": 1.644
+      "output": "Got it.",
+      "raw_output": "Got it.",
+      "score": "partial",
+      "gen_time_s": 0.941
     }
   ]
 }
