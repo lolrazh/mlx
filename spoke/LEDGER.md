@@ -6,10 +6,10 @@
 ## How to Read This
 
 - **Clean accuracy** = generic or v2 prompt only (no few-shot, no data leakage). The only honest metric.
-- **Spoke accuracy** is crossed out where shown — 4/11 test examples leaked into the few-shot prompt. See [Data Leakage](#data-leakage) below.
+- **Spoke accuracy** is crossed out where shown — 4/23 test examples leaked into the few-shot prompt. See [Data Leakage](#data-leakage) below.
 - **Data v1** = 472 train, generic v1 system prompt (~30 tokens), includes multi-command category.
-- **Data v2** = 408 train, v2 system prompt (~80 tokens), multi-command removed, targeted self-correction + quote-endquote fixes added.
-- **Accuracy** = (exact + semantic) / N. Test set: 12 examples (v1) or 11 examples (v2, multi-step removed).
+- **Data v2** = 447 train / 20 valid / 23 test, v2 system prompt (~80 tokens), multi-command removed, targeted self-correction + quote-endquote fixes, XML tag fixes.
+- **Accuracy** = (exact + semantic) / N. Test set: 12 examples (v1) or 23 examples (v2).
 - **6-bit is the deploy quant.** bf16/8-bit = same accuracy. 4-bit drops ~17% (2 examples). See [Quant Impact](#quantization-impact).
 - Benchmark results as JSON: `spoke/bench/result_*.json`
 
@@ -41,13 +41,13 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T1** | 02-28 | LoRA | r=16 | adam | flat | v1 (472) | 1000 | 0.16 @200 | First run. Overfits ~iter 500. |
 | **T2** | 03-01 | LoRA | r=8 | adam | flat | v1 (472) | 1000 | 0.146 @500 | r=8 = r=16. Half params, same accuracy, later overfit. |
 | **T3** | 03-01 | LoRA | r=16 | adam | flat | v1 (472) | ~750 | 0.243 @200 | **Llama 1B base.** Overfits @200. Killed. Not viable. |
-| **T4** | — | LoRA | r=8 | adam | flat | **v2 (408)** | 200 | — | **NEXT RUN.** Same config, new data. Isolates data effect. |
-| T5 | — | **DoRA** | r=8 | adam | flat | v2 (408) | 200 | — | Isolate DoRA vs LoRA. |
-| T6 | — | LoRA | r=8 | **adamw** (wd=0.01) | flat | v2 (408) | 200 | — | Isolate optimizer. |
-| T7 | — | LoRA | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (408) | 200 | — | Isolate LR schedule. |
-| T8 | — | **DoRA** | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (408) | 200 | — | Full stack. |
-| T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (408) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
-| T10 | — | LoRA | r=8 | adam | flat | v2 (408) | 200 | — | **mask_prompt: false.** More gradient signal? |
+| **T4** | — | LoRA | r=8 | adam | flat | **v2 (447)** | 200 | — | **NEXT RUN.** Same config, new data. Isolates data effect. |
+| T5 | — | **DoRA** | r=8 | adam | flat | v2 (447) | 200 | — | Isolate DoRA vs LoRA. |
+| T6 | — | LoRA | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 | — | Isolate optimizer. |
+| T7 | — | LoRA | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (447) | 200 | — | Isolate LR schedule. |
+| T8 | — | **DoRA** | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (447) | 200 | — | Full stack. |
+| T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (447) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
+| T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
 
 ---
 
@@ -65,14 +65,14 @@ Accuracy on 6-bit quantized model with **generic v1** prompt unless noted. All f
 | T2 | iter 400 | bf16 | generic v1 | 12 | **75%** | 8 | 1 | 2 | 1 | 1.75s | bf16 = 6-bit accuracy. |
 | T2 | iter 400 | bf16 | v2 | 12 | **58%** | 6 | 1 | 4 | 1 | 1.71s | Prompt mismatch: trained v1, tested v2. -17%. |
 | T3 | iter 200 | bf16 | generic v1 | 12 | **50%** | 5 | 1 | 6 | 0 | 0.63s | Llama 1B. Fixed hallucinations but 25% gap vs Qwen. |
-| T4 | — | 6-bit | generic v1 | 11 | **—** | — | — | — | — | — | |
-| T4 | — | 6-bit | v2 | 11 | **—** | — | — | — | — | — | Matched prompt: trained v2, tested v2. |
-| T5 | — | 6-bit | v2 | 11 | **—** | — | — | — | — | — | |
-| T6 | — | 6-bit | v2 | 11 | **—** | — | — | — | — | — | |
-| T7 | — | 6-bit | v2 | 11 | **—** | — | — | — | — | — | |
-| T8 | — | 6-bit | v2 | 11 | **—** | — | — | — | — | — | |
-| T9 | — | 6-bit | v2 | 11 | **—** | — | — | — | — | — | |
-| T10 | — | 6-bit | v2 | 11 | **—** | — | — | — | — | — | |
+| T4 | — | 6-bit | generic v1 | 23 | **—** | — | — | — | — | — | |
+| T4 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | Matched prompt: trained v2, tested v2. |
+| T5 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
+| T6 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
+| T7 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
+| T8 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
+| T9 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
+| T10 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 
 ---
 
@@ -113,11 +113,11 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | Test ID | Category | Status |
 |---------|----------|--------|
 | #1 | spell-replace | Leaked |
-| #5 | quote-unquote | Leaked |
-| #9 | emphasis | Leaked |
-| #12 | camelcase | Leaked |
+| #7 | quote-unquote | Leaked |
+| #14 | emphasis | Leaked |
+| #20 | camelcase | Leaked |
 
-**Impact:** Spoke-prompt baselines were inflated ~20%. The "58% spoke baseline" was actually 38% on clean examples. The "83% fine-tuned spoke" was 75% clean. All spoke-mode benchmarks are contaminated and should not be cited without noting this. Clean results use generic or v2 prompts only.
+**Impact (v1 test set, 12 examples):** Spoke-prompt baselines were inflated ~20%. The "58% spoke baseline" was actually 38% on clean examples. The "83% fine-tuned spoke" was 75% clean. Leakage still present in v2 test set (4/23 = 17%). Clean results use generic or v2 prompts only — not affected by this leakage.
 
 ---
 
