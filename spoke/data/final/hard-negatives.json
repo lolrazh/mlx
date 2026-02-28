@@ -1,0 +1,74 @@
+[
+  {
+    "input": "I'm sorry to hear about your loss, please let me know if there's anything I can do.",
+    "ideal": "I'm sorry to hear about your loss, please let me know if there's anything I can do."
+  },
+  {
+    "input": "She actually finished the project two days early which surprised everyone.",
+    "ideal": "She actually finished the project two days early which surprised everyone."
+  },
+  {
+    "input": "No, I don't think that's the right approach for this problem.",
+    "ideal": "No, I don't think that's the right approach for this problem."
+  },
+  {
+    "input": "Wait, you're telling me the server has been down since yesterday?",
+    "ideal": "Wait, you're telling me the server has been down since yesterday?"
+  },
+  {
+    "input": "I mean, it's not the worst thing in the world but it's definitely not ideal.",
+    "ideal": "I mean, it's not the worst thing in the world but it's definitely not ideal."
+  },
+  {
+    "input": "Sorry but I can't make it to the meeting tomorrow, something came up.",
+    "ideal": "Sorry but I can't make it to the meeting tomorrow, something came up."
+  },
+  {
+    "input": "Actually that's a really good point, I hadn't thought of it that way.",
+    "ideal": "Actually that's a really good point, I hadn't thought of it that way."
+  },
+  {
+    "input": "Can you scratch that surface a bit more and see what's underneath?",
+    "ideal": "Can you scratch that surface a bit more and see what's underneath?"
+  },
+  {
+    "input": "He quoted a price of three thousand dollars for the renovation.",
+    "ideal": "He quoted a price of three thousand dollars for the renovation."
+  },
+  {
+    "input": "The quote from the contractor was way too high so we went with someone else.",
+    "ideal": "The quote from the contractor was way too high so we went with someone else."
+  },
+  {
+    "input": "Wait until you see the new office, it's completely different from the old one.",
+    "ideal": "Wait until you see the new office, it's completely different from the old one."
+  },
+  {
+    "input": "I actually really like the new design, it's much cleaner than before.",
+    "ideal": "I actually really like the new design, it's much cleaner than before."
+  },
+  {
+    "input": "No worries at all, take your time with the review.",
+    "ideal": "No worries at all, take your time with the review."
+  },
+  {
+    "input": "Sorry to bother you but do you have a minute to look at this PR?",
+    "ideal": "Sorry to bother you but do you have a minute to look at this PR?"
+  },
+  {
+    "input": "I mean the whole point of the refactor was to make it easier to test.",
+    "ideal": "I mean the whole point of the refactor was to make it easier to test."
+  },
+  {
+    "input": "Actually I was just thinking about that exact same thing earlier today.",
+    "ideal": "Actually I was just thinking about that exact same thing earlier today."
+  },
+  {
+    "input": "Wait for the CI to finish before merging, it usually takes about five minutes.",
+    "ideal": "Wait for the CI to finish before merging, it usually takes about five minutes."
+  },
+  {
+    "input": "She said sorry for the delay and promised to send the report by end of day.",
+    "ideal": "She said sorry for the delay and promised to send the report by end of day."
+  }
+]

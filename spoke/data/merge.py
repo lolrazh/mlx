@@ -43,6 +43,7 @@ CATEGORIES = [
     "email",
     "emoji",
     "code-aware",
+    "hard-negatives",
 ]
 
 
