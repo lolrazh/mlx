@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-01
 **Agent:** Claude Opus 4.6
-**Status:** 🔄 Ongoing (r=8 1000-iter run in progress)
+**Status:** ✅ Completed
 
 ## User Intention
 User wanted to systematically explore the fine-tuning hyperparameter space to find the optimal deployment configuration for Spoke's ASR post-processing. Key goals: test different LoRA ranks, compare Llama 3.2 1B vs Qwen3-4B, find where overfitting starts for each config, and determine the best quant level. Also wanted research on whether to remove system prompts from training data and how LoRA rank affects quality. Building on `2026-02-28_2330_spoke-experiment-grid.md`.
@@ -14,7 +14,8 @@ User wanted to systematically explore the fine-tuning hyperparameter space to fi
 - ✅ **Qwen3-4B r=8, 200 iters** - Matches r=16 at 83% spoke with half the params (7.3M vs 14.7M)
 - ✅ **Llama 3.2 1B r=16, 200 iters** - 67% spoke, 50% generic (up from 8%/25% zero-shot)
 - ✅ **Llama 3.2 1B r=16, 1000 iters** - Overfits at iter 200 (val loss 0.243 best, 0.405 by iter 700). Killed at ~750.
-- 🔄 **Qwen3-4B r=8, 1000 iters** - Currently running with caffeinate. Testing if r=8 delays overfitting past r=16's iter 500 cliff.
+- ✅ **Qwen3-4B r=8, 1000 iters** - Overfitting delayed to iter 500 (val loss 0.146 best). Graceful degradation: 0.219 at iter 1000 vs r=16's 0.284.
+- ✅ **r=8 iter400 6-bit benchmarked** - New best deployment config: 83% spoke + 75% generic, 3.1 GB
 
 ### Benchmarks
 - ✅ **Llama 3.2 1B zero-shot** - 8% generic, 25% spoke, 25% task (hallucinations, refusals, code generation)
@@ -56,10 +57,10 @@ Iter:  1    100   200   300   500   600   800   1000
 Loss: 3.30  0.20  0.16  0.15  0.15  0.18  0.24  0.28  ← overfits ~500
 ```
 
-**Qwen3-4B r=8 (200 iters so far):**
+**Qwen3-4B r=8 (1000 iters, complete):**
 ```
-Iter:  1    50    100   150   200
-Loss: 3.30  0.37  0.24  0.21  0.19  ← still improving!
+Iter:  1    100   200   300   400   500   600   700   800   900   1000
+Loss: 3.30  0.24  0.19  0.17  0.18  0.15  0.15  0.15  0.18  0.19  0.22  ← overfits ~500, graceful
 ```
 
 **Llama 1B r=16 (1000 iters):**
