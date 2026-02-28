@@ -112,6 +112,10 @@ Loss: 3.10  0.31  0.24  0.26  0.30  0.29  0.31  0.41  ← overfits ~200
 - **4-bit quantization is the quality cliff** for Qwen3-4B — drops 8% accuracy regardless of rank or iters. 6-bit preserves full accuracy.
 - **Llama 1B fine-tuning completely fixes hallucination/refusal** (8% → 50% generic) but can't match Qwen's 83% spoke accuracy. The 3x parameter advantage is real.
 - **Parallel research agents are highly effective** — Opus and Sonnet produced actionable, well-sourced research in ~3-5 min while training ran in background.
+- **Accuracy ceiling is 83% (10/12) due to 2 training data gaps, not hyperparameters:**
+  1. **Self-correction #3** (test ID 3): Model drops "Cloudflare Workers and" — overcorrects because training data teaches "replace entire clause", but this needs partial replacement within a compound phrase ("X and Y" → "X and Z"). Fix: add compound-phrase correction examples.
+  2. **Quote-endquote #6** (test ID 6): Model wraps only "lucky" instead of "lucky to be here" — applies quote-unquote (single-word) pattern instead of quote...end quote (multi-word). Test #5 and #6 are near-identical sentences which confuses the model. Also, the period before "end quote" may break scoping. Fix: add multi-word quote-endquote examples that resemble quote-unquote patterns, and examples with punctuation before "end quote".
+- **Hyperparameter tuning hit diminishing returns because the bottleneck is training data quality, not model capacity.** No combination of rank, iters, or quant will fix examples the model was never taught to handle.
 
 ## Architecture Decisions
 - **r=8 as new default** - Research + experiments confirm r=16 is overkill for formatting tasks. Half the params with same accuracy.
@@ -125,13 +129,15 @@ Loss: 3.10  0.31  0.24  0.26  0.30  0.29  0.31  0.41  ← overfits ~200
 - ✅ **All benchmark infrastructure working** - `run_benchmark.py` supports adapters, local models, all prompt modes
 
 ## Remaining Task Board
-| # | Task | Status |
-|---|------|--------|
-| 8 | Train without multi-step examples | Pending |
-| 11 | Update results.html with full comparison | Pending |
-| — | r=8 400-iter sweet spot training | After 1000-iter results |
-| — | Training prompt v2 experiment | After rank experiments |
-| — | r=4 experiment (if r=8 still overfits) | Pending |
+| # | Task | Priority | Status |
+|---|------|----------|--------|
+| — | Fix 2 persistent failures via training data | **HIGH** | Pending — this is the actual accuracy bottleneck |
+| — | Training prompt v2 experiment | HIGH | Pending — swap condensed prompt into JSONL, retrain |
+| 8 | Train without multi-step examples | Medium | Pending |
+| 11 | Update results.html with full comparison | Low | Pending |
+| — | r=4 experiment | Low | Only if needed |
 
 ## Context for Future
-This session established r=8 as the correct LoRA rank for Spoke's formatting task (confirmed by both literature research and empirical results). The r=8 1000-iter run will reveal the overfitting curve — expected to delay past r=16's iter 500 cliff. Once we know the r=8 sweet spot, the next high-impact experiment is swapping in the condensed training prompt v2 (adds "never answer questions", "preserve profanity", filler word rules from production Spoke app). Best current deployment config: Qwen3-4B, r=8, 200 iters, 6-bit = 83% spoke accuracy, 3.1 GB, ~0.8s latency.
+This session established r=8 as the correct LoRA rank for Spoke's formatting task (confirmed by both literature research and empirical results). The r=8 1000-iter run revealed overfitting starts at ~iter 500 with graceful degradation (val loss 0.146 → 0.219 at iter 1000). Best deployment config: **Qwen3-4B, r=8, iter 400, 6-bit = 83% spoke + 75% generic, 3.1 GB, ~0.8s latency.**
+
+**Critical realization: the 83% accuracy ceiling (10/12 test examples) is NOT a hyperparameter problem — it's a training data gap.** Two test examples fail across ALL configs (ranks, iters, quant levels, even different base models). The fixes are: (1) add compound-phrase self-correction examples, (2) add disambiguating quote-endquote examples. Until the training data is fixed, no amount of hyperparameter tuning will break past 83%. The highest-impact next step is fixing these two training data gaps, then optionally experimenting with training prompt v2.
