@@ -9,8 +9,8 @@ mask_prompt: true
 
 # LoRA hyperparameters
 lora_parameters:
-  rank: 16
-  scale: 2.0        # alpha = rank * scale = 32
+  rank: 8
+  scale: 2.0        # alpha = rank * scale = 16
   dropout: 0.05
 
 # Training

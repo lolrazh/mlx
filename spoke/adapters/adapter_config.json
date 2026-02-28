@@ -9,7 +9,7 @@
     "iters": 200,
     "learning_rate": 1e-05,
     "lora_parameters": {
-        "rank": 16,
+        "rank": 8,
         "scale": 2.0,
         "dropout": 0.05
     },

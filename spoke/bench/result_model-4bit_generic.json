@@ -9,7 +9,7 @@
   "partial": 4,
   "fail": 1,
   "accuracy": 0.5833,
-  "avg_latency_s": 0.681,
+  "avg_latency_s": 0.809,
   "results": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "output": "I'm gonna be using Silero VAD for this.",
       "raw_output": "I'm gonna be using Silero VAD for this.",
       "score": "exact",
-      "gen_time_s": 0.669
+      "gen_time_s": 0.679
     },
     {
       "id": 2,
@@ -29,7 +29,7 @@
       "output": "He went to the Kadi.",
       "raw_output": "He went to the Kadi.",
       "score": "partial",
-      "gen_time_s": 0.489
+      "gen_time_s": 0.478
     },
     {
       "id": 3,
@@ -39,7 +39,7 @@
       "output": "The backend is actually powered by Fireworks.",
       "raw_output": "The backend is actually powered by Fireworks.",
       "score": "partial",
-      "gen_time_s": 0.556
+      "gen_time_s": 0.517
     },
     {
       "id": 4,
@@ -49,7 +49,7 @@
       "output": "Let's meet at 12pm, Thursday.",
       "raw_output": "Let's meet at 12pm, Thursday.",
       "score": "exact",
-      "gen_time_s": 0.702
+      "gen_time_s": 0.661
     },
     {
       "id": 5,
@@ -59,7 +59,7 @@
       "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 0.91
+      "gen_time_s": 0.872
     },
     {
       "id": 6,
@@ -69,7 +69,7 @@
       "output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?",
       "score": "partial",
-      "gen_time_s": 0.983
+      "gen_time_s": 0.932
     },
     {
       "id": 7,
@@ -89,7 +89,7 @@
       "output": "WE'RE SO EXCITED TO MAKE THIS.",
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
       "score": "exact",
-      "gen_time_s": 0.605
+      "gen_time_s": 1.067
     },
     {
       "id": 9,
@@ -99,7 +99,7 @@
       "output": "It's *surprisingly* fast.",
       "raw_output": "It's *surprisingly* fast.",
       "score": "partial",
-      "gen_time_s": 0.54
+      "gen_time_s": 1.121
     },
     {
       "id": 10,
@@ -109,17 +109,17 @@
       "output": "💔",
       "raw_output": "💔",
       "score": "exact",
-      "gen_time_s": 0.37
+      "gen_time_s": 0.55
     },
     {
       "id": 11,
       "category": "multi-step",
       "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
       "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
-      "output": "Send this to @Vercel. The filename is \"quote sonicflow_superbase-handler end quote.\"",
-      "raw_output": "Send this to @Vercel. The filename is \"quote sonicflow_superbase-handler end quote.\"",
+      "output": "Send this to @Vercel. The filename is quote sonicflow_Supabase-handler end quote.",
+      "raw_output": "Send this to @Vercel. The filename is quote sonicflow_Supabase-handler end quote.",
       "score": "fail",
-      "gen_time_s": 1.08
+      "gen_time_s": 1.393
     },
     {
       "id": 12,
@@ -129,7 +129,7 @@
       "output": "So we've got a file called usetranscription.ts.",
       "raw_output": "So we've got a file called usetranscription.ts.",
       "score": "semantic",
-      "gen_time_s": 0.646
+      "gen_time_s": 0.824
     }
   ]
 }
