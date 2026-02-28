@@ -19,18 +19,27 @@ Viewer: `spoke/data/viewer.html` — open in browser, filter by category/split, 
 | 1 | spell-replace | ~13 | 80 | ASR mishears word → user spells correct version |
 | 2 | self-correction | ~11 | 80 | "wait no", "sorry", "scratch that", "actually" |
 | 3 | quote-unquote | ~4 | 50 | "quote-unquote X" or "quote X end quote" → "X" |
-| 4 | at-symbol | ~5 | 50 | "at symbol before X" → @X |
+| 4 | formatting | ~12 | 80 | Caps, lowercase, bold/emphasis, @-symbol insertion, XML tag wrapping |
 | 5 | email | ~1 | 40 | "dot com", "at gmail" → proper email format |
-| 6 | formatting | ~7 | 60 | Caps, lowercase, bold/emphasis, excitement |
-| 7 | emoji | ~4 | 30 | Verbal emoji name → actual emoji |
-| 8 | code-aware | ~3 | 40 | CamelCase, tech terms, filenames |
-| 9 | multi-command | ~3 | 80 | 2+ operations combined in one utterance |
-| | **Total** | **~49** | **~510** | |
+| 6 | emoji | ~4 | 30 | Verbal emoji name → actual emoji |
+| 7 | code-aware | ~3 | 40 | CamelCase, tech terms, filenames |
+| 8 | multi-command | ~3 | 80 | 2+ operations combined in one utterance |
+| | **Total** | **~50** | **~480** | |
+
+`at-symbol` merged into `formatting` — both are annotation/decoration commands.
+`formatting` now covers: case (ALL CAPS, lowercase, selective), emphasis (**bold**, CAPS),
+excitement (!), @-symbol insertion, and XML/custom tag wrapping.
 
 Hard categories (spell-replace, self-correction, multi-command) get more examples
 because they have more failure modes and variations.
 
 No passthrough examples — the regex router handles clean inputs.
+
+### Post-generation: disfluency pass
+After all categories are generated, run a sub-agent pass to add natural speech
+disfluencies (ums, ahs, "you know", "like", "sort of", false starts) to at least
+25% of examples across all categories. The input should sound like real dictation,
+not clean prose. Keep the ideal output unchanged.
 
 ## Pipeline Per Category
 
@@ -65,7 +74,6 @@ spoke/data/
 │   ├── spell-replace.md         # Generation prompt
 │   ├── self-correction.md
 │   ├── quote-unquote.md
-│   ├── at-symbol.md
 │   ├── email.md
 │   ├── formatting.md
 │   ├── emoji.md
@@ -93,9 +101,8 @@ Each category has a programmatic validator in `validate.py`.
 | spell-replace | Spelled word ≠ input word; letters assemble correctly; spelling instruction removed from ideal | High |
 | self-correction | Trigger word present; output shorter than input; output differs from input | Medium |
 | quote-unquote | Quote trigger in input; `"` in ideal; trigger removed from ideal | High |
-| at-symbol | @-trigger in input; `@` in ideal; trigger removed from ideal | High |
 | email | Valid email pattern in ideal; dictated email components in input | High |
-| formatting | Format trigger in input; formatting applied in ideal; trigger removed | Medium |
+| formatting | Format/annotation trigger in input; transformation applied in ideal; trigger removed. Covers: caps/lowercase/bold, @-insertion, XML wrapping | Medium |
 | emoji | Emoji reference in input; actual emoji in ideal; no emoji in input | High |
 | code-aware | Output differs from input (lightweight — mostly needs LLM judgment) | Low |
 | multi-command | 2+ operation types detected in input; output differs from input | Medium |
@@ -181,12 +188,11 @@ Strategy: Start with ~510, evaluate after fine-tuning. If specific categories ar
 
 | Category | Prompt | Generated | Validated | Reviewed | Done |
 |----------|--------|-----------|-----------|----------|------|
-| spell-replace | ✅ | 9 raw | 4 passed, 5 flagged | - | - |
-| self-correction | - | - | - | - | - |
-| quote-unquote | - | - | - | - | - |
-| at-symbol | - | - | - | - | - |
-| email | - | - | - | - | - |
-| formatting | - | - | - | - | - |
-| emoji | - | - | - | - | - |
-| code-aware | - | - | - | - | - |
-| multi-command | - | - | - | - | - |
+| spell-replace | ✅ | 80 | 80/80 ✅ | ✅ | ✅ |
+| self-correction | ✅ | 80 | 80/80 ✅ | ✅ | ✅ |
+| quote-unquote | ✅ | 50 | 50/50 ✅ | ✅ | ✅ |
+| formatting | ✅ | - | - | - | - |
+| email | ✅ | - | - | - | - |
+| emoji | ✅ | - | - | - | - |
+| code-aware | ✅ | - | - | - | - |
+| multi-command | ✅ | - | - | - | - |
