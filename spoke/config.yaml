@@ -19,7 +19,7 @@ lora_parameters:
 
 # Training
 batch_size: 4
-iters: 500           # T6b: AdamW rerun, extended to find overfit point
+iters: 300           # T6c: +300 from T6b's 500 = 800 total. Resume resets counter.
 learning_rate: 1e-5
 num_layers: 16       # fine-tune top 16 transformer layers
 max_seq_length: 512  # transcripts are short
@@ -30,6 +30,6 @@ steps_per_eval: 50
 save_every: 100
 
 # Paths
-adapter_path: ./spoke/adapters-t6b
+adapter_path: ./spoke/adapters-t6c
 
 seed: 42
