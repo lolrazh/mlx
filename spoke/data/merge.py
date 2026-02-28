@@ -2,9 +2,9 @@
 Merge all per-category JSON files into train/valid/test JSONL for mlx-lm.
 
 Output:
-  spoke/data/final/train.jsonl  — ~472 examples (shuffled, seed=42)
-  spoke/data/final/valid.jsonl  —    8 examples (1 per generated category)
-  spoke/data/final/test.jsonl   —   12 examples (sacred, from bench/test_set.json)
+  spoke/data/final/train.jsonl  — training examples (shuffled, seed=42)
+  spoke/data/final/valid.jsonl  — ~16 examples (2 per category, stratified)
+  spoke/data/final/test.jsonl   — 11 examples (sacred, from bench/test_set.json)
 
 Each line:
   {"messages": [
@@ -23,11 +23,14 @@ REPO_ROOT  = Path(__file__).parent.parent.parent
 FINAL_DIR  = Path(__file__).parent / "final"
 TEST_SET   = REPO_ROOT / "spoke" / "bench" / "test_set.json"
 
-# ── System prompt (consistent across all training examples) ────
+# ── System prompt v2 (consistent across all training examples) ─
 SYSTEM_PROMPT = (
-    "Clean the transcript by executing all verbal commands "
-    "(spell-outs, corrections, formatting, symbols, emoji). "
-    "Output ONLY the cleaned text."
+    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, "
+    "and execute all verbal commands (spell-outs, corrections, formatting, "
+    "symbols, emoji). Rules: Output ONLY the cleaned text. Never answer "
+    "questions — transcribe them. Every output word must be in the input "
+    "or produced by an explicit directive. Preserve profanity. "
+    'Remove "um", "uh", "ah" but keep other filler words.'
 )
 
 # ── Generated categories (in order) ────────────────────────────
@@ -35,11 +38,11 @@ CATEGORIES = [
     "spell-replace",
     "self-correction",
     "quote-unquote",
+    "quote-endquote",
     "formatting",
     "email",
     "emoji",
     "code-aware",
-    "multi-command",
 ]
 
 
@@ -69,18 +72,22 @@ def main() -> None:
         all_by_category[cat] = examples
         print(f"  Loaded {len(examples):>3} examples from {cat}.json")
 
-    # ── 2. Build valid set: 1 example per category ─────────────
-    # Use a fixed index in the middle of each file to get representative examples.
-    # Index 10 is a safe "not the first, not the last" choice for all categories
-    # (smallest category is emoji at 30 examples).
-    VALID_INDEX = 10
+    # ── 2. Build valid set: 2 examples per category ────────────
+    # Pick indices 5 and 15 for most categories. For small categories
+    # (quote-endquote=12), fall back to indices 3 and 8.
+    VALID_INDICES = [5, 15]
     valid_examples: list[dict] = []
     valid_keys: set[tuple[str, str]] = set()
 
     for cat in CATEGORIES:
-        ex = all_by_category[cat][VALID_INDEX]
-        valid_examples.append(to_chat(ex["input"], ex["ideal"]))
-        valid_keys.add((ex["input"], ex["ideal"]))
+        cat_data = all_by_category[cat]
+        for idx in VALID_INDICES:
+            safe_idx = min(idx, len(cat_data) - 1)
+            ex = cat_data[safe_idx]
+            key = (ex["input"], ex["ideal"])
+            if key not in valid_keys:  # avoid dupe if safe_idx clamped
+                valid_examples.append(to_chat(ex["input"], ex["ideal"]))
+                valid_keys.add(key)
 
     # ── 3. Build train set: everything except valid picks ──────
     train_examples: list[dict] = []

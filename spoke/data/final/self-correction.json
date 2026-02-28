@@ -318,5 +318,53 @@
   {
     "input": "The flight lands at JFK at 6pm, wait no, LaGuardia at 7pm, I mixed up the reservation details.",
     "ideal": "The flight lands at LaGuardia at 7pm, I mixed up the reservation details."
+  },
+  {
+    "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+    "ideal": "We're using React and Svelte."
+  },
+  {
+    "input": "The team includes Alice, Bob, and Charlie. Scratch that, Dave.",
+    "ideal": "The team includes Alice, Bob, and Dave."
+  },
+  {
+    "input": "I ordered pasta, salad, and the soup. Actually no, the risotto.",
+    "ideal": "I ordered pasta, salad, and the risotto."
+  },
+  {
+    "input": "The stack is Python and Flask. Actually, FastAPI.",
+    "ideal": "The stack is Python and FastAPI."
+  },
+  {
+    "input": "We need to talk to marketing and sales. Sorry, I meant legal.",
+    "ideal": "We need to talk to marketing and legal."
+  },
+  {
+    "input": "It integrates with Slack and Discord. Wait, Teams.",
+    "ideal": "It integrates with Slack and Teams."
+  },
+  {
+    "input": "The colors are red, blue, and green. No wait, yellow.",
+    "ideal": "The colors are red, blue, and yellow."
+  },
+  {
+    "input": "Install Node and npm. Actually, pnpm.",
+    "ideal": "Install Node and pnpm."
+  },
+  {
+    "input": "The deadline is Monday and the review is Wednesday. Scratch that, Friday.",
+    "ideal": "The deadline is Monday and the review is Friday."
+  },
+  {
+    "input": "She speaks French, Spanish, and Portuguese. Wait no, Italian.",
+    "ideal": "She speaks French, Spanish, and Italian."
+  },
+  {
+    "input": "The database uses MongoDB and Redis. Sorry, Memcached.",
+    "ideal": "The database uses MongoDB and Memcached."
+  },
+  {
+    "input": "We're deploying to AWS and Azure. Actually, GCP.",
+    "ideal": "We're deploying to AWS and GCP."
   }
 ]

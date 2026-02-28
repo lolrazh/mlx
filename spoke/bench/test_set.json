@@ -70,13 +70,6 @@
     "source_row": 59
   },
   {
-    "id": 11,
-    "category": "multi-step",
-    "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
-    "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
-    "source_row": 39
-  },
-  {
     "id": 12,
     "category": "camelcase",
     "input": "So we've got a file called usetranscription.ts.",

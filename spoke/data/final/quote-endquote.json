@@ -1,0 +1,50 @@
+[
+  {
+    "input": "She said I was quote talented but underutilized end quote.",
+    "ideal": "She said I was \"talented but underutilized.\""
+  },
+  {
+    "input": "They called it quote good enough for now end quote.",
+    "ideal": "They called it \"good enough for now.\""
+  },
+  {
+    "input": "He described the plan as quote ambitious yet feasible end quote.",
+    "ideal": "He described the plan as \"ambitious yet feasible.\""
+  },
+  {
+    "input": "The review said quote solid performance overall. end quote",
+    "ideal": "The review said \"solid performance overall.\""
+  },
+  {
+    "input": "The teacher wrote quote needs improvement in communication skills end quote on the report card.",
+    "ideal": "The teacher wrote \"needs improvement in communication skills\" on the report card."
+  },
+  {
+    "input": "Management called it quote a necessary restructuring end quote but we all knew it was layoffs.",
+    "ideal": "Management called it \"a necessary restructuring\" but we all knew it was layoffs."
+  },
+  {
+    "input": "The error message says quote unable to connect to database. end quote. Can you check the config?",
+    "ideal": "The error message says \"unable to connect to database.\" Can you check the config?"
+  },
+  {
+    "input": "He literally said quote I don't care what you think end quote and walked out.",
+    "ideal": "He literally said \"I don't care what you think\" and walked out."
+  },
+  {
+    "input": "Their policy states quote all returns must be processed within 30 days end quote.",
+    "ideal": "Their policy states \"all returns must be processed within 30 days.\""
+  },
+  {
+    "input": "She described the movie as quote beautiful but way too long end quote.",
+    "ideal": "She described the movie as \"beautiful but way too long.\""
+  },
+  {
+    "input": "The documentation says quote deprecated since version 3.0. end quote so we need to migrate.",
+    "ideal": "The documentation says \"deprecated since version 3.0.\" So we need to migrate."
+  },
+  {
+    "input": "He called the situation quote completely unacceptable and frankly embarrassing end quote during the meeting.",
+    "ideal": "He called the situation \"completely unacceptable and frankly embarrassing\" during the meeting."
+  }
+]
