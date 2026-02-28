@@ -1,0 +1,122 @@
+[
+  {
+    "input": "Thumbs up",
+    "ideal": "👍"
+  },
+  {
+    "input": "Please give me a pizza emoji",
+    "ideal": "🍕"
+  },
+  {
+    "input": "That presentation was fire emoji amazing",
+    "ideal": "That presentation was 🔥 amazing"
+  },
+  {
+    "input": "Two crying laughing and one regular crying",
+    "ideal": "😂😂😢"
+  },
+  {
+    "input": "Clapping hands emoji great job everyone",
+    "ideal": "👏 great job everyone"
+  },
+  {
+    "input": "The dog chased the cat emoji classic",
+    "ideal": "The dog chased the 🐱 classic"
+  },
+  {
+    "input": "Purple heart broken heart and two red hearts",
+    "ideal": "💜💔❤️❤️"
+  },
+  {
+    "input": "This is fire fire fire emoji no cap",
+    "ideal": "This is 🔥🔥🔥 no cap"
+  },
+  {
+    "input": "Crying laughing face oh my god",
+    "ideal": "😂 oh my god"
+  },
+  {
+    "input": "Skull emoji I can't believe I have to redo this whole thing",
+    "ideal": "💀 I can't believe I have to redo this whole thing"
+  },
+  {
+    "input": "Five clapping hands emojis for that performance",
+    "ideal": "👏👏👏👏👏"
+  },
+  {
+    "input": "Dog emoji cat emoji they're best friends",
+    "ideal": "🐶 🐱 they're best friends"
+  },
+  {
+    "input": "One hundred emoji that's perfect",
+    "ideal": "💯 that's perfect"
+  },
+  {
+    "input": "Can you believe he said that thinking face emoji",
+    "ideal": "Can you believe he said that 🤔"
+  },
+  {
+    "input": "Please please please praying hands emoji I need this to work",
+    "ideal": "Please please please 🙏 I need this to work"
+  },
+  {
+    "input": "Four star emojis for this restaurant",
+    "ideal": "⭐⭐⭐⭐ for this restaurant"
+  },
+  {
+    "input": "Purple heart emoji my favorite color",
+    "ideal": "💜 my favorite color"
+  },
+  {
+    "input": "Pizza slice and burger emoji what's for lunch",
+    "ideal": "🍕 and 🍔 what's for lunch"
+  },
+  {
+    "input": "Crying laughing not just crying emoji you misunderstood",
+    "ideal": "😂 not just 😢 you misunderstood"
+  },
+  {
+    "input": "Two thumbs up and a party popper emoji it's a celebration",
+    "ideal": "👍👍🎉 it's a celebration"
+  },
+  {
+    "input": "Praying hands emoji for the victims",
+    "ideal": "🙏 for the victims"
+  },
+  {
+    "input": "Party popper emoji it's my birthday",
+    "ideal": "🎉 it's my birthday"
+  },
+  {
+    "input": "Dog and cat emoji my pets",
+    "ideal": "🐶🐱 my pets"
+  },
+  {
+    "input": "Two purple hearts for mom",
+    "ideal": "💜💜 for mom"
+  },
+  {
+    "input": "Fire emoji this is lit",
+    "ideal": "🔥 this is lit"
+  },
+  {
+    "input": "Mind blown emoji that plot twist was unexpected",
+    "ideal": "🤯 that plot twist was unexpected"
+  },
+  {
+    "input": "She said yes ring emoji",
+    "ideal": "She said yes 💍"
+  },
+  {
+    "input": "Praying hands emoji for grandma",
+    "ideal": "🙏 for grandma"
+  },
+  {
+    "input": "Clapping emoji well done everyone",
+    "ideal": "👏 well done everyone"
+  },
+  {
+    "input": "Hundred points emoji nailed it",
+    "ideal": "💯 nailed it"
+  }
+]
