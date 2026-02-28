@@ -5,3 +5,5 @@ __pycache__/
 *.safetensors
 models/
 .env
+spoke/fused/
+spoke/model/
