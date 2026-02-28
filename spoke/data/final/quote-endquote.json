@@ -41,7 +41,7 @@
   },
   {
     "input": "The documentation says quote deprecated since version 3.0. end quote so we need to migrate.",
-    "ideal": "The documentation says \"deprecated since version 3.0.\" So we need to migrate."
+    "ideal": "The documentation says \"deprecated since version 3.0.\" so we need to migrate."
   },
   {
     "input": "He called the situation quote completely unacceptable and frankly embarrassing end quote during the meeting.",

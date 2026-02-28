@@ -4,8 +4,8 @@
     "ideal": "I'm sorry to hear about your loss, please let me know if there's anything I can do."
   },
   {
-    "input": "She actually finished the project two days early which surprised everyone.",
-    "ideal": "She actually finished the project two days early which surprised everyone."
+    "input": "The data actually contradicts what we assumed about user retention.",
+    "ideal": "The data actually contradicts what we assumed about user retention."
   },
   {
     "input": "No, I don't think that's the right approach for this problem.",
@@ -20,20 +20,20 @@
     "ideal": "I mean, it's not the worst thing in the world but it's definitely not ideal."
   },
   {
-    "input": "Sorry but I can't make it to the meeting tomorrow, something came up.",
-    "ideal": "Sorry but I can't make it to the meeting tomorrow, something came up."
+    "input": "Sorry, but I can't make it to the meeting tomorrow, something came up.",
+    "ideal": "Sorry, but I can't make it to the meeting tomorrow, something came up."
   },
   {
-    "input": "Actually that's a really good point, I hadn't thought of it that way.",
-    "ideal": "Actually that's a really good point, I hadn't thought of it that way."
+    "input": "Actually, that's a really good point, I hadn't thought of it that way.",
+    "ideal": "Actually, that's a really good point, I hadn't thought of it that way."
   },
   {
     "input": "Can you scratch that surface a bit more and see what's underneath?",
     "ideal": "Can you scratch that surface a bit more and see what's underneath?"
   },
   {
-    "input": "He quoted a price of three thousand dollars for the renovation.",
-    "ideal": "He quoted a price of three thousand dollars for the renovation."
+    "input": "The quote in the article was taken completely out of context.",
+    "ideal": "The quote in the article was taken completely out of context."
   },
   {
     "input": "The quote from the contractor was way too high so we went with someone else.",
@@ -56,19 +56,31 @@
     "ideal": "Sorry to bother you but do you have a minute to look at this PR?"
   },
   {
-    "input": "I mean the whole point of the refactor was to make it easier to test.",
-    "ideal": "I mean the whole point of the refactor was to make it easier to test."
+    "input": "I mean, the whole point of the refactor was to make it easier to test.",
+    "ideal": "I mean, the whole point of the refactor was to make it easier to test."
   },
   {
-    "input": "Actually I was just thinking about that exact same thing earlier today.",
-    "ideal": "Actually I was just thinking about that exact same thing earlier today."
+    "input": "Actually, I was just thinking about that exact same thing earlier today.",
+    "ideal": "Actually, I was just thinking about that exact same thing earlier today."
   },
   {
     "input": "Wait for the CI to finish before merging, it usually takes about five minutes.",
     "ideal": "Wait for the CI to finish before merging, it usually takes about five minutes."
   },
   {
-    "input": "She said sorry for the delay and promised to send the report by end of day.",
-    "ideal": "She said sorry for the delay and promised to send the report by end of day."
+    "input": "I'm so sorry, I didn't realize you were still on the call.",
+    "ideal": "I'm so sorry, I didn't realize you were still on the call."
+  },
+  {
+    "input": "Never mind the formatting, just get the content right first.",
+    "ideal": "Never mind the formatting, just get the content right first."
+  },
+  {
+    "input": "Hold on to your receipts until the reimbursement is processed.",
+    "ideal": "Hold on to your receipts until the reimbursement is processed."
+  },
+  {
+    "input": "She read all the way to the end, quote, of the chapter before stopping.",
+    "ideal": "She read all the way to the end, quote, of the chapter before stopping."
   }
 ]

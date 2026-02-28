@@ -329,7 +329,7 @@
   },
   {
     "input": "I ordered pasta, salad, and the soup. Actually no, the risotto.",
-    "ideal": "I ordered pasta, salad, and the risotto."
+    "ideal": "I ordered pasta, salad, and risotto."
   },
   {
     "input": "The stack is Python and Flask. Actually, FastAPI.",
