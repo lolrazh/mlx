@@ -84,14 +84,26 @@ def main() -> None:
         (ex["input"], ex["ideal"]) for ex in test_raw
     }
 
-    # ── 3. Build valid set: 3 examples per category ──────────
-    VALID_INDICES = [5, 15, 25]
+    # ── 3. Build valid set: hand-picked indices per category ──
+    # Ensures coverage of sub-types (caps, emphasis, XML, camelcase)
+    # and avoids over-representing any single category.
+    VALID_PICKS: dict[str, list[int]] = {
+        "spell-replace":   [5, 15],
+        "self-correction": [5, 45],
+        "quote-unquote":   [5, 15],
+        "quote-endquote":  [5, 15, 25],
+        "formatting":      [0, 2, 12, 25],  # caps, emphasis, XML, @-symbol
+        "email":           [5, 15],
+        "emoji":           [5, 15],
+        "code-aware":      [5, 18],          # general + camelCase (useMemo)
+        "hard-negatives":  [5, 15],
+    }
     valid_examples: list[dict] = []
     valid_keys: set[tuple[str, str]] = set()
 
     for cat in CATEGORIES:
         cat_data = all_by_category[cat]
-        for idx in VALID_INDICES:
+        for idx in VALID_PICKS.get(cat, [5, 15]):
             safe_idx = min(idx, len(cat_data) - 1)
             ex = cat_data[safe_idx]
             key = (ex["input"], ex["ideal"])

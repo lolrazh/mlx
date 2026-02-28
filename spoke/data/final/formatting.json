@@ -29,7 +29,7 @@
   },
   {
     "input": "The payment failed with status declined. Surround declined with XML tags.",
-    "ideal": "The payment failed with status <declined>."
+    "ideal": "The payment failed with status <declined>declined</declined>."
   },
   {
     "input": "Wrap this whole thing in a notice tag. Your subscription will expire in three days.",
@@ -269,7 +269,7 @@
   },
   {
     "input": "Wrap the error code in XML tags. The code is timeout_exception.",
-    "ideal": "The error code is <timeout_exception>."
+    "ideal": "The error code is <timeout_exception>timeout_exception</timeout_exception>."
   },
   {
     "input": "XML open warning, then deprecated API usage detected, then XML close warning.",
@@ -317,6 +317,6 @@
   },
   {
     "input": "The payload contains sensitive data. Wrap sensitive in XML tags, and also put the whole thing in caps.",
-    "ideal": "THE PAYLOAD CONTAINS <SENSITIVE> DATA."
+    "ideal": "THE PAYLOAD CONTAINS <SENSITIVE>SENSITIVE</SENSITIVE> DATA."
   }
 ]

@@ -366,5 +366,21 @@
   {
     "input": "We're deploying to AWS and Azure. Actually, GCP.",
     "ideal": "We're deploying to AWS and GCP."
+  },
+  {
+    "input": "The backend runs on Vercel Edge Functions and AWS Lambda. Wait no, sorry, Google Cloud Run.",
+    "ideal": "The backend runs on Vercel Edge Functions and Google Cloud Run."
+  },
+  {
+    "input": "We tested it on Samsung Galaxy S24 and Google Pixel 8. Scratch that, iPhone 15 Pro.",
+    "ideal": "We tested it on Samsung Galaxy S24 and iPhone 15 Pro."
+  },
+  {
+    "input": "The pipeline uses Apache Kafka and Amazon Kinesis. Actually, Azure Event Hubs.",
+    "ideal": "The pipeline uses Apache Kafka and Azure Event Hubs."
+  },
+  {
+    "input": "She studied at MIT Media Lab and Stanford AI Lab. Sorry, Carnegie Mellon Robotics Institute.",
+    "ideal": "She studied at MIT Media Lab and Carnegie Mellon Robotics Institute."
   }
 ]
