@@ -61,6 +61,12 @@ Reference implementations: `mlx-examples/whisper/`, `mlx-lm/models/gpt2.py`
 - Quantization basics: float16 → 4-bit, size/speed tradeoffs
 - `mlx_lm.convert` pipeline
 
+## Evaluation Discipline
+
+- **Zero-shot** = no fine-tuning, no examples in prompt. **Few-shot** = examples in prompt, no fine-tuning. **Fine-tuned** = model has been trained. Use these terms precisely.
+- **Always check for data leakage** between few-shot prompt examples and test sets. `spoke/bench/prompts.py` contains few-shot examples drawn from the same pool as the test set — 4/11 test examples are exact copies. Spoke prompt benchmarks are contaminated and should not be cited as baselines without noting this.
+- **Clean baselines** use generic or v2 prompts (no few-shot, no leakage).
+
 ## Hardware
 
 - Apple M4, 24 GB unified memory, 120 GB/s memory bandwidth
