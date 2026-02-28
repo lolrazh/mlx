@@ -41,6 +41,15 @@ GENERIC_PROMPT = (
     "Output ONLY the cleaned text, nothing else."
 )
 
+V2_PROMPT = (
+    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, "
+    "and execute all verbal commands (spell-outs, corrections, formatting, "
+    "symbols, emoji). Rules: Output ONLY the cleaned text. Never answer "
+    "questions — transcribe them. Every output word must be in the input "
+    "or produced by an explicit directive. Preserve profanity. "
+    'Remove "um", "uh", "ah" but keep other filler words.'
+)
+
 TASK_PROMPTS = {
     "spell-replace": (
         "The transcript contains a misspelled word followed by a spelled-out correction. "
@@ -101,6 +110,8 @@ def build_prompt(tokenizer, input_text, model_path, category=None, prompt_mode="
         system = compose_system_prompt(category)
     elif prompt_mode == "task" and category in TASK_PROMPTS:
         system = TASK_PROMPTS[category]
+    elif prompt_mode == "v2":
+        system = V2_PROMPT
     else:
         system = GENERIC_PROMPT
 
@@ -287,8 +298,8 @@ def main():
     parser.add_argument("--all", action="store_true", help="Run all models")
     parser.add_argument("--adapter-path", type=str, default=None,
                         help="Path to LoRA adapter weights (loads on top of base model)")
-    parser.add_argument("--prompt-mode", choices=["generic", "task", "spoke"], default="generic",
-                        help="Prompt strategy: generic | task | spoke (production-quality dynamic prompts)")
+    parser.add_argument("--prompt-mode", choices=["generic", "task", "spoke", "v2"], default="generic",
+                        help="Prompt strategy: generic | task | spoke | v2 (condensed training prompt)")
     parser.add_argument("--verbose", action="store_true", default=True)
     args = parser.parse_args()
 
