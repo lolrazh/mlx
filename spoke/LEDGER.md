@@ -54,7 +54,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T5** | 03-01 | **DoRA** | r=8 | adam | flat | v2 (447) | 200 (OOM@save200) | 0.229 @200 (unsaved) / 0.272 @100 | DoRA +1GB peak mem (15.2 GB). OOM during iter 200 save. Only iter 100 ckpt. |
 | **T6** | 03-01 | LoRA | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 | 0.231 @200 | grad_checkpoint=true. Peak mem 9.8 GB (was 14 GB). **Zero quant loss.** |
 | T7 | — | LoRA | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (447) | 200 | — | Isolate LR schedule. |
-| T8 | — | **DoRA** | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (447) | 200 | — | Full stack. |
+| **T8** | 03-01 | **DoRA** | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 (50 eff.) | 0.427 @200 | batch=1+accum=4 (OOM forced). 50 effective steps. 15.4 GB peak. DoRA not viable on M4. |
 | T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (447) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
 | T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
 
@@ -91,7 +91,7 @@ All from Qwen3-4B base.
 | T6 | iter 200 | bf16 | v2 | 23 | **43%** | 9 | 1 | 12 | 1 | 3.39s | Undertrained (200 iters, val 0.231). Same val loss as T4@200. |
 | T6 | iter 200 | 6-bit | v2 | 23 | **43%** | 9 | 1 | 12 | 1 | 1.94s | **Zero quant loss** (bf16 = 6-bit). AdamW weight decay helps. |
 | T7 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
-| T8 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
+| T8 | iter 200 | bf16 | v2 | 23 | **30%** | 5 | 2 | 14 | 2 | 17.75s | Only 50 effective steps (grad_accum=4). DoRA latency ~18s. Not viable. |
 | T9 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 | T10 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 
@@ -172,4 +172,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 9. **6-bit quant regression worse on T4** — lost 9% (74% → 65%) vs T2's zero loss. Edge cases (quote-endquote, code-aware) are quant-sensitive.
 10. **Llama 1B not viable.** 25% accuracy gap vs Qwen. Overfits 2.5x faster.
 11. **Overfitting timeline:** r=8 starts ~iter 350 on v2 data, ~iter 500 on v1 data. Llama 1B starts ~iter 200.
-12. **MLX-LM has unused features:** DoRA, AdamW, cosine decay, gradient checkpointing, LoRA key targeting — all built in.
+12. **DoRA not viable on M4 24GB.** +1-5 GB peak mem over LoRA, OOMs at batch_size≥2, ~18s inference latency (10x LoRA). Converges slower per token.
+13. **AdamW zero quant loss** — T6 (AdamW) showed 0% degradation bf16→6-bit (43%=43%) vs T4's 9% loss. Weight decay produces quant-friendly weights.
+14. **grad_checkpoint halves training memory** — 14 GB → 9.8 GB peak. ~2x slower training but enables reliable completion.
+15. **grad_accumulation_steps breaks iter count** — mlx_lm counts micro-batches, not optimizer steps. `accum=4` means 200 "iters" = 50 effective updates.

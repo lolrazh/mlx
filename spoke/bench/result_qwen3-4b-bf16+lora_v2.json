@@ -2,14 +2,14 @@
   "model": "mlx-community/Qwen3-4B-Instruct-2507-bf16",
   "short_name": "qwen3-4b-bf16+lora",
   "prompt_mode": "v2",
-  "load_time_s": 3.5,
+  "load_time_s": 3.4,
   "n": 23,
-  "exact": 9,
-  "semantic": 1,
-  "partial": 12,
-  "fail": 1,
-  "accuracy": 0.4348,
-  "avg_latency_s": 3.387,
+  "exact": 5,
+  "semantic": 2,
+  "partial": 14,
+  "fail": 2,
+  "accuracy": 0.3043,
+  "avg_latency_s": 17.748,
   "results": [
     {
       "id": 1,
@@ -19,27 +19,27 @@
       "output": "I'm gonna be using Silero VAD for this.",
       "raw_output": "I'm gonna be using Silero VAD for this.",
       "score": "exact",
-      "gen_time_s": 3.038
+      "gen_time_s": 12.244
     },
     {
       "id": 2,
       "category": "spell-replace",
       "input": "He went to the Khadai, spell that K-A-D-A-I.",
       "ideal": "He went to the Kadai.",
-      "output": "He went to the Kadai.",
-      "raw_output": "He went to the Kadai.",
-      "score": "exact",
-      "gen_time_s": 2.419
+      "output": "He went to the Kadaai.",
+      "raw_output": "He went to the Kadaai.",
+      "score": "partial",
+      "gen_time_s": 9.05
     },
     {
       "id": 3,
       "category": "spell-replace",
       "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
       "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
-      "output": "The new restaurant on 4th serves amazing Kibbeh Nayeh, it's a Lebanese raw lamb dish.",
-      "raw_output": "The new restaurant on 4th serves amazing Kibbeh Nayeh, it's a Lebanese raw lamb dish.",
+      "output": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spelled K-I-B-B-E-H-N-A-Y, it's a Lebanese raw lamb dish.",
+      "raw_output": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spelled K-I-B-B-E-H-N-A-Y, it's a Lebanese raw lamb dish.",
       "score": "partial",
-      "gen_time_s": 4.997
+      "gen_time_s": 30.66
     },
     {
       "id": 4,
@@ -49,17 +49,17 @@
       "output": "The backend is actually powered by Fireworks.",
       "raw_output": "The backend is actually powered by Fireworks.",
       "score": "partial",
-      "gen_time_s": 2.6
+      "gen_time_s": 11.004
     },
     {
       "id": 5,
       "category": "self-correction",
       "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
       "ideal": "Let's meet at 12pm, Thursday.",
-      "output": "Let's meet at 12pm, Thursday.",
-      "raw_output": "Let's meet at 12pm, Thursday.",
-      "score": "exact",
-      "gen_time_s": 2.903
+      "output": "Let's meet at 12pm Thursday.",
+      "raw_output": "Let's meet at 12pm Thursday.",
+      "score": "partial",
+      "gen_time_s": 12.46
     },
     {
       "id": 6,
@@ -69,7 +69,7 @@
       "output": "We're using Svelte.",
       "raw_output": "We're using Svelte.",
       "score": "partial",
-      "gen_time_s": 2.389
+      "gen_time_s": 9.155
     },
     {
       "id": 7,
@@ -79,17 +79,17 @@
       "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 4.672
+      "gen_time_s": 26.366
     },
     {
       "id": 8,
       "category": "quote-unquote",
       "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
       "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
-      "output": "Gluten-free bread that lists wheat as the second ingredient.",
-      "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient.\"",
+      "output": "Gluten-free bread that lists wheat as the second ingredient",
+      "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient\"",
       "score": "partial",
-      "gen_time_s": 3.022
+      "gen_time_s": 17.315
     },
     {
       "id": 9,
@@ -99,7 +99,7 @@
       "output": "I mean they said I was lucky to be here. What the fuck do they mean by that?",
       "raw_output": "I mean they said I was lucky to be here. What the fuck do they mean by that?",
       "score": "partial",
-      "gen_time_s": 4.659
+      "gen_time_s": 26.025
     },
     {
       "id": 10,
@@ -109,7 +109,7 @@
       "output": "The debug log shows \"quote connection timed out after 30 seconds\" three times in a row.",
       "raw_output": "The debug log shows \"quote connection timed out after 30 seconds\" three times in a row.",
       "score": "partial",
-      "gen_time_s": 4.465
+      "gen_time_s": 26.725
     },
     {
       "id": 11,
@@ -119,47 +119,47 @@
       "output": "He described the interview as \"the most stressful hour of my life\".",
       "raw_output": "He described the interview as \"the most stressful hour of my life\".",
       "score": "exact",
-      "gen_time_s": 3.166
+      "gen_time_s": 18.707
     },
     {
       "id": 12,
       "category": "at-symbol",
       "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
       "ideal": "I wanna fix @app.py and @test.py.",
-      "output": "I wanna fix @app.py and @test.py.",
-      "raw_output": "I wanna fix @app.py and @test.py.",
-      "score": "exact",
-      "gen_time_s": 2.995
+      "output": "I@wanna fix app.py and test.py. Add an at symbol before the file names.",
+      "raw_output": "I@wanna fix app.py and test.py. Add an at symbol before the file names.",
+      "score": "fail",
+      "gen_time_s": 24.644
     },
     {
       "id": 13,
       "category": "caps",
       "input": "We're so excited to make this. Use all caps.",
       "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
-      "output": "WE'RE SO EXCITED TO MAKE THIS.",
-      "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
-      "score": "exact",
-      "gen_time_s": 2.866
+      "output": "WE'RE SO EXCITED TO MAKE THIS!",
+      "raw_output": "WE'RE SO EXCITED TO MAKE THIS!",
+      "score": "partial",
+      "gen_time_s": 14.075
     },
     {
       "id": 14,
       "category": "emphasis",
       "input": "It's surprisingly fast. Emphasize surprisingly.",
       "ideal": "It's **surprisingly** fast.",
-      "output": "It's *surprisingly* fast.",
-      "raw_output": "It's *surprisingly* fast.",
+      "output": "It's surprisingly fast.",
+      "raw_output": "It's surprisingly fast.",
       "score": "partial",
-      "gen_time_s": 2.632
+      "gen_time_s": 8.951
     },
     {
       "id": 15,
       "category": "formatting-xml",
       "input": "The result was unexpected. Emphasize unexpected. And wrap the whole sentence in a result tag.",
       "ideal": "<result>The result was **unexpected**.</result>",
-      "output": "The result was <em>unexpected</em>.",
-      "raw_output": "The result was <em>unexpected</em>.",
+      "output": "<result>the result was unexpectedly unexpected</result>",
+      "raw_output": "<result>the result was unexpectedly unexpected</result>",
       "score": "partial",
-      "gen_time_s": 2.754
+      "gen_time_s": 14.931
     },
     {
       "id": 16,
@@ -169,17 +169,17 @@
       "output": "The function returns null on error. XML open error, XML close error, around null.",
       "raw_output": "The function returns null on error. XML open error, XML close error, around null.",
       "score": "partial",
-      "gen_time_s": 4.186
+      "gen_time_s": 21.818
     },
     {
       "id": 17,
       "category": "email",
       "input": "The invite list includes plus one, literally the word plus and the number one, at sign temp hyphen mail dot o r g, which is obviously fake, and also real dot person at outlook dot c o m.",
       "ideal": "The invite list includes plusone@temp-mail.org, which is obviously fake, and also real.person@outlook.com.",
-      "output": "The invite list includes plus one, literally the word plus and the number one, at sign temp-hyphen-mail.org, which is obviously fake, and also real.person@outlook.com.",
-      "raw_output": "The invite list includes plus one, literally the word plus and the number one, at sign temp-hyphen-mail.org, which is obviously fake, and also real.person@outlook.com.",
+      "output": "The invite list includes plus one, literally the word plus and the number one, at sign temp hyphen mail dot org, which is obviously fake, and also real dot person at outlook dot com.",
+      "raw_output": "The invite list includes plus one, literally the word plus and the number one, at sign temp hyphen mail dot org, which is obviously fake, and also real dot person at outlook dot com.",
       "score": "fail",
-      "gen_time_s": 7.561
+      "gen_time_s": 44.887
     },
     {
       "id": 18,
@@ -189,7 +189,7 @@
       "output": "💔",
       "raw_output": "💔",
       "score": "exact",
-      "gen_time_s": 1.764
+      "gen_time_s": 4.914
     },
     {
       "id": 19,
@@ -199,7 +199,7 @@
       "output": "🙏",
       "raw_output": "🙏",
       "score": "partial",
-      "gen_time_s": 1.242
+      "gen_time_s": 4.849
     },
     {
       "id": 20,
@@ -209,17 +209,17 @@
       "output": "So we've got a file called usetranscription.ts.",
       "raw_output": "So we've got a file called usetranscription.ts.",
       "score": "semantic",
-      "gen_time_s": 2.755
+      "gen_time_s": 16.856
     },
     {
       "id": 21,
       "category": "code-aware",
       "input": "Check your tsconfig, the jsx compiler option should be set to react jsx not the old transform.",
       "ideal": "Check your tsconfig, the JSX compiler option should be set to react-jsx not the old transform.",
-      "output": "Check your tsconfig, the jsx compiler option should be set to \"react-jsx\" not the old transform.",
-      "raw_output": "Check your tsconfig, the jsx compiler option should be set to \"react-jsx\" not the old transform.",
-      "score": "partial",
-      "gen_time_s": 5.152
+      "output": "Check your tsconfig, the jsx compiler option should be set to react-jsx not the old transform.",
+      "raw_output": "Check your tsconfig, the jsx compiler option should be set to react-jsx not the old transform.",
+      "score": "semantic",
+      "gen_time_s": 24.886
     },
     {
       "id": 22,
@@ -229,7 +229,7 @@
       "output": "Wait until you see the new office, it's completely different from the old one.",
       "raw_output": "Wait until you see the new office, it's completely different from the old one.",
       "score": "exact",
-      "gen_time_s": 3.658
+      "gen_time_s": 20.869
     },
     {
       "id": 23,
@@ -239,7 +239,7 @@
       "output": "Got it.",
       "raw_output": "Got it.",
       "score": "partial",
-      "gen_time_s": 2.01
+      "gen_time_s": 6.803
     }
   ]
 }
