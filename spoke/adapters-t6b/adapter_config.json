@@ -1,0 +1,38 @@
+{
+    "adapter_path": "./spoke/adapters-t6b",
+    "batch_size": 4,
+    "config": "spoke/config.yaml",
+    "data": "./spoke/data/final",
+    "fine_tune_type": "lora",
+    "grad_accumulation_steps": 1,
+    "grad_checkpoint": false,
+    "iters": 500,
+    "learning_rate": 1e-05,
+    "lora_parameters": {
+        "rank": 8,
+        "scale": 2.0,
+        "dropout": 0.05
+    },
+    "lr_schedule": null,
+    "mask_prompt": true,
+    "max_seq_length": 512,
+    "model": "mlx-community/Qwen3-4B-Instruct-2507-bf16",
+    "num_layers": 16,
+    "optimizer": "adamw",
+    "optimizer_config": {
+        "adamw": {
+            "weight_decay": 0.01
+        }
+    },
+    "project_name": null,
+    "report_to": null,
+    "resume_adapter_file": null,
+    "save_every": 100,
+    "seed": 42,
+    "steps_per_eval": 50,
+    "steps_per_report": 10,
+    "test": false,
+    "test_batches": 500,
+    "train": true,
+    "val_batches": 25
+}

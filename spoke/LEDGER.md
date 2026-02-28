@@ -146,15 +146,15 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 
 | Priority | Run | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
-| ~~DONE~~ | ~~T4~~ | ~~v2 data (targeted examples + v2 prompt)~~ | ~~Fixes #3 and #6, breaks 75% ceiling~~ | ~~74% bf16, 65% 6-bit. #3 FIXED, #6 scope FIXED.~~ |
-| HIGH | T5 | DoRA (fine_tune_type: dora) | Better weight decomposition at r=8 → ≥ T4 | T4 result |
-| HIGH | T6 | AdamW (weight_decay: 0.01) | Prevents weight drift → more stable training | T4 result |
-| HIGH | T7 | Cosine LR + warmup (50 steps) | Avoids early instability → lower val loss | T4 result |
-| HIGH | T8 | DoRA + AdamW + cosine (full stack) | Combined gains → best overall | T5-T7 individual signals |
-| Medium | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T4 result |
-| Medium | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T4 result |
-| Low | Expand to 650-750 examples | Target optimal data volume per research | After T4-T8 |
-| Low | NEFTune (noise embeddings) | Anti-overfitting regularization | Only if still overfitting |
+| ~~DONE~~ | ~~T4~~ | ~~v2 data~~ | ~~74% bf16, 65% 6-bit. #3 FIXED, #6 scope FIXED.~~ | ~~Done~~ |
+| ~~DONE~~ | ~~T5~~ | ~~DoRA~~ | ~~OOM + 18s latency. Not viable on M4 24GB.~~ | ~~Dead end~~ |
+| ~~DONE~~ | ~~T6~~ | ~~AdamW (200 iters)~~ | ~~Zero quant loss! But undertrained.~~ | ~~Rerun as T6b~~ |
+| ~~DONE~~ | ~~T8~~ | ~~DoRA + AdamW~~ | ~~OOM forced batch=1. Not viable.~~ | ~~Dead end~~ |
+| **NOW** | T6b | AdamW rerun, 500 iters, no grad_ckpt | Match T4 training budget + extend. Test if zero quant loss holds. | T6 signal |
+| Medium | T7 | Cosine LR + warmup (50 steps) | Avoids early instability → lower val loss | T6b result |
+| Medium | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T6b result |
+| Medium | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T6b result |
+| Low | Expand to 650-750 examples | Target optimal data volume per research | After T6b |
 | Low | DPO on persistent failures | Preference learning for edge cases | Only after SFT plateau |
 
 ---
