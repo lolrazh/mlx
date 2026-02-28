@@ -1,0 +1,298 @@
+[
+  {
+    "input": "Email me at sarah dot chen at company dot io when you're done.",
+    "ideal": "Email me at sarah.chen@company.io when you're done.",
+    "index": 0,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "Check the docs at api dot example dot com slash v2 slash users before you start coding.",
+    "ideal": "Check the docs at api.example.com/v2/users before you start coding.",
+    "index": 1,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Reach out to the team—put an at symbol before engineering—engineering at company dot dev, or if that bounces try eng dash team at the same domain, I mean eng-team at company dot dev, with the subject quote urgent bug in production end quote.",
+    "ideal": "Reach out to the team—engineering@company.dev, or if that bounces try eng-team@company.dev, with the subject \"urgent bug in production\".",
+    "index": 2,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The documentation site is docs dot myproject dot io slash latest, but for the legacy version use docs dot myproject dot io slash v1, and if you need help contact either admin at myproject dot io or support at myproject dot io, actually scratch that, use help at myproject dot io instead of support.",
+    "ideal": "The documentation site is docs.myproject.io/latest, but for the legacy version use docs.myproject.io/v1, and if you need help contact either admin@myproject.io or help@myproject.io.",
+    "index": 3,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The docs are hosted at docs dot example dot dev slash v2, actually docs.example.dev/v2, and the API reference is at api dot same site slash reference. Check both before the meeting.",
+    "ideal": "The docs are hosted at docs.example.dev/v2, and the API reference is at api.example.dev/reference. Check both before the meeting.",
+    "index": 0,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The bug tracker moved from jira dot oldcompany dot com to youtrack dot newcompany dot io, specifically youtrack.newcompany.io/issue/PROJ. Update your bookmarks.",
+    "ideal": "The bug tracker moved from jira.oldcompany.com to youtrack.newcompany.io/issue/PROJ. Update your bookmarks.",
+    "index": 1,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "The demo environment is at staging dot myapp dot dev, no wait, it's demo.myapp.dev, and the credentials are in 1password under the dev team vault. Share the link with the client.",
+    "ideal": "The demo environment is at demo.myapp.dev, and the credentials are in 1password under the dev team vault. Share the link with the client.",
+    "index": 2,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The conference website is at www dot techconf dot org slash 2024 slash agenda, actually techconf.org/2024/agenda, and registration is at the same domain slash register. Early bird ends Friday.",
+    "ideal": "The conference website is at techconf.org/2024/agenda, and registration is at techconf.org/register. Early bird ends Friday.",
+    "index": 3,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "The documentation lives at docs dot example hyphen platform dot i o slash v two slash a p i, no wait, slash api, and make sure you check the authentication section before you start coding anything.",
+    "ideal": "The documentation lives at docs.example-platform.io/v2/api and make sure you check the authentication section before you start coding anything.",
+    "index": 0,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "Check the status page at status dot my hyphen saas dot dev, that's status.my-saas.dev, and if it's not green, escalate to the on-call engineer whose pager is, uh, their email is oncall at infrastructure dot team.",
+    "ideal": "Check the status page at status.my-saas.dev and if it's not green, escalate to the on-call engineer whose pager is oncall@infrastructure.team.",
+    "index": 1,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The beta signup is at www dot, actually just, get hyphen early hyphen access dot startup hyphen name dot i o slash waitlist, and tell them you heard about it from our newsletter so they bump your priority.",
+    "ideal": "The beta signup is at get-early-access.startup-name.io/waitlist and tell them you heard about it from our newsletter so they bump your priority.",
+    "index": 2,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The webhook should point to a p i dot, no, webhook dot, actually, hooks dot our hyphen subdomain dot customer hyphen name dot com slash inbound, and verify the signature using the secret I pasted in the channel.",
+    "ideal": "The webhook should point to hooks.our-subdomain.customer-name.com/inbound and verify the signature using the secret I pasted in the channel.",
+    "index": 3,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Check the docs at docs dot my hyphen startup dot dev slash a p i slash v two, sorry, v2, and if that fails try www dot fallback dot i o.",
+    "ideal": "Check the docs at docs.my-startup.dev/api/v2, and if that fails try www.fallback.io.",
+    "index": 0,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The portfolio link is w w w dot, no just, no www, just username dot github dot i o slash portfolio, and make sure it's lowercase.",
+    "ideal": "The portfolio link is username.github.io/portfolio, and make sure it's lowercase.",
+    "index": 1,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "For the beta access, they need to visit sub domain, that's sub dot main domain dot test, no, sub dot main hyphen domain dot dev, slash early hyphen access, and email feedback to b e t a at the same domain.",
+    "ideal": "For the beta access, they need to visit sub.main-domain.dev/early-access, and email feedback to beta@main-domain.dev.",
+    "index": 2,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "Send the mockups to j dot smith at acme dash corp dot io, wait, no, it's jsmith at acme-corp.io, actually just forward everything to design at acme-corp.io and cc me.",
+    "ideal": "Send the mockups to j.smith@acme-corp.io, wait, no, it's jsmith@acme-corp.io, actually just forward everything to design@acme-corp.io and cc me.",
+    "index": 0,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The repo is at github dot com slash myorg slash project, that's g i t h u b dot com slash myorg slash project, and the docs live at docs dot myproject dot dev slash v two, sorry, v2.",
+    "ideal": "The repo is at github.com/myorg/project, that's github.com/myorg/project, and the docs live at docs.myproject.dev/v2, sorry, v2.",
+    "index": 1,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Send the invoice to billing at, uh, that's the word at, acme dash corp dot i o, no wait, acme-corp.io. Actually use the hyphen not dash. And cc finance at the same domain.",
+    "ideal": "Send the invoice to billing@acme-corp.io. And cc finance@acme-corp.io.",
+    "index": 0,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The pull request template lives at github dot com slash myorg slash repo slash blob slash main slash, uh, dot github slash pull request template dot m d. Sorry, that's P R template.",
+    "ideal": "The pull request template lives at github.com/myorg/repo/blob/main/.github/pull_request_template.md.",
+    "index": 1,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Contact our DevRel lead, that's j dot k dot rowling, no not like the author, just j.k.rowling at company dot dev. She goes by Jo though.",
+    "ideal": "Contact our DevRel lead, j.k.rowling@company.dev. She goes by Jo though.",
+    "index": 2,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The API docs are at docs dot example dot com slash v 2, that's the letter v then the number 2, slash reference slash authentication. Actually make that v 3, we're on version three now.",
+    "ideal": "The API docs are at docs.example.com/v3/reference/authentication.",
+    "index": 3,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Loop in our designer, that's hyphen, the word hyphen, at design dot studio. Wait, no, that's an underscore not hyphen, so underscore at design dot studio. Her name's literally just an underscore character.",
+    "ideal": "Loop in our designer, _@design.studio. Her name's literally just an underscore character.",
+    "index": 4,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The incident report goes to s r e dash oncall at, uh, that's the word at, startup dot i o, and also cc postmortems at the same place. Actually no, skip the oncall part, just s r e at startup dot i o.",
+    "ideal": "The incident report goes to sre@startup.io, and also cc postmortems@startup.io.",
+    "index": 5,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "Check out our competitor's pricing at www dot, uh, that's double-u double-u double-u dot, competitor dash name dot com slash pricing. Actually they rebranded, so it's newname dot com now, and drop the www.",
+    "ideal": "Check out our competitor's pricing at newname.com/pricing.",
+    "index": 6,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Email the board chair, that's c e o, the letters c e o, at, uh, that's the word at, nonprofit dot o r g, but actually she's stepping down so use chair at nonprofit dot o r g instead. And urgent in the subject line.",
+    "ideal": "Email the board chair, chair@nonprofit.org. And urgent in the subject line.",
+    "index": 7,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The staging environment is at staging dash, the word dash, 42 dot internal dot company dot dev, that's the number 42, slash admin. Actually environment 43 now, and it's a hyphen not dash. And use https not http.",
+    "ideal": "The staging environment is at staging-43.internal.company.dev/admin.",
+    "index": 8,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "The bug bounty program is at hacker one, all one word, dot com slash acme corp. No, sorry, slash acme dash corp. Check it out when you get a chance.",
+    "ideal": "The bug bounty program is at hackerone.com/acme-corp. Check it out when you get a chance.",
+    "index": 0,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Our status page lives at status dot, then the company name, so acme, dot page. No, not dot page, dot io. status dot acme dot io. Bookmark that.",
+    "ideal": "Our status page lives at status.acme.io. Bookmark that.",
+    "index": 1,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The API documentation is at docs dot, then our project name which is fast dash api, so fast dash api, all one word, dot dev. No, separate words with dashes, so fast dash api dot dev. Actually, the project is fastapi, one word, so docs dot fastapi dot dev.",
+    "ideal": "The API documentation is at docs.fastapi.dev.",
+    "index": 2,
+    "errors": [
+      "No valid email address found in ideal output",
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The design system lives at design dot, then our org name, which is the acronym c d f, so c d f, dot design. No, the org is c d f but the domain is c d f dot, actually it's just design dot c d f dot com. Wait, c d f is three letters, so design dot c d f dot com. No, c d f stands for something, so the domain is the full name, common design foundation, so design dot common design foundation dot org. Actually, simplify: design dot cdf dot org.",
+    "ideal": "The design system lives at design.cdf.org.",
+    "index": 3,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Send the contract to legal, that's l e g a l at our company domain, so legal at acme dash corp dot i o, no wait, underscore not dash, legal underscore corp at acme dot i o. Actually just legal at acme dot i o.",
+    "ideal": "Send the contract to legal@acme.io.",
+    "index": 0,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "Check the status on platform dot example dot com slash api slash v two slash health, that's platform dot example dot com slash api slash v two slash health, and also ping their status page at status dot example dot i o.",
+    "ideal": "Check the status on platform.example.com/api/v2/health, and also ping their status page at status.example.io.",
+    "index": 1,
+    "errors": [
+      "No valid email address found in ideal output"
+    ]
+  },
+  {
+    "input": "Forward this to our DevOps lead, that's d e v o p s at, no wait, his actual email is his GitHub username, so cloud ninja ninety nine at the company domain, cloud ninja ninety nine at startup dot dev.",
+    "ideal": "Forward this to cloudninja99@startup.dev.",
+    "index": 2,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The API docs are at docs dot my service dot i o slash reference, that's docs dot my service dot i o slash reference, and for support email help at my service dot i o or open a ticket at support dot my service dot i o slash tickets.",
+    "ideal": "The API docs are at docs.myservice.io/reference, and for support email help@myservice.io or open a ticket at support.myservice.io/tickets.",
+    "index": 3,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "Send the invoice to billing, that's billing at acme dash corp dot i o, wait no, the new domain is acmecorp dot dev so billing at acmecorp dot dev, and cc finance at the same domain.",
+    "ideal": "Send the invoice to billing@acmecorp.dev and cc finance@acmecorp.dev.",
+    "index": 0,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  },
+  {
+    "input": "The legacy contact was root at, that's r o o t at old server dot local, but the new infrastructure uses admin at, no, cloud dash admin at infrastructure dot internal dot dev and that's restricted access only.",
+    "ideal": "The legacy contact was root@old-server.local, but the new infrastructure uses cloud-admin@infrastructure.internal.dev and that's restricted access only.",
+    "index": 1,
+    "errors": [
+      "No dictated email components found in input"
+    ]
+  }
+]

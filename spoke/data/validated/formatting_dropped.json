@@ -1,0 +1,146 @@
+[
+  {
+    "input": "Surround the whole thing with a custom tag called highlight. This is really important for the demo tomorrow.",
+    "ideal": "<highlight>This is really important for the demo tomorrow.</highlight>",
+    "index": 0,
+    "errors": [
+      "@-symbol insertion requested but no @ found in ideal output"
+    ]
+  },
+  {
+    "input": "I meant to say urgent, not important. Use all caps for urgent and wrap it in em tags.",
+    "ideal": "I meant to say <em>URGENT</em>, not important.",
+    "index": 1,
+    "errors": [
+      "Caps requested but ideal has low uppercase ratio"
+    ]
+  },
+  {
+    "input": "Make sure HOW and WHY are in caps. I don't understand how this works and why we need it.",
+    "ideal": "I don't understand HOW this works and WHY we need it.",
+    "index": 2,
+    "errors": [
+      "Caps requested but ideal has low uppercase ratio"
+    ]
+  },
+  {
+    "input": "Make it sound excited. WE FINALLY SHIPPED THE NEW RELEASE!",
+    "ideal": "WE FINALLY SHIPPED THE NEW RELEASE!",
+    "index": 3,
+    "errors": [
+      "No formatting/annotation trigger found in input (expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)"
+    ]
+  },
+  {
+    "input": "Add energy to this. THE TEST PASSED!",
+    "ideal": "THE TEST PASSED!",
+    "index": 4,
+    "errors": [
+      "No formatting/annotation trigger found in input (expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)"
+    ]
+  },
+  {
+    "input": "Surround everything with a root tag. The data is ready for processing.",
+    "ideal": "<root>The data is ready for processing.</root>",
+    "index": 5,
+    "errors": [
+      "No formatting/annotation trigger found in input (expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)"
+    ]
+  },
+  {
+    "input": "The status is pending approval. Surround pending approval with a status tag.",
+    "ideal": "The status is <status>pending approval</status>.",
+    "index": 0,
+    "errors": [
+      "No formatting/annotation trigger found in input (expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)"
+    ]
+  },
+  {
+    "input": "Check out this new feature. Make it all lowercase. Actually wait, use all caps instead.",
+    "ideal": "CHECK OUT THIS NEW FEATURE.",
+    "index": 0,
+    "errors": [
+      "Lowercase requested but ideal contains uppercase characters"
+    ]
+  },
+  {
+    "input": "The meeting is scheduled for 3pm. Put that in all caps but only the time.",
+    "ideal": "The meeting is scheduled for 3PM.",
+    "index": 0,
+    "errors": [
+      "Caps requested but ideal has low uppercase ratio"
+    ]
+  },
+  {
+    "input": "Our Q3 revenue grew by 47 percent. Make that 47 percent all lowercase for some reason.",
+    "ideal": "Our Q3 revenue grew by 47 percent.",
+    "index": 1,
+    "errors": [
+      "Lowercase requested but ideal contains uppercase characters"
+    ]
+  },
+  {
+    "input": "User authentication failed. Surround the whole thing with a diagnostic tag, and show some energy about it.",
+    "ideal": "<diagnostic>User authentication failed!</diagnostic>",
+    "index": 2,
+    "errors": [
+      "No formatting/annotation trigger found in input (expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)"
+    ]
+  },
+  {
+    "input": "I need to update @models.py and @views.py. Actually wait, remove those at symbols and type that in lowercase.",
+    "ideal": "i need to update models.py and views.py.",
+    "index": 0,
+    "errors": [
+      "@-symbol insertion requested but no @ found in ideal output"
+    ]
+  },
+  {
+    "input": "We should ping @here about the outage. Actually no, make that @channel instead, and capitalize CHANNEL.",
+    "ideal": "We should ping @CHANNEL about the outage.",
+    "index": 1,
+    "errors": [
+      "Caps requested but ideal has low uppercase ratio"
+    ]
+  },
+  {
+    "input": "Surround the whole paragraph with a note tag. The meeting has been rescheduled to Friday afternoon.",
+    "ideal": "<note>The meeting has been rescheduled to Friday afternoon.</note>",
+    "index": 0,
+    "errors": [
+      "No formatting/annotation trigger found in input (expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)"
+    ]
+  },
+  {
+    "input": "She said the meeting starts at noon. Make that all caps and tag noon with an at symbol for the calendar.",
+    "ideal": "She said the meeting starts at @NOON.",
+    "index": 0,
+    "errors": [
+      "Caps requested but ideal has low uppercase ratio"
+    ]
+  },
+  {
+    "input": "Hey everyone, check the announcements channel. Tag everyone with an at symbol and make announcements all caps.",
+    "ideal": "Hey @everyone, check the ANNOUNCEMENTS channel.",
+    "index": 1,
+    "errors": [
+      "Caps requested but ideal has low uppercase ratio"
+    ]
+  },
+  {
+    "input": "The test failed with an assertion error. Surround assertion error with a custom tag called failure.",
+    "ideal": "The test failed with an <failure>assertion error</failure>.",
+    "index": 2,
+    "errors": [
+      "@-symbol insertion requested but no @ found in ideal output"
+    ]
+  },
+  {
+    "input": "Surround the entire paragraph with a blockquote tag. The quick brown fox jumps over the lazy dog.",
+    "ideal": "<blockquote>The quick brown fox jumps over the lazy dog.</blockquote>",
+    "index": 0,
+    "errors": [
+      "No formatting/annotation trigger found in input (expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)"
+    ]
+  }
+]
