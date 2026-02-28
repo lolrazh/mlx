@@ -41,7 +41,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T1** | 02-28 | LoRA | r=16 | adam | flat | v1 (472) | 1000 | 0.16 @200 | First run. Overfits ~iter 500. |
 | **T2** | 03-01 | LoRA | r=8 | adam | flat | v1 (472) | 1000 | 0.146 @500 | r=8 = r=16. Half params, same accuracy, later overfit. |
 | **T3** | 03-01 | LoRA | r=16 | adam | flat | v1 (472) | ~750 | 0.243 @200 | **Llama 1B base.** Overfits @200. Killed. Not viable. |
-| **T4** | — | LoRA | r=8 | adam | flat | **v2 (447)** | 200 | — | **NEXT RUN.** Same config, new data. Isolates data effect. |
+| **T4** | 03-01 | LoRA | r=8 | adam | flat | **v2 (447)** | 800 (OOM@450) | 0.174 @300 | Overfits ~350. OOM at 450 (Metal memory). Best ckpt = 300. |
 | T5 | — | **DoRA** | r=8 | adam | flat | v2 (447) | 200 | — | Isolate DoRA vs LoRA. |
 | T6 | — | LoRA | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 | — | Isolate optimizer. |
 | T7 | — | LoRA | r=8 | **adamw** (wd=0.01) | **cosine** (warmup=50) | v2 (447) | 200 | — | Isolate LR schedule. |
@@ -65,8 +65,9 @@ Accuracy on 6-bit quantized model with **generic v1** prompt unless noted. All f
 | T2 | iter 400 | bf16 | generic v1 | 12 | **75%** | 8 | 1 | 2 | 1 | 1.75s | bf16 = 6-bit accuracy. |
 | T2 | iter 400 | bf16 | v2 | 12 | **58%** | 6 | 1 | 4 | 1 | 1.71s | Prompt mismatch: trained v1, tested v2. -17%. |
 | T3 | iter 200 | bf16 | generic v1 | 12 | **50%** | 5 | 1 | 6 | 0 | 0.63s | Llama 1B. Fixed hallucinations but 25% gap vs Qwen. |
-| T4 | — | 6-bit | generic v1 | 23 | **—** | — | — | — | — | — | |
-| T4 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | Matched prompt: trained v2, tested v2. |
+| T4 | iter 300 | bf16 | generic v1 | 23 | **61%** | 13 | 1 | 9 | 0 | 1.91s | Prompt mismatch: trained v2, tested v1. |
+| **T4** | **iter 300** | **bf16** | **v2** | **23** | **74%** | **15** | **2** | **6** | **0** | **1.89s** | **Matched prompt. Self-correction #3 FIXED. Quote #6 scope FIXED (period placement off).** |
+| T4 | iter 300 | 6-bit | v2 | 23 | **65%** | 14 | 1 | 8 | 0 | 2.04s | 6-bit quant lost 2 edge cases (quote-endquote, code-aware). |
 | T5 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 | T6 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 | T7 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
