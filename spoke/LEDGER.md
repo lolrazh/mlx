@@ -17,18 +17,20 @@
 
 ## Baselines (Zero-Shot, No Training)
 
+> All baselines below used the **v1 test set (12 examples)** except B4 which used an interim 11-example set. No zero-shot baselines have been run on the v2 test set (23 examples) yet.
+
 | ID | Model | Quant | Prompt | N | Accuracy | Latency | Notes |
 |----|-------|-------|--------|---|----------|---------|-------|
 | B1 | Qwen3-4B | 4-bit | generic v1 | 12 | **25%** | 0.69s | Real floor. Model barely understands the task. |
 | B2 | Qwen3-4B | 4-bit | v2 | 12 | **50%** | 0.91s | Prompt alone doubles accuracy. Best clean baseline. |
 | B3 | Qwen3-4B | 4-bit | task-specific | 12 | **50%** | 0.89s | Per-category prompts = same as v2. |
-| B4 | Qwen3-4B | bf16 | v2 | 11 | **36%** | 1.64s | bf16 more verbose at zero-shot. On v2 test set (11 ex). |
+| B4 | Qwen3-4B | bf16 | v2 | 11 | **36%** | 1.64s | bf16 more verbose at zero-shot. Interim test set (11 ex). |
 | B5 | Llama 1B | bf16 | generic v1 | 12 | **8%** | 2.00s | Hallucinations, refusals, code generation. |
 | B6 | Llama 1B | bf16 | task-specific | 12 | **25%** | 1.12s | Marginal improvement over generic. |
-| ~~B7~~ | ~~Qwen3-4B~~ | ~~4-bit~~ | ~~spoke~~ | ~~12~~ | ~~58%~~ → 38% | ~~1.43s~~ | ~~LEAKED. 4/11 test examples in few-shot prompt.~~ |
+| ~~B7~~ | ~~Qwen3-4B~~ | ~~4-bit~~ | ~~spoke~~ | ~~12~~ | ~~58%~~ → 38% | ~~1.43s~~ | ~~LEAKED. 4/23 test examples in few-shot prompt.~~ |
 | ~~B8~~ | ~~Llama 1B~~ | ~~bf16~~ | ~~spoke~~ | ~~12~~ | ~~25%~~ | ~~0.76s~~ | ~~LEAKED. Same score either way.~~ |
 
-**Takeaway:** V2 prompt (B2, 50%) is the real pre-training baseline. Generic v1 (B1, 25%) is the floor.
+**Takeaway:** V2 prompt (B2, 50%) is the real pre-training baseline on the v1 test set. Generic v1 (B1, 25%) is the floor. Need v2 test set baselines for fair T4+ comparison.
 
 ---
 
@@ -53,7 +55,11 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 
 ## Fine-Tuned Benchmarks (Clean Results Only)
 
-Accuracy on 6-bit quantized model with **generic v1** prompt unless noted. All from Qwen3-4B base.
+All from Qwen3-4B base.
+
+> **Test set change at T4:** T1-T3 used v1 test set (12 examples, basic categories). T4+ uses v2 test set (23 examples, adds XML multi-step, complex email, hard negatives, more quote/correction variants). **Accuracy percentages are NOT comparable across the boundary.** Compare T1-T3 against each other, and T4+ against each other.
+
+### T1-T3: v1 test set (12 examples), v1 training data (472 train, 8 valid)
 
 | Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
 |-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
@@ -61,13 +67,18 @@ Accuracy on 6-bit quantized model with **generic v1** prompt unless noted. All f
 | T1 | iter 600 | bf16 | generic v1 | 12 | **75%** | — | — | — | — | 1.93s | More training helped generic. |
 | T1 | iter 600 | 4-bit | generic v1 | 12 | **67%** | — | — | — | — | 0.66s | 4-bit quant penalty. |
 | T2 | iter 200 | 6-bit | generic v1 | 12 | **58%** | — | — | — | — | 0.79s | Same as T1 @200. r=8 = r=16. |
-| **T2** | **iter 400** | **6-bit** | **generic v1** | **12** | **75%** | **8** | **1** | **2** | **1** | **0.79s** | **Best deployed config.** |
+| **T2** | **iter 400** | **6-bit** | **generic v1** | **12** | **75%** | **8** | **1** | **2** | **1** | **0.79s** | **Best on v1 test set.** |
 | T2 | iter 400 | bf16 | generic v1 | 12 | **75%** | 8 | 1 | 2 | 1 | 1.75s | bf16 = 6-bit accuracy. |
 | T2 | iter 400 | bf16 | v2 | 12 | **58%** | 6 | 1 | 4 | 1 | 1.71s | Prompt mismatch: trained v1, tested v2. -17%. |
 | T3 | iter 200 | bf16 | generic v1 | 12 | **50%** | 5 | 1 | 6 | 0 | 0.63s | Llama 1B. Fixed hallucinations but 25% gap vs Qwen. |
+
+### T4+: v2 test set (23 examples), v2 training data (447 train, 20 valid)
+
+| Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
 | T4 | iter 300 | bf16 | generic v1 | 23 | **61%** | 13 | 1 | 9 | 0 | 1.91s | Prompt mismatch: trained v2, tested v1. |
-| **T4** | **iter 300** | **bf16** | **v2** | **23** | **74%** | **15** | **2** | **6** | **0** | **1.89s** | **Matched prompt. Self-correction #3 FIXED. Quote #6 scope FIXED (period placement off).** |
-| T4 | iter 300 | 6-bit | v2 | 23 | **65%** | 14 | 1 | 8 | 0 | 2.04s | 6-bit quant lost 2 edge cases (quote-endquote, code-aware). |
+| **T4** | **iter 300** | **bf16** | **v2** | **23** | **74%** | **15** | **2** | **6** | **0** | **1.89s** | **Best on v2 test set. Self-correction #3 FIXED. Quote #6 scope FIXED.** |
+| T4 | iter 300 | 6-bit | v2 | 23 | **65%** | 14 | 1 | 8 | 0 | 2.04s | 6-bit lost 2 edge cases vs bf16 (quote-endquote, code-aware). |
 | T5 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 | T6 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 | T7 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
