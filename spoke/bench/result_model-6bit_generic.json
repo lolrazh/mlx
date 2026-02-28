@@ -1,15 +1,15 @@
 {
-  "model": "../../spoke/model-6bit",
+  "model": "spoke/model-6bit",
   "short_name": "model-6bit",
   "prompt_mode": "generic",
-  "load_time_s": 0.9,
-  "n": 12,
-  "exact": 8,
+  "load_time_s": 1.6,
+  "n": 23,
+  "exact": 14,
   "semantic": 1,
-  "partial": 2,
-  "fail": 1,
-  "accuracy": 0.75,
-  "avg_latency_s": 1.233,
+  "partial": 8,
+  "fail": 0,
+  "accuracy": 0.6522,
+  "avg_latency_s": 0.819,
   "results": [
     {
       "id": 1,
@@ -19,7 +19,7 @@
       "output": "I'm gonna be using Silero VAD for this.",
       "raw_output": "I'm gonna be using Silero VAD for this.",
       "score": "exact",
-      "gen_time_s": 0.916
+      "gen_time_s": 0.854
     },
     {
       "id": 2,
@@ -29,107 +29,217 @@
       "output": "He went to the Kadai.",
       "raw_output": "He went to the Kadai.",
       "score": "exact",
-      "gen_time_s": 1.017
+      "gen_time_s": 0.587
     },
     {
       "id": 3,
+      "category": "spell-replace",
+      "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+      "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "raw_output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "score": "exact",
+      "gen_time_s": 1.211
+    },
+    {
+      "id": 4,
       "category": "self-correction",
       "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
       "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
       "output": "The backend is actually powered by Fireworks.",
       "raw_output": "The backend is actually powered by Fireworks.",
       "score": "partial",
-      "gen_time_s": 1.158
+      "gen_time_s": 0.66
     },
     {
-      "id": 4,
+      "id": 5,
       "category": "self-correction",
       "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
       "ideal": "Let's meet at 12pm, Thursday.",
       "output": "Let's meet at 12pm, Thursday.",
       "raw_output": "Let's meet at 12pm, Thursday.",
       "score": "exact",
-      "gen_time_s": 1.262
+      "gen_time_s": 0.806
     },
     {
-      "id": 5,
+      "id": 6,
+      "category": "self-correction",
+      "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+      "ideal": "We're using React and Svelte.",
+      "output": "We're using Svelte.",
+      "raw_output": "We're using Svelte.",
+      "score": "partial",
+      "gen_time_s": 0.558
+    },
+    {
+      "id": 7,
       "category": "quote-unquote",
       "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
       "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 1.617
+      "gen_time_s": 1.154
     },
     {
-      "id": 6,
+      "id": 8,
+      "category": "quote-unquote",
+      "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+      "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
+      "output": "Gluten-free bread that lists wheat as the second ingredient.",
+      "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient.\"",
+      "score": "partial",
+      "gen_time_s": 0.798
+    },
+    {
+      "id": 9,
       "category": "quote-endquote",
       "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
       "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
       "output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?",
       "score": "partial",
-      "gen_time_s": 1.971
+      "gen_time_s": 1.21
     },
     {
-      "id": 7,
+      "id": 10,
+      "category": "quote-endquote",
+      "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+      "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "raw_output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "score": "exact",
+      "gen_time_s": 1.037
+    },
+    {
+      "id": 11,
+      "category": "quote-endquote",
+      "input": "He described the interview as quote the most stressful hour of my life end quote.",
+      "ideal": "He described the interview as \"the most stressful hour of my life\".",
+      "output": "He described the interview as \"the most stressful hour of my life.\"",
+      "raw_output": "He described the interview as \"the most stressful hour of my life.\"",
+      "score": "partial",
+      "gen_time_s": 0.831
+    },
+    {
+      "id": 12,
       "category": "at-symbol",
       "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
       "ideal": "I wanna fix @app.py and @test.py.",
       "output": "I wanna fix @app.py and @test.py.",
       "raw_output": "I wanna fix @app.py and @test.py.",
       "score": "exact",
-      "gen_time_s": 1.204
+      "gen_time_s": 0.734
     },
     {
-      "id": 8,
+      "id": 13,
       "category": "caps",
       "input": "We're so excited to make this. Use all caps.",
       "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
       "output": "WE'RE SO EXCITED TO MAKE THIS.",
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
       "score": "exact",
-      "gen_time_s": 1.059
+      "gen_time_s": 0.69
     },
     {
-      "id": 9,
+      "id": 14,
       "category": "emphasis",
       "input": "It's surprisingly fast. Emphasize surprisingly.",
       "ideal": "It's **surprisingly** fast.",
       "output": "It's **surprisingly** fast.",
       "raw_output": "It's **surprisingly** fast.",
       "score": "exact",
-      "gen_time_s": 0.949
+      "gen_time_s": 0.617
     },
     {
-      "id": 10,
+      "id": 15,
+      "category": "formatting-xml",
+      "input": "The result was unexpected. Emphasize unexpected. And wrap the whole sentence in a result tag.",
+      "ideal": "<result>The result was **unexpected**.</result>",
+      "output": "The result was <em>unexpected</em>.",
+      "raw_output": "The result was <em>unexpected</em>.",
+      "score": "partial",
+      "gen_time_s": 0.686
+    },
+    {
+      "id": 16,
+      "category": "formatting-xml",
+      "input": "The function returns null on error. XML open error, XML close error, around null.",
+      "ideal": "The function returns <error>null</error> on error.",
+      "output": "The function returns <null> on error.",
+      "raw_output": "The function returns <null> on error.",
+      "score": "partial",
+      "gen_time_s": 0.645
+    },
+    {
+      "id": 17,
+      "category": "email",
+      "input": "The invite list includes plus one, literally the word plus and the number one, at sign temp hyphen mail dot o r g, which is obviously fake, and also real dot person at outlook dot c o m.",
+      "ideal": "The invite list includes plusone@temp-mail.org, which is obviously fake, and also real.person@outlook.com.",
+      "output": "The invite list includes plusone@temp-mail.org, which is obviously fake, and also real.person@outlook.com.",
+      "raw_output": "The invite list includes plusone@temp-mail.org, which is obviously fake, and also real.person@outlook.com.",
+      "score": "exact",
+      "gen_time_s": 1.283
+    },
+    {
+      "id": 18,
       "category": "emoji",
       "input": "Heartbreak emoji",
       "ideal": "💔",
       "output": "💔",
       "raw_output": "💔",
       "score": "exact",
-      "gen_time_s": 0.612
+      "gen_time_s": 0.36
     },
     {
-      "id": 11,
-      "category": "multi-step",
-      "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
-      "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
-      "output": "Send this to @Vercel. The filename is \"quote sonicflow_vercel-handler end quote.\"",
-      "raw_output": "Send this to @Vercel. The filename is \"quote sonicflow_vercel-handler end quote.\"",
-      "score": "fail",
-      "gen_time_s": 1.752
+      "id": 19,
+      "category": "emoji",
+      "input": "Praying hands emoji for the victims",
+      "ideal": "🙏 for the victims",
+      "output": "🙏 for the victims",
+      "raw_output": "🙏 for the victims",
+      "score": "exact",
+      "gen_time_s": 0.452
     },
     {
-      "id": 12,
+      "id": 20,
       "category": "camelcase",
       "input": "So we've got a file called usetranscription.ts.",
       "ideal": "So we've got a file called useTranscription.ts.",
       "output": "So we've got a file called usetranscription.ts.",
       "raw_output": "So we've got a file called usetranscription.ts.",
       "score": "semantic",
-      "gen_time_s": 1.277
+      "gen_time_s": 0.781
+    },
+    {
+      "id": 21,
+      "category": "code-aware",
+      "input": "Check your tsconfig, the jsx compiler option should be set to react jsx not the old transform.",
+      "ideal": "Check your tsconfig, the JSX compiler option should be set to react-jsx not the old transform.",
+      "output": "Check your tsconfig, the jsx compiler option should be set to \"react-jsx\" not the old transform.",
+      "raw_output": "Check your tsconfig, the jsx compiler option should be set to \"react-jsx\" not the old transform.",
+      "score": "partial",
+      "gen_time_s": 1.15
+    },
+    {
+      "id": 22,
+      "category": "hard-negative",
+      "input": "Wait until you see the new office, it's completely different from the old one.",
+      "ideal": "Wait until you see the new office, it's completely different from the old one.",
+      "output": "Wait until you see the new office, it's completely different from the old one.",
+      "raw_output": "Wait until you see the new office, it's completely different from the old one.",
+      "score": "exact",
+      "gen_time_s": 0.97
+    },
+    {
+      "id": 23,
+      "category": "hard-negative",
+      "input": "Never mind the formatting, just get the content right first.",
+      "ideal": "Never mind the formatting, just get the content right first.",
+      "output": "Never mind the formatting, just get the content right first.",
+      "raw_output": "Never mind the formatting, just get the content right first.",
+      "score": "exact",
+      "gen_time_s": 0.771
     }
   ]
 }
