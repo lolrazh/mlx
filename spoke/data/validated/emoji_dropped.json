@@ -1,0 +1,194 @@
+[
+  {
+    "input": "Five stars and a hundred",
+    "ideal": "⭐⭐⭐⭐⭐💯",
+    "index": 0,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Praying hands",
+    "ideal": "🙏",
+    "index": 1,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Party popper let's celebrate with three beers",
+    "ideal": "🎉 let's celebrate with 🍺🍺🍺",
+    "index": 2,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Thinking face",
+    "ideal": "🤔",
+    "index": 0,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Insert thinking face here",
+    "ideal": "🤔",
+    "index": 1,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "She said maybe thinking face I don't know",
+    "ideal": "She said maybe 🤔 I don't know",
+    "index": 2,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Give me three party poppers",
+    "ideal": "🎉🎉🎉",
+    "index": 3,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Hundred points symbol",
+    "ideal": "💯",
+    "index": 4,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Peace sign victory hand",
+    "ideal": "✌️",
+    "index": 5,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Praying hands thank you so much",
+    "ideal": "🙏 thank you so much",
+    "index": 6,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Pizza slice and burger please",
+    "ideal": "🍕 and 🍔 please",
+    "index": 7,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "She said yes party popper",
+    "ideal": "She said yes 🎉",
+    "index": 0,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Thinking face I don't know about that",
+    "ideal": "🤔 I don't know about that",
+    "index": 1,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Praying hands thank you so much",
+    "ideal": "🙏 thank you so much",
+    "index": 2,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Sparkles",
+    "ideal": "✨",
+    "index": 3,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Peace sign victory hand",
+    "ideal": "✌️",
+    "index": 4,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Thinking face",
+    "ideal": "🤔",
+    "index": 0,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Praying hands",
+    "ideal": "🙏",
+    "index": 1,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Five star rating please",
+    "ideal": "⭐⭐⭐⭐⭐",
+    "index": 0,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Peace sign and victory hand",
+    "ideal": "✌️✌️",
+    "index": 1,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Hundred points symbol you nailed it",
+    "ideal": "💯 you nailed it",
+    "index": 2,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Five stars amazing service",
+    "ideal": "⭐⭐⭐⭐⭐ amazing service",
+    "index": 0,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Party popper let's celebrate",
+    "ideal": "🎉 let's celebrate",
+    "index": 1,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  },
+  {
+    "input": "Four clapping hands for the team",
+    "ideal": "👏👏👏👏 for the team",
+    "index": 2,
+    "errors": [
+      "No emoji reference found in input"
+    ]
+  }
+]

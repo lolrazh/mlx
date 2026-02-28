@@ -1,0 +1,178 @@
+[
+  {
+    "input": "So in my React component, I'm calling usestate to manage the form data, but I keep forgetting to import it properly.",
+    "ideal": "So in my React component, I'm calling useState to manage the form data, but I keep forgetting to import it properly."
+  },
+  {
+    "input": "The main wrapper is called appcontainer and it handles all the routing logic between the different views.",
+    "ideal": "The main wrapper is called AppContainer and it handles all the routing logic between the different views."
+  },
+  {
+    "input": "We're building a small llm to run locally on consumer hardware, so we need to optimize for GPU inference.",
+    "ideal": "We're building a small LLM to run locally on consumer hardware, so we need to optimize for GPU inference."
+  },
+  {
+    "input": "Just check your package dot json to make sure the api version matches what the backend is expecting.",
+    "ideal": "Just check your package.json to make sure the API version matches what the backend is expecting."
+  },
+  {
+    "input": "The styles aren't loading because I forgot to import the css module at the top of the file.",
+    "ideal": "The styles aren't loading because I forgot to import the CSS module at the top of the file."
+  },
+  {
+    "input": "I have my environment variables in env, local for development, but I need to remember to copy them to the production server.",
+    "ideal": "I have my environment variables in .env.local for development, but I need to remember to copy them to the production server."
+  },
+  {
+    "input": "The useeffect hook is running twice because of React's strict mode in development, which is actually the correct behavior.",
+    "ideal": "The useEffect hook is running twice because of React's strict mode in development, which is actually the correct behavior."
+  },
+  {
+    "input": "So the problem is in next, config, js where I set the rewrites but forgot to add the trailing slash, and also the image component needs the gpu acceleration flag for the onnx runtime to work properly with the llm inference.",
+    "ideal": "So the problem is in next.config.js where I set the rewrites but forgot to add the trailing slash, and also the image component needs the GPU acceleration flag for the ONNX runtime to work properly with the LLM inference."
+  },
+  {
+    "input": "You'll need to update your tsconfig to include the new path aliases, otherwise the imports will break in production.",
+    "ideal": "You'll need to update your tsconfig.json to include the new path aliases, otherwise the imports will break in production."
+  },
+  {
+    "input": "I'm importing the usereducer hook from React but it's not working because I forgot to pass the initial state.",
+    "ideal": "I'm importing the useReducer hook from React but it's not working because I forgot to pass the initial state."
+  },
+  {
+    "input": "The llm context window is too small so we need to switch to a different model with more tokens.",
+    "ideal": "The LLM context window is too small so we need to switch to a different model with more tokens."
+  },
+  {
+    "input": "Check your env, local file because the database URL isn't being picked up in production.",
+    "ideal": "Check your .env.local file because the database URL isn't being picked up in production."
+  },
+  {
+    "input": "The appcontainer component wraps everything so you need to make sure it's imported in layout dot tsx.",
+    "ideal": "The AppContainer component wraps everything so you need to make sure it's imported in layout.tsx."
+  },
+  {
+    "input": "We're seeing gpu memory issues on the mchips when running the onnx runtime in the background.",
+    "ideal": "We're seeing GPU memory issues on the M chips when running the ONNX runtime in the background."
+  },
+  {
+    "input": "The usecallback dependency array is empty but you're referencing a variable that changes on every render.",
+    "ideal": "The useCallback dependency array is empty but you're referencing a variable that changes on every render."
+  },
+  {
+    "input": "Make sure to commit your package lock dot json otherwise the ci pipeline will fail on the install step.",
+    "ideal": "Make sure to commit your package-lock.json otherwise the CI pipeline will fail on the install step."
+  },
+  {
+    "input": "The css modules aren't being applied because you forgot to import the styles object in your component.",
+    "ideal": "The CSS modules aren't being applied because you forgot to import the styles object in your component."
+  },
+  {
+    "input": "I need to update the next, config to add the api rewrites but the middleware is blocking the request.",
+    "ideal": "I need to update the next.config to add the API rewrites but the middleware is blocking the request."
+  },
+  {
+    "input": "So I'm looking at this usememo hook and it's not memoizing the llm inference results even though the gpu is available.",
+    "ideal": "So I'm looking at this useMemo hook and it's not memoizing the LLM inference results even though the GPU is available."
+  },
+  {
+    "input": "The problem is in your appcontainer component, you're importing from react native instead of just react.",
+    "ideal": "The problem is in your AppContainer component, you're importing from React Native instead of just React."
+  },
+  {
+    "input": "Check your tsconfig, the jsx compiler option should be set to react jsx not the old transform.",
+    "ideal": "Check your tsconfig, the JSX compiler option should be set to react-jsx not the old transform."
+  },
+  {
+    "input": "I keep forgetting to add the env, local to gitignore and then my api keys end up in the repo.",
+    "ideal": "I keep forgetting to add the .env.local to .gitignore and then my API keys end up in the repo."
+  },
+  {
+    "input": "The onnx runtime isn't loading because you're trying to use it in a web worker without the proper wasm setup.",
+    "ideal": "The ONNX runtime isn't loading because you're trying to use it in a web worker without the proper WASM setup."
+  },
+  {
+    "input": "You need to wrap that in usecallback or the child component will re-render every time the parent updates.",
+    "ideal": "You need to wrap that in useCallback or the child component will re-render every time the parent updates."
+  },
+  {
+    "input": "The dockerfile is trying to copy package dot json but you renamed it to package lock dot json by mistake.",
+    "ideal": "The Dockerfile is trying to copy package.json but you renamed it to package-lock.json by mistake."
+  },
+  {
+    "input": "I'm seeing a warning about the viewport meta tag in next, config, you need to move that to the metadata api.",
+    "ideal": "I'm seeing a warning about the viewport meta tag in next.config, you need to move that to the metadata API."
+  },
+  {
+    "input": "The useeffect dependency array is empty but you're using a ref inside, so it's stale closure city over here.",
+    "ideal": "The useEffect dependency array is empty but you're using a ref inside, so it's stale closure city over here."
+  },
+  {
+    "input": "So in the react component, I'm importing usestate and usecontext from the library, but the linter is complaining that usestate is never reassigned.",
+    "ideal": "So in the React component, I'm importing useState and useContext from the library, but the linter is complaining that useState is never reassigned."
+  },
+  {
+    "input": "The main wrapper is called appcontainer and it wraps everything in a fragment, but I think we should rename appcontainer to something more descriptive.",
+    "ideal": "The main wrapper is called AppContainer and it wraps everything in a fragment, but I think we should rename AppContainer to something more descriptive."
+  },
+  {
+    "input": "We're running inference on the llm using the gpu, but the gpu utilization is only at 30 percent, so maybe we should batch more requests to saturate the gpu.",
+    "ideal": "We're running inference on the LLM using the GPU, but the GPU utilization is only at 30 percent, so maybe we should batch more requests to saturate the GPU."
+  },
+  {
+    "input": "I need to update the api endpoint in next, config to point to the staging server, but every time I edit next, config the dev server crashes with a syntax error.",
+    "ideal": "I need to update the API endpoint in next.config to point to the staging server, but every time I edit next.config the dev server crashes with a syntax error."
+  },
+  {
+    "input": "Make sure you don't commit env, local to git because env, local has all the production secrets, and we already had one incident where someone leaked env, local last month.",
+    "ideal": "Make sure you don't commit .env.local to git because .env.local has all the production secrets, and we already had one incident where someone leaked .env.local last month."
+  },
+  {
+    "input": "The stylesheet isn't loading because the css import is missing from the entry point, and without that css the whole layout breaks on mobile.",
+    "ideal": "The stylesheet isn't loading because the CSS import is missing from the entry point, and without that CSS the whole layout breaks on mobile."
+  },
+  {
+    "input": "I'm using the usememo hook to cache the computed values, but usememo is actually slower here because the comparison function is expensive, so just remove usememo entirely.",
+    "ideal": "I'm using the useMemo hook to cache the computed values, but useMemo is actually slower here because the comparison function is expensive, so just remove useMemo entirely."
+  },
+  {
+    "input": "The component library exports a defaultlayout component that includes the navbar and footer, so every page should wrap its content with defaultlayout to keep the design consistent.",
+    "ideal": "The component library exports a DefaultLayout component that includes the navbar and footer, so every page should wrap its content with DefaultLayout to keep the design consistent."
+  },
+  {
+    "input": "The build is failing because it can't find tsconfig, even though tsconfig is right there in the root directory, so I don't understand why the compiler is complaining about missing tsconfig.",
+    "ideal": "The build is failing because it can't find tsconfig.json, even though tsconfig.json is right there in the root directory, so I don't understand why the compiler is complaining about missing tsconfig.json."
+  },
+  {
+    "input": "So in the usecallback hook, we're memoizing the function itself, not the result. That's the key difference between usecallback and usememo.",
+    "ideal": "So in the useCallback hook, we're memoizing the function itself, not the result. That's the key difference between useCallback and useMemo."
+  },
+  {
+    "input": "The errorboundary component wraps your route components to catch JavaScript errors anywhere in their child component tree.",
+    "ideal": "The ErrorBoundary component wraps your route components to catch JavaScript errors anywhere in their child component tree."
+  },
+  {
+    "input": "We're training a small llm to run on consumer gpus, so we need to quantize the weights down to four bits.",
+    "ideal": "We're training a small LLM to run on consumer GPUs, so we need to quantize the weights down to four bits."
+  },
+  {
+    "input": "Check your package dot json to make sure react and react dom are both on version eighteen.",
+    "ideal": "Check your package.json to make sure react and react-dom are both on version 18."
+  },
+  {
+    "input": "The next, config file needs the output export flag set to true for static site generation to work properly.",
+    "ideal": "The next.config file needs the output: 'export' flag set to true for static site generation to work properly."
+  },
+  {
+    "input": "I keep my api keys in env, local so they don't get committed, but the ci pipeline needs them in github secrets.",
+    "ideal": "I keep my API keys in .env.local so they don't get committed, but the CI pipeline needs them in GitHub secrets."
+  },
+  {
+    "input": "The uselayouteffect hook fires synchronously after all dom mutations, so use it if you need to measure the layout before the browser paints.",
+    "ideal": "The useLayoutEffect hook fires synchronously after all DOM mutations, so use it if you need to measure the layout before the browser paints."
+  },
+  {
+    "input": "Our onnx runtime integration converts the pytorch model to onnx format so we can inference on mchips with core ml acceleration.",
+    "ideal": "Our ONNX runtime integration converts the PyTorch model to ONNX format so we can inference on M chips with Core ML acceleration."
+  }
+]

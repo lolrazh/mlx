@@ -1,0 +1,322 @@
+[
+  {
+    "input": "Send this to Sarah. Add an at symbol before Sarah. The subject is quote urgent review needed end quote.",
+    "ideal": "Send this to @Sarah. The subject is \"urgent review needed.\""
+  },
+  {
+    "input": "The API key is clowd. Spell that C-L-O-U-D, wait no, sorry, C-L-A-U-D-E.",
+    "ideal": "The API key is CLAUDE."
+  },
+  {
+    "input": "Message the team channel. Add an at symbol before team. Say quote we shipped end quote, actually, quote we shipped early end quote.",
+    "ideal": "Message the @team channel. Say \"we shipped early.\""
+  },
+  {
+    "input": "The filename is readmee. Spell that R-E-A-D-M-E, in caps, sorry, lowercase.",
+    "ideal": "The filename is readme."
+  },
+  {
+    "input": "Ping design. Add an at symbol before design. The status is quote blocked end quote, emphasize that, actually, quote unblocked end quote.",
+    "ideal": "Ping @design. The status is *unblocked*."
+  },
+  {
+    "input": "Email me at john dot doe at outlook dot com, sorry, john.doe@outlook.com. Add an at symbol before john in the body. Say quote thanks for the meeting end quote with a thumbs up emoji.",
+    "ideal": "Email me at john.doe@outlook.com. Say \"@john thanks for the meeting\" 👍"
+  },
+  {
+    "input": "The repo is gethup. Spell that G-I-T-H-U-B, in caps, wait no, sorry, G-I-T-L-A-B, actually lowercase. Add an at symbol before the handle in quote dev team end quote.",
+    "ideal": "The repo is @gitlab. \"dev team\""
+  },
+  {
+    "input": "Message sarah. Add an at symbol before sarah. Say quote need the report by five end quote. Actually, make that six, and emphasize need.",
+    "ideal": "Message @sarah. Say \"need the report by six.\""
+  },
+  {
+    "input": "The handle is techbro. Spell that T-E-C-H-B-R-O, in lowercase, wait no, sorry, T-E-C-H-W-I-T-C-H. Add an at symbol before it.",
+    "ideal": "The handle is @techwitch."
+  },
+  {
+    "input": "Send to the group. Add an at symbol before everyone. Subject is quote urgent pizza party end quote. Actually, taco party. Include the pizza emoji.",
+    "ideal": "Send to @everyone. Subject is \"urgent taco party.\" Include the 🍕."
+  },
+  {
+    "input": "The file is readme. Spell that R-E-A-D-M-E, in caps. Wait, no, actually R-E-A-D-Y-O-U. Sorry, I mean R-E-A-D-Y-M-E.",
+    "ideal": "The file is README.md."
+  },
+  {
+    "input": "Email jane dot smith at company dot io, sorry, jane.smith@company.io. Say quote the deal is off end quote. Actually, on. Add an at symbol before jane in the greeting.",
+    "ideal": "Email jane.smith@company.io. Say \"the deal is on.\""
+  },
+  {
+    "input": "Post to slack. Add an at symbol before channel. Message is quote shipping now end quote with the rocket emoji. Actually, shipping tomorrow. Emphasize now, wait no, emphasize tomorrow.",
+    "ideal": "Post to @channel. Message is \"shipping tomorrow\" with the 🚀. Emphasize tomorrow."
+  },
+  {
+    "input": "The username is devgurl. Spell that D-E-V-G-I-R-L, in lowercase, sorry, D-E-V-G-U-R-L. Add an at symbol before it. Actually, make it D-E-V-G-A-L, no wait, D-E-V-G-A-L-A.",
+    "ideal": "The username is @devgala."
+  },
+  {
+    "input": "Send feedback to support. Add an at symbol before help. Subject quote broken login end quote. Actually, broken logout. Include the facepalm emoji. The priority is urgent in caps.",
+    "ideal": "Send feedback to @help. Subject \"broken logout.\" Include the 🤦. The priority is URGENT."
+  },
+  {
+    "input": "Email firstname dot lastname at startup dot co, sorry, firstname.lastname@startup.co. Say quote interested in investing end quote. Actually, interested in joining. Add an at symbol before firstname. Spell lastname as L-A-S-T-N-A-M-E in caps.",
+    "ideal": "Email firstname.lastname@startup.co. Say \"interested in joining.\""
+  },
+  {
+    "input": "The API key is quote sk dash live dash abc123 end quote. Spell abc as A-B-C-D, wait no, A-B-C, in uppercase.",
+    "ideal": "The API key is \"SK-LIVE-ABC123.\""
+  },
+  {
+    "input": "Message the team. Add an at symbol before everyone. Say quote ship it rocket emoji end quote, actually, party popper emoji.",
+    "ideal": "Message @everyone. Say \"ship it 🎉\""
+  },
+  {
+    "input": "The repo is github.com slash org slash quote super dash base end quote. Spell base B-A-S-E, add an at symbol before super, in lowercase.",
+    "ideal": "The repo is github.com/org/@super-base."
+  },
+  {
+    "input": "Contact sarah dot miller at company dot io, sorry, sarah.miller@company.io. Subject quote urgent review needed end quote. Emphasize urgent.",
+    "ideal": "Contact sarah.miller@company.io. Subject \"*urgent* review needed.\""
+  },
+  {
+    "input": "The variable is quote camel case user id end quote. Spell id I-D, wait, spell user U-S-E-R, sorry, actually delete that, just say quote user id end quote in camelCase.",
+    "ideal": "The variable is \"userId.\""
+  },
+  {
+    "input": "Ping design. Add an at symbol before design. The color is quote hash F F zero zero zero zero end quote, spell that F-F-0-0-0-0, in lowercase, actually uppercase.",
+    "ideal": "Ping @design. The color is \"#FF0000.\""
+  },
+  {
+    "input": "Email first name dot last name at domain dot com, sorry, firstname.lastname@domain.com. Say quote thanks exclamation mark end quote, actually, thanks thumbs up emoji.",
+    "ideal": "Email firstname.lastname@domain.com. Say \"thanks 👍\""
+  },
+  {
+    "input": "The path is slash quote home slash user slash config end quote. Spell config C-O-N-F-I-G, add an at symbol before user, in lowercase, emphasize config.",
+    "ideal": "The path is \"/home/@user/*config*.\""
+  },
+  {
+    "input": "Message dev team. Add an at symbol before devs. Say quote deploy failed fire emoji end quote, sorry, deploy succeeded party popper emoji, in bold.",
+    "ideal": "Message @devs. Say \"**deploy succeeded 🎉**\""
+  },
+  {
+    "input": "Post this to the thread. Add an at symbol before design team. The deadline is quote end of quarter end quote. Actually, end of month.",
+    "ideal": "Post this to the @design team thread. The deadline is \"end of month.\""
+  },
+  {
+    "input": "The variable is spelled M-Y-S-Q-L, in camelCase. Wait, no, sorry, it's PostgreSQL, P-O-S-T-G-R-E-S-Q-L, in snake_case.",
+    "ideal": "The variable is postgresql in snake_case."
+  },
+  {
+    "input": "Send this to johnsmith at company dot com, sorry, john.smith@company.com. Say quote need the report ASAP fire emoji end quote, in bold.",
+    "ideal": "Send this to john.smith@company.com. Say \"need the report ASAP 🔥\" in bold."
+  },
+  {
+    "input": "The API key is quote sk dash live dash blah blah blah end quote. Spell that as S-K dash, wait, no, sorry, spell it S-K underscore test underscore, in lowercase.",
+    "ideal": "The API key is \"sk_test_blah blah blah\" in lowercase."
+  },
+  {
+    "input": "Message the team. Add an at symbol before engineering. Say quote ship it rocket emoji end quote. Actually, wait, no, say quote almost there construction emoji end quote.",
+    "ideal": "Message the @engineering. Say \"almost there 🚧.\""
+  },
+  {
+    "input": "The filename is readme dot emd, spell that M-D, in uppercase. Wait, no, sorry, it's markdown, M-A-R-K-D-O-W-N, in lowercase.",
+    "ideal": "The filename is readme.markdown in lowercase."
+  },
+  {
+    "input": "Email sarah dot jones at startup dot io, sorry, sarah.jones@startup.io. Say quote funding secured party popper emoji end quote, in italics. Actually, bold.",
+    "ideal": "Email sarah.jones@startup.io. Say \"funding secured 🎉\" in bold."
+  },
+  {
+    "input": "The command is git commit dash m, quote fix the bug end quote. Spell that as F-I-X, wait, no, sorry, spell it F-E-A-T for feature, in caps.",
+    "ideal": "The command is git commit -m \"FEAT the bug\" in caps."
+  },
+  {
+    "input": "Post to social. Add an at symbol before techcrunch. Say quote breaking news explosion emoji end quote. Spell news as N-E-W-S, wait, no, sorry, spell it B-R-E-A-K-I-N-G, and make it all caps.",
+    "ideal": "Post to @techcrunch. Say \"BREAKING 🔥\" in all caps."
+  },
+  {
+    "input": "Message the team. Add an at symbol before everyone. Say quote we need to deploy urgently end quote. Actually, deploy carefully.",
+    "ideal": "Message @everyone. Say \"we need to deploy carefully.\""
+  },
+  {
+    "input": "The API key is sk dash live, spell live as L-I-V-E, in caps. Wait, no, that's wrong. Make it lowercase and spell it L-I-V-E.",
+    "ideal": "The API key is sk-live."
+  },
+  {
+    "input": "Tweet at elonmusk, add an at symbol before elonmusk, saying quote this is revolutionary end quote with the rocket emoji.",
+    "ideal": "Tweet at @elonmusk, saying \"this is revolutionary\" 🚀"
+  },
+  {
+    "input": "The filename is readme dot md, emphasize readme, and spell md as M-D, in caps. Actually, make it lowercase.",
+    "ideal": "The filename is *readme*.md."
+  },
+  {
+    "input": "Email support at acme dot corp, add an at symbol before support, saying quote urgent bug in production end quote. Wait, critical bug.",
+    "ideal": "Email @support@acme.corp, saying \"critical bug in production.\""
+  },
+  {
+    "input": "The variable is user name, spell name as N-A-M-E, camelCase, with the user emoji. Actually, make it snake_case and lowercase.",
+    "ideal": "The variable is user_name 👤"
+  },
+  {
+    "input": "Message devs, add an at symbol before devs, saying quote deploy failed end quote with the fire emoji. Actually, build failed.",
+    "ideal": "Message @devs, saying \"build failed\" 🔥"
+  },
+  {
+    "input": "The config is api url, spell url as U-R-L, in caps, dot env format. Wait, no, lowercase and make it yaml format with the gear emoji.",
+    "ideal": "The config is api_url: 🛠️"
+  },
+  {
+    "input": "The repo is called fireship, spell that F-I-R-E-S-H-I-P, in camelCase. Actually, no, make it PascalCase.",
+    "ideal": "The repo is called FireShip."
+  },
+  {
+    "input": "Email the report to sarah dot chen at company dot io, sorry, sarah.chen@company.io, and CC legal, add an at symbol before legal.",
+    "ideal": "Email the report to sarah.chen@company.io and CC @legal."
+  },
+  {
+    "input": "The status is quote work in progress end quote, with the construction worker emoji, in bold. Wait, actually, quote almost done end quote.",
+    "ideal": "The status is \"almost done\" 👷, in bold."
+  },
+  {
+    "input": "Message the channel, add an at symbol before engineering, saying quote hotfix deployed end quote, emphasize deployed. Actually, emphasize hotfix instead.",
+    "ideal": "Message the channel @engineering, saying \"*hotfix* deployed.\""
+  },
+  {
+    "input": "The database is supabase, spell that S-U-P-A-B-A-S-E, no wait, S-U-P-E-R-B-A-S-E, in snake_case. Actually, just use postgres.",
+    "ideal": "The database is postgres."
+  },
+  {
+    "input": "Set the variable to userId, camelCase, with the ID in caps. Wait, no, make it user_id, snake_case, with the person emoji.",
+    "ideal": "Set the variable to user_id 👤."
+  },
+  {
+    "input": "Email support at help dot desk at company dot com, sorry, help.desk@company.com, CC the manager, add an at symbol before manager, subject quote urgent bug end quote, with the bug emoji.",
+    "ideal": "Email help.desk@company.com, CC @manager, subject \"urgent bug\" 🐛."
+  },
+  {
+    "input": "The API endpoint is localhost, spell that L-O-C-A-L-H-O-S-T, colon three thousand, in code format. Actually, make it production, all caps, with the rocket emoji.",
+    "ideal": "The API endpoint is PRODUCTION 🚀."
+  },
+  {
+    "input": "Message dev rel, add an at symbol before devrel, saying quote new release end quote, emphasize new, with the party emoji. Wait, actually, emphasize release, and make it all caps.",
+    "ideal": "Message @devrel, saying \"new *RELEASE*\" 🎉."
+  },
+  {
+    "input": "The variable is called my var, spell that M-Y-V-A-R, in camelCase. Wait, no, actually it's myVar, M-Y-V-A-R.",
+    "ideal": "The variable is called myVar."
+  },
+  {
+    "input": "React to this with the fire emoji, then type quote that was lit end quote, in all caps.",
+    "ideal": "🔥 \"THAT WAS LIT\""
+  },
+  {
+    "input": "Add an at symbol before the handle, it's spelled J-A-X-X-O-N, wait sorry, J-A-X-O-N, then say quote meet at noon end quote.",
+    "ideal": "@JAXON \"meet at noon\""
+  },
+  {
+    "input": "The database is superbase, S-U-P-E-R-B-A-S-E, add an at symbol before their handle, actually no, sorry, it's supabase, S-U-P-A-B-A-S-E.",
+    "ideal": "The database is @supabase."
+  },
+  {
+    "input": "Send this to Grok, add an at symbol, saying quote check this out end quote with the rocket emoji, in bold.",
+    "ideal": "Send this to @Grok, saying \"check this out\" 🚀"
+  },
+  {
+    "input": "The file is readme dot emd, wait no, readme.md, spell that M-D, in lowercase, with the folder emoji.",
+    "ideal": "The file is readme.md 📁"
+  },
+  {
+    "input": "Email me at john dot doe at work dot com, sorry, john.doe@work.com, saying quote urgent end quote, in red and all caps.",
+    "ideal": "Email me at john.doe@work.com, saying \"URGENT\""
+  },
+  {
+    "input": "The API key is sk dash live, wait, sk dash test, spell that S-K-T-E-S-T, add an at symbol before test, with the lock emoji, in monospace.",
+    "ideal": "The API key is sk-@test 🔒"
+  },
+  {
+    "input": "React with the thumbs up emoji, then type quote great job end quote, in italics, actually no, bold, and tag sarah, add an at symbol before her name.",
+    "ideal": "👍 \"great job\" @sarah"
+  },
+  {
+    "input": "Message the team in Slack. Add an at symbol before channel. Say quote deploy is blocked end quote. Actually, deployment. Spell that D-E-P-L-O-Y-M-E-N-T.",
+    "ideal": "Message the team in @channel. Say \"deployment is blocked.\""
+  },
+  {
+    "input": "The username is quote admin end quote, lowercase, wait no, uppercase. Add an at symbol before it.",
+    "ideal": "The username is \"ADMIN.\" @ADMIN"
+  },
+  {
+    "input": "React with the fire emoji, then type quote hotfix incoming end quote, in bold, sorry, in italics.",
+    "ideal": "🔥 *hotfix incoming*"
+  },
+  {
+    "input": "Email sarah dot j, wait, spell that S-A-R-A-H, at company dot io. Say quote urgent end quote.",
+    "ideal": "Email sarah@company.io. Say \"urgent.\""
+  },
+  {
+    "input": "The repo is quote next dash auth end quote. Spell auth A-U-T-H, add an at symbol before vercel, V-E-R-C-E-L.",
+    "ideal": "The repo is \"next-auth.\" @vercel"
+  },
+  {
+    "input": "Message quote hey team end quote, then the party popper emoji, actually, the rocket emoji. In bold.",
+    "ideal": "\"hey team\" 🚀 **"
+  },
+  {
+    "input": "The handle is quote dev dot ops end quote, lowercase. Add an at symbol, wait, no, spell that D-E-V-O-P-S first.",
+    "ideal": "The handle is \"devops.\" @devops"
+  },
+  {
+    "input": "Email jane, spell J-A-N-E, underscore doe at proton dot me. Say quote meeting moved end quote, emphasize that.",
+    "ideal": "Email jane_doe@proton.me. Say \"**meeting moved**.\""
+  },
+  {
+    "input": "The command is quote npm install end quote, in code blocks, sorry, inline code. Then the checkmark emoji. Add an at symbol before node.",
+    "ideal": "The command is `npm install`. ✅ @node"
+  },
+  {
+    "input": "Message the team in quote we are shipping today end quote. Actually, tomorrow. Add an at symbol before team.",
+    "ideal": "Message @team in \"we are shipping tomorrow.\""
+  },
+  {
+    "input": "The repo is spelled G-I-T-H-U-B, in caps, wait no, GitLab, G-I-T-L-A-B.",
+    "ideal": "The repo is GITLAB."
+  },
+  {
+    "input": "Send to quote support end quote, lowercase, and add an at symbol. Actually, uppercase.",
+    "ideal": "Send to \"SUPPORT\" and add an @ symbol."
+  },
+  {
+    "input": "The emoji is fire, in caps, wait, actually sparkles. Say quote amazing work end quote.",
+    "ideal": "The emoji is ✨ in caps. Say \"amazing work.\""
+  },
+  {
+    "input": "Email sarah, spell S-A-R-A-H, wait, S-A-R-A, at company dot io. Add an at symbol before her name.",
+    "ideal": "Email @SARA at company.io."
+  },
+  {
+    "input": "The channel is quote random end quote, spell R-A-N-D-O-M, in caps. Actually, general.",
+    "ideal": "The channel is \"GENERAL.\""
+  },
+  {
+    "input": "Message quote urgent review needed end quote, add an at symbol before the team, and include the rocket emoji. Actually, review complete.",
+    "ideal": "Message \"urgent review complete needed\" @team and include the 🚀 emoji."
+  },
+  {
+    "input": "The handle is devops, spell D-E-V-O-P-S, lowercase, wait, uppercase, and add an at symbol. Say quote deploy now end quote.",
+    "ideal": "The handle is @DEVOPS. Say \"deploy now.\""
+  },
+  {
+    "input": "Email jordan, spell J-O-R-D-A-N, underscore smith at outlook dot com, in caps. Actually, lowercase, and add an at symbol before the email.",
+    "ideal": "Email @jordan_smith@outlook.com, in lowercase."
+  },
+  {
+    "input": "Post this to the thread. Add an at symbol before thread. The message is quote we're shipping Tuesday end quote. Actually Wednesday, sorry.",
+    "ideal": "Post this to the @thread. The message is \"we're shipping Wednesday.\""
+  },
+  {
+    "input": "The repo is clowd, spell that C-L-O-U-D, wait no, C-L-O-U-D-E, in lowercase.",
+    "ideal": "The repo is claude."
+  }
+]
