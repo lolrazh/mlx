@@ -4,8 +4,12 @@
 model: mlx-community/Qwen3-4B-Instruct-2507-bf16
 train: true
 data: ./spoke/data/final
-fine_tune_type: dora
+fine_tune_type: lora
 mask_prompt: true
+optimizer: adamw
+optimizer_config:
+  adamw:
+    weight_decay: 0.01
 
 # LoRA hyperparameters
 lora_parameters:
@@ -15,10 +19,11 @@ lora_parameters:
 
 # Training
 batch_size: 4
-iters: 200           # T5: DoRA isolate
+iters: 200           # T6: AdamW isolate
 learning_rate: 1e-5
 num_layers: 16       # fine-tune top 16 transformer layers
 max_seq_length: 512  # transcripts are short
+grad_checkpoint: true  # reduce memory (~30-50% less at cost of speed)
 
 # Reporting
 steps_per_report: 10
@@ -26,6 +31,6 @@ steps_per_eval: 50
 save_every: 100
 
 # Paths
-adapter_path: ./spoke/adapters-t5
+adapter_path: ./spoke/adapters-t6
 
 seed: 42
