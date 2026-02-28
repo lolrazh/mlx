@@ -393,7 +393,33 @@ const GENERATED = {
     {id:77, input:"Can you check if the build is passing on the main branch, actually, no no, the staging branch, that's where the bug was reported.", ideal:"Can you check if the build is passing on the staging branch, that's where the bug was reported."},
     {id:78, input:"The keynote speaker is Dr. Chen from MIT, let me rephrase, Dr. Park from Stanford, there was a last minute substitution.", ideal:"The keynote speaker is Dr. Park from Stanford, there was a last minute substitution."},
     {id:79, input:"I need you to update the documentation for the webhook endpoint, sorry, not the webhook, the REST API endpoint, the other one is deprecated.", ideal:"I need you to update the documentation for the REST API endpoint, the other one is deprecated."},
-    {id:80, input:"The flight lands at JFK at 6pm, wait no, LaGuardia at 7pm, I mixed up the reservation details.", ideal:"The flight lands at LaGuardia at 7pm, I mixed up the reservation details."}
+    {id:80, input:"The flight lands at JFK at 6pm, wait no, LaGuardia at 7pm, I mixed up the reservation details.", ideal:"The flight lands at LaGuardia at 7pm, I mixed up the reservation details."},
+    {id:81, input:"We're using React and Vue. Wait no, sorry, Svelte.", ideal:"We're using React and Svelte."},
+    {id:82, input:"The team includes Alice, Bob, and Charlie. Scratch that, Dave.", ideal:"The team includes Alice, Bob, and Dave."},
+    {id:83, input:"I ordered pasta, salad, and the soup. Actually no, the risotto.", ideal:"I ordered pasta, salad, and the risotto."},
+    {id:84, input:"The stack is Python and Flask. Actually, FastAPI.", ideal:"The stack is Python and FastAPI."},
+    {id:85, input:"We need to talk to marketing and sales. Sorry, I meant legal.", ideal:"We need to talk to marketing and legal."},
+    {id:86, input:"It integrates with Slack and Discord. Wait, Teams.", ideal:"It integrates with Slack and Teams."},
+    {id:87, input:"The colors are red, blue, and green. No wait, yellow.", ideal:"The colors are red, blue, and yellow."},
+    {id:88, input:"Install Node and npm. Actually, pnpm.", ideal:"Install Node and pnpm."},
+    {id:89, input:"The deadline is Monday and the review is Wednesday. Scratch that, Friday.", ideal:"The deadline is Monday and the review is Friday."},
+    {id:90, input:"She speaks French, Spanish, and Portuguese. Wait no, Italian.", ideal:"She speaks French, Spanish, and Italian."},
+    {id:91, input:"The database uses MongoDB and Redis. Sorry, Memcached.", ideal:"The database uses MongoDB and Memcached."},
+    {id:92, input:"We're deploying to AWS and Azure. Actually, GCP.", ideal:"We're deploying to AWS and GCP."}
+  ],
+  "quote-endquote": [
+    {id:1, input:"She said I was quote talented but underutilized end quote.", ideal:"She said I was \"talented but underutilized.\""},
+    {id:2, input:"They called it quote good enough for now end quote.", ideal:"They called it \"good enough for now.\""},
+    {id:3, input:"He described the plan as quote ambitious yet feasible end quote.", ideal:"He described the plan as \"ambitious yet feasible.\""},
+    {id:4, input:"The review said quote solid performance overall. end quote", ideal:"The review said \"solid performance overall.\""},
+    {id:5, input:"The teacher wrote quote needs improvement in communication skills end quote on the report card.", ideal:"The teacher wrote \"needs improvement in communication skills\" on the report card."},
+    {id:6, input:"Management called it quote a necessary restructuring end quote but we all knew it was layoffs.", ideal:"Management called it \"a necessary restructuring\" but we all knew it was layoffs."},
+    {id:7, input:"The error message says quote unable to connect to database. end quote. Can you check the config?", ideal:"The error message says \"unable to connect to database.\" Can you check the config?"},
+    {id:8, input:"He literally said quote I don't care what you think end quote and walked out.", ideal:"He literally said \"I don't care what you think\" and walked out."},
+    {id:9, input:"Their policy states quote all returns must be processed within 30 days end quote.", ideal:"Their policy states \"all returns must be processed within 30 days.\""},
+    {id:10, input:"She described the movie as quote beautiful but way too long end quote.", ideal:"She described the movie as \"beautiful but way too long.\""},
+    {id:11, input:"The documentation says quote deprecated since version 3.0. end quote so we need to migrate.", ideal:"The documentation says \"deprecated since version 3.0.\" So we need to migrate."},
+    {id:12, input:"He called the situation quote completely unacceptable and frankly embarrassing end quote during the meeting.", ideal:"He called the situation \"completely unacceptable and frankly embarrassing\" during the meeting."}
   ],
   "quote-unquote": [
     {id:1, input:"Quote-unquote experts keep telling us this will work.", ideal:"\"Experts\" keep telling us this will work."},
@@ -731,7 +757,7 @@ const GENERATED = {
 
 const CAT_COLORS = {
   "spell-replace": "spell", "self-correction": "self-correction", "quote-unquote": "quote",
-  "at-symbol": "at-symbol", "email": "email", "formatting": "formatting",
+  "quote-endquote": "quote", "at-symbol": "at-symbol", "email": "email", "formatting": "formatting",
   "emoji": "emoji", "code-aware": "code-aware", "prompt-injection": "prompt-injection",
   "grammar": "grammar", "passthrough": "passthrough", "multi-command": "multi",
 };
