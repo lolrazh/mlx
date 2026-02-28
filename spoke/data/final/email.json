@@ -61,7 +61,7 @@
   },
   {
     "input": "Set up a meeting with the contractor, their email is k dot, wait, no, just k, the letter k, at sign build dash fast dot i o, actually buildfast.io, and CC legal at our domain.",
-    "ideal": "Set up a meeting with the contractor, their email is k@build-fast.io, and CC legal@ourdomain.com."
+    "ideal": "Set up a meeting with the contractor, their email is k@build-fast.io, and CC legal@acme.com."
   },
   {
     "input": "The bug report goes to dev null at example dot org, no no, I'm kidding, send it to s u p p o r t, that's support, at hyphen tracker dot c o m.",
@@ -109,7 +109,7 @@
   },
   {
     "input": "Reach out to the open source maintainer, that's o s s, the letters o s s, at sign, then the project name, all lowercase, no spaces, then dot dev, so oss at projectname.dev, and ask about the CLA, then check out projectname dot dev slash contributing for the guidelines, and note that the mailing list is at lists dot projectname dot dev.",
-    "ideal": "Reach out to the open source maintainer, that's oss@projectname.dev, and ask about the CLA, then check out projectname.dev/contributing for the guidelines, and note that the mailing list is at lists.projectname.dev."
+    "ideal": "Reach out to the open source maintainer at oss@projectname.dev, and ask about the CLA, then check out projectname.dev/contributing for the guidelines, and note that the mailing list is at lists.projectname.dev."
   },
   {
     "input": "Send the invoice to a r, that's a r as in accounts receivable, at sign, then the number 2024, then at, no wait, dot, finance dot corp dot internal. Actually, just a r dot 2024 at finance dot corp dot internal.",

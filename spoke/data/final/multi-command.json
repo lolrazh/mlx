@@ -25,7 +25,7 @@
   },
   {
     "input": "The repo is gethup. Spell that G-I-T-H-U-B, in caps, wait no, sorry, G-I-T-L-A-B, actually lowercase. Add an at symbol before the handle in quote dev team end quote.",
-    "ideal": "The repo is @gitlab. \"dev team\""
+    "ideal": "The repo is gitlab. @\"dev team\""
   },
   {
     "input": "Message sarah. Add an at symbol before sarah. Say quote need the report by five end quote. Actually, make that six, and emphasize need.",
@@ -61,11 +61,11 @@
   },
   {
     "input": "Email the client at hello at startup dot co, sorry, hello@startup.co. Subject quote interested in the role end quote. Actually, excited about the role. Add an at symbol before hello.",
-    "ideal": "Email @hello@startup.co. Subject \"excited about the role.\""
+    "ideal": "Email hello@startup.co. Subject \"excited about the role.\""
   },
   {
     "input": "The API key is quote sk dash live dash abc123 end quote. Spell abc as A-B-C-D, wait no, A-B-C, in uppercase.",
-    "ideal": "The API key is \"SK-LIVE-ABC123.\""
+    "ideal": "The API key is \"sk-live-ABC123.\""
   },
   {
     "input": "Message the team. Add an at symbol before everyone. Say quote ship it rocket emoji end quote, actually, party popper emoji.",
@@ -165,7 +165,7 @@
   },
   {
     "input": "The config is api url, spell url as U-R-L, in caps, dot env format. Wait, no, lowercase and make it yaml format with the gear emoji.",
-    "ideal": "The config is api_url: 🛠️"
+    "ideal": "The config is api_url: ⚙️"
   },
   {
     "input": "The repo is called fireship, spell that F-I-R-E-S-H-I-P, in camelCase. Actually, no, make it PascalCase.",
@@ -237,7 +237,7 @@
   },
   {
     "input": "React with the thumbs up emoji, then type quote great job end quote, in italics, actually no, bold, and tag sarah, add an at symbol before her name.",
-    "ideal": "👍 \"great job\" @sarah"
+    "ideal": "👍 \"**great job**\" @sarah"
   },
   {
     "input": "Message the team in Slack. Add an at symbol before channel. Say quote deploy is blocked end quote. Actually, deployment. Spell that D-E-P-L-O-Y-M-E-N-T.",
@@ -309,7 +309,7 @@
   },
   {
     "input": "Email jordan, spell J-O-R-D-A-N, underscore smith at outlook dot com, in caps. Actually, lowercase, and add an at symbol before the email.",
-    "ideal": "Email jordan_smith@outlook.com."
+    "ideal": "Email @jordan_smith@outlook.com."
   },
   {
     "input": "Post this to the thread. Add an at symbol before thread. The message is quote we're shipping Tuesday end quote. Actually Wednesday, sorry.",

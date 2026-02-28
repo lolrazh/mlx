@@ -129,7 +129,7 @@
   },
   {
     "input": "The docker compose file has a service called postgresdb but the env var references it as postgres db with a space, so the connection fails.",
-    "ideal": "The docker-compose file has a service called postgresdb but the env var references it as postgres_db with an underscore, so the connection fails."
+    "ideal": "The docker-compose file has a service called postgresdb but the env var references it as postgres_db with a space, so the connection fails."
   },
   {
     "input": "We're using yaml to configure the ci cd pipeline and the github actions workflow is in dot github slash workflows slash deploy dot yml.",

@@ -117,7 +117,7 @@
   },
   {
     "input": "His quote-unquote best friend sold him out for a promotion.",
-    "ideal": "His \"best\" friend sold him out for a promotion."
+    "ideal": "His \"best friend\" sold him out for a promotion."
   },
   {
     "input": "The landlord described it as quote cozy and efficiently designed end quote which meant three hundred square feet with no windows.",
@@ -181,7 +181,7 @@
   },
   {
     "input": "Quote we find the defendant guilty on all counts end quote said the foreperson.",
-    "ideal": "\"we find the defendant guilty on all counts\" said the foreperson."
+    "ideal": "\"We find the defendant guilty on all counts,\" said the foreperson."
   },
   {
     "input": "His quote-unquote apology was basically I'm sorry you feel that way.",
@@ -193,7 +193,7 @@
   },
   {
     "input": "Quote-unquote experts on Twitter told me to buy the dip.",
-    "ideal": "\"experts\" on Twitter told me to buy the dip."
+    "ideal": "\"Experts\" on Twitter told me to buy the dip."
   },
   {
     "input": "She described him as quote charming in a used car salesman kind of way end quote.",

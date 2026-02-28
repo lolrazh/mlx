@@ -21,7 +21,7 @@
   },
   {
     "input": "The dog chased the cat emoji classic",
-    "ideal": "The dog chased the 🐱 classic"
+    "ideal": "The dog chased the cat 🐱 classic"
   },
   {
     "input": "Purple heart broken heart and two red hearts",
@@ -41,11 +41,11 @@
   },
   {
     "input": "Five clapping hands emojis for that performance",
-    "ideal": "👏👏👏👏👏"
+    "ideal": "👏👏👏👏👏 for that performance"
   },
   {
     "input": "Dog emoji cat emoji they're best friends",
-    "ideal": "🐶 🐱 they're best friends"
+    "ideal": "🐶🐱 they're best friends"
   },
   {
     "input": "One hundred emoji that's perfect",

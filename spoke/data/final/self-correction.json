@@ -49,7 +49,7 @@
   },
   {
     "input": "We should deploy this on Tuesday, actually let me rephrase, Thursday morning would be better for the team.",
-    "ideal": "We should deploy this on Thursday morning would be better for the team."
+    "ideal": "Thursday morning would be better for the team."
   },
   {
     "input": "The budget is around fifty thousand, you know, the original estimate, sorry, I meant seventy-five thousand including the new hardware.",
@@ -133,7 +133,7 @@
   },
   {
     "input": "We use Redis for the cache layer, you know, the in-memory one, not the persistent database.",
-    "ideal": "We use Redis for the cache layer."
+    "ideal": "We use Redis for the cache layer, the in-memory one, not the persistent database."
   },
   {
     "input": "The deadline is March 15th, actually, say March 5th, so we have ten fewer days than expected.",
@@ -141,7 +141,7 @@
   },
   {
     "input": "She works at Google, wait no, she used to work there, now she's at Anthropic working on Claude.",
-    "ideal": "She works at Anthropic working on Claude."
+    "ideal": "She's at Anthropic working on Claude."
   },
   {
     "input": "The meeting is with Sarah from legal, sorry, not Sarah, Sandra from compliance.",
@@ -197,7 +197,7 @@
   },
   {
     "input": "I think we should hire the candidate with the, you know, the Stanford background, actually, the MIT one had better portfolio work.",
-    "ideal": "I think we should hire the candidate with the MIT background had better portfolio work."
+    "ideal": "I think we should hire the candidate with the MIT background — they had better portfolio work."
   },
   {
     "input": "The pasta needs to boil for eleven minutes, sorry, eight minutes, then rest in the sauce for three more.",

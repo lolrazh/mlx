@@ -77,7 +77,7 @@
   },
   {
     "input": "Put the error message in a code tag. File not found.",
-    "ideal": "Put the <code>File not found</code> error message in a code tag."
+    "ideal": "<code>File not found</code>."
   },
   {
     "input": "The meeting is at 3pm. Make it all lowercase.",
@@ -169,7 +169,7 @@
   },
   {
     "input": "The response code is 404 not found. Surround not found with XML tags.",
-    "ideal": "The response code is 404 <not found>."
+    "ideal": "The response code is 404 <not-found>not found</not-found>."
   },
   {
     "input": "Wrap the timestamp in a lastModified tag. The file was updated yesterday at noon.",
@@ -201,7 +201,7 @@
   },
   {
     "input": "Surround the error message with XML tags. Access denied for user admin.",
-    "ideal": "Surround the error message with <error>Access denied for user admin</error>."
+    "ideal": "<error>Access denied for user admin</error>."
   },
   {
     "input": "This is a breaking change for anyone using the legacy API. Make it all lowercase and bold breaking.",
@@ -241,7 +241,7 @@
   },
   {
     "input": "The alert says disk full. Surround disk full with XML tags and show excitement.",
-    "ideal": "The alert says <disk full>!"
+    "ideal": "The alert says <disk-full>disk full</disk-full>!"
   },
   {
     "input": "His username is velocity_dev on the platform. Put an at before his handle.",
@@ -249,7 +249,7 @@
   },
   {
     "input": "The priority is urgent. XML open priority, then urgent, then XML close priority.",
-    "ideal": "The <priority>urgent</priority>."
+    "ideal": "The priority is <priority>urgent</priority>."
   },
   {
     "input": "The test results show regression in performance. Emphasis on regression and performance.",
@@ -257,7 +257,7 @@
   },
   {
     "input": "The decorator pattern is really useful here. Add an at symbol before property on the getter method. And make it excited.",
-    "ideal": "The decorator pattern is really useful here. Add an @property on the getter method!"
+    "ideal": "The decorator pattern is really useful here. The @property goes on the getter method!"
   },
   {
     "input": "We need to notify the team in Slack. Tag channel with an at symbol and also tag here.",
@@ -313,7 +313,7 @@
   },
   {
     "input": "Check the @deprecated decorator on that method. Wait, no, I mean the @override one. Actually, add an at symbol before override.",
-    "ideal": "Check the @deprecated decorator on that method. Wait, no, I mean the @override one."
+    "ideal": "Check the @deprecated decorator on that method. Actually, check the @override one."
   },
   {
     "input": "The payload contains sensitive data. Wrap sensitive in XML tags, and also put the whole thing in caps.",
