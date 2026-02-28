@@ -1,0 +1,135 @@
+{
+  "model": "mlx-community/Llama-3.2-1B-Instruct-bf16",
+  "short_name": "llama3.2-1b",
+  "prompt_mode": "generic",
+  "load_time_s": 172.7,
+  "n": 12,
+  "exact": 1,
+  "semantic": 0,
+  "partial": 9,
+  "fail": 2,
+  "accuracy": 0.0833,
+  "avg_latency_s": 1.996,
+  "results": [
+    {
+      "id": 1,
+      "category": "spell-replace",
+      "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+      "ideal": "I'm gonna be using Silero VAD for this.",
+      "output": "S-I-L-E-R-O",
+      "raw_output": "S-I-L-E-R-O",
+      "score": "partial",
+      "gen_time_s": 0.325
+    },
+    {
+      "id": 2,
+      "category": "spell-replace",
+      "input": "He went to the Khadai, spell that K-A-D-A-I.",
+      "ideal": "He went to the Kadai.",
+      "output": "h-e-w-e-n-t-t-o-t-h-e-k-h-a-d-a-i",
+      "raw_output": "h-e-w-e-n-t-t-o-t-h-e-k-h-a-d-a-i",
+      "score": "partial",
+      "gen_time_s": 0.624
+    },
+    {
+      "id": 3,
+      "category": "self-correction",
+      "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+      "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+      "output": "w4r3p0rd3r5",
+      "raw_output": "w4r3p0rd3r5",
+      "score": "partial",
+      "gen_time_s": 0.436
+    },
+    {
+      "id": 4,
+      "category": "self-correction",
+      "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+      "ideal": "Let's meet at 12pm, Thursday.",
+      "output": "I'm not able to provide you with a schedule or a meeting time that may not be feasible or realistic.",
+      "raw_output": "I'm not able to provide you with a schedule or a meeting time that may not be feasible or realistic.",
+      "score": "partial",
+      "gen_time_s": 0.778
+    },
+    {
+      "id": 5,
+      "category": "quote-unquote",
+      "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "output": "\"Quote-unquote\" is a phrase used to describe something that is not explicitly stated or defined. In this context, it's likely being used to express admiration or surprise that you're here, despite not having any prior knowledge or understanding of the situation.",
+      "raw_output": "\"Quote-unquote\" is a phrase used to describe something that is not explicitly stated or defined. In this context, it's likely being used to express admiration or surprise that you're here, despite not having any prior knowledge or understanding of the situation.",
+      "score": "fail",
+      "gen_time_s": 1.538
+    },
+    {
+      "id": 6,
+      "category": "quote-endquote",
+      "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+      "output": "I can help you with that. \n\nThey said, \"You're quote lucky to be here.\" \nCorrected response:\n\"They said, 'You're quote lucky to be here.'\" \nFormatting correction:\n- Added quotation mark around \"lucky\" for proper spelling.\n- Added quotation mark around \"quote\" for proper spelling.\n- Added period at the end of the sentence.",
+      "raw_output": "I can help you with that. \n\nThey said, \"You're quote lucky to be here.\" \nCorrected response:\n\"They said, 'You're quote lucky to be here.'\" \nFormatting correction:\n- Added quotation mark around \"lucky\" for proper spelling.\n- Added quotation mark around \"quote\" for proper spelling.\n- Added period at the end of the sentence.",
+      "score": "partial",
+      "gen_time_s": 2.176
+    },
+    {
+      "id": 7,
+      "category": "at-symbol",
+      "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+      "ideal": "I wanna fix @app.py and @test.py.",
+      "output": "# !/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\n# app.py\nimport os\nimport sys\n\ndef main():\n    # Get the current working directory\n    cwd = os.getcwd()\n    # Print the current working directory\n    print(\"Current working directory: \", cwd)\n\n    # Get the list of files in the current working directory\n    files = os.listdir(cwd)\n    # Print the list of files\n    print(\"List of files: \", files)\n\n    # Get the list of directories in the current working directory\n    dirs = os.listdir(cwd)\n    # Print the list of directories\n    print(\"List of directories: \", dirs)\n\n    # Check if the current working directory is a file\n    if os.path.isfile(cwd):\n        # Print a message indicating that the current working directory is a file\n        print(\"Current working directory is a file: \", cwd)\n    else:\n        # Print a message indicating that the current working directory is not a file\n        print(\"Current working directory is not a file: \", cwd)\n\n    # Check if the current working directory is a directory\n    if os.path.isdir(cwd):\n        # Print a message indicating that the current working directory is a",
+      "raw_output": "```\n# !/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\n# app.py\nimport os\nimport sys\n\ndef main():\n    # Get the current working directory\n    cwd = os.getcwd()\n    # Print the current working directory\n    print(\"Current working directory: \", cwd)\n\n    # Get the list of files in the current working directory\n    files = os.listdir(cwd)\n    # Print the list of files\n    print(\"List of files: \", files)\n\n    # Get the list of directories in the current working directory\n    dirs = os.listdir(cwd)\n   ",
+      "score": "partial",
+      "gen_time_s": 6.808
+    },
+    {
+      "id": 8,
+      "category": "caps",
+      "input": "We're so excited to make this. Use all caps.",
+      "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
+      "output": "WE'RE SO EXCITED TO MAKE THIS.",
+      "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
+      "score": "exact",
+      "gen_time_s": 0.474
+    },
+    {
+      "id": 9,
+      "category": "emphasis",
+      "input": "It's surprisingly fast. Emphasize surprisingly.",
+      "ideal": "It's **surprisingly** fast.",
+      "output": "**Surprisingly** fast",
+      "raw_output": "**Surprisingly** fast",
+      "score": "partial",
+      "gen_time_s": 0.323
+    },
+    {
+      "id": 10,
+      "category": "emoji",
+      "input": "Heartbreak emoji",
+      "ideal": "💔",
+      "output": "🔥",
+      "raw_output": "🔥",
+      "score": "partial",
+      "gen_time_s": 0.258
+    },
+    {
+      "id": 11,
+      "category": "multi-step",
+      "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
+      "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\"",
+      "output": "@Groq, quote sonicflow_superbase-handler end quote. \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U",
+      "raw_output": "@Groq, quote sonicflow_superbase-handler end quote. \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U-P-A-B-A-S-E; \nS-U",
+      "score": "fail",
+      "gen_time_s": 6.892
+    },
+    {
+      "id": 12,
+      "category": "camelcase",
+      "input": "So we've got a file called usetranscription.ts.",
+      "ideal": "So we've got a file called useTranscription.ts.",
+      "output": "**usetranscription.ts**\n```typescript\n// Import the required module\nimport * as fs from 'fs';\n\n// Define a function to clean the transcription file\nfunction cleanTranscription(filePath: string): void {\n  // Read the file contents\n  const fileContent = fs.readFileSync(filePath, 'utf8');\n\n  // Remove any unnecessary whitespace\n  const cleanedContent = fileContent.replace(/\\s+/g, ' ');\n\n  // Print the cleaned content\n  console.log(cleanedContent);\n}\n\n// Call the function with the file path\ncleanTranscription('usetranscription.ts');",
+      "raw_output": "**usetranscription.ts**\n```typescript\n// Import the required module\nimport * as fs from 'fs';\n\n// Define a function to clean the transcription file\nfunction cleanTranscription(filePath: string): void {\n  // Read the file contents\n  const fileContent = fs.readFileSync(filePath, 'utf8');\n\n  // Remove any unnecessary whitespace\n  const cleanedContent = fileContent.replace(/\\s+/g, ' ');\n\n  // Print the cleaned content\n  console.log(cleanedContent);\n}\n\n// Call the function with the file path\ncleanTra",
+      "score": "partial",
+      "gen_time_s": 3.321
+    }
+  ]
+}

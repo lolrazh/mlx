@@ -29,6 +29,9 @@ MODELS = {
     "phi4-mini": "mlx-community/Phi-4-mini-instruct-4bit",
     "gemma3n-e4b": "mlx-community/gemma-3n-E4B-it-lm-4bit",
     "gemma3-4b-qat": "mlx-community/gemma-3-4b-it-qat-4bit",
+    "llama3.2-1b": "mlx-community/Llama-3.2-1B-Instruct-bf16",
+    "llama3.2-1b-8bit": "mlx-community/Llama-3.2-1B-Instruct-8bit",
+    "llama3.2-1b-4bit": "mlx-community/Llama-3.2-1B-Instruct-4bit",
 }
 
 # ── Prompts ─────────────────────────────────────────────────
