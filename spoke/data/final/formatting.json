@@ -1,0 +1,322 @@
+[
+  {
+    "input": "The meeting is scheduled for tomorrow at 3pm. Put that in all caps.",
+    "ideal": "THE MEETING IS SCHEDULED FOR TOMORROW AT 3PM."
+  },
+  {
+    "input": "I was thinking we could refactor the auth module. Actually, no, let's make that all lowercase instead.",
+    "ideal": "i was thinking we could refactor the auth module."
+  },
+  {
+    "input": "The results were unexpected and frankly quite shocking. Emphasize unexpected and shocking.",
+    "ideal": "The results were **unexpected** and frankly quite **shocking**."
+  },
+  {
+    "input": "We need to notify the team immediately. Stress need and immediately.",
+    "ideal": "We NEED to notify the team IMMEDIATELY."
+  },
+  {
+    "input": "Check the user profile in the admin panel. Add an at symbol before user and before admin.",
+    "ideal": "Check the @user profile in the @admin panel."
+  },
+  {
+    "input": "I keep forgetting to use the lru cache decorator. Can you put an at before lru cache?",
+    "ideal": "I keep forgetting to use the @lru cache decorator."
+  },
+  {
+    "input": "Make sure to ping everyone in general. Tag general with an at symbol and show excitement.",
+    "ideal": "Make sure to ping everyone in @general!"
+  },
+  {
+    "input": "The payment failed with status declined. Surround declined with XML tags.",
+    "ideal": "The payment failed with status <declined>."
+  },
+  {
+    "input": "Wrap this whole thing in a notice tag. Your subscription will expire in three days.",
+    "ideal": "<notice>Your subscription will expire in three days.</notice>"
+  },
+  {
+    "input": "Hey Sarah, check out this new feature. Tag Sarah with an at symbol.",
+    "ideal": "Hey @Sarah, check out this new feature."
+  },
+  {
+    "input": "The decorator property needs to go above the method. Add an at symbol before property.",
+    "ideal": "The @property decorator needs to go above the method."
+  },
+  {
+    "input": "We need to update config.yaml and secrets.env. Put an at before each filename.",
+    "ideal": "We need to update @config.yaml and @secrets.env."
+  },
+  {
+    "input": "Everyone in the engineering channel needs to see this. Tag engineering with an at symbol and make it excited.",
+    "ideal": "Everyone in the @engineering channel needs to see this!"
+  },
+  {
+    "input": "The warning message should stand out. Wrap warning in a strong tag.",
+    "ideal": "The <strong>warning</strong> message should stand out."
+  },
+  {
+    "input": "Put the entire paragraph in XML tags called note. Please review this carefully before submitting.",
+    "ideal": "<note>Please review this carefully before submitting.</note>"
+  },
+  {
+    "input": "The status code is error. XML open error, XML close error.",
+    "ideal": "The status code is <error>error</error>."
+  },
+  {
+    "input": "Type this in lowercase. The Quick Brown Fox Jumps Over The Lazy Dog.",
+    "ideal": "the quick brown fox jumps over the lazy dog."
+  },
+  {
+    "input": "Stress the word definitely. I will definitely be there on time.",
+    "ideal": "I will **definitely** be there on time."
+  },
+  {
+    "input": "Tag here with an at symbol so everyone sees it. We need all hands on deck for this launch.",
+    "ideal": "We need @here all hands on deck for this launch."
+  },
+  {
+    "input": "Put the error message in a code tag. File not found.",
+    "ideal": "Put the <code>File not found</code> error message in a code tag."
+  },
+  {
+    "input": "The meeting is at 3pm. Make it all lowercase.",
+    "ideal": "the meeting is at 3pm."
+  },
+  {
+    "input": "I was thinking about the proposal and honestly I think we should reject it. Use all caps.",
+    "ideal": "I WAS THINKING ABOUT THE PROPOSAL AND HONESTLY I THINK WE SHOULD REJECT IT."
+  },
+  {
+    "input": "The deadline is tomorrow. Emphasize tomorrow.",
+    "ideal": "The deadline is **tomorrow**."
+  },
+  {
+    "input": "We need to refactor the auth module and the cache layer. Bold auth and cache.",
+    "ideal": "We need to refactor the **auth** module and the **cache** layer."
+  },
+  {
+    "input": "Check the logs in production. Add an at symbol before production.",
+    "ideal": "Check the logs in @production."
+  },
+  {
+    "input": "I need to update app.py, models.py, and config.py. Put an at before each filename.",
+    "ideal": "I need to update @app.py, @models.py, and @config.py."
+  },
+  {
+    "input": "Message Sarah about the review. Tag Sarah with an at symbol and show excitement.",
+    "ideal": "Message @Sarah about the review!"
+  },
+  {
+    "input": "Wrap this whole thing in a note tag. The server will be down for maintenance tonight.",
+    "ideal": "<note>The server will be down for maintenance tonight.</note>"
+  },
+  {
+    "input": "The decorator wraps the function. Add an at symbol before decorator. And make it all lowercase.",
+    "ideal": "the @decorator wraps the function."
+  },
+  {
+    "input": "We need to notify the team. Tag channel with an at symbol. Tag here with an at symbol too. Show excitement.",
+    "ideal": "We need to notify the @channel. @here too!"
+  },
+  {
+    "input": "The result was unexpected. Emphasize unexpected. And wrap the whole sentence in a result tag.",
+    "ideal": "<result>The result was **unexpected**.</result>"
+  },
+  {
+    "input": "She said the deadline moved to Friday. Stress Friday. Stress deadline. Use all caps for those.",
+    "ideal": "She said the DEADLINE moved to FRIDAY."
+  },
+  {
+    "input": "Put this in a warning tag. The system may experience intermittent outages during the migration window scheduled for next Tuesday morning.",
+    "ideal": "<warning>The system may experience intermittent outages during the migration window scheduled for next Tuesday morning.</warning>"
+  },
+  {
+    "input": "The username is developer_one. Add an at symbol before developer_one. Type that in lowercase.",
+    "ideal": "the username is @developer_one."
+  },
+  {
+    "input": "XML open priority. This ticket requires immediate attention. XML close priority. And bold immediate.",
+    "ideal": "<priority>This ticket requires **immediate** attention.</priority>"
+  },
+  {
+    "input": "The function name is get_user_data. Surround get_user_data with a code tag. Make it lowercase.",
+    "ideal": "the function name is <code>get_user_data</code>."
+  },
+  {
+    "input": "Wrap this in an alert tag. Critical security patch available. Show excitement. Emphasize critical.",
+    "ideal": "<alert>**Critical** security patch available!</alert>"
+  },
+  {
+    "input": "I was thinking we could refactor the authentication module, maybe extract the token validation into its own service, you know, keep it clean. Make it all lowercase.",
+    "ideal": "i was thinking we could refactor the authentication module, maybe extract the token validation into its own service, you know, keep it clean."
+  },
+  {
+    "input": "The deadline is Friday. Stress Friday and deadline.",
+    "ideal": "The DEADLINE is FRIDAY."
+  },
+  {
+    "input": "We need to update the documentation. Emphasize update.",
+    "ideal": "We need to **update** the documentation."
+  },
+  {
+    "input": "The performance improvement is significant. Make significant bold and show excitement.",
+    "ideal": "The performance improvement is **significant**!"
+  },
+  {
+    "input": "I need to decorate the class with property. Put an at before property and before class.",
+    "ideal": "I need to decorate the @class with @property."
+  },
+  {
+    "input": "The response code is 404 not found. Surround not found with XML tags.",
+    "ideal": "The response code is 404 <not found>."
+  },
+  {
+    "input": "Wrap the timestamp in a lastModified tag. The file was updated yesterday at noon.",
+    "ideal": "The file was updated <lastModified>yesterday at noon</lastModified>."
+  },
+  {
+    "input": "The status should be wrapped. XML open status, pending review, XML close status.",
+    "ideal": "The <status>pending review</status> should be wrapped."
+  },
+  {
+    "input": "The decorator pattern is really useful. Put an at symbol before decorator.",
+    "ideal": "The @decorator pattern is really useful."
+  },
+  {
+    "input": "We need to notify everyone in the channel. Tag here and channel with at symbols.",
+    "ideal": "We need to notify everyone in the @here and @channel."
+  },
+  {
+    "input": "The result was unexpected to say the least. Emphasis on unexpected and least.",
+    "ideal": "The result was UNEXPECTED to say the LEAST."
+  },
+  {
+    "input": "Wrap this whole thing in a custom tag. The user authentication failed.",
+    "ideal": "<custom>The user authentication failed.</custom>"
+  },
+  {
+    "input": "I'm so happy this finally works. Show excitement and tag me with an at symbol.",
+    "ideal": "I'm so happy this finally works @me!"
+  },
+  {
+    "input": "Surround the error message with XML tags. Access denied for user admin.",
+    "ideal": "Surround the error message with <error>Access denied for user admin</error>."
+  },
+  {
+    "input": "This is a breaking change for anyone using the legacy API. Make it all lowercase and bold breaking.",
+    "ideal": "this is a **breaking** change for anyone using the legacy api."
+  },
+  {
+    "input": "Check the @deprecated decorator in the codebase. Actually wait, I haven't added the at symbol yet. Add it before deprecated.",
+    "ideal": "Check the @deprecated decorator in the codebase."
+  },
+  {
+    "input": "The payload contains sensitive user data. Wrap sensitive user data in a redact tag, you know, like for compliance.",
+    "ideal": "The payload contains <redact>sensitive user data</redact>."
+  },
+  {
+    "input": "Please review the pull request. Tag the reviewer with an at symbol, that's Sarah, and also make it sound excited.",
+    "ideal": "Please review the pull request @Sarah!"
+  },
+  {
+    "input": "The function returns null on error. XML open error, XML close error, around null.",
+    "ideal": "The function returns <error>null</error> on error."
+  },
+  {
+    "input": "This integration supports webhook notifications. Emphasize webhook notifications, and also capitalize the whole first clause up to the comma.",
+    "ideal": "THIS INTEGRATION SUPPORTS **webhook notifications**."
+  },
+  {
+    "input": "The config file is settings.yaml. Put an at before the filename, and also before the word config actually.",
+    "ideal": "The @config file is @settings.yaml."
+  },
+  {
+    "input": "She said the deployment failed because of a memory leak. Emphasize memory leak.",
+    "ideal": "She said the deployment failed because of a **memory leak**."
+  },
+  {
+    "input": "Wrap the word deprecated in a warning tag. The old API is deprecated.",
+    "ideal": "The old API is <warning>deprecated</warning>."
+  },
+  {
+    "input": "The alert says disk full. Surround disk full with XML tags and show excitement.",
+    "ideal": "The alert says <disk full>!"
+  },
+  {
+    "input": "His username is velocity_dev on the platform. Put an at before his handle.",
+    "ideal": "His username is @velocity_dev on the platform."
+  },
+  {
+    "input": "The priority is urgent. XML open priority, then urgent, then XML close priority.",
+    "ideal": "The <priority>urgent</priority>."
+  },
+  {
+    "input": "The test results show regression in performance. Emphasis on regression and performance.",
+    "ideal": "The test results show REGRESSION in PERFORMANCE."
+  },
+  {
+    "input": "The decorator pattern is really useful here. Add an at symbol before property on the getter method. And make it excited.",
+    "ideal": "The decorator pattern is really useful here. Add an @property on the getter method!"
+  },
+  {
+    "input": "We need to notify the team in Slack. Tag channel with an at symbol and also tag here.",
+    "ideal": "We need to notify the team in Slack. @channel and also @here."
+  },
+  {
+    "input": "The configuration file is settings.yaml. Put an at before the filename so they know it's a reference.",
+    "ideal": "The configuration file is @settings.yaml."
+  },
+  {
+    "input": "Wrap the error code in XML tags. The code is timeout_exception.",
+    "ideal": "The error code is <timeout_exception>."
+  },
+  {
+    "input": "XML open warning, then deprecated API usage detected, then XML close warning.",
+    "ideal": "<warning>deprecated API usage detected</warning>."
+  },
+  {
+    "input": "The function name is calculateTotal. Make it all lowercase.",
+    "ideal": "the function name is calculatetotal."
+  },
+  {
+    "input": "We should focus on scalability and reliability in the architecture review. Emphasis on scalability and reliability.",
+    "ideal": "We should focus on SCALABILITY and RELIABILITY in the architecture review."
+  },
+  {
+    "input": "The deadline is tomorrow. Show excitement and also put it in all caps.",
+    "ideal": "THE DEADLINE IS TOMORROW!"
+  },
+  {
+    "input": "The decorator handles authentication. Put an at symbol before auth and wrap the whole thing in a div tag.",
+    "ideal": "<div>The @auth decorator handles authentication.</div>"
+  },
+  {
+    "input": "The variable is userInput. Type that in lowercase.",
+    "ideal": "the variable is userinput."
+  },
+  {
+    "input": "We need to refactor the legacy codebase. Emphasis on legacy.",
+    "ideal": "We need to refactor the LEGACY codebase."
+  },
+  {
+    "input": "The config files are settings.yaml and secrets.env. Add at symbols before both filenames.",
+    "ideal": "The config files are @settings.yaml and @secrets.env."
+  },
+  {
+    "input": "I can't believe we shipped on time. Show excitement, and also put the whole thing in lowercase.",
+    "ideal": "i can't believe we shipped on time!"
+  },
+  {
+    "input": "The meeting is scheduled for next Tuesday. Make it all lowercase.",
+    "ideal": "the meeting is scheduled for next tuesday."
+  },
+  {
+    "input": "Check the @deprecated decorator on that method. Wait, no, I mean the @override one. Actually, add an at symbol before override.",
+    "ideal": "Check the @deprecated decorator on that method. Wait, no, I mean the @override one."
+  },
+  {
+    "input": "The payload contains sensitive data. Wrap sensitive in XML tags, and also put the whole thing in caps.",
+    "ideal": "THE PAYLOAD CONTAINS <SENSITIVE> DATA."
+  }
+]

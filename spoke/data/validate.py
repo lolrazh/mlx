@@ -185,33 +185,57 @@ def validate_formatting(pair: dict) -> tuple[bool, list[str]]:
     inp, ideal = pair["input"], pair["ideal"]
     errors = []
 
-    # 1. Check for formatting trigger
-    triggers = ["in caps", "all caps", "uppercase", "lowercase", "emphasize",
-                "bold", "emphasis on", "in capital", "show excitement"]
-    if not has_trigger(inp, triggers):
-        errors.append("No formatting trigger found in input")
+    # Sub-type detection
+    is_caps     = has_trigger(inp, ["all caps", "in caps", "uppercase", "in capital", "capitalize"])
+    is_lower    = has_trigger(inp, ["lowercase", "lower case"])
+    is_emphasis = has_trigger(inp, ["emphasize", "bold", "emphasis on", "stress"])
+    is_excite   = has_trigger(inp, ["show excitement", "make it excited", "add excitement"])
+    is_at       = has_trigger(inp, ["at symbol", "at sign", "add an at", "put an at", "tag "])
+    is_xml      = has_trigger(inp, ["xml", "xml tag", "xml open", "xml close"]) or \
+                  (has_trigger(inp, ["wrap"]) and has_trigger(inp, ["tag"])) or \
+                  re.search(r'in (?:a )?<?\w+>? tag', inp, re.IGNORECASE) is not None or \
+                  re.search(r'wrap .{1,40} in', inp, re.IGNORECASE) is not None
 
-    # 2. Check that formatting was applied
-    has_caps = any(c.isupper() for c in ideal) and ideal != ideal.lower()
-    has_bold = "**" in ideal
-    is_lowercase = ideal == ideal.lower()
+    # 1. Must match at least one sub-type
+    if not any([is_caps, is_lower, is_emphasis, is_excite, is_at, is_xml]):
+        errors.append("No formatting/annotation trigger found in input "
+                      "(expected: caps, lowercase, bold/emphasis, @-symbol, XML tags, excitement)")
 
-    # Check specific formatting types
-    if has_trigger(inp, ["all caps", "in caps", "uppercase", "in capital"]):
-        # At least some portion should be uppercase in ideal
+    # 2. Sub-type-specific checks
+    if is_caps:
         upper_ratio = sum(1 for c in ideal if c.isupper()) / max(len(ideal), 1)
         if upper_ratio < 0.3:
             errors.append("Caps requested but ideal has low uppercase ratio")
-    elif has_trigger(inp, ["lowercase"]):
-        if not is_lowercase:
-            errors.append("Lowercase requested but ideal contains uppercase")
-    elif has_trigger(inp, ["emphasize", "bold", "emphasis"]):
-        if "**" not in ideal and not any(w.isupper() for w in ideal.split()):
-            errors.append("Emphasis requested but no bold markers or caps found")
 
-    # 3. Formatting instruction should be removed from ideal
-    if has_trigger(ideal, triggers):
+    if is_lower:
+        if ideal != ideal.lower():
+            errors.append("Lowercase requested but ideal contains uppercase characters")
+
+    if is_emphasis:
+        if "**" not in ideal and not any(w.isupper() for w in ideal.split()):
+            errors.append("Emphasis requested but no bold markers or uppercase words found")
+
+    if is_at:
+        if "@" not in ideal:
+            errors.append("@-symbol insertion requested but no @ found in ideal output")
+        at_triggers = ["at symbol", "at sign", "add an at", "put an at", "tag "]
+        if has_trigger(ideal, at_triggers):
+            errors.append("Ideal still contains @-symbol instruction")
+
+    if is_xml:
+        if "<" not in ideal:
+            errors.append("XML wrapping requested but no < found in ideal output")
+
+    # 3. General: formatting instruction should not leak into ideal
+    case_triggers = ["all caps", "in caps", "uppercase", "in capital", "capitalize",
+                     "lowercase", "lower case", "emphasize", "bold", "emphasis on",
+                     "show excitement"]
+    if has_trigger(ideal, case_triggers):
         errors.append("Ideal still contains formatting instruction")
+
+    # 4. Output must differ from input
+    if inp.strip() == ideal.strip():
+        errors.append("Input and ideal are identical — no transformation applied")
 
     return len(errors) == 0, errors
 

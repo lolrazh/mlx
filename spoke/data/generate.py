@@ -61,6 +61,9 @@ def call_kimi(client: OpenAI, prompt: str, max_tokens: int = 4000) -> str:
 
 def parse_json_response(text: str) -> list[dict]:
     """Extract JSON array from LLM response, handling markdown wrapping."""
+    if text is None:
+        print("  Warning: API returned null response")
+        return []
     # Try direct parse first
     text = text.strip()
     if text.startswith("["):
@@ -320,6 +323,11 @@ def run_pipeline(category: str, target: int, batch_size: int, max_fix_attempts: 
                 all_passed.append(clean)
 
         print(f"  Running total: {len(all_passed)}/{target}\n")
+
+        # Incremental save — don't lose progress on crash
+        final_file = FINAL_DIR / f"{category}.json"
+        final_file.write_text(json.dumps(all_passed[:target], indent=2, ensure_ascii=False))
+
         batch_num += 1
 
         # Safety: don't loop forever
