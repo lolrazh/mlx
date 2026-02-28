@@ -15,14 +15,14 @@ lora_parameters:
 
 # Training
 batch_size: 4
-iters: 200           # ~1.7 epochs over 472 examples
+iters: 1000          # ~8.5 epochs — finding r=8 overfitting point
 learning_rate: 1e-5
 num_layers: 16       # fine-tune top 16 transformer layers
 max_seq_length: 512  # transcripts are short
 
 # Reporting
 steps_per_report: 10
-steps_per_eval: 50
+steps_per_eval: 100
 save_every: 200
 
 # Paths
