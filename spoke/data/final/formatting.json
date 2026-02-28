@@ -28,8 +28,8 @@
     "ideal": "Make sure to ping everyone in @general!"
   },
   {
-    "input": "The payment failed with status declined. Surround declined with XML tags.",
-    "ideal": "The payment failed with status <declined>declined</declined>."
+    "input": "The payment failed with status declined. Surround declined with a status tag.",
+    "ideal": "The payment failed with status <status>declined</status>."
   },
   {
     "input": "Wrap this whole thing in a notice tag. Your subscription will expire in three days.",
@@ -60,8 +60,8 @@
     "ideal": "<note>Please review this carefully before submitting.</note>"
   },
   {
-    "input": "The status code is error. XML open error, XML close error.",
-    "ideal": "The status code is <error>error</error>."
+    "input": "The status code is error. XML open status, XML close status.",
+    "ideal": "The status code is <status>error</status>."
   },
   {
     "input": "Type this in lowercase. The Quick Brown Fox Jumps Over The Lazy Dog.",
@@ -268,8 +268,8 @@
     "ideal": "The configuration file is @settings.yaml."
   },
   {
-    "input": "Wrap the error code in XML tags. The code is timeout_exception.",
-    "ideal": "The error code is <timeout_exception>timeout_exception</timeout_exception>."
+    "input": "Wrap the error code in an error-code tag. The code is timeout_exception.",
+    "ideal": "The error code is <error-code>timeout_exception</error-code>."
   },
   {
     "input": "XML open warning, then deprecated API usage detected, then XML close warning.",
@@ -316,7 +316,7 @@
     "ideal": "Check the @deprecated decorator on that method. Actually, check the @override one."
   },
   {
-    "input": "The payload contains sensitive data. Wrap sensitive in XML tags, and also put the whole thing in caps.",
-    "ideal": "THE PAYLOAD CONTAINS <SENSITIVE>SENSITIVE</SENSITIVE> DATA."
+    "input": "The payload contains sensitive data. Wrap sensitive in a redact tag, and also put the whole thing in caps.",
+    "ideal": "THE PAYLOAD CONTAINS <REDACT>SENSITIVE</REDACT> DATA."
   }
 ]
