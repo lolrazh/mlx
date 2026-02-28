@@ -17,12 +17,12 @@
 
 ## Baselines (Zero-Shot, No Training)
 
-> All baselines below used the **v1 test set (12 examples)** except B4 which used an interim 11-example set. No zero-shot baselines have been run on the v2 test set (23 examples) yet.
+### v1 test set (12 examples)
 
 | ID | Model | Quant | Prompt | N | Accuracy | Latency | Notes |
 |----|-------|-------|--------|---|----------|---------|-------|
 | B1 | Qwen3-4B | 4-bit | generic v1 | 12 | **25%** | 0.69s | Real floor. Model barely understands the task. |
-| B2 | Qwen3-4B | 4-bit | v2 | 12 | **50%** | 0.91s | Prompt alone doubles accuracy. Best clean baseline. |
+| B2 | Qwen3-4B | 4-bit | v2 | 12 | **50%** | 0.91s | Prompt alone doubles accuracy. Best clean baseline on v1. |
 | B3 | Qwen3-4B | 4-bit | task-specific | 12 | **50%** | 0.89s | Per-category prompts = same as v2. |
 | B4 | Qwen3-4B | bf16 | v2 | 11 | **36%** | 1.64s | bf16 more verbose at zero-shot. Interim test set (11 ex). |
 | B5 | Llama 1B | bf16 | generic v1 | 12 | **8%** | 2.00s | Hallucinations, refusals, code generation. |
@@ -30,7 +30,14 @@
 | ~~B7~~ | ~~Qwen3-4B~~ | ~~4-bit~~ | ~~spoke~~ | ~~12~~ | ~~58%~~ → 38% | ~~1.43s~~ | ~~LEAKED. 4/23 test examples in few-shot prompt.~~ |
 | ~~B8~~ | ~~Llama 1B~~ | ~~bf16~~ | ~~spoke~~ | ~~12~~ | ~~25%~~ | ~~0.76s~~ | ~~LEAKED. Same score either way.~~ |
 
-**Takeaway:** V2 prompt (B2, 50%) is the real pre-training baseline on the v1 test set. Generic v1 (B1, 25%) is the floor. Need v2 test set baselines for fair T4+ comparison.
+### v2 test set (23 examples)
+
+| ID | Model | Quant | Prompt | N | Accuracy | Latency | Notes |
+|----|-------|-------|--------|---|----------|---------|-------|
+| B9 | Qwen3-4B | 4-bit | generic v1 | 23 | **13%** | 0.68s | Real floor on v2 test set. Only caps + emoji pass. |
+| B10 | Qwen3-4B | 4-bit | v2 | 23 | **35%** | 0.85s | v2 baseline. 7 exact + 1 semantic. |
+
+**Takeaway:** V2 test set is significantly harder — generic floor drops from 25% to 13%, v2 prompt from 50% to 35%. T4's 74% bf16 = **+61 points** over floor, **+39 points** over v2 baseline.
 
 ---
 
@@ -137,7 +144,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 
 | Priority | Run | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
-| **NOW** | T4 | v2 data (targeted examples + v2 prompt) | Fixes #3 and #6, breaks 75% ceiling | Data v2 ready |
+| ~~DONE~~ | ~~T4~~ | ~~v2 data (targeted examples + v2 prompt)~~ | ~~Fixes #3 and #6, breaks 75% ceiling~~ | ~~74% bf16, 65% 6-bit. #3 FIXED, #6 scope FIXED.~~ |
 | HIGH | T5 | DoRA (fine_tune_type: dora) | Better weight decomposition at r=8 → ≥ T4 | T4 result |
 | HIGH | T6 | AdamW (weight_decay: 0.01) | Prevents weight drift → more stable training | T4 result |
 | HIGH | T7 | Cosine LR + warmup (50 steps) | Avoids early instability → lower val loss | T4 result |
@@ -154,11 +161,13 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 
 1. **r=8 = r=16** for this formatting task. Half the params (7.3M → 3.7M), same accuracy, later overfitting onset.
 2. **6-bit is deploy quant.** 4-bit loses 2 examples. bf16/8-bit = 6-bit quality but 2-4x larger.
-3. **V2 prompt doubles zero-shot** accuracy (25% → 50%). Nearly matches the leaked spoke baseline.
-4. **Fine-tuning gain is +50 points** on clean data (25% → 75%). Biggest single improvement.
-5. **Training/inference prompt mismatch costs 17%** (75% → 58%). Always match.
-6. **83% was actually 75%** after correcting for data leakage. All spoke benchmarks are contaminated.
-7. **Accuracy ceiling = 2 data gaps**, not hyperparameters. Same failures across all configs.
-8. **Llama 1B not viable.** 25% accuracy gap vs Qwen. Overfits 2.5x faster.
-9. **Overfitting timeline:** r=8 starts ~iter 500, r=16 starts ~iter 400-500. Llama 1B starts ~iter 200.
-10. **MLX-LM has unused features:** DoRA, AdamW, cosine decay, gradient checkpointing, LoRA key targeting — all built in.
+3. **V2 prompt doubles zero-shot** accuracy (25% → 50% on v1 test, 13% → 35% on v2 test).
+4. **Fine-tuning gain is +61 points** on v2 test set (13% → 74% bf16). Biggest single improvement.
+5. **V2 test set is harder** — floor drops from 25% → 13%, v2 prompt from 50% → 35%. Accuracy NOT comparable across test set versions.
+6. **Training/inference prompt mismatch costs 13%** (74% → 61% on v2 test). Always match.
+7. **83% was actually 75%** after correcting for data leakage. All spoke benchmarks are contaminated.
+8. **V2 data fixed persistent failures** — self-correction #3 (compound phrase) and quote-endquote #6 (multi-word scope) both improved with targeted training examples.
+9. **6-bit quant regression worse on T4** — lost 9% (74% → 65%) vs T2's zero loss. Edge cases (quote-endquote, code-aware) are quant-sensitive.
+10. **Llama 1B not viable.** 25% accuracy gap vs Qwen. Overfits 2.5x faster.
+11. **Overfitting timeline:** r=8 starts ~iter 350 on v2 data, ~iter 500 on v1 data. Llama 1B starts ~iter 200.
+12. **MLX-LM has unused features:** DoRA, AdamW, cosine decay, gradient checkpointing, LoRA key targeting — all built in.
