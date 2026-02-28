@@ -3,8 +3,11 @@ Merge all per-category JSON files into train/valid/test JSONL for mlx-lm.
 
 Output:
   spoke/data/final/train.jsonl  — training examples (shuffled, seed=42)
-  spoke/data/final/valid.jsonl  — ~16 examples (2 per category, stratified)
-  spoke/data/final/test.jsonl   — 11 examples (sacred, from bench/test_set.json)
+  spoke/data/final/valid.jsonl  — ~27 examples (3 per category, stratified)
+  spoke/data/final/test.jsonl   — 23 examples (sacred, from bench/test_set.json)
+
+Test examples sourced from generated data are automatically excluded from
+the training set to prevent data leakage.
 
 Each line:
   {"messages": [
@@ -73,10 +76,16 @@ def main() -> None:
         all_by_category[cat] = examples
         print(f"  Loaded {len(examples):>3} examples from {cat}.json")
 
-    # ── 2. Build valid set: 2 examples per category ────────────
-    # Pick indices 5 and 15 for most categories. For small categories
-    # (quote-endquote=12), fall back to indices 3 and 8.
-    VALID_INDICES = [5, 15]
+    # ── 2. Build test set from sacred bench examples ───────────
+    test_raw = json.loads(TEST_SET.read_text(encoding="utf-8"))
+    test_examples = [to_chat(ex["input"], ex["ideal"]) for ex in test_raw]
+    # Track test keys so we can exclude them from training
+    test_keys: set[tuple[str, str]] = {
+        (ex["input"], ex["ideal"]) for ex in test_raw
+    }
+
+    # ── 3. Build valid set: 3 examples per category ──────────
+    VALID_INDICES = [5, 15, 25]
     valid_examples: list[dict] = []
     valid_keys: set[tuple[str, str]] = set()
 
@@ -86,25 +95,22 @@ def main() -> None:
             safe_idx = min(idx, len(cat_data) - 1)
             ex = cat_data[safe_idx]
             key = (ex["input"], ex["ideal"])
-            if key not in valid_keys:  # avoid dupe if safe_idx clamped
+            if key not in valid_keys and key not in test_keys:
                 valid_examples.append(to_chat(ex["input"], ex["ideal"]))
                 valid_keys.add(key)
 
-    # ── 3. Build train set: everything except valid picks ──────
+    # ── 4. Build train set: everything except valid + test ────
+    excluded = valid_keys | test_keys
     train_examples: list[dict] = []
     for cat in CATEGORIES:
         for ex in all_by_category[cat]:
             key = (ex["input"], ex["ideal"])
-            if key not in valid_keys:
+            if key not in excluded:
                 train_examples.append(to_chat(ex["input"], ex["ideal"]))
 
     # Shuffle for training (avoids category blocks in gradient updates)
     random.seed(42)
     random.shuffle(train_examples)
-
-    # ── 4. Build test set from sacred bench examples ───────────
-    test_raw = json.loads(TEST_SET.read_text(encoding="utf-8"))
-    test_examples = [to_chat(ex["input"], ex["ideal"]) for ex in test_raw]
 
     # ── 5. Write all three files ────────────────────────────────
     print("\nWriting splits:")
