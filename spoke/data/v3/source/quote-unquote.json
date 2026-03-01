@@ -198,5 +198,37 @@
   {
     "input": "She described him as quote charming in a used car salesman kind of way end quote.",
     "ideal": "She described him as \"charming in a used car salesman kind of way\"."
+  },
+  {
+    "input": "Their quote-unquote innovation is just copying what everyone else already does with a new logo on it.",
+    "ideal": "Their \"innovation\" is just copying what everyone else already does with a new logo on it."
+  },
+  {
+    "input": "He calls himself a quote-unquote visionary but he can't even hit his projections for two quarters in a row.",
+    "ideal": "He calls himself a \"visionary\" but he can't even hit his projections for two quarters in a row."
+  },
+  {
+    "input": "The quote-unquote upgrade broke three features that were working perfectly fine before they touched anything.",
+    "ideal": "The \"upgrade\" broke three features that were working perfectly fine before they touched anything."
+  },
+  {
+    "input": "She gave us a quote-unquote brief overview that lasted an hour and a half and covered nothing we didn't already know.",
+    "ideal": "She gave us a \"brief\" overview that lasted an hour and a half and covered nothing we didn't already know."
+  },
+  {
+    "input": "The quote-unquote quick fix ended up requiring a full rewrite of the authentication module and three extra sprints.",
+    "ideal": "The \"quick fix\" ended up requiring a full rewrite of the authentication module and three extra sprints."
+  },
+  {
+    "input": "His quote-unquote simple request turned into a six-month project that completely derailed our roadmap.",
+    "ideal": "His \"simple\" request turned into a six-month project that completely derailed our roadmap."
+  },
+  {
+    "input": "That's their quote-unquote premium service where you still wait on hold for forty-five minutes before talking to anyone.",
+    "ideal": "That's their \"premium\" service where you still wait on hold for forty-five minutes before talking to anyone."
+  },
+  {
+    "input": "The quote-unquote minor update deleted half our user data and crashed the production server for twelve hours.",
+    "ideal": "The \"minor\" update deleted half our user data and crashed the production server for twelve hours."
   }
 ]

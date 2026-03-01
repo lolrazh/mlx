@@ -170,5 +170,37 @@
   {
     "input": "I need to refactor the authentication logic so that checkuserauthorization calls getcurrentsessiontoken instead of directly accessing localstorage, since getcurrentsessiontoken handles the refresh logic.",
     "ideal": "I need to refactor the authentication logic so that checkUserAuthorization calls getCurrentSessionToken instead of directly accessing localStorage, since getCurrentSessionToken handles the refresh logic."
+  },
+  {
+    "input": "So we've got a file called usetranscription.ts that handles all the audio processing logic.",
+    "ideal": "So we've got a file called useTranscription.ts that handles all the audio processing logic."
+  },
+  {
+    "input": "The entry point is in maincontroller.py, that's where the api routes are defined.",
+    "ideal": "The entry point is in MainController.py, that's where the API routes are defined."
+  },
+  {
+    "input": "Check out getserversideprops.ts, it's where we fetch the data before the page renders.",
+    "ideal": "Check out getServerSideProps.ts, it's where we fetch the data before the page renders."
+  },
+  {
+    "input": "I renamed the file to usecamerastream.js because the old name was too generic.",
+    "ideal": "I renamed the file to useCameraStream.js because the old name was too generic."
+  },
+  {
+    "input": "The bug is in userprofilecard.tsx somewhere around line 45 where it tries to access the avatar url.",
+    "ideal": "The bug is in UserProfileCard.tsx somewhere around line 45 where it tries to access the avatar URL."
+  },
+  {
+    "input": "We moved the helper function into parseresponsedata.ts to keep the main module clean.",
+    "ideal": "We moved the helper function into parseResponseData.ts to keep the main module clean."
+  },
+  {
+    "input": "The test file is testauthenticationflow.py and it covers all the login edge cases.",
+    "ideal": "The test file is testAuthenticationFlow.py and it covers all the login edge cases."
+  },
+  {
+    "input": "I need to update navigationbar.tsx because the mobile layout is broken on smaller screens.",
+    "ideal": "I need to update NavigationBar.tsx because the mobile layout is broken on smaller screens."
   }
 ]

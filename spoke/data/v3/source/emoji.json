@@ -190,5 +190,45 @@
   {
     "input": "Dog emoji chasing cat emoji",
     "ideal": "🐶 chasing 🐱"
+  },
+  {
+    "input": "We just shipped the new feature fire emoji",
+    "ideal": "We just shipped the new feature 🔥"
+  },
+  {
+    "input": "That was incredible rocket emoji absolutely incredible",
+    "ideal": "That was incredible 🚀 absolutely incredible"
+  },
+  {
+    "input": "The sunset last night was beautiful heart eyes emoji",
+    "ideal": "The sunset last night was beautiful 😍"
+  },
+  {
+    "input": "I'm dead skull emoji that joke was too much",
+    "ideal": "I'm dead 💀 that joke was too much"
+  },
+  {
+    "input": "Check out this update sparkles emoji",
+    "ideal": "Check out this update ✨"
+  },
+  {
+    "input": "She got promoted raised hands emoji so proud of her",
+    "ideal": "She got promoted 🙌 so proud of her"
+  },
+  {
+    "input": "The team crushed it this quarter muscle emoji",
+    "ideal": "The team crushed it this quarter 💪"
+  },
+  {
+    "input": "Eyes emoji did you see what he just posted",
+    "ideal": "👀 did you see what he just posted"
+  },
+  {
+    "input": "That's the move right there thumbs up emoji for sure",
+    "ideal": "That's the move right there 👍 for sure"
+  },
+  {
+    "input": "Happy birthday to the best person ever cake emoji",
+    "ideal": "Happy birthday to the best person ever 🎂"
   }
 ]

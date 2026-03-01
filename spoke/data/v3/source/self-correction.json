@@ -378,5 +378,77 @@
   {
     "input": "She studied at MIT Media Lab and Stanford AI Lab. Sorry, Carnegie Mellon Robotics Institute.",
     "ideal": "She studied at MIT Media Lab and Carnegie Mellon Robotics Institute."
+  },
+  {
+    "input": "I'll bring chips and guacamole to the party. Wait no, hummus.",
+    "ideal": "I'll bring chips and hummus to the party."
+  },
+  {
+    "input": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Kim. Actually, Dr. Martinez.",
+    "ideal": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Martinez."
+  },
+  {
+    "input": "For the camping trip we need a tent, sleeping bags, and a cooler. Sorry, a lantern instead of the cooler.",
+    "ideal": "For the camping trip we need a tent, sleeping bags, and a lantern."
+  },
+  {
+    "input": "The meeting attendees are Sarah and Mark. I mean, Jason.",
+    "ideal": "The meeting attendees are Sarah and Jason."
+  },
+  {
+    "input": "She studies biology and chemistry at the university. Scratch that, physics.",
+    "ideal": "She studies biology and physics at the university."
+  },
+  {
+    "input": "We visited Berlin, Prague, and Vienna on the trip. Wait no, Budapest.",
+    "ideal": "We visited Berlin, Prague, and Budapest on the trip."
+  },
+  {
+    "input": "I need to buy milk and eggs from the store. Actually, bread.",
+    "ideal": "I need to buy milk and bread from the store."
+  },
+  {
+    "input": "The team captains are Jordan, Taylor, and Casey. Sorry, Riley.",
+    "ideal": "The team captains are Jordan, Taylor, and Riley."
+  },
+  {
+    "input": "He plays guitar and drums in the band. Wait, bass.",
+    "ideal": "He plays guitar and bass in the band."
+  },
+  {
+    "input": "We're painting the living room and the kitchen this weekend. I mean, the bedroom.",
+    "ideal": "We're painting the living room and the bedroom this weekend."
+  },
+  {
+    "input": "The shipment includes laptops, monitors, keyboards, and mice. Scratch that, webcams instead of mice.",
+    "ideal": "The shipment includes laptops, monitors, keyboards, and webcams."
+  },
+  {
+    "input": "Her favorite books are Pride and Prejudice and The Great Gatsby. Actually, To Kill a Mockingbird.",
+    "ideal": "Her favorite books are Pride and Prejudice and To Kill a Mockingbird."
+  },
+  {
+    "input": "The playlist has jazz and rock. Wait no, sorry, blues.",
+    "ideal": "The playlist has jazz and blues."
+  },
+  {
+    "input": "We're ordering pizza, wings, and garlic bread for the team. Actually no, Caesar salad.",
+    "ideal": "We're ordering pizza, wings, and Caesar salad for the team."
+  },
+  {
+    "input": "The presentation is tomorrow afternoon. Wait no, it got moved to next Monday morning.",
+    "ideal": "The presentation is next Monday morning."
+  },
+  {
+    "input": "I think we should use the blue theme for the landing page. Actually, scratch that, the dark theme looks better for accessibility.",
+    "ideal": "The dark theme looks better for accessibility."
+  },
+  {
+    "input": "Send the report to the whole department by Friday. Sorry, just send it to the leads for now.",
+    "ideal": "Just send the report to the leads for now."
+  },
+  {
+    "input": "Let's meet at the coffee shop on Main Street. I mean, let's just do a video call since it's raining.",
+    "ideal": "Let's just do a video call since it's raining."
   }
 ]
