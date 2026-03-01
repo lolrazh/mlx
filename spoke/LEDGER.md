@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-01
+> Last updated: 2026-03-01 (consolidated — stale docs removed, agent-log insights rolled in)
 
 ## How to Read This
 
@@ -46,14 +46,17 @@ v3 removes 4 categories with no production Spoke triggers (formatting-xml, email
 | ID | Model | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
 |----|-------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
 | B11 | Qwen3-4B | bf16 | v2 | 23 | **22%** | 4 | 1 | 11 | 7 | 1.66s | v3 baseline. Lower than v2 (35%) — new test examples are harder for base model. |
+| B12 | LFM2.5-1.2B | 4-bit | v2 | 23 | **9%** | 1 | 1 | 7 | 14 | 0.24s | Hybrid conv+attn. Can't parse meta-linguistic commands at all. |
+| B13 | LFM2-2.6B-Exp | bf16 | v2 | 23 | **9%** | 2 | 0 | 14 | 7 | 0.87s | 2x params, bf16. Same failure as 1.2B — architecture bottleneck, not precision. |
+| B14 | LFM2-2.6B-Exp | bf16 | spoke (few-shot) | 23 | **30%** | 6 | 1 | 11 | 5 | 1.36s | Huge jump with examples — learns output format but not command execution. **LEAKED (4/23).** |
 
-**Takeaway:** v3 test set zero-shot baseline is 22%. T4-equivalent training on v3 data should push well past 74% since we removed untriggered categories the model can't handle.
+**Takeaway:** v3 test set zero-shot baseline is 22% (Qwen3). LFM2 scores 9% regardless of size/precision — conv-dominant hybrid architecture can't handle meta-linguistic commands zero-shot. Few-shot helps format (30%) but not reasoning.
 
 ---
 
 ## Training Runs
 
-All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: true`, `batch_size: 4`, `lr: 1e-5`, `num_layers: 16`, `seed: 42`.
+All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: true`, `batch_size: 4`, `lr: 1e-5`, `seed: 42`.
 
 | Run | Date | Type | Rank | Optimizer | LR Schedule | Data | Iters | Best Val Loss | Notes |
 |-----|------|------|------|-----------|-------------|------|-------|---------------|-------|
@@ -71,6 +74,12 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
 | **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | 0.169 @250 | **v3 data.** Trigger-matched categories only. T4 config on new data. **83% bf16, 74% 6-bit.** |
 | **T12** | 03-01 | LoRA | r=8 | adam | flat | **v3+patch (535)** | 300 | 0.162 @300 | **v3 + 43 targeted examples.** Best val loss but **REGRESSED to 74% bf16** (from 83%). Patch fixed 0/4 targets, caused 2 new regressions. |
+
+### Alternative Models
+
+| Run | Date | Base Model | Type | Rank | Optimizer | Data | Iters | Best Val Loss | Notes |
+|-----|------|-----------|------|------|-----------|------|-------|---------------|-------|
+| **LFM2-T1** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | 800 | 🔄 training | All 30 layers (8 attn + 22 conv). 12.2M trainable (0.476%). Peak 13.3 GB. |
 
 ---
 
@@ -188,9 +197,9 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 
 | Priority | ID | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
-| **HIGH** | **T12b** | **v3 + patch data, 400 iters** | **T12 regression caused by undertrained model, not bad data. 535 examples need ~400 iters (vs 300 for 492). Patch data passed Opus quality review.** | — |
 | **HIGH** | **Q1** | **Mixed-bit quantization (`mixed_4_6`) on T11 fused model** | **Allocate 6-bit to critical layers (v_proj, down_proj, lm_head, first/last layers), 4-bit elsewhere. May close 9% quant gap while keeping model smaller. Zero retraining.** | T11 fused model |
-| Medium | B-new | **Zero-shot baselines: LFM2.5-1.2B, Qwen3-1.7B, Gemma 3 1B QAT** | **Determine if task is capacity-limited or data-limited.** If a 1-2B model scores >15% zero-shot, fine-tuning could match 4B. 3-4x faster inference. | Add models to benchmark script |
+| **ACTIVE** | **LFM2-T1** | **LFM2-2.6B-Exp LoRA, 800 iters, all 30 layers** | **Can a hybrid conv+attn model learn the task despite 9% zero-shot? Tests "zero-shot ≠ fine-tune potential" hypothesis.** | Training in progress |
+| Medium | B-new | **Zero-shot baselines: Qwen3-1.7B, Gemma 3 1B QAT, Llama 3.2 3B** | **Determine if task is capacity-limited or data-limited.** LFM2 baselines done (9%). Need transformer-only small models. | Add models to benchmark script |
 | Medium | T13 | Cosine LR + warmup (50 steps), 300 iters | Accelerate convergence. May reach T11 quality faster. | T12b done |
 | Medium | T-enc | **Evaluate T5Gemma 2 (1B-1B encoder-decoder)** | **Encoder-decoder is architecturally better for "editing" tasks. Encoder sees full input before decoder generates. May fix compound self-correction (#6) where decoder-only fails.** | Port/load in MLX |
 | Low | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB training memory. | — |
@@ -206,8 +215,8 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 3. T13: cosine LR if more speed needed
 
 **Phase B — Explore smaller models (capacity vs data question)**
-4. Zero-shot baselines: LFM2.5-1.2B, Qwen3-1.7B, Gemma 3 1B QAT, Phi-4-mini
-5. If promising → LoRA fine-tune best candidate on v3 data
+4. ~~Zero-shot baselines: LFM2.5-1.2B~~ ✅ Done (9%). LFM2-2.6B-Exp ✅ Done (9%). Remaining: Qwen3-1.7B, Gemma 3 1B QAT, Llama 3.2 3B
+5. LFM2-2.6B-Exp LoRA fine-tune 🔄 In progress (LFM2-T1, 800 iters)
 6. Compare: accuracy, latency, memory, quant robustness
 
 **Phase C — Architecture pivot (encoder-decoder)**
@@ -251,3 +260,9 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 25. **Decoder-only is the wrong architecture for editing tasks.** (Research finding, 2025-2026 ASR post-processing literature.) ASR cleanup is fundamentally seq2seq rewriting, not autoregressive generation. Encoder-decoder models (T5, T5Gemma 2) separate input comprehension (encoder) from output generation (decoder with cross-attention), making "preserve A, replace B" natural. This likely explains the persistent compound self-correction failure (#6) — decoder-only Qwen3 processes input and generates output in the same left-to-right pass, making it hard to selectively preserve earlier tokens while replacing later ones. Encoder-decoder evaluation queued as Phase C.
 26. **Mixed-bit quantization may close the 9% quant gap.** mlx_lm supports `--quant-predicate mixed_4_6` which allocates 6-bit to critical layers (v_proj, down_proj, lm_head, first/last 12.5% of layers) and 4-bit elsewhere. Critical attention layers are where structural understanding lives — exactly where our quant-sensitive failures (quote-endquote, code-aware) originate. Total size ≤ uniform 6-bit but with bits allocated where they matter.
 27. **Task may be data-limited, not capacity-limited.** 535 training examples converge in ~300 iters. Failures are about precision (correction scope, quote scope), not understanding. A 1-2B model with better architecture or more data could match 4B Qwen3. Zero-shot baselines on LFM2.5-1.2B, Qwen3-1.7B, and Gemma 3 1B will test this.
+28. **LFM2 hybrid conv+attention can't parse meta-linguistic commands zero-shot.** Both LFM2.5-1.2B (4-bit) and LFM2-2.6B-Exp (bf16) scored 9% on v3 test. Conv-dominant architecture (22/30 layers are ShortConv) extracts keywords or paraphrases instead of executing commands. Architecture bottleneck, not precision — 2x params and bf16 didn't help.
+29. **Few-shot teaches output FORMAT but not command EXECUTION.** LFM2-2.6B jumped 9% → 30% with spoke few-shot prompt. Learned "output should be a cleaned sentence" but still couldn't execute spelling, quoting, or emoji commands. Format ≠ reasoning.
+30. **IFBench ≠ meta-linguistic instruction following.** LFM2-2.6B-Exp outperforms DeepSeek R1 on IFBench but scored 9% on our task. IFBench tests structural instructions ("respond in JSON"). Our task requires understanding "spell that K-A-D-A-I" as a command to execute — fundamentally different capability.
+31. **MoE models: full memory cost for partial compute.** Qwen3.5-35B-A3B has 3B active params but needs all 35B in memory (~20 GB at 4-bit). Not viable on 24 GB consumer hardware. MoE optimizes compute, not memory.
+32. **At-symbol is the hardest synthetic data category.** LLMs generating training data want to "improve" text, but ASR post-processing needs surgical edits. 17% failure rate in v3 data generation. Manual crafting required.
+33. **Emphasis trigger-to-format mapping must be 1:1 in training data.** "Emphasize"/"Bold" → `**bold**`, "Stress" → ALL CAPS. Even one outlier creates ambiguity. Standardize uniformly — one trigger word, one output format, no exceptions.
