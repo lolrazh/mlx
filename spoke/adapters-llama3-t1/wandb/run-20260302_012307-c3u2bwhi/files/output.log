@@ -1,0 +1,159 @@
+Loading pretrained model
+Fetching 7 files: 100%|██████████| 7/7 [00:00<00:00, 15518.04it/s]
+Loading datasets
+Training
+Trainable parameters: 0.378% (12.157M/3212.750M)
+Starting training..., iters: 1000
+Calculating loss...: 100%|██████████| 5/5 [00:07<00:00,  1.59s/it]
+Iter 1: Val loss 2.448, Val took 7.980s
+Iter 10: Train loss 2.224, Learning Rate 1.000e-05, It/sec 0.272, Tokens/sec 18.420, Trained Tokens 678, Peak mem 12.990 GB
+Iter 20: Train loss 0.913, Learning Rate 1.000e-05, It/sec 0.232, Tokens/sec 15.096, Trained Tokens 1329, Peak mem 12.990 GB
+Iter 30: Train loss 0.485, Learning Rate 1.000e-05, It/sec 0.114, Tokens/sec 8.671, Trained Tokens 2090, Peak mem 12.990 GB
+Iter 40: Train loss 0.316, Learning Rate 1.000e-05, It/sec 0.140, Tokens/sec 10.631, Trained Tokens 2852, Peak mem 14.044 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.53s/it]
+Iter 50: Val loss 0.237, Val took 12.648s
+Iter 50: Train loss 0.127, Learning Rate 1.000e-05, It/sec 0.159, Tokens/sec 12.011, Trained Tokens 3607, Peak mem 14.044 GB
+Iter 60: Train loss 0.218, Learning Rate 1.000e-05, It/sec 0.168, Tokens/sec 11.007, Trained Tokens 4262, Peak mem 14.044 GB
+Iter 70: Train loss 0.380, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 9.917, Trained Tokens 4844, Peak mem 15.127 GB
+Iter 80: Train loss 0.305, Learning Rate 1.000e-05, It/sec 0.178, Tokens/sec 12.350, Trained Tokens 5538, Peak mem 15.127 GB
+Iter 90: Train loss 0.172, Learning Rate 1.000e-05, It/sec 0.157, Tokens/sec 10.282, Trained Tokens 6191, Peak mem 15.127 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.48s/it]
+Iter 100: Val loss 0.162, Val took 12.414s
+Iter 100: Train loss 0.168, Learning Rate 1.000e-05, It/sec 0.164, Tokens/sec 9.941, Trained Tokens 6796, Peak mem 15.127 GB
+Iter 100: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000100_adapters.safetensors.
+Iter 110: Train loss 0.171, Learning Rate 1.000e-05, It/sec 0.187, Tokens/sec 12.241, Trained Tokens 7451, Peak mem 15.127 GB
+Iter 120: Train loss 0.157, Learning Rate 1.000e-05, It/sec 0.162, Tokens/sec 12.452, Trained Tokens 8219, Peak mem 15.127 GB
+Iter 130: Train loss 0.117, Learning Rate 1.000e-05, It/sec 0.160, Tokens/sec 13.580, Trained Tokens 9066, Peak mem 15.127 GB
+Iter 140: Train loss 0.086, Learning Rate 1.000e-05, It/sec 0.159, Tokens/sec 13.149, Trained Tokens 9894, Peak mem 15.127 GB
+Calculating loss...: 100%|██████████| 5/5 [00:15<00:00,  3.01s/it]
+Iter 150: Val loss 0.136, Val took 15.045s
+Iter 150: Train loss 0.128, Learning Rate 1.000e-05, It/sec 0.173, Tokens/sec 13.395, Trained Tokens 10668, Peak mem 15.127 GB
+Iter 160: Train loss 0.077, Learning Rate 1.000e-05, It/sec 0.132, Tokens/sec 8.907, Trained Tokens 11345, Peak mem 15.176 GB
+Iter 170: Train loss 0.078, Learning Rate 1.000e-05, It/sec 0.172, Tokens/sec 12.412, Trained Tokens 12067, Peak mem 15.176 GB
+Iter 180: Train loss 0.091, Learning Rate 1.000e-05, It/sec 0.157, Tokens/sec 12.574, Trained Tokens 12869, Peak mem 15.176 GB
+Iter 190: Train loss 0.110, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 11.720, Trained Tokens 13559, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.47s/it]
+Iter 200: Val loss 0.113, Val took 12.369s
+Iter 200: Train loss 0.102, Learning Rate 1.000e-05, It/sec 0.166, Tokens/sec 11.819, Trained Tokens 14270, Peak mem 15.176 GB
+Iter 200: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000200_adapters.safetensors.
+Iter 210: Train loss 0.117, Learning Rate 1.000e-05, It/sec 0.184, Tokens/sec 12.006, Trained Tokens 14921, Peak mem 15.176 GB
+Iter 220: Train loss 0.099, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 11.971, Trained Tokens 15581, Peak mem 15.176 GB
+Iter 230: Train loss 0.102, Learning Rate 1.000e-05, It/sec 0.152, Tokens/sec 11.364, Trained Tokens 16331, Peak mem 15.176 GB
+Iter 240: Train loss 0.142, Learning Rate 1.000e-05, It/sec 0.184, Tokens/sec 10.141, Trained Tokens 16881, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.46s/it]
+Iter 250: Val loss 0.099, Val took 12.284s
+Iter 250: Train loss 0.065, Learning Rate 1.000e-05, It/sec 0.176, Tokens/sec 11.551, Trained Tokens 17536, Peak mem 15.176 GB
+Iter 260: Train loss 0.077, Learning Rate 1.000e-05, It/sec 0.176, Tokens/sec 12.883, Trained Tokens 18270, Peak mem 15.176 GB
+Iter 270: Train loss 0.073, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 10.875, Trained Tokens 18872, Peak mem 15.176 GB
+Iter 280: Train loss 0.071, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 12.268, Trained Tokens 19549, Peak mem 15.176 GB
+Iter 290: Train loss 0.069, Learning Rate 1.000e-05, It/sec 0.177, Tokens/sec 11.002, Trained Tokens 20169, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:11<00:00,  2.37s/it]
+Iter 300: Val loss 0.093, Val took 11.849s
+Iter 300: Train loss 0.056, Learning Rate 1.000e-05, It/sec 0.180, Tokens/sec 12.896, Trained Tokens 20886, Peak mem 15.176 GB
+Iter 300: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000300_adapters.safetensors.
+Iter 310: Train loss 0.055, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 10.972, Trained Tokens 21530, Peak mem 15.176 GB
+Iter 320: Train loss 0.046, Learning Rate 1.000e-05, It/sec 0.167, Tokens/sec 12.966, Trained Tokens 22307, Peak mem 15.176 GB
+Iter 330: Train loss 0.060, Learning Rate 1.000e-05, It/sec 0.176, Tokens/sec 11.497, Trained Tokens 22959, Peak mem 15.176 GB
+Iter 340: Train loss 0.051, Learning Rate 1.000e-05, It/sec 0.175, Tokens/sec 11.294, Trained Tokens 23603, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.42s/it]
+Iter 350: Val loss 0.078, Val took 12.089s
+Iter 350: Train loss 0.035, Learning Rate 1.000e-05, It/sec 0.176, Tokens/sec 11.213, Trained Tokens 24240, Peak mem 15.176 GB
+Iter 360: Train loss 0.019, Learning Rate 1.000e-05, It/sec 0.163, Tokens/sec 13.441, Trained Tokens 25063, Peak mem 15.176 GB
+Iter 370: Train loss 0.081, Learning Rate 1.000e-05, It/sec 0.165, Tokens/sec 13.924, Trained Tokens 25909, Peak mem 15.176 GB
+Iter 380: Train loss 0.049, Learning Rate 1.000e-05, It/sec 0.180, Tokens/sec 13.175, Trained Tokens 26642, Peak mem 15.176 GB
+Iter 390: Train loss 0.060, Learning Rate 1.000e-05, It/sec 0.171, Tokens/sec 10.775, Trained Tokens 27272, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.48s/it]
+Iter 400: Val loss 0.079, Val took 12.422s
+Iter 400: Train loss 0.058, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 12.236, Trained Tokens 27991, Peak mem 15.176 GB
+Iter 400: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000400_adapters.safetensors.
+Iter 410: Train loss 0.047, Learning Rate 1.000e-05, It/sec 0.179, Tokens/sec 10.994, Trained Tokens 28606, Peak mem 15.176 GB
+Iter 420: Train loss 0.026, Learning Rate 1.000e-05, It/sec 0.161, Tokens/sec 12.435, Trained Tokens 29377, Peak mem 15.176 GB
+Iter 430: Train loss 0.042, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 12.777, Trained Tokens 30127, Peak mem 15.176 GB
+Iter 440: Train loss 0.025, Learning Rate 1.000e-05, It/sec 0.179, Tokens/sec 10.786, Trained Tokens 30731, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.43s/it]
+Iter 450: Val loss 0.077, Val took 12.179s
+Iter 450: Train loss 0.012, Learning Rate 1.000e-05, It/sec 0.180, Tokens/sec 12.511, Trained Tokens 31427, Peak mem 15.176 GB
+Iter 460: Train loss 0.045, Learning Rate 1.000e-05, It/sec 0.176, Tokens/sec 11.913, Trained Tokens 32105, Peak mem 15.176 GB
+Iter 470: Train loss 0.027, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 12.710, Trained Tokens 32809, Peak mem 15.176 GB
+Iter 480: Train loss 0.025, Learning Rate 1.000e-05, It/sec 0.171, Tokens/sec 12.060, Trained Tokens 33513, Peak mem 15.176 GB
+Iter 490: Train loss 0.014, Learning Rate 1.000e-05, It/sec 0.174, Tokens/sec 13.134, Trained Tokens 34267, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:11<00:00,  2.36s/it]
+Iter 500: Val loss 0.078, Val took 11.801s
+Iter 500: Train loss 0.032, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 12.803, Trained Tokens 35019, Peak mem 15.176 GB
+Iter 500: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000500_adapters.safetensors.
+Iter 510: Train loss 0.029, Learning Rate 1.000e-05, It/sec 0.178, Tokens/sec 13.365, Trained Tokens 35771, Peak mem 15.176 GB
+Iter 520: Train loss 0.039, Learning Rate 1.000e-05, It/sec 0.173, Tokens/sec 11.756, Trained Tokens 36452, Peak mem 15.176 GB
+Iter 530: Train loss 0.027, Learning Rate 1.000e-05, It/sec 0.179, Tokens/sec 11.818, Trained Tokens 37113, Peak mem 15.176 GB
+Iter 540: Train loss 0.030, Learning Rate 1.000e-05, It/sec 0.187, Tokens/sec 12.584, Trained Tokens 37785, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:11<00:00,  2.35s/it]
+Iter 550: Val loss 0.074, Val took 11.758s
+Iter 550: Train loss 0.019, Learning Rate 1.000e-05, It/sec 0.187, Tokens/sec 12.301, Trained Tokens 38442, Peak mem 15.176 GB
+Iter 560: Train loss 0.015, Learning Rate 1.000e-05, It/sec 0.179, Tokens/sec 13.734, Trained Tokens 39210, Peak mem 15.176 GB
+Iter 570: Train loss 0.009, Learning Rate 1.000e-05, It/sec 0.148, Tokens/sec 11.347, Trained Tokens 39979, Peak mem 15.176 GB
+Iter 580: Train loss 0.013, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 10.960, Trained Tokens 40584, Peak mem 15.176 GB
+Iter 590: Train loss 0.015, Learning Rate 1.000e-05, It/sec 0.174, Tokens/sec 10.724, Trained Tokens 41199, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.41s/it]
+Iter 600: Val loss 0.078, Val took 12.030s
+Iter 600: Train loss 0.026, Learning Rate 1.000e-05, It/sec 0.173, Tokens/sec 11.646, Trained Tokens 41874, Peak mem 15.176 GB
+Iter 600: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000600_adapters.safetensors.
+Iter 610: Train loss 0.014, Learning Rate 1.000e-05, It/sec 0.179, Tokens/sec 11.056, Trained Tokens 42493, Peak mem 15.176 GB
+Iter 620: Train loss 0.032, Learning Rate 1.000e-05, It/sec 0.177, Tokens/sec 13.823, Trained Tokens 43275, Peak mem 15.176 GB
+Iter 630: Train loss 0.021, Learning Rate 1.000e-05, It/sec 0.187, Tokens/sec 10.682, Trained Tokens 43846, Peak mem 15.176 GB
+Iter 640: Train loss 0.015, Learning Rate 1.000e-05, It/sec 0.166, Tokens/sec 13.933, Trained Tokens 44683, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.44s/it]
+Iter 650: Val loss 0.094, Val took 12.183s
+Iter 650: Train loss 0.014, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 12.163, Trained Tokens 45399, Peak mem 15.176 GB
+Iter 660: Train loss 0.019, Learning Rate 1.000e-05, It/sec 0.173, Tokens/sec 12.907, Trained Tokens 46143, Peak mem 15.176 GB
+Iter 670: Train loss 0.006, Learning Rate 1.000e-05, It/sec 0.169, Tokens/sec 13.056, Trained Tokens 46914, Peak mem 15.176 GB
+Iter 680: Train loss 0.009, Learning Rate 1.000e-05, It/sec 0.165, Tokens/sec 13.051, Trained Tokens 47703, Peak mem 15.176 GB
+Iter 690: Train loss 0.012, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 14.724, Trained Tokens 48570, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:11<00:00,  2.36s/it]
+Iter 700: Val loss 0.088, Val took 11.809s
+Iter 700: Train loss 0.010, Learning Rate 1.000e-05, It/sec 0.185, Tokens/sec 10.780, Trained Tokens 49154, Peak mem 15.176 GB
+Iter 700: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000700_adapters.safetensors.
+Iter 710: Train loss 0.018, Learning Rate 1.000e-05, It/sec 0.173, Tokens/sec 12.621, Trained Tokens 49883, Peak mem 15.176 GB
+Iter 720: Train loss 0.008, Learning Rate 1.000e-05, It/sec 0.177, Tokens/sec 12.374, Trained Tokens 50583, Peak mem 15.176 GB
+Iter 730: Train loss 0.008, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 12.346, Trained Tokens 51264, Peak mem 15.176 GB
+Iter 740: Train loss 0.008, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 11.991, Trained Tokens 51927, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.43s/it]
+Iter 750: Val loss 0.083, Val took 12.160s
+Iter 750: Train loss 0.003, Learning Rate 1.000e-05, It/sec 0.174, Tokens/sec 12.197, Trained Tokens 52626, Peak mem 15.176 GB
+Iter 760: Train loss 0.014, Learning Rate 1.000e-05, It/sec 0.164, Tokens/sec 11.992, Trained Tokens 53358, Peak mem 15.176 GB
+Iter 770: Train loss 0.005, Learning Rate 1.000e-05, It/sec 0.137, Tokens/sec 10.292, Trained Tokens 54110, Peak mem 15.176 GB
+Iter 780: Train loss 0.004, Learning Rate 1.000e-05, It/sec 0.113, Tokens/sec 8.427, Trained Tokens 54859, Peak mem 15.176 GB
+Iter 790: Train loss 0.004, Learning Rate 1.000e-05, It/sec 0.148, Tokens/sec 9.578, Trained Tokens 55507, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:13<00:00,  2.68s/it]
+Iter 800: Val loss 0.082, Val took 13.419s
+Iter 800: Train loss 0.009, Learning Rate 1.000e-05, It/sec 0.147, Tokens/sec 8.196, Trained Tokens 56064, Peak mem 15.176 GB
+Iter 800: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000800_adapters.safetensors.
+Iter 810: Train loss 0.007, Learning Rate 1.000e-05, It/sec 0.159, Tokens/sec 11.403, Trained Tokens 56779, Peak mem 15.176 GB
+Iter 820: Train loss 0.004, Learning Rate 1.000e-05, It/sec 0.171, Tokens/sec 11.732, Trained Tokens 57465, Peak mem 15.176 GB
+Iter 830: Train loss 0.004, Learning Rate 1.000e-05, It/sec 0.176, Tokens/sec 14.125, Trained Tokens 58266, Peak mem 15.176 GB
+Iter 840: Train loss 0.003, Learning Rate 1.000e-05, It/sec 0.179, Tokens/sec 14.078, Trained Tokens 59051, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.52s/it]
+Iter 850: Val loss 0.090, Val took 12.593s
+Iter 850: Train loss 0.008, Learning Rate 1.000e-05, It/sec 0.184, Tokens/sec 11.143, Trained Tokens 59655, Peak mem 15.176 GB
+Iter 860: Train loss 0.008, Learning Rate 1.000e-05, It/sec 0.174, Tokens/sec 11.893, Trained Tokens 60340, Peak mem 15.176 GB
+Iter 870: Train loss 0.003, Learning Rate 1.000e-05, It/sec 0.177, Tokens/sec 12.938, Trained Tokens 61072, Peak mem 15.176 GB
+Iter 880: Train loss 0.005, Learning Rate 1.000e-05, It/sec 0.181, Tokens/sec 13.151, Trained Tokens 61800, Peak mem 15.176 GB
+Iter 890: Train loss 0.000, Learning Rate 1.000e-05, It/sec 0.172, Tokens/sec 10.934, Trained Tokens 62437, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:12<00:00,  2.55s/it]
+Iter 900: Val loss 0.094, Val took 12.749s
+Iter 900: Train loss 0.005, Learning Rate 1.000e-05, It/sec 0.170, Tokens/sec 12.643, Trained Tokens 63182, Peak mem 15.176 GB
+Iter 900: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0000900_adapters.safetensors.
+Iter 910: Train loss 0.004, Learning Rate 1.000e-05, It/sec 0.185, Tokens/sec 10.874, Trained Tokens 63769, Peak mem 15.176 GB
+Iter 920: Train loss 0.005, Learning Rate 1.000e-05, It/sec 0.188, Tokens/sec 12.069, Trained Tokens 64410, Peak mem 15.176 GB
+Iter 930: Train loss 0.007, Learning Rate 1.000e-05, It/sec 0.175, Tokens/sec 13.522, Trained Tokens 65182, Peak mem 15.176 GB
+Iter 940: Train loss 0.004, Learning Rate 1.000e-05, It/sec 0.179, Tokens/sec 12.466, Trained Tokens 65879, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:11<00:00,  2.37s/it]
+Iter 950: Val loss 0.094, Val took 11.858s
+Iter 950: Train loss 0.004, Learning Rate 1.000e-05, It/sec 0.166, Tokens/sec 14.438, Trained Tokens 66747, Peak mem 15.176 GB
+Iter 960: Train loss 0.003, Learning Rate 1.000e-05, It/sec 0.180, Tokens/sec 12.245, Trained Tokens 67428, Peak mem 15.176 GB
+Iter 970: Train loss 0.003, Learning Rate 1.000e-05, It/sec 0.156, Tokens/sec 10.750, Trained Tokens 68119, Peak mem 15.176 GB
+Iter 980: Train loss 0.002, Learning Rate 1.000e-05, It/sec 0.174, Tokens/sec 11.152, Trained Tokens 68761, Peak mem 15.176 GB
+Iter 990: Train loss 0.002, Learning Rate 1.000e-05, It/sec 0.183, Tokens/sec 11.476, Trained Tokens 69389, Peak mem 15.176 GB
+Calculating loss...: 100%|██████████| 5/5 [00:13<00:00,  2.61s/it]
+Iter 1000: Val loss 0.098, Val took 13.070s
+Iter 1000: Train loss 0.006, Learning Rate 1.000e-05, It/sec 0.172, Tokens/sec 13.362, Trained Tokens 70165, Peak mem 15.176 GB
+Iter 1000: Saved adapter weights to spoke/adapters-llama3-t1/adapters.safetensors and spoke/adapters-llama3-t1/0001000_adapters.safetensors.
+Saved final weights to spoke/adapters-llama3-t1/adapters.safetensors.
