@@ -181,7 +181,7 @@
   },
   {
     "input": "Quote we find the defendant guilty on all counts end quote said the foreperson.",
-    "ideal": "\"We find the defendant guilty on all counts,\" said the foreperson."
+    "ideal": "\"We find the defendant guilty on all counts\" said the foreperson."
   },
   {
     "input": "His quote-unquote apology was basically I'm sorry you feel that way.",

@@ -44,10 +44,6 @@
     "ideal": "this is a **breaking** change for anyone using the legacy api."
   },
   {
-    "input": "This integration supports webhook notifications. Emphasize webhook notifications, and also capitalize the whole first clause up to the comma.",
-    "ideal": "THIS INTEGRATION SUPPORTS **webhook notifications**."
-  },
-  {
     "input": "She said the deployment failed because of a memory leak. Emphasize memory leak.",
     "ideal": "She said the deployment failed because of a **memory leak**."
   },

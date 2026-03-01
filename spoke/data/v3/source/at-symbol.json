@@ -17,7 +17,7 @@
   },
   {
     "input": "The decorator property needs to go above the method. Add an at symbol before property.",
-    "ideal": "The @property decorator needs to go above the method."
+    "ideal": "The decorator @property needs to go above the method."
   },
   {
     "input": "We need to update config.yaml and secrets.env. Put an at before each filename.",
@@ -26,10 +26,6 @@
   {
     "input": "Everyone in the engineering channel needs to see this. Tag engineering with an at symbol and make it excited.",
     "ideal": "Everyone in the @engineering channel needs to see this!"
-  },
-  {
-    "input": "Tag here with an at symbol so everyone sees it. We need all hands on deck for this launch.",
-    "ideal": "We need @here all hands on deck for this launch."
   },
   {
     "input": "Check the logs in production. Add an at symbol before production.",
@@ -49,7 +45,7 @@
   },
   {
     "input": "We need to notify the team. Tag channel with an at symbol. Tag here with an at symbol too. Show excitement.",
-    "ideal": "We need to notify the @channel. @here too!"
+    "ideal": "We need to notify the team. @channel @here!"
   },
   {
     "input": "The username is developer_one. Add an at symbol before developer_one. Type that in lowercase.",
@@ -88,10 +84,6 @@
     "ideal": "His username is @velocity_dev on the platform."
   },
   {
-    "input": "The decorator pattern is really useful here. Add an at symbol before property on the getter method. And make it excited.",
-    "ideal": "The decorator pattern is really useful here. The @property goes on the getter method!"
-  },
-  {
     "input": "We need to notify the team in Slack. Tag channel with an at symbol and also tag here.",
     "ideal": "We need to notify the team in Slack. @channel and also @here."
   },
@@ -117,7 +109,7 @@
   },
   {
     "input": "The team channel is where we discuss bugs. Tag channel with an at symbol. And mention the devs too.",
-    "ideal": "The @channel is where we discuss bugs. And mention the devs too."
+    "ideal": "The team @channel is where we discuss bugs. And mention the devs too."
   },
   {
     "input": "The @deprecated annotation warns developers. Wait no I said that wrong. The deprecated annotation warns developers. Add an at symbol before deprecated. And also before override on the next line.",
@@ -138,10 +130,6 @@
   {
     "input": "Send this to Sarah. Put an at symbol before Sarah.",
     "ideal": "Send this to @Sarah."
-  },
-  {
-    "input": "My username is dragonmaster but on this platform I go by draco. Put an at symbol before draco. Actually put an at symbol before both.",
-    "ideal": "My username is dragonmaster but on this platform I go by @draco. Actually @both."
   },
   {
     "input": "The decorator pattern is elegant. Add an at symbol before decorator.",

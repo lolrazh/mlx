@@ -41,7 +41,7 @@
   },
   {
     "input": "The documentation says quote deprecated since version 3.0. end quote so we need to migrate.",
-    "ideal": "The documentation says \"deprecated since version 3.0\". so we need to migrate."
+    "ideal": "The documentation says \"deprecated since version 3.0\". So we need to migrate."
   },
   {
     "input": "He called the situation quote completely unacceptable and frankly embarrassing end quote during the meeting.",
@@ -150,10 +150,6 @@
   {
     "input": "Their PR description was quote refactor auth module to support SSO end quote.",
     "ideal": "Their PR description was \"refactor auth module to support SSO\"."
-  },
-  {
-    "input": "The customer wrote quote I've been waiting three weeks for a response end quote in all caps.",
-    "ideal": "The customer wrote \"I've been waiting three weeks for a response\" in all caps."
   },
   {
     "input": "She said it was quote by far the worst decision we've made this quarter end quote.",

@@ -21,7 +21,7 @@
   },
   {
     "input": "The dog chased the cat emoji classic",
-    "ideal": "The dog chased the cat 🐱 classic"
+    "ideal": "The dog chased the 🐱 classic"
   },
   {
     "input": "Purple heart broken heart and two red hearts",
@@ -165,7 +165,7 @@
   },
   {
     "input": "Rolling on the floor laughing emoji not just laughing",
-    "ideal": "🤣"
+    "ideal": "🤣 not just laughing"
   },
   {
     "input": "Insert prayer hands emoji here",

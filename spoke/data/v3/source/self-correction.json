@@ -196,10 +196,6 @@
     "ideal": "The API has a rate limit of one thousand requests per minute, not per second."
   },
   {
-    "input": "I think we should hire the candidate with the, you know, the Stanford background, actually, the MIT one had better portfolio work.",
-    "ideal": "I think we should hire the candidate with the MIT background — they had better portfolio work."
-  },
-  {
     "input": "The pasta needs to boil for eleven minutes, sorry, eight minutes, then rest in the sauce for three more.",
     "ideal": "The pasta needs to boil for eight minutes, then rest in the sauce for three more."
   },
