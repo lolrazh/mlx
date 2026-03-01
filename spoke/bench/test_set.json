@@ -99,65 +99,65 @@
   },
   {
     "id": 15,
-    "category": "formatting-xml",
-    "input": "The result was unexpected. Emphasize unexpected. And wrap the whole sentence in a result tag.",
-    "ideal": "<result>The result was **unexpected**.</result>",
-    "source": "generated/formatting[30]"
-  },
-  {
-    "id": 16,
-    "category": "formatting-xml",
-    "input": "The function returns null on error. XML open error, XML close error, around null.",
-    "ideal": "The function returns <error>null</error> on error.",
-    "source": "generated/formatting[55]"
-  },
-  {
-    "id": 17,
-    "category": "email",
-    "input": "The invite list includes plus one, literally the word plus and the number one, at sign temp hyphen mail dot o r g, which is obviously fake, and also real dot person at outlook dot c o m.",
-    "ideal": "The invite list includes plusone@temp-mail.org, which is obviously fake, and also real.person@outlook.com.",
-    "source": "generated/email[20]"
-  },
-  {
-    "id": 18,
     "category": "emoji",
     "input": "Heartbreak emoji",
     "ideal": "\ud83d\udc94",
     "source_row": 59
   },
   {
-    "id": 19,
+    "id": 16,
     "category": "emoji",
     "input": "Praying hands emoji for the victims",
     "ideal": "\ud83d\ude4f for the victims",
     "source": "generated/emoji[20]"
   },
   {
-    "id": 20,
+    "id": 17,
     "category": "camelcase",
     "input": "So we've got a file called usetranscription.ts.",
     "ideal": "So we've got a file called useTranscription.ts.",
     "source_row": 31
   },
   {
+    "id": 18,
+    "category": "quote-unquote",
+    "input": "Their quote-unquote innovation is just copying what everyone else already does.",
+    "ideal": "Their \"innovation\" is just copying what everyone else already does.",
+    "source": "v3/test"
+  },
+  {
+    "id": 19,
+    "category": "at-symbol",
+    "input": "Notify the ops team about the outage. Add an at symbol before ops.",
+    "ideal": "Notify the @ops team about the outage.",
+    "source": "v3/test"
+  },
+  {
+    "id": 20,
+    "category": "caps",
+    "input": "Stop ignoring my emails. Make that all caps.",
+    "ideal": "STOP IGNORING MY EMAILS.",
+    "source": "v3/test"
+  },
+  {
     "id": 21,
-    "category": "code-aware",
-    "input": "Check your tsconfig, the jsx compiler option should be set to react jsx not the old transform.",
-    "ideal": "Check your tsconfig, the JSX compiler option should be set to react-jsx not the old transform.",
-    "source": "generated/code-aware[20]"
+    "category": "emphasis",
+    "input": "This is absolutely critical for the launch. Emphasize critical.",
+    "ideal": "This is absolutely **critical** for the launch.",
+    "source": "v3/test"
   },
   {
     "id": 22,
-    "category": "hard-negative",
-    "input": "Wait until you see the new office, it's completely different from the old one.",
-    "ideal": "Wait until you see the new office, it's completely different from the old one.",
-    "source": "generated/hard-negatives[10]"
+    "category": "emoji",
+    "input": "We just shipped the new feature fire emoji",
+    "ideal": "We just shipped the new feature \ud83d\udd25",
+    "source": "v3/test"
   },
   {
     "id": 23,
-    "category": "hard-negative",
-    "input": "Never mind the formatting, just get the content right first.",
-    "ideal": "Never mind the formatting, just get the content right first.",
-    "source": "generated/hard-negatives[18]"
+    "category": "camelcase",
+    "input": "The main page uses a component called navigationbar that wraps everything.",
+    "ideal": "The main page uses a component called NavigationBar that wraps everything.",
+    "source": "v3/test"
   }
 ]
