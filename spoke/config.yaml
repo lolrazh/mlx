@@ -25,6 +25,7 @@ max_seq_length: 512  # transcripts are short
 steps_per_report: 10
 steps_per_eval: 50
 save_every: 100
+report_to: wandb
 
 # Paths
 adapter_path: ./spoke/adapters-lfm2.5-t1
