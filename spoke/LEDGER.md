@@ -70,6 +70,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (447) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
 | T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
 | **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | 0.169 @250 | **v3 data.** Trigger-matched categories only. T4 config on new data. **83% bf16, 74% 6-bit.** |
+| **T12** | 03-01 | LoRA | r=8 | adam | flat | **v3+patch (535)** | 300 | — | **v3 + 43 targeted examples** for compound self-correction, emoji stripping, quote scope, camelCase. |
 
 ---
 
