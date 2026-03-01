@@ -1,0 +1,57 @@
+[
+  {
+    "input": "The meeting is scheduled for tomorrow at 3pm. Put that in all caps.",
+    "ideal": "THE MEETING IS SCHEDULED FOR TOMORROW AT 3PM.",
+    "index": 0
+  },
+  {
+    "input": "I was thinking we could refactor the auth module. Actually, no, let's make that all lowercase instead.",
+    "ideal": "i was thinking we could refactor the auth module.",
+    "index": 1
+  },
+  {
+    "input": "Type this in lowercase. The Quick Brown Fox Jumps Over The Lazy Dog.",
+    "ideal": "the quick brown fox jumps over the lazy dog.",
+    "index": 2
+  },
+  {
+    "input": "The meeting is at 3pm. Make it all lowercase.",
+    "ideal": "the meeting is at 3pm.",
+    "index": 3
+  },
+  {
+    "input": "I was thinking about the proposal and honestly I think we should reject it. Use all caps.",
+    "ideal": "I WAS THINKING ABOUT THE PROPOSAL AND HONESTLY I THINK WE SHOULD REJECT IT.",
+    "index": 4
+  },
+  {
+    "input": "I was thinking we could refactor the authentication module, maybe extract the token validation into its own service, you know, keep it clean. Make it all lowercase.",
+    "ideal": "i was thinking we could refactor the authentication module, maybe extract the token validation into its own service, you know, keep it clean.",
+    "index": 5
+  },
+  {
+    "input": "The function name is calculateTotal. Make it all lowercase.",
+    "ideal": "the function name is calculatetotal.",
+    "index": 6
+  },
+  {
+    "input": "The deadline is tomorrow. Show excitement and also put it in all caps.",
+    "ideal": "THE DEADLINE IS TOMORROW!",
+    "index": 7
+  },
+  {
+    "input": "The variable is userInput. Type that in lowercase.",
+    "ideal": "the variable is userinput.",
+    "index": 8
+  },
+  {
+    "input": "I can't believe we shipped on time. Show excitement, and also put the whole thing in lowercase.",
+    "ideal": "i can't believe we shipped on time!",
+    "index": 9
+  },
+  {
+    "input": "The meeting is scheduled for next Tuesday. Make it all lowercase.",
+    "ideal": "the meeting is scheduled for next tuesday.",
+    "index": 10
+  }
+]

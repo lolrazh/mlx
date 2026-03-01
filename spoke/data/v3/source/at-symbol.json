@@ -1,0 +1,110 @@
+[
+  {
+    "input": "Check the user profile in the admin panel. Add an at symbol before user and before admin.",
+    "ideal": "Check the @user profile in the @admin panel."
+  },
+  {
+    "input": "I keep forgetting to use the lru cache decorator. Can you put an at before lru cache?",
+    "ideal": "I keep forgetting to use the @lru cache decorator."
+  },
+  {
+    "input": "Make sure to ping everyone in general. Tag general with an at symbol and show excitement.",
+    "ideal": "Make sure to ping everyone in @general!"
+  },
+  {
+    "input": "Hey Sarah, check out this new feature. Tag Sarah with an at symbol.",
+    "ideal": "Hey @Sarah, check out this new feature."
+  },
+  {
+    "input": "The decorator property needs to go above the method. Add an at symbol before property.",
+    "ideal": "The @property decorator needs to go above the method."
+  },
+  {
+    "input": "We need to update config.yaml and secrets.env. Put an at before each filename.",
+    "ideal": "We need to update @config.yaml and @secrets.env."
+  },
+  {
+    "input": "Everyone in the engineering channel needs to see this. Tag engineering with an at symbol and make it excited.",
+    "ideal": "Everyone in the @engineering channel needs to see this!"
+  },
+  {
+    "input": "Tag here with an at symbol so everyone sees it. We need all hands on deck for this launch.",
+    "ideal": "We need @here all hands on deck for this launch."
+  },
+  {
+    "input": "Check the logs in production. Add an at symbol before production.",
+    "ideal": "Check the logs in @production."
+  },
+  {
+    "input": "I need to update app.py, models.py, and config.py. Put an at before each filename.",
+    "ideal": "I need to update @app.py, @models.py, and @config.py."
+  },
+  {
+    "input": "Message Sarah about the review. Tag Sarah with an at symbol and show excitement.",
+    "ideal": "Message @Sarah about the review!"
+  },
+  {
+    "input": "The decorator wraps the function. Add an at symbol before decorator. And make it all lowercase.",
+    "ideal": "the @decorator wraps the function."
+  },
+  {
+    "input": "We need to notify the team. Tag channel with an at symbol. Tag here with an at symbol too. Show excitement.",
+    "ideal": "We need to notify the @channel. @here too!"
+  },
+  {
+    "input": "The username is developer_one. Add an at symbol before developer_one. Type that in lowercase.",
+    "ideal": "the username is @developer_one."
+  },
+  {
+    "input": "I need to decorate the class with property. Put an at before property and before class.",
+    "ideal": "I need to decorate the @class with @property."
+  },
+  {
+    "input": "The decorator pattern is really useful. Put an at symbol before decorator.",
+    "ideal": "The @decorator pattern is really useful."
+  },
+  {
+    "input": "We need to notify everyone in the channel. Tag here and channel with at symbols.",
+    "ideal": "We need to notify everyone in the @here and @channel."
+  },
+  {
+    "input": "I'm so happy this finally works. Show excitement and tag me with an at symbol.",
+    "ideal": "I'm so happy this finally works @me!"
+  },
+  {
+    "input": "Check the @deprecated decorator in the codebase. Actually wait, I haven't added the at symbol yet. Add it before deprecated.",
+    "ideal": "Check the @deprecated decorator in the codebase."
+  },
+  {
+    "input": "Please review the pull request. Tag the reviewer with an at symbol, that's Sarah, and also make it sound excited.",
+    "ideal": "Please review the pull request @Sarah!"
+  },
+  {
+    "input": "The config file is settings.yaml. Put an at before the filename, and also before the word config actually.",
+    "ideal": "The @config file is @settings.yaml."
+  },
+  {
+    "input": "His username is velocity_dev on the platform. Put an at before his handle.",
+    "ideal": "His username is @velocity_dev on the platform."
+  },
+  {
+    "input": "The decorator pattern is really useful here. Add an at symbol before property on the getter method. And make it excited.",
+    "ideal": "The decorator pattern is really useful here. The @property goes on the getter method!"
+  },
+  {
+    "input": "We need to notify the team in Slack. Tag channel with an at symbol and also tag here.",
+    "ideal": "We need to notify the team in Slack. @channel and also @here."
+  },
+  {
+    "input": "The configuration file is settings.yaml. Put an at before the filename so they know it's a reference.",
+    "ideal": "The configuration file is @settings.yaml."
+  },
+  {
+    "input": "The config files are settings.yaml and secrets.env. Add at symbols before both filenames.",
+    "ideal": "The config files are @settings.yaml and @secrets.env."
+  },
+  {
+    "input": "Check the @deprecated decorator on that method. Wait, no, I mean the @override one. Actually, add an at symbol before override.",
+    "ideal": "Check the @deprecated decorator on that method. Actually, check the @override one."
+  }
+]

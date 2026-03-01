@@ -1,0 +1,82 @@
+[
+  {
+    "input": "The results were unexpected and frankly quite shocking. Emphasize unexpected and shocking.",
+    "ideal": "The results were **unexpected** and frankly quite **shocking**.",
+    "index": 0
+  },
+  {
+    "input": "We need to notify the team immediately. Stress need and immediately.",
+    "ideal": "We NEED to notify the team IMMEDIATELY.",
+    "index": 1
+  },
+  {
+    "input": "Stress the word definitely. I will definitely be there on time.",
+    "ideal": "I will **definitely** be there on time.",
+    "index": 2
+  },
+  {
+    "input": "The deadline is tomorrow. Emphasize tomorrow.",
+    "ideal": "The deadline is **tomorrow**.",
+    "index": 3
+  },
+  {
+    "input": "We need to refactor the auth module and the cache layer. Bold auth and cache.",
+    "ideal": "We need to refactor the **auth** module and the **cache** layer.",
+    "index": 4
+  },
+  {
+    "input": "She said the deadline moved to Friday. Stress Friday. Stress deadline. Use all caps for those.",
+    "ideal": "She said the DEADLINE moved to FRIDAY.",
+    "index": 5
+  },
+  {
+    "input": "The deadline is Friday. Stress Friday and deadline.",
+    "ideal": "The DEADLINE is FRIDAY.",
+    "index": 6
+  },
+  {
+    "input": "We need to update the documentation. Emphasize update.",
+    "ideal": "We need to **update** the documentation.",
+    "index": 7
+  },
+  {
+    "input": "The performance improvement is significant. Make significant bold and show excitement.",
+    "ideal": "The performance improvement is **significant**!",
+    "index": 8
+  },
+  {
+    "input": "The result was unexpected to say the least. Emphasis on unexpected and least.",
+    "ideal": "The result was UNEXPECTED to say the LEAST.",
+    "index": 9
+  },
+  {
+    "input": "This is a breaking change for anyone using the legacy API. Make it all lowercase and bold breaking.",
+    "ideal": "this is a **breaking** change for anyone using the legacy api.",
+    "index": 10
+  },
+  {
+    "input": "This integration supports webhook notifications. Emphasize webhook notifications, and also capitalize the whole first clause up to the comma.",
+    "ideal": "THIS INTEGRATION SUPPORTS **webhook notifications**.",
+    "index": 11
+  },
+  {
+    "input": "She said the deployment failed because of a memory leak. Emphasize memory leak.",
+    "ideal": "She said the deployment failed because of a **memory leak**.",
+    "index": 12
+  },
+  {
+    "input": "The test results show regression in performance. Emphasis on regression and performance.",
+    "ideal": "The test results show REGRESSION in PERFORMANCE.",
+    "index": 13
+  },
+  {
+    "input": "We should focus on scalability and reliability in the architecture review. Emphasis on scalability and reliability.",
+    "ideal": "We should focus on SCALABILITY and RELIABILITY in the architecture review.",
+    "index": 14
+  },
+  {
+    "input": "We need to refactor the legacy codebase. Emphasis on legacy.",
+    "ideal": "We need to refactor the LEGACY codebase.",
+    "index": 15
+  }
+]

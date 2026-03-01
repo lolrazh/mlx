@@ -300,18 +300,145 @@ def validate_multi_command(pair: dict) -> tuple[bool, list[str]]:
     return len(errors) == 0, errors
 
 
+# ─── v3 Validators (trigger-matched categories) ───────────────────
+
+def validate_quote_endquote(pair: dict) -> tuple[bool, list[str]]:
+    inp, ideal = pair["input"], pair["ideal"]
+    errors = []
+
+    # 1. Input must have "quote" ... "end quote" pattern
+    if "end quote" not in inp.lower():
+        errors.append("No 'end quote' trigger found in input")
+    if not re.search(r'\bquote\b', inp.lower()):
+        errors.append("No opening 'quote' trigger found in input")
+
+    # 2. Ideal must contain quotation marks
+    if '"' not in ideal and '\u201c' not in ideal:
+        errors.append("No quotation marks found in ideal output")
+
+    # 3. "end quote" / "quote" triggers should be removed from ideal
+    if "end quote" in ideal.lower():
+        errors.append("Ideal still contains 'end quote' trigger")
+
+    # 4. Period placement check
+    # If input has period BEFORE "end quote" → period should be INSIDE closing quote
+    period_before_endquote = bool(re.search(r'\.\s*end quote', inp, re.IGNORECASE))
+    if period_before_endquote:
+        # Check that ideal has period inside: ."  or ."  (not ".  )
+        if re.search(r'"\s*\.', ideal):
+            errors.append("Period before 'end quote' in input but period is OUTSIDE quotes in ideal "
+                          "(should be inside)")
+
+    return len(errors) == 0, errors
+
+
+def validate_caps(pair: dict) -> tuple[bool, list[str]]:
+    inp, ideal = pair["input"], pair["ideal"]
+    errors = []
+
+    # 1. Must have case-change trigger
+    is_upper = has_trigger(inp, ["all caps", "in caps", "uppercase", "capitalize",
+                                  "put that in caps", "write that in caps"])
+    is_lower = has_trigger(inp, ["lowercase", "lower case", "make it all lowercase"])
+
+    if not is_upper and not is_lower:
+        errors.append("No case transformation trigger found in input")
+
+    # 2. Verify transformation applied
+    if is_upper:
+        # Count uppercase letters in ideal (excluding instruction text)
+        alpha_chars = [c for c in ideal if c.isalpha()]
+        if alpha_chars:
+            upper_ratio = sum(1 for c in alpha_chars if c.isupper()) / len(alpha_chars)
+            if upper_ratio < 0.5:
+                errors.append(f"All-caps requested but only {upper_ratio:.0%} uppercase in ideal")
+
+    if is_lower:
+        if ideal != ideal.lower():
+            errors.append("Lowercase requested but ideal contains uppercase characters")
+
+    # 3. Instruction should be removed from ideal
+    triggers = ["all caps", "in caps", "uppercase", "capitalize", "lowercase",
+                "lower case", "put that in", "make it all", "type this in"]
+    if has_trigger(ideal, triggers):
+        errors.append("Ideal still contains case-change instruction")
+
+    # 4. Output must differ from input
+    if inp.strip() == ideal.strip():
+        errors.append("Input and ideal are identical — no transformation applied")
+
+    return len(errors) == 0, errors
+
+
+def validate_emphasis(pair: dict) -> tuple[bool, list[str]]:
+    inp, ideal = pair["input"], pair["ideal"]
+    errors = []
+
+    # 1. Must have emphasis trigger
+    triggers = ["emphasize", "bold", "emphasis on", "stress", "make it bold",
+                "put emphasis"]
+    if not has_trigger(inp, triggers):
+        errors.append("No emphasis trigger found in input")
+
+    # 2. Verify emphasis applied
+    has_bold = "**" in ideal
+    has_caps_emphasis = any(w.isupper() and len(w) > 1 for w in ideal.split())
+
+    if not has_bold and not has_caps_emphasis:
+        errors.append("No emphasis markers found in ideal (expected ** or CAPS words)")
+
+    # 3. Instruction should be removed from ideal
+    if has_trigger(ideal, ["emphasize", "bold", "emphasis on", "stress"]):
+        errors.append("Ideal still contains emphasis instruction")
+
+    # 4. Output must differ from input
+    if inp.strip() == ideal.strip():
+        errors.append("Input and ideal are identical")
+
+    return len(errors) == 0, errors
+
+
+def validate_camelcase(pair: dict) -> tuple[bool, list[str]]:
+    inp, ideal = pair["input"], pair["ideal"]
+    errors = []
+
+    # 1. Ideal should contain camelCase or PascalCase identifiers
+    camel_pattern = r'[a-z][A-Z]'
+    pascal_pattern = r'\b[A-Z][a-z]+(?:[A-Z][a-z]+)+'
+    has_camel = bool(re.search(camel_pattern, ideal))
+    has_pascal = bool(re.search(pascal_pattern, ideal))
+
+    if not has_camel and not has_pascal:
+        errors.append("No camelCase or PascalCase identifier found in ideal output")
+
+    # 2. Input should have the flattened (lowercase) version
+    if inp.strip() == ideal.strip():
+        errors.append("Input and ideal are identical — no casing fix applied")
+
+    # 3. The cased identifier in ideal should exist as lowercase in input
+    # (basic check — just verify ideal differs from input in casing)
+    if inp.lower() == ideal.lower() and inp == ideal:
+        errors.append("No casing change detected between input and ideal")
+
+    return len(errors) == 0, errors
+
+
 # ─── Registry ───────────────────────────────────────────────────────
 
 VALIDATORS = {
     "spell-replace": validate_spell_replace,
     "self-correction": validate_self_correction,
     "quote-unquote": validate_quote_unquote,
+    "quote-endquote": validate_quote_endquote,
     "at-symbol": validate_at_symbol,
     "email": validate_email,
     "formatting": validate_formatting,
     "emoji": validate_emoji,
     "code-aware": validate_code_aware,
     "multi-command": validate_multi_command,
+    "caps": validate_caps,
+    "emphasis": validate_emphasis,
+    "camelcase": validate_camelcase,
 }
 
 

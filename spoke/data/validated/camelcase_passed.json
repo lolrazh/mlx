@@ -1,0 +1,82 @@
+[
+  {
+    "input": "So in my React component, I'm calling usestate to manage the form data, but I keep forgetting to import it properly.",
+    "ideal": "So in my React component, I'm calling useState to manage the form data, but I keep forgetting to import it properly.",
+    "index": 0
+  },
+  {
+    "input": "The main wrapper is called appcontainer and it handles all the routing logic between the different views.",
+    "ideal": "The main wrapper is called AppContainer and it handles all the routing logic between the different views.",
+    "index": 1
+  },
+  {
+    "input": "The useeffect hook is running twice because of React's strict mode in development, which is actually the correct behavior.",
+    "ideal": "The useEffect hook is running twice because of React's strict mode in development, which is actually the correct behavior.",
+    "index": 2
+  },
+  {
+    "input": "I'm importing the usereducer hook from React but it's not working because I forgot to pass the initial state.",
+    "ideal": "I'm importing the useReducer hook from React but it's not working because I forgot to pass the initial state.",
+    "index": 3
+  },
+  {
+    "input": "I'm writing a Python class called userrepository and it handles all the database calls for the app.",
+    "ideal": "I'm writing a Python class called UserRepository and it handles all the database calls for the app.",
+    "index": 4
+  },
+  {
+    "input": "The appcontainer component wraps everything so you need to make sure it's imported in layout dot tsx.",
+    "ideal": "The AppContainer component wraps everything so you need to make sure it's imported in layout.tsx.",
+    "index": 5
+  },
+  {
+    "input": "The usecallback dependency array is empty but you're referencing a variable that changes on every render.",
+    "ideal": "The useCallback dependency array is empty but you're referencing a variable that changes on every render.",
+    "index": 6
+  },
+  {
+    "input": "All the Swift views inherit from viewcontroller, which is fine for now but we should move to swiftui eventually.",
+    "ideal": "All the Swift views inherit from ViewController, which is fine for now but we should move to SwiftUI eventually.",
+    "index": 7
+  },
+  {
+    "input": "So I'm looking at this usememo hook and it's not memoizing the llm inference results even though the gpu is available.",
+    "ideal": "So I'm looking at this useMemo hook and it's not memoizing the LLM inference results even though the GPU is available.",
+    "index": 8
+  },
+  {
+    "input": "I need to add a new interface called userprops to define the shape of the data coming from the api.",
+    "ideal": "I need to add a new interface called UserProps to define the shape of the data coming from the API.",
+    "index": 9
+  },
+  {
+    "input": "So in the react component, I'm importing usestate and usecontext from the library, but the linter is complaining that usestate is never reassigned.",
+    "ideal": "So in the React component, I'm importing useState and useContext from the library, but the linter is complaining that useState is never reassigned.",
+    "index": 10
+  },
+  {
+    "input": "I think we should rename handlesubmit to something clearer since we now have both handlesubmit and handleformsubmit in the same file.",
+    "ideal": "I think we should rename handleSubmit to something clearer since we now have both handleSubmit and handleFormSubmit in the same file.",
+    "index": 11
+  },
+  {
+    "input": "We're using yaml to configure the ci cd pipeline and the github actions workflow is in dot github slash workflows slash deploy dot yml.",
+    "ideal": "We're using YAML to configure the CI/CD pipeline and the GitHub Actions workflow is in .github/workflows/deploy.yml.",
+    "index": 12
+  },
+  {
+    "input": "The component library exports a defaultlayout component that includes the navbar and footer, so every page should wrap its content with defaultlayout to keep the design consistent.",
+    "ideal": "The component library exports a DefaultLayout component that includes the navbar and footer, so every page should wrap its content with DefaultLayout to keep the design consistent.",
+    "index": 13
+  },
+  {
+    "input": "So in the usecallback hook, we're memoizing the function itself, not the result. That's the key difference between usecallback and usememo.",
+    "ideal": "So in the useCallback hook, we're memoizing the function itself, not the result. That's the key difference between useCallback and useMemo.",
+    "index": 14
+  },
+  {
+    "input": "The errorboundary component wraps your route components to catch JavaScript errors anywhere in their child component tree.",
+    "ideal": "The ErrorBoundary component wraps your route components to catch JavaScript errors anywhere in their child component tree.",
+    "index": 15
+  }
+]
