@@ -39,6 +39,16 @@
 
 **Takeaway:** V2 test set is significantly harder — generic floor drops from 25% to 13%, v2 prompt from 50% to 35%. T4's 74% bf16 = **+61 points** over floor, **+39 points** over v2 baseline.
 
+### v3 test set (23 examples, trigger-matched categories only)
+
+v3 removes 4 categories with no production Spoke triggers (formatting-xml, email, code-aware, hard-negative). Keeps 9 categories: spell-replace, self-correction, quote-unquote, quote-endquote, at-symbol, caps, emphasis, emoji, camelcase. Test set: `spoke/bench/test_set_v3.json`.
+
+| ID | Model | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|----|-------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| B11 | Qwen3-4B | bf16 | v2 | 23 | **22%** | 4 | 1 | 11 | 7 | 1.66s | v3 baseline. Lower than v2 (35%) — new test examples are harder for base model. |
+
+**Takeaway:** v3 test set zero-shot baseline is 22%. T4-equivalent training on v3 data should push well past 74% since we removed untriggered categories the model can't handle.
+
 ---
 
 ## Training Runs
@@ -59,6 +69,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T8** | 03-01 | **DoRA** | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 (50 eff.) | 0.427 @200 | batch=1+accum=4 (OOM forced). 50 effective steps. 15.4 GB peak. DoRA not viable on M4. |
 | T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (447) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
 | T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
+| **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | — | **v3 data.** Trigger-matched categories only. T4 config on new data. |
 
 ---
 
@@ -101,6 +112,11 @@ All from Qwen3-4B base.
 | T8 | iter 200 | bf16 | v2 | 23 | **30%** | 5 | 2 | 14 | 2 | 17.75s | Only 50 effective steps (grad_accum=4). DoRA latency ~18s. Not viable. |
 | T9 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
 | T10 | — | 6-bit | v2 | 23 | **—** | — | — | — | — | — | |
+
+### T11+: v3 test set (23 examples), v3 training data (492 train, 20 valid)
+
+| Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
 
 ---
 
@@ -159,6 +175,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | ~~DONE~~ | ~~T8~~ | ~~DoRA + AdamW~~ | ~~OOM forced batch=1. Not viable.~~ | ~~Dead end~~ |
 | ~~DONE~~ | ~~T6b~~ | ~~AdamW 500 iters~~ | ~~70% bf16, 57% 6-bit. Still dropping at 500 — needs more iters. Quant loss 13% (worse than T4's 9%).~~ | ~~Done~~ |
 | ~~DONE~~ | ~~T6c~~ | ~~AdamW 800 iters~~ | ~~74% bf16 (=T4), 61% 6-bit (worse than T4's 65%). 2.7x slower. **AdamW loses on 6-bit deploy.**~~ | ~~Done~~ |
+| **HIGH** | **T11** | **v3 data (492 train, trigger-matched)** | **Removing untriggered categories frees model capacity. +45 new targeted examples for weak spots.** | **Running** |
 | Medium | T7 | Cosine LR + warmup (50 steps) | Accelerate convergence — adam converges at 300, maybe cosine gets there at 200? | T4 baseline |
 | Medium | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T4 baseline |
 | Medium | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T4 baseline |

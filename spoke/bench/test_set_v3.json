@@ -1,0 +1,140 @@
+[
+  {
+    "id": 1,
+    "category": "spell-replace",
+    "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+    "ideal": "I'm gonna be using Silero VAD for this."
+  },
+  {
+    "id": 2,
+    "category": "spell-replace",
+    "input": "He went to the Khadai, spell that K-A-D-A-I.",
+    "ideal": "He went to the Kadai."
+  },
+  {
+    "id": 3,
+    "category": "spell-replace",
+    "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+    "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish."
+  },
+  {
+    "id": 4,
+    "category": "self-correction",
+    "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+    "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks."
+  },
+  {
+    "id": 5,
+    "category": "self-correction",
+    "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+    "ideal": "Let's meet at 12pm, Thursday."
+  },
+  {
+    "id": 6,
+    "category": "self-correction",
+    "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+    "ideal": "We're using React and Svelte."
+  },
+  {
+    "id": 7,
+    "category": "quote-unquote",
+    "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?"
+  },
+  {
+    "id": 8,
+    "category": "quote-unquote",
+    "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+    "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient."
+  },
+  {
+    "id": 9,
+    "category": "quote-endquote",
+    "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?"
+  },
+  {
+    "id": 10,
+    "category": "quote-endquote",
+    "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+    "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row."
+  },
+  {
+    "id": 11,
+    "category": "quote-endquote",
+    "input": "He described the interview as quote the most stressful hour of my life end quote.",
+    "ideal": "He described the interview as \"the most stressful hour of my life\"."
+  },
+  {
+    "id": 12,
+    "category": "at-symbol",
+    "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+    "ideal": "I wanna fix @app.py and @test.py."
+  },
+  {
+    "id": 13,
+    "category": "caps",
+    "input": "We're so excited to make this. Use all caps.",
+    "ideal": "WE'RE SO EXCITED TO MAKE THIS."
+  },
+  {
+    "id": 14,
+    "category": "emphasis",
+    "input": "It's surprisingly fast. Emphasize surprisingly.",
+    "ideal": "It's **surprisingly** fast."
+  },
+  {
+    "id": 15,
+    "category": "emoji",
+    "input": "Heartbreak emoji",
+    "ideal": "💔"
+  },
+  {
+    "id": 16,
+    "category": "emoji",
+    "input": "Praying hands emoji for the victims",
+    "ideal": "🙏 for the victims"
+  },
+  {
+    "id": 17,
+    "category": "camelcase",
+    "input": "So we've got a file called usetranscription.ts.",
+    "ideal": "So we've got a file called useTranscription.ts."
+  },
+  {
+    "id": 18,
+    "category": "quote-unquote",
+    "input": "Their quote-unquote innovation is just copying what everyone else already does.",
+    "ideal": "Their \"innovation\" is just copying what everyone else already does."
+  },
+  {
+    "id": 19,
+    "category": "at-symbol",
+    "input": "Notify the ops team about the outage. Add an at symbol before ops.",
+    "ideal": "Notify the @ops team about the outage."
+  },
+  {
+    "id": 20,
+    "category": "caps",
+    "input": "Stop ignoring my emails. Make that all caps.",
+    "ideal": "STOP IGNORING MY EMAILS."
+  },
+  {
+    "id": 21,
+    "category": "emphasis",
+    "input": "This is absolutely critical for the launch. Emphasize critical.",
+    "ideal": "This is absolutely **critical** for the launch."
+  },
+  {
+    "id": 22,
+    "category": "emoji",
+    "input": "We just shipped the new feature fire emoji",
+    "ideal": "We just shipped the new feature 🔥"
+  },
+  {
+    "id": 23,
+    "category": "camelcase",
+    "input": "The main page uses a component called navigationbar that wraps everything.",
+    "ideal": "The main page uses a component called NavigationBar that wraps everything."
+  }
+]

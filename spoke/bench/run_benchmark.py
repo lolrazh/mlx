@@ -300,10 +300,16 @@ def main():
                         help="Path to LoRA adapter weights (loads on top of base model)")
     parser.add_argument("--prompt-mode", choices=["generic", "task", "spoke", "v2"], default="generic",
                         help="Prompt strategy: generic | task | spoke | v2 (condensed training prompt)")
+    parser.add_argument("--test-set", type=str, default=None,
+                        help="Path to test set JSON (default: test_set.json in bench dir)")
     parser.add_argument("--verbose", action="store_true", default=True)
     args = parser.parse_args()
 
-    test_set = load_test_set()
+    if args.test_set:
+        with open(args.test_set) as f:
+            test_set = json.load(f)
+    else:
+        test_set = load_test_set()
     print(f"Loaded {len(test_set)} test examples")
 
     if args.all:
