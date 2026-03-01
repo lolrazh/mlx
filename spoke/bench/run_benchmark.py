@@ -26,6 +26,8 @@ MODELS = {
     "qwen3-4b": "mlx-community/Qwen3-4B-Instruct-2507-4bit",
     "qwen3-4b-bf16": "mlx-community/Qwen3-4B-Instruct-2507-bf16",
     "lfm2.5-1.2b": "lmstudio-community/LFM2.5-1.2B-Instruct-MLX-4bit",
+    "lfm2.5-1.2b-bf16": "LiquidAI/LFM2.5-1.2B-Instruct-MLX-bf16",
+    "llama3.2-3b": "mlx-community/Llama-3.2-3B-Instruct-bf16",
     "phi4-mini": "mlx-community/Phi-4-mini-instruct-4bit",
     "gemma3n-e4b": "mlx-community/gemma-3n-E4B-it-lm-4bit",
     "gemma3-4b-qat": "mlx-community/gemma-3-4b-it-qat-4bit",
