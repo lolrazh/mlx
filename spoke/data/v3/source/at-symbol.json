@@ -154,5 +154,53 @@
   {
     "input": "The import statement is broken. Add an at symbol before import. Then check the class definition. At symbol before class.",
     "ideal": "The @import statement is broken. Then check the @class definition."
+  },
+  {
+    "input": "The React component needs useState imported. At symbol before useState. And don't forget to add the hook dependency array.",
+    "ideal": "The React component needs @useState imported. And don't forget to add the hook dependency array."
+  },
+  {
+    "input": "Post this in the general channel. Tag general with an at symbol. Then cross-post to announcements and tag announcements with an at symbol too.",
+    "ideal": "Post this in the @general channel. Then cross-post to @announcements too."
+  },
+  {
+    "input": "The Vue directive v-if needs to be v-show instead. At symbol before v-show. And add the transition wrapper while you're at it.",
+    "ideal": "The Vue directive v-if needs to be @v-show instead. And add the transition wrapper while you're at it."
+  },
+  {
+    "input": "Mention the backend team in your PR. Tag backend-team with an at symbol. Also tag devops and tag devops with an at symbol for the deployment part.",
+    "ideal": "Mention the @backend-team in your PR. Also tag @devops for the deployment part."
+  },
+  {
+    "input": "The Twitter handle techcrunch should be in the article. At symbol before techcrunch. And link to their profile page.",
+    "ideal": "The Twitter handle @techcrunch should be in the article. And link to their profile page."
+  },
+  {
+    "input": "I need to reference the GitHub user octocat in my documentation. Tag octocat with an at symbol. Actually, do it twice since I'm mentioning them in two different sections.",
+    "ideal": "I need to reference the GitHub user @octocat in my documentation. Actually, do it twice since I'm mentioning them in two different sections."
+  },
+  {
+    "input": "Post this in the general channel and tag everyone. At symbol before general. Also put an at before everyone so they get notified. Make sure it's urgent.",
+    "ideal": "Post this in the @general channel and tag @everyone. Make sure it's urgent."
+  },
+  {
+    "input": "Email jane.doe and cc her manager. Put an at before jane.doe. Also at symbol before manager but only if you know their handle, otherwise just write the email normally.",
+    "ideal": "Email @jane.doe and cc her manager. Also @manager but only if you know their handle, otherwise just write the email normally."
+  },
+  {
+    "input": "The Slack workflow needs to notify the on-call engineer and post to incidents. Tag on-call with an at symbol. Also add an at symbol before incidents. Make it high priority.",
+    "ideal": "The Slack workflow needs to notify the @on-call engineer and post to @incidents. Make it high priority."
+  },
+  {
+    "input": "The Discord bot should respond when someone mentions the admin role or the moderator role. At symbol before admin. Also tag moderator with an at symbol. And make it case insensitive.",
+    "ideal": "The Discord bot should respond when someone mentions the @admin role or the @moderator role. And make it case insensitive."
+  },
+  {
+    "input": "Hey everyone, check out this new feature from our design team. Tag design with an at symbol. They're doing amazing work.",
+    "ideal": "Hey everyone, check out this new feature from our @design team. They're doing amazing work."
+  },
+  {
+    "input": "The React component imports useState and useEffect from the library. Add an at symbol before useState and tag useEffect with an at symbol too.",
+    "ideal": "The React component imports @useState and @useEffect from the library."
   }
 ]

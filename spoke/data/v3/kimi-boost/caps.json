@@ -1,0 +1,58 @@
+[
+  {
+    "input": "You know, like, write this in lowercase. My Dog Ate My Homework And I Swear It's True",
+    "ideal": "my dog ate my homework and i swear it's true."
+  },
+  {
+    "input": "CAPITALIZE EVERYTHING. The server migration failed catastrophically and we need to roll back immediately",
+    "ideal": "THE SERVER MIGRATION FAILED CATASTROPHICALLY AND WE NEED TO ROLL BACK IMMEDIATELY."
+  },
+  {
+    "input": "Um, type this in lowercase please. Congratulations On Your Promotion You Absolutely Deserve It",
+    "ideal": "congratulations on your promotion you absolutely deserve it."
+  },
+  {
+    "input": "Make it all caps and show excitement. We finally shipped the feature after six months of grinding",
+    "ideal": "WE FINALLY SHIPPED THE FEATURE AFTER SIX MONTHS OF GRINDING!"
+  },
+  {
+    "input": "In lowercase. The API response time degraded to 800ms during peak traffic and triggered automatic scaling",
+    "ideal": "the api response time degraded to 800ms during peak traffic and triggered automatic scaling."
+  },
+  {
+    "input": "Put that in all caps. I'm so proud of what we built together this year",
+    "ideal": "I'M SO PROUD OF WHAT WE BUILT TOGETHER THIS YEAR."
+  },
+  {
+    "input": "You know, make it lowercase. The Customer Complained About The Delay But We Resolved It Quickly",
+    "ideal": "the customer complained about the delay but we resolved it quickly."
+  },
+  {
+    "input": "The quarterly revenue exceeded projections by 14 percent. Can you capitalize everything?",
+    "ideal": "THE QUARTERLY REVENUE EXCEEDED PROJECTIONS BY 14 PERCENT."
+  },
+  {
+    "input": "Type this in lowercase. My Daughter Graduated From Stanford Last June With Honors.",
+    "ideal": "my daughter graduated from stanford last june with honors."
+  },
+  {
+    "input": "Um, make it all lowercase please. The CEO Announced A Merger With The Rival Startup Yesterday Morning.",
+    "ideal": "the ceo announced a merger with the rival startup yesterday morning."
+  },
+  {
+    "input": "Like, in lowercase. The Server Crashed At 2AM And Took Down The Entire Production Environment.",
+    "ideal": "the server crashed at 2am and took down the entire production environment."
+  },
+  {
+    "input": "Capitalize everything. She said yes and now we're getting married in the spring!",
+    "ideal": "SHE SAID YES AND NOW WE'RE GETTING MARRIED IN THE SPRING!"
+  },
+  {
+    "input": "You know, make it lowercase. The Intern Fixed The Bug That Senior Engineers Couldn't Solve For Weeks.",
+    "ideal": "the intern fixed the bug that senior engineers couldn't solve for weeks."
+  },
+  {
+    "input": "Write that in caps. I'm never going back to that restaurant again.",
+    "ideal": "I'M NEVER GOING BACK TO THAT RESTAURANT AGAIN."
+  }
+]

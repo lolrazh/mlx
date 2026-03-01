@@ -1,0 +1,62 @@
+[
+  {
+    "input": "The algorithm converges faster than expected. Bold converges and faster.",
+    "ideal": "The algorithm **converges** **faster** than expected."
+  },
+  {
+    "input": "She insisted we review the security audit before release. Stress insisted, security, and release.",
+    "ideal": "She INSISTED we review the SECURITY audit before RELEASE."
+  },
+  {
+    "input": "The migration to the new database was seamless. Put emphasis on seamless.",
+    "ideal": "The migration to the new database was SEAMLESS."
+  },
+  {
+    "input": "We underestimated the complexity of the integration. Bold underestimated and complexity, show excitement.",
+    "ideal": "We **underestimated** the **complexity** of the integration!"
+  },
+  {
+    "input": "The, uh, the refactor improved readability significantly. Stress uh, readability, and significantly.",
+    "ideal": "The, UH, the refactor improved READABILITY SIGNIFICANTLY."
+  },
+  {
+    "input": "He suggested we deprecate the legacy endpoint. Make suggested bold and stress deprecate.",
+    "ideal": "He **suggested** we DEPRECATE the legacy endpoint."
+  },
+  {
+    "input": "The query optimization reduced execution time dramatically. Bold query, execution, and dramatically.",
+    "ideal": "The **query** optimization reduced **execution** time **dramatically**."
+  },
+  {
+    "input": "I mean, the validation caught the error early. Stress mean and early.",
+    "ideal": "I MEAN, the validation caught the error EARLY."
+  },
+  {
+    "input": "The consensus was that we ship tomorrow. Bold consensus, stress tomorrow, show excitement.",
+    "ideal": "The **consensus** was that we ship TOMORROW!"
+  },
+  {
+    "input": "The refactoring improved readability significantly. Make significantly bold.",
+    "ideal": "The refactoring improved readability **significantly**."
+  },
+  {
+    "input": "We need to prioritize the migration and the rollback strategy. Emphasis on migration and rollback.",
+    "ideal": "We need to prioritize the MIGRATION and the ROLLBACK strategy."
+  },
+  {
+    "input": "The, uh, the authentication layer needs work. Bold uh and stress work.",
+    "ideal": "The, **uh**, the authentication layer needs WORK."
+  },
+  {
+    "input": "Latency dropped after we optimized the hot path. Put emphasis on dropped and hot path.",
+    "ideal": "Latency DROPPED after we optimized the HOT PATH."
+  },
+  {
+    "input": "The benchmark results were unexpected. Make benchmark bold and unexpected bold, show excitement.",
+    "ideal": "The **benchmark** results were **unexpected**!"
+  },
+  {
+    "input": "She mentioned that the dependency update broke everything. Stress dependency and broke.",
+    "ideal": "She mentioned that the DEPENDENCY update BROKE everything."
+  }
+]

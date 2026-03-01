@@ -1,0 +1,22 @@
+[
+  {
+    "input": "Two pizza slices and a burger emoji",
+    "ideal": "🍕🍕 and a 🍔"
+  },
+  {
+    "input": "Clapping hands emoji you nailed it",
+    "ideal": "👏 you nailed it"
+  },
+  {
+    "input": "Four sparkles emojis please",
+    "ideal": "✨✨✨✨"
+  },
+  {
+    "input": "Purple heart for my mom",
+    "ideal": "💜 for my mom"
+  },
+  {
+    "input": "Dog emoji chasing cat emoji",
+    "ideal": "🐶 chasing 🐱"
+  }
+]

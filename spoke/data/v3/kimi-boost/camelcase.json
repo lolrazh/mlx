@@ -1,0 +1,50 @@
+[
+  {
+    "input": "I just realized I've been importing usecallback wrong this whole time, and now I need to refactor every component that uses usecallback to fix the dependency arrays.",
+    "ideal": "I just realized I've been importing useCallback wrong this whole time, and now I need to refactor every component that uses useCallback to fix the dependency arrays."
+  },
+  {
+    "input": "The new usethrottle hook I wrote works great for the search input, but I'm wondering if I should extract usethrottle into its own package since three other teams want to use it.",
+    "ideal": "The new useThrottle hook I wrote works great for the search input, but I'm wondering if I should extract useThrottle into its own package since three other teams want to use it."
+  },
+  {
+    "input": "We're seeing a memory leak in the dashboard because the useeventlistener hook isn't cleaning up properly when the component unmounts, so I need to rewrite useeventlistener before the release.",
+    "ideal": "We're seeing a memory leak in the dashboard because the useEventListener hook isn't cleaning up properly when the component unmounts, so I need to rewrite useEventListener before the release."
+  },
+  {
+    "input": "The design system team finally shipped the new modalcontainer component, but modalcontainer breaks the z-index stacking in our legacy pages so we're stuck on the old dialogwrapper for now.",
+    "ideal": "The design system team finally shipped the new ModalContainer component, but ModalContainer breaks the z-index stacking in our legacy pages so we're stuck on the old DialogWrapper for now."
+  },
+  {
+    "input": "I'm refactoring the authentication flow and I want to split the userprofilecard into smaller pieces, but userprofilecard is imported in like forty places so I need to be careful about the migration path.",
+    "ideal": "I'm refactoring the authentication flow and I want to split the UserProfileCard into smaller pieces, but UserProfileCard is imported in like forty places so I need to be careful about the migration path."
+  },
+  {
+    "input": "The new intern keeps forgetting to await fetchuserpermissions, so fetchuserpermissions returns a promise that gets treated as truthy in the conditional and everyone's getting admin access by accident.",
+    "ideal": "The new intern keeps forgetting to await fetchUserPermissions, so fetchUserPermissions returns a promise that gets treated as truthy in the conditional and everyone's getting admin access by accident."
+  },
+  {
+    "input": "I'm trying to debug why computetransformmatrix runs three times on every frame when it should be memoized, and I think computetransformmatrix is getting recreated because of a dependency array issue in the parent.",
+    "ideal": "I'm trying to debug why computeTransformMatrix runs three times on every frame when it should be memoized, and I think computeTransformMatrix is getting recreated because of a dependency array issue in the parent."
+  },
+  {
+    "input": "We're migrating all our class components to use the useaudiorecorder hook for voice memos, but the useaudiorecorder cleanup function isn't firing when the component unmounts.",
+    "ideal": "We're migrating all our class components to use the useAudioRecorder hook for voice memos, but the useAudioRecorder cleanup function isn't firing when the component unmounts."
+  },
+  {
+    "input": "The dashboard is wrapped in a dashboardlayout component that renders a sidebarlayout inside it, so we have dashboardlayout then sidebarlayout then finally the actual content.",
+    "ideal": "The dashboard is wrapped in a DashboardLayout component that renders a SidebarLayout inside it, so we have DashboardLayout then SidebarLayout then finally the actual content."
+  },
+  {
+    "input": "I wrote a custom usedarkmode hook that wraps usecontext, and now every component that imports usedarkmode is re-rendering when the theme changes even though usedarkmode should be memoized.",
+    "ideal": "I wrote a custom useDarkMode hook that wraps useContext, and now every component that imports useDarkMode is re-rendering when the theme changes even though useDarkMode should be memoized."
+  },
+  {
+    "input": "The payment flow needs to call validatecreditcardnumber before calling processpaymentintent, but right now validatecreditcardnumber is throwing before we even reach processpaymentintent.",
+    "ideal": "The payment flow needs to call validateCreditCardNumber before calling processPaymentIntent, but right now validateCreditCardNumber is throwing before we even reach processPaymentIntent."
+  },
+  {
+    "input": "I need to refactor the authentication logic so that checkuserauthorization calls getcurrentsessiontoken instead of directly accessing localstorage, since getcurrentsessiontoken handles the refresh logic.",
+    "ideal": "I need to refactor the authentication logic so that checkUserAuthorization calls getCurrentSessionToken instead of directly accessing localStorage, since getCurrentSessionToken handles the refresh logic."
+  }
+]
