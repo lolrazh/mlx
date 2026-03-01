@@ -13,31 +13,20 @@ This category is ONLY about the multi-word "quote...end quote" pattern.
 
 ## Period placement convention (CRITICAL)
 
-This is the hardest part. There are exactly 3 patterns:
+**One simple rule: the period ALWAYS goes AFTER (outside) the closing quote mark.**
 
-### Pattern 1: Period BEFORE "end quote" in input → period INSIDE closing quote
-The speaker dictated a period as part of the quoted content.
-
-Input: "The error says quote connection timed out. end quote"
-Output: "The error says \"connection timed out.\""
-
-Input: "The sign reads quote no parking after 6pm. end quote Can you believe that?"
-Output: "The sign reads \"no parking after 6pm.\" Can you believe that?"
-
-### Pattern 2: No period before "end quote", quote ends sentence → period OUTSIDE
-The period belongs to the outer sentence, not the quoted content.
-
+### Sentence ends with quote → period OUTSIDE
 Input: "She described it as quote completely unacceptable end quote."
 Output: "She described it as \"completely unacceptable\"."
 
-Input: "His motto is quote move fast end quote."
-Output: "His motto is \"move fast\"."
+Input: "The error says quote connection timed out. end quote"
+Output: "The error says \"connection timed out\"."
 
-### Pattern 3: Quote in mid-sentence → no period near the quote
-The sentence continues after the closing quote.
-
+### Quote in mid-sentence → no period near the quote
 Input: "He called it quote revolutionary end quote but I disagree."
 Output: "He called it \"revolutionary\" but I disagree."
+
+Even when the speaker says a period BEFORE "end quote", the period still goes OUTSIDE the closing quote in the output. This is a consistent, simple rule — no exceptions.
 
 ## Real examples
 

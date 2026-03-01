@@ -36,8 +36,8 @@
     "ideal": "🍕"
   },
   {
-    "input": "Two hundred emoji",
-    "ideal": "💯💯"
+    "input": "Add a rocket emoji after this sentence. We just launched the new feature",
+    "ideal": "We just launched the new feature 🚀"
   },
   {
     "input": "The meeting was fire emoji literally",

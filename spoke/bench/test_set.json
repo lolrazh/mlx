@@ -59,7 +59,7 @@
     "id": 9,
     "category": "quote-endquote",
     "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
-    "ideal": "I mean they said I was \"lucky to be here.\" What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
     "source_row": 8
   },
   {

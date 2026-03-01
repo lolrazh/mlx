@@ -320,14 +320,10 @@ def validate_quote_endquote(pair: dict) -> tuple[bool, list[str]]:
     if "end quote" in ideal.lower():
         errors.append("Ideal still contains 'end quote' trigger")
 
-    # 4. Period placement check
-    # If input has period BEFORE "end quote" → period should be INSIDE closing quote
-    period_before_endquote = bool(re.search(r'\.\s*end quote', inp, re.IGNORECASE))
-    if period_before_endquote:
-        # Check that ideal has period inside: ."  or ."  (not ".  )
-        if re.search(r'"\s*\.', ideal):
-            errors.append("Period before 'end quote' in input but period is OUTSIDE quotes in ideal "
-                          "(should be inside)")
+    # 4. Period placement: period always goes OUTSIDE closing quote
+    # Check for period-inside pattern: ." at end or ." followed by space
+    if re.search(r'\.\s*"', ideal):
+        errors.append("Period is INSIDE closing quote — should be OUTSIDE (convention: period after closing quote)")
 
     return len(errors) == 0, errors
 

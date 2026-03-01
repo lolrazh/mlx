@@ -20,8 +20,8 @@
     "ideal": "The modal system uses a PortalContainer that renders outside the main DOM tree to avoid z-index stacking issues."
   },
   {
-    "input": "We need to refactor how we handle the userauthentication flow. The current checkuserpermissions function is getting way too complex.",
-    "ideal": "We need to refactor how we handle the userAuthentication flow. The current checkUserPermissions function is getting way too complex."
+    "input": "We need to refactor how we handle the useuserauthentication flow. The current checkuserpermissions function is getting way too complex.",
+    "ideal": "We need to refactor how we handle the useUserAuthentication flow. The current checkUserPermissions function is getting way too complex."
   },
   {
     "input": "I'm teaching a junior dev about React hooks today. They keep forgetting that useeffect needs the dependency array or it runs on every render.",
@@ -57,6 +57,6 @@
   },
   {
     "input": "I'm building a custom uselocalstorage hook that wraps the native storage api, but serializejsondata keeps throwing on circular references.",
-    "ideal": "I'm building a custom useLocalStorage hook that wraps the native storage API, but serializeJsonData keeps throwing on circular references."
+    "ideal": "I'm building a custom useLocalStorage hook that wraps the native storage api, but serializeJsonData keeps throwing on circular references."
   }
 ]

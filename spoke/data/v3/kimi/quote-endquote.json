@@ -1,7 +1,7 @@
 [
   {
     "input": "The error message reads quote your session has expired due to inactivity. end quote",
-    "ideal": "The error message reads \"your session has expired due to inactivity.\""
+    "ideal": "The error message reads \"your session has expired due to inactivity\"."
   },
   {
     "input": "His final words were quote I have no regrets end quote.",
@@ -13,7 +13,7 @@
   },
   {
     "input": "The contract states quote payment terms are net 30 days from invoice date. end quote Please review carefully.",
-    "ideal": "The contract states \"payment terms are net 30 days from invoice date.\" Please review carefully."
+    "ideal": "The contract states \"payment terms are net 30 days from invoice date\". Please review carefully."
   },
   {
     "input": "He likes to say quote move fast and break things end quote.",
@@ -25,7 +25,7 @@
   },
   {
     "input": "The safety manual warns quote never disable the emergency stop mechanism. end quote",
-    "ideal": "The safety manual warns \"never disable the emergency stop mechanism.\""
+    "ideal": "The safety manual warns \"never disable the emergency stop mechanism\"."
   },
   {
     "input": "She signed the email with quote forever in your debt end quote.",
@@ -53,7 +53,7 @@
   },
   {
     "input": "The museum plaque reads quote donated by the estate of Eleanor Whitmore, 1987. end quote",
-    "ideal": "The museum plaque reads \"donated by the estate of Eleanor Whitmore, 1987.\""
+    "ideal": "The museum plaque reads \"donated by the estate of Eleanor Whitmore, 1987\"."
   },
   {
     "input": "My grandmother's favorite saying was quote measure twice, cut once end quote.",
@@ -65,11 +65,11 @@
   },
   {
     "input": "She ended her presentation with quote the only way out is through. end quote",
-    "ideal": "She ended her presentation with \"the only way out is through.\""
+    "ideal": "She ended her presentation with \"the only way out is through\"."
   },
   {
     "input": "The error log shows quote failed to establish secure connection due to certificate mismatch. end quote",
-    "ideal": "The error log shows \"failed to establish secure connection due to certificate mismatch.\""
+    "ideal": "The error log shows \"failed to establish secure connection due to certificate mismatch\"."
   },
   {
     "input": "His entire philosophy boils down to quote ship it and iterate end quote.",
@@ -81,7 +81,7 @@
   },
   {
     "input": "She described the meeting as quote productive but inconclusive. end quote I think that's corporate speak for wasted time.",
-    "ideal": "She described the meeting as \"productive but inconclusive.\" I think that's corporate speak for wasted time."
+    "ideal": "She described the meeting as \"productive but inconclusive\". I think that's corporate speak for wasted time."
   },
   {
     "input": "The ancient inscription translates roughly to quote those who seek shall find, but those who demand shall be denied end quote.",
@@ -93,7 +93,7 @@
   },
   {
     "input": "The so-called guarantee states quote we will make it right or your money back. end quote Sounds good until you read the fine print.",
-    "ideal": "The so-called guarantee states \"we will make it right or your money back.\" Sounds good until you read the fine print."
+    "ideal": "The so-called guarantee states \"we will make it right or your money back\". Sounds good until you read the fine print."
   },
   {
     "input": "She was like quote I never said that end quote but we all heard her say it like ten minutes ago.",

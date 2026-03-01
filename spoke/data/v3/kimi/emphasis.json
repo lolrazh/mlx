@@ -20,7 +20,7 @@
     "ideal": "The query OPTIMIZER chose a SUBOPTIMAL plan."
   },
   {
-    "input": "Put emphasis on eventually and consistent in that sentence about the database guarantees.",
+    "input": "Database guarantees are eventually consistent. Put emphasis on eventually and consistent.",
     "ideal": "Database guarantees are EVENTUALLY CONSISTENT."
   },
   {

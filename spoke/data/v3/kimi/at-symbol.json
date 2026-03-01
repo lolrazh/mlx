@@ -32,8 +32,8 @@
     "ideal": "Send this to @Sarah."
   },
   {
-    "input": "My username is dragonmaster but on this platform I go by draco. Put an at symbol before draco. Actually put an at symbol before both.",
-    "ideal": "My username is dragonmaster but on this platform I go by @draco. Actually @both."
+    "input": "My username is dragonmaster but on this platform I go by draco. Put an at symbol before draco. Actually put an at symbol before both names.",
+    "ideal": "My username is @dragonmaster but on this platform I go by @draco."
   },
   {
     "input": "The decorator pattern is elegant. Add an at symbol before decorator.",
