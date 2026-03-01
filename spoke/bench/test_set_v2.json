@@ -1,0 +1,163 @@
+[
+  {
+    "id": 1,
+    "category": "spell-replace",
+    "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+    "ideal": "I'm gonna be using Silero VAD for this.",
+    "source_row": 18
+  },
+  {
+    "id": 2,
+    "category": "spell-replace",
+    "input": "He went to the Khadai, spell that K-A-D-A-I.",
+    "ideal": "He went to the Kadai.",
+    "source_row": 20
+  },
+  {
+    "id": 3,
+    "category": "spell-replace",
+    "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+    "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+    "source": "generated/spell-replace[8]"
+  },
+  {
+    "id": 4,
+    "category": "self-correction",
+    "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+    "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+    "source_row": 9
+  },
+  {
+    "id": 5,
+    "category": "self-correction",
+    "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+    "ideal": "Let's meet at 12pm, Thursday.",
+    "source_row": 17
+  },
+  {
+    "id": 6,
+    "category": "self-correction",
+    "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+    "ideal": "We're using React and Svelte.",
+    "source": "generated/self-correction[80]"
+  },
+  {
+    "id": 7,
+    "category": "quote-unquote",
+    "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+    "source_row": 7
+  },
+  {
+    "id": 8,
+    "category": "quote-unquote",
+    "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+    "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
+    "source": "generated/quote-unquote[20]"
+  },
+  {
+    "id": 9,
+    "category": "quote-endquote",
+    "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+    "source_row": 8
+  },
+  {
+    "id": 10,
+    "category": "quote-endquote",
+    "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+    "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+    "source": "generated/quote-endquote[25]"
+  },
+  {
+    "id": 11,
+    "category": "quote-endquote",
+    "input": "He described the interview as quote the most stressful hour of my life end quote.",
+    "ideal": "He described the interview as \"the most stressful hour of my life\".",
+    "source": "generated/quote-endquote[35]"
+  },
+  {
+    "id": 12,
+    "category": "at-symbol",
+    "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+    "ideal": "I wanna fix @app.py and @test.py.",
+    "source_row": 30
+  },
+  {
+    "id": 13,
+    "category": "caps",
+    "input": "We're so excited to make this. Use all caps.",
+    "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
+    "source_row": 47
+  },
+  {
+    "id": 14,
+    "category": "emphasis",
+    "input": "It's surprisingly fast. Emphasize surprisingly.",
+    "ideal": "It's **surprisingly** fast.",
+    "source_row": 48
+  },
+  {
+    "id": 15,
+    "category": "formatting-xml",
+    "input": "The result was unexpected. Emphasize unexpected. And wrap the whole sentence in a result tag.",
+    "ideal": "<result>The result was **unexpected**.</result>",
+    "source": "generated/formatting[30]"
+  },
+  {
+    "id": 16,
+    "category": "formatting-xml",
+    "input": "The function returns null on error. XML open error, XML close error, around null.",
+    "ideal": "The function returns <error>null</error> on error.",
+    "source": "generated/formatting[55]"
+  },
+  {
+    "id": 17,
+    "category": "email",
+    "input": "The invite list includes plus one, literally the word plus and the number one, at sign temp hyphen mail dot o r g, which is obviously fake, and also real dot person at outlook dot c o m.",
+    "ideal": "The invite list includes plusone@temp-mail.org, which is obviously fake, and also real.person@outlook.com.",
+    "source": "generated/email[20]"
+  },
+  {
+    "id": 18,
+    "category": "emoji",
+    "input": "Heartbreak emoji",
+    "ideal": "\ud83d\udc94",
+    "source_row": 59
+  },
+  {
+    "id": 19,
+    "category": "emoji",
+    "input": "Praying hands emoji for the victims",
+    "ideal": "\ud83d\ude4f for the victims",
+    "source": "generated/emoji[20]"
+  },
+  {
+    "id": 20,
+    "category": "camelcase",
+    "input": "So we've got a file called usetranscription.ts.",
+    "ideal": "So we've got a file called useTranscription.ts.",
+    "source_row": 31
+  },
+  {
+    "id": 21,
+    "category": "code-aware",
+    "input": "Check your tsconfig, the jsx compiler option should be set to react jsx not the old transform.",
+    "ideal": "Check your tsconfig, the JSX compiler option should be set to react-jsx not the old transform.",
+    "source": "generated/code-aware[20]"
+  },
+  {
+    "id": 22,
+    "category": "hard-negative",
+    "input": "Wait until you see the new office, it's completely different from the old one.",
+    "ideal": "Wait until you see the new office, it's completely different from the old one.",
+    "source": "generated/hard-negatives[10]"
+  },
+  {
+    "id": 23,
+    "category": "hard-negative",
+    "input": "Never mind the formatting, just get the content right first.",
+    "ideal": "Never mind the formatting, just get the content right first.",
+    "source": "generated/hard-negatives[18]"
+  }
+]
