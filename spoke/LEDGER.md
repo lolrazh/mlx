@@ -79,7 +79,8 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 
 | Run | Date | Base Model | Type | Rank | Optimizer | Data | Iters | Best Val Loss | Notes |
 |-----|------|-----------|------|------|-----------|------|-------|---------------|-------|
-| **LFM2-T1** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | 800 | 🔄 training | All 30 layers (8 attn + 22 conv). 12.2M trainable (0.476%). Peak 13.3 GB. |
+| **LFM2-T1** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | 800 | 0.480 @800 | All 30 layers (8 attn + 22 conv). 12.2M trainable (0.476%). Peak 13.3 GB. **78% bf16 at 800 iters.** Double-descent: plateau 250-400, then steep drop 500-800. |
+| **LFM2-T1b** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | 2000 | 🔄 training | Extended from T1. Val loss still dropping (0.480), no overfit. Resumed from iter 800 checkpoint. |
 
 ---
 
@@ -132,6 +133,12 @@ All from Qwen3-4B base.
 | T11 | iter 300 | 6-bit | v2 | 23 (v2 test) | **61%** | 13 | 1 | 8 | 1 | 1.02s | Cross-test: T11 on original v2 test set. Lower than T4's 65% — fails removed categories. |
 | T4 | iter 300 | 6-bit | v2 | 23 (v2 test) | **65%** | 14 | 1 | 8 | 0 | 1.04s | Re-run for comparison. On 17 kept-category examples: **76%** = same as T11. |
 | **T12** | **iter 300** | **bf16** | **v2** | **23** | **74%** | **16** | **1** | **5** | **1** | **2.23s** | **REGRESSION from T11 (83%). Patch fixed 0/4 targets, caused 2 new regressions (#2 spell, #14 emphasis).** |
+
+### Alternative Models: v3 test set (23 examples)
+
+| Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| **LFM2-T1** | **iter 800** | **bf16** | **v2** | **23** | **78%** | **18** | **0** | **5** | **0** | **1.54s** | **9% → 78%! +69 pts from fine-tuning. 1.7x faster than Qwen3. Nails all 3 self-corrections (Qwen3 misses #6).** |
 
 ---
 
@@ -192,13 +199,14 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | T8 | DoRA + AdamW | Dead end. OOM forced batch=1. |
 | T11 | v3 data (492 train) | **83% bf16, 74% 6-bit.** Best model. +9 pts over T4 (test-set aligned). |
 | T12 | v3 + patch (535 train) | **REGRESSED to 74% bf16.** Patch data was correct but undertrained (300 iters on 535 examples). |
+| LFM2-T1 | LFM2-2.6B-Exp, 800 iters, all 30 layers | **78% bf16, 1.54s latency.** 9% zero-shot → 78% fine-tuned (+69 pts). Validates "zero-shot ≠ fine-tune potential." |
 
 ### Active Queue
 
 | Priority | ID | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
 | **HIGH** | **Q1** | **Mixed-bit quantization (`mixed_4_6`) on T11 fused model** | **Allocate 6-bit to critical layers (v_proj, down_proj, lm_head, first/last layers), 4-bit elsewhere. May close 9% quant gap while keeping model smaller. Zero retraining.** | T11 fused model |
-| **ACTIVE** | **LFM2-T1** | **LFM2-2.6B-Exp LoRA, 800 iters, all 30 layers** | **Can a hybrid conv+attn model learn the task despite 9% zero-shot? Tests "zero-shot ≠ fine-tune potential" hypothesis.** | Training in progress |
+| **ACTIVE** | **LFM2-T1b** | **LFM2-2.6B-Exp LoRA extended to 2000 iters** | **78% at 800 iters, val loss still dropping (0.480). Can more training close the 5-pt gap with Qwen3 T11 (83%)?** | Training in progress (resumed from iter 800) |
 | Medium | B-new | **Zero-shot baselines: Qwen3-1.7B, Gemma 3 1B QAT, Llama 3.2 3B** | **Determine if task is capacity-limited or data-limited.** LFM2 baselines done (9%). Need transformer-only small models. | Add models to benchmark script |
 | Medium | T13 | Cosine LR + warmup (50 steps), 300 iters | Accelerate convergence. May reach T11 quality faster. | T12b done |
 | Medium | T-enc | **Evaluate T5Gemma 2 (1B-1B encoder-decoder)** | **Encoder-decoder is architecturally better for "editing" tasks. Encoder sees full input before decoder generates. May fix compound self-correction (#6) where decoder-only fails.** | Port/load in MLX |
@@ -216,7 +224,7 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 
 **Phase B — Explore smaller models (capacity vs data question)**
 4. ~~Zero-shot baselines: LFM2.5-1.2B~~ ✅ Done (9%). LFM2-2.6B-Exp ✅ Done (9%). Remaining: Qwen3-1.7B, Gemma 3 1B QAT, Llama 3.2 3B
-5. LFM2-2.6B-Exp LoRA fine-tune 🔄 In progress (LFM2-T1, 800 iters)
+5. LFM2-2.6B-Exp LoRA fine-tune ✅ **78% bf16 at 800 iters, 1.54s latency.** Extended to 2000 iters (LFM2-T1b) 🔄
 6. Compare: accuracy, latency, memory, quant robustness
 
 **Phase C — Architecture pivot (encoder-decoder)**
@@ -266,3 +274,7 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 31. **MoE models: full memory cost for partial compute.** Qwen3.5-35B-A3B has 3B active params but needs all 35B in memory (~20 GB at 4-bit). Not viable on 24 GB consumer hardware. MoE optimizes compute, not memory.
 32. **At-symbol is the hardest synthetic data category.** LLMs generating training data want to "improve" text, but ASR post-processing needs surgical edits. 17% failure rate in v3 data generation. Manual crafting required.
 33. **Emphasis trigger-to-format mapping must be 1:1 in training data.** "Emphasize"/"Bold" → `**bold**`, "Stress" → ALL CAPS. Even one outlier creates ambiguity. Standardize uniformly — one trigger word, one output format, no exceptions.
+34. **Zero-shot accuracy does NOT predict fine-tuning potential.** LFM2-2.6B scored 9% zero-shot but reached 78% fine-tuned (+69 pts). Qwen3-4B scored 22% zero-shot and reached 83% (+61 pts). The model that gained MORE from fine-tuning had the WORSE zero-shot. Never rule out a model based on zero-shot alone.
+35. **LFM2 hybrid architecture solves compound self-correction.** LFM2-T1 nails all 3 self-corrections including #6 ("React and Svelte") which was a persistent Qwen3 failure. Conv layers may help with local pattern matching for corrections — challenges finding #25's "decoder-only can't edit" hypothesis. The conv+attention hybrid has complementary strengths.
+36. **LFM2 shows double-descent learning curve.** Val loss plateaued at 0.70 for iters 250-400, then dropped steeply to 0.480 by iter 800. Hypothesis: LoRA first adapts attention layers (quick gains), then conv-layer adapters kick in (second drop). More iters may unlock further phases.
+37. **LFM2 is 1.7x faster at inference than Qwen3.** 1.54s avg vs 2.67s on same test set. The 22 ShortConv layers are cheaper than full attention. For latency-sensitive deployment, 78% at 1.54s may beat 83% at 2.67s.

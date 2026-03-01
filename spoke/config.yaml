@@ -16,7 +16,7 @@ lora_parameters:
 
 # Training
 batch_size: 4
-iters: 800           # LFM2-T1: 800 iters on v3 (535 train). ~6 passes/example. Smaller model, more iters.
+iters: 2000          # LFM2-T1b: extended from 800. Val loss still dropping (0.480), no overfit. YOLO.
 learning_rate: 1e-5
 num_layers: 30       # all 30 layers (only 8 are attention, rest are conv — LoRA targets all linear layers)
 max_seq_length: 512  # transcripts are short
@@ -28,5 +28,6 @@ save_every: 100
 
 # Paths
 adapter_path: ./spoke/adapters-lfm2-t1
+resume_adapter_file: ./spoke/adapters-lfm2-t1/adapters.safetensors
 
 seed: 42
