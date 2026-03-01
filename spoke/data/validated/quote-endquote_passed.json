@@ -16,7 +16,7 @@
   },
   {
     "input": "The review said quote solid performance overall. end quote",
-    "ideal": "The review said \"solid performance overall.\"",
+    "ideal": "The review said \"solid performance overall\".",
     "index": 3
   },
   {
@@ -31,7 +31,7 @@
   },
   {
     "input": "The error message says quote unable to connect to database. end quote. Can you check the config?",
-    "ideal": "The error message says \"unable to connect to database.\" Can you check the config?",
+    "ideal": "The error message says \"unable to connect to database\". Can you check the config?",
     "index": 6
   },
   {
@@ -51,7 +51,7 @@
   },
   {
     "input": "The documentation says quote deprecated since version 3.0. end quote so we need to migrate.",
-    "ideal": "The documentation says \"deprecated since version 3.0.\" so we need to migrate.",
+    "ideal": "The documentation says \"deprecated since version 3.0\". so we need to migrate.",
     "index": 10
   },
   {
@@ -91,7 +91,7 @@
   },
   {
     "input": "The warning label says quote do not operate heavy machinery. end quote Seems serious.",
-    "ideal": "The warning label says \"do not operate heavy machinery.\" Seems serious.",
+    "ideal": "The warning label says \"do not operate heavy machinery\". Seems serious.",
     "index": 18
   },
   {
@@ -116,7 +116,7 @@
   },
   {
     "input": "The contract clause says quote either party may terminate with 30 days notice. end quote",
-    "ideal": "The contract clause says \"either party may terminate with 30 days notice.\"",
+    "ideal": "The contract clause says \"either party may terminate with 30 days notice\".",
     "index": 23
   },
   {
@@ -141,7 +141,7 @@
   },
   {
     "input": "The rejection letter said quote we appreciate your interest but have decided to move forward with other candidates. end quote",
-    "ideal": "The rejection letter said \"we appreciate your interest but have decided to move forward with other candidates.\"",
+    "ideal": "The rejection letter said \"we appreciate your interest but have decided to move forward with other candidates\".",
     "index": 28
   },
   {
@@ -181,7 +181,7 @@
   },
   {
     "input": "The ticket says quote users are unable to log in after password reset. end quote Can you take a look?",
-    "ideal": "The ticket says \"users are unable to log in after password reset.\" Can you take a look?",
+    "ideal": "The ticket says \"users are unable to log in after password reset\". Can you take a look?",
     "index": 36
   },
   {
@@ -208,5 +208,130 @@
     "input": "The post read quote we are excited to announce our Series A funding end quote.",
     "ideal": "The post read \"we are excited to announce our Series A funding\".",
     "index": 41
+  },
+  {
+    "input": "The error message reads quote your session has expired due to inactivity. end quote",
+    "ideal": "The error message reads \"your session has expired due to inactivity\".",
+    "index": 42
+  },
+  {
+    "input": "His final words were quote I have no regrets end quote.",
+    "ideal": "His final words were \"I have no regrets\".",
+    "index": 43
+  },
+  {
+    "input": "She described the proposal as quote ambitious but fundamentally flawed end quote and urged us to reconsider.",
+    "ideal": "She described the proposal as \"ambitious but fundamentally flawed\" and urged us to reconsider.",
+    "index": 44
+  },
+  {
+    "input": "The contract states quote payment terms are net 30 days from invoice date. end quote Please review carefully.",
+    "ideal": "The contract states \"payment terms are net 30 days from invoice date\". Please review carefully.",
+    "index": 45
+  },
+  {
+    "input": "He likes to say quote move fast and break things end quote.",
+    "ideal": "He likes to say \"move fast and break things\".",
+    "index": 46
+  },
+  {
+    "input": "The review was scathing, calling the product quote an overpriced paperweight that fails at its one job end quote before listing numerous defects.",
+    "ideal": "The review was scathing, calling the product \"an overpriced paperweight that fails at its one job\" before listing numerous defects.",
+    "index": 47
+  },
+  {
+    "input": "The safety manual warns quote never disable the emergency stop mechanism. end quote",
+    "ideal": "The safety manual warns \"never disable the emergency stop mechanism\".",
+    "index": 48
+  },
+  {
+    "input": "She signed the email with quote forever in your debt end quote.",
+    "ideal": "She signed the email with \"forever in your debt\".",
+    "index": 49
+  },
+  {
+    "input": "He was like quote you know I never said that end quote and then, you know, stormed out of the room.",
+    "ideal": "He was like \"you know I never said that\" and then, you know, stormed out of the room.",
+    "index": 50
+  },
+  {
+    "input": "The architect insisted on quote form follows function end quote as the guiding principle.",
+    "ideal": "The architect insisted on \"form follows function\" as the guiding principle.",
+    "index": 51
+  },
+  {
+    "input": "She whispered quote I don't think we should be here end quote before pulling me into the shadows.",
+    "ideal": "She whispered \"I don't think we should be here\" before pulling me into the shadows.",
+    "index": 52
+  },
+  {
+    "input": "The contract specifies quote payment terms are net thirty days from invoice date end quote.",
+    "ideal": "The contract specifies \"payment terms are net thirty days from invoice date\".",
+    "index": 53
+  },
+  {
+    "input": "He was like quote you know the system is fundamentally broken end quote and honestly, I couldn't argue.",
+    "ideal": "He was like \"you know the system is fundamentally broken\" and honestly, I couldn't argue.",
+    "index": 54
+  },
+  {
+    "input": "The museum plaque reads quote donated by the estate of Eleanor Whitmore, 1987. end quote",
+    "ideal": "The museum plaque reads \"donated by the estate of Eleanor Whitmore, 1987\".",
+    "index": 55
+  },
+  {
+    "input": "My grandmother's favorite saying was quote measure twice, cut once end quote.",
+    "ideal": "My grandmother's favorite saying was \"measure twice, cut once\".",
+    "index": 56
+  },
+  {
+    "input": "The so-called expert offered quote well actually that's not how I would have done it end quote as his only critique.",
+    "ideal": "The so-called expert offered \"well actually that's not how I would have done it\" as his only critique.",
+    "index": 57
+  },
+  {
+    "input": "She ended her presentation with quote the only way out is through. end quote",
+    "ideal": "She ended her presentation with \"the only way out is through\".",
+    "index": 58
+  },
+  {
+    "input": "The error log shows quote failed to establish secure connection due to certificate mismatch. end quote",
+    "ideal": "The error log shows \"failed to establish secure connection due to certificate mismatch\".",
+    "index": 59
+  },
+  {
+    "input": "His entire philosophy boils down to quote ship it and iterate end quote.",
+    "ideal": "His entire philosophy boils down to \"ship it and iterate\".",
+    "index": 60
+  },
+  {
+    "input": "The judge read the verdict as quote guilty on all counts end quote while the courtroom held its breath.",
+    "ideal": "The judge read the verdict as \"guilty on all counts\" while the courtroom held its breath.",
+    "index": 61
+  },
+  {
+    "input": "She described the meeting as quote productive but inconclusive. end quote I think that's corporate speak for wasted time.",
+    "ideal": "She described the meeting as \"productive but inconclusive\". I think that's corporate speak for wasted time.",
+    "index": 62
+  },
+  {
+    "input": "The ancient inscription translates roughly to quote those who seek shall find, but those who demand shall be denied end quote.",
+    "ideal": "The ancient inscription translates roughly to \"those who seek shall find, but those who demand shall be denied\".",
+    "index": 63
+  },
+  {
+    "input": "He opened with quote let me be perfectly clear end quote and then proceeded to contradict himself three times.",
+    "ideal": "He opened with \"let me be perfectly clear\" and then proceeded to contradict himself three times.",
+    "index": 64
+  },
+  {
+    "input": "The so-called guarantee states quote we will make it right or your money back. end quote Sounds good until you read the fine print.",
+    "ideal": "The so-called guarantee states \"we will make it right or your money back\". Sounds good until you read the fine print.",
+    "index": 65
+  },
+  {
+    "input": "She was like quote I never said that end quote but we all heard her say it like ten minutes ago.",
+    "ideal": "She was like \"I never said that\" but we all heard her say it like ten minutes ago.",
+    "index": 66
   }
 ]
