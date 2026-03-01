@@ -9,7 +9,7 @@
   },
   {
     "input": "Stress the word definitely. I will definitely be there on time.",
-    "ideal": "I will **definitely** be there on time."
+    "ideal": "I will DEFINITELY be there on time."
   },
   {
     "input": "The deadline is tomorrow. Emphasize tomorrow.",
