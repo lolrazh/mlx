@@ -49,8 +49,9 @@ v3 removes 4 categories with no production Spoke triggers (formatting-xml, email
 | B12 | LFM2.5-1.2B | 4-bit | v2 | 23 | **9%** | 1 | 1 | 7 | 14 | 0.24s | Hybrid conv+attn. Can't parse meta-linguistic commands at all. |
 | B13 | LFM2-2.6B-Exp | bf16 | v2 | 23 | **9%** | 2 | 0 | 14 | 7 | 0.87s | 2x params, bf16. Same failure as 1.2B — architecture bottleneck, not precision. |
 | B14 | LFM2-2.6B-Exp | bf16 | spoke (few-shot) | 23 | **30%** | 6 | 1 | 11 | 5 | 1.36s | Huge jump with examples — learns output format but not command execution. **LEAKED (4/23).** |
+| B15 | LFM2.5-1.2B | bf16 | v2 | 23 | **9%** | 1 | 1 | 7 | 14 | 0.62s | bf16 = 4-bit (B12). Confirms precision not the bottleneck. |
 
-**Takeaway:** v3 test set zero-shot baseline is 22% (Qwen3). LFM2 scores 9% regardless of size/precision — conv-dominant hybrid architecture can't handle meta-linguistic commands zero-shot. Few-shot helps format (30%) but not reasoning.
+**Takeaway:** v3 test set zero-shot baseline is 22% (Qwen3). LFM2 scores 9% regardless of size/precision/quantization — conv-dominant hybrid architecture can't handle meta-linguistic commands zero-shot. Few-shot helps format (30%) but not reasoning. But 9% zero-shot → 83% fine-tuned (LFM2-T1b), so zero-shot is meaningless for predicting fine-tune potential.
 
 ---
 
@@ -80,7 +81,8 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | Run | Date | Base Model | Type | Rank | Optimizer | Data | Iters | Best Val Loss | Notes |
 |-----|------|-----------|------|------|-----------|------|-------|---------------|-------|
 | **LFM2-T1** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | 800 | 0.480 @800 | All 30 layers (8 attn + 22 conv). 12.2M trainable (0.476%). Peak 13.3 GB. **78% bf16 at 800 iters.** Double-descent: plateau 250-400, then steep drop 500-800. |
-| **LFM2-T1b** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | 2000 | 🔄 training | Extended from T1. Val loss still dropping (0.480), no overfit. Resumed from iter 800 checkpoint. |
+| **LFM2-T1b** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | ~900 | 0.466 @~900 | Extended from T1, killed at ~1320 (plateaued). Best ckpt = resumed iter 100. **83% bf16, 19 exact, 1.66s. Ties Qwen3-T11.** |
+| **LFM2.5-T1** | 03-02 | LFM2.5-1.2B (bf16) | LoRA | r=8 | adam | v3 (535) | 1000 | 🔄 training | All 16 layers. 5.5M trainable (0.475%). Can a 1.2B hybrid match 2.6B? |
 
 ---
 
@@ -138,7 +140,8 @@ All from Qwen3-4B base.
 
 | Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
 |-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
-| **LFM2-T1** | **iter 800** | **bf16** | **v2** | **23** | **78%** | **18** | **0** | **5** | **0** | **1.54s** | **9% → 78%! +69 pts from fine-tuning. 1.7x faster than Qwen3. Nails all 3 self-corrections (Qwen3 misses #6).** |
+| LFM2-T1 | iter 800 | bf16 | v2 | 23 | **78%** | 18 | 0 | 5 | 0 | 1.54s | 9% → 78%! +69 pts. 1.7x faster than Qwen3. Nails all 3 self-corrections. |
+| **LFM2-T1b** | **iter ~900** | **bf16** | **v2** | **23** | **83%** | **19** | **0** | **3** | **1** | **1.66s** | **TIES Qwen3-T11! 19 exact (one MORE than Qwen3). 1.6x faster. Best LFM2 checkpoint.** |
 
 ---
 
@@ -200,13 +203,14 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | T11 | v3 data (492 train) | **83% bf16, 74% 6-bit.** Best model. +9 pts over T4 (test-set aligned). |
 | T12 | v3 + patch (535 train) | **REGRESSED to 74% bf16.** Patch data was correct but undertrained (300 iters on 535 examples). |
 | LFM2-T1 | LFM2-2.6B-Exp, 800 iters, all 30 layers | **78% bf16, 1.54s latency.** 9% zero-shot → 78% fine-tuned (+69 pts). Validates "zero-shot ≠ fine-tune potential." |
+| LFM2-T1b | LFM2-2.6B-Exp, extended to ~900 iters | **83% bf16, 1.66s latency.** Ties Qwen3-T11. 19 exact (one more). 1.6x faster inference. Best LFM2 checkpoint. |
 
 ### Active Queue
 
 | Priority | ID | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
 | **HIGH** | **Q1** | **Mixed-bit quantization (`mixed_4_6`) on T11 fused model** | **Allocate 6-bit to critical layers (v_proj, down_proj, lm_head, first/last layers), 4-bit elsewhere. May close 9% quant gap while keeping model smaller. Zero retraining.** | T11 fused model |
-| **ACTIVE** | **LFM2-T1b** | **LFM2-2.6B-Exp LoRA extended to 2000 iters** | **78% at 800 iters, val loss still dropping (0.480). Can more training close the 5-pt gap with Qwen3 T11 (83%)?** | Training in progress (resumed from iter 800) |
+| **ACTIVE** | **LFM2.5-T1** | **LFM2.5-1.2B bf16 LoRA, 1000 iters, all 16 layers** | **Can a 1.2B hybrid match the 2.6B's 83%? Same architecture, half the params. If 70%+ → phone-deployable at ~1.2 GB.** | Training in progress |
 | Medium | B-new | **Zero-shot baselines: Qwen3-1.7B, Gemma 3 1B QAT, Llama 3.2 3B** | **Determine if task is capacity-limited or data-limited.** LFM2 baselines done (9%). Need transformer-only small models. | Add models to benchmark script |
 | Medium | T13 | Cosine LR + warmup (50 steps), 300 iters | Accelerate convergence. May reach T11 quality faster. | T12b done |
 | Medium | T-enc | **Evaluate T5Gemma 2 (1B-1B encoder-decoder)** | **Encoder-decoder is architecturally better for "editing" tasks. Encoder sees full input before decoder generates. May fix compound self-correction (#6) where decoder-only fails.** | Port/load in MLX |
