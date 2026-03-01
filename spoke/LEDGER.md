@@ -70,7 +70,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (447) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
 | T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
 | **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | 0.169 @250 | **v3 data.** Trigger-matched categories only. T4 config on new data. **83% bf16, 74% 6-bit.** |
-| **T12** | 03-01 | LoRA | r=8 | adam | flat | **v3+patch (535)** | 300 | — | **v3 + 43 targeted examples** for compound self-correction, emoji stripping, quote scope, camelCase. |
+| **T12** | 03-01 | LoRA | r=8 | adam | flat | **v3+patch (535)** | 300 | 0.162 @300 | **v3 + 43 targeted examples.** Best val loss but **REGRESSED to 74% bf16** (from 83%). Patch fixed 0/4 targets, caused 2 new regressions. |
 
 ---
 
@@ -122,6 +122,7 @@ All from Qwen3-4B base.
 | **T11** | **iter 300** | **6-bit** | **v2** | **23** | **74%** | **16** | **1** | **5** | **1** | **1.76s** | **New 6-bit best! +9 pts over T4 6-bit (65%). Quant loss 9% (same as T4).** |
 | T11 | iter 300 | 6-bit | v2 | 23 (v2 test) | **61%** | 13 | 1 | 8 | 1 | 1.02s | Cross-test: T11 on original v2 test set. Lower than T4's 65% — fails removed categories. |
 | T4 | iter 300 | 6-bit | v2 | 23 (v2 test) | **65%** | 14 | 1 | 8 | 0 | 1.04s | Re-run for comparison. On 17 kept-category examples: **76%** = same as T11. |
+| **T12** | **iter 300** | **bf16** | **v2** | **23** | **74%** | **16** | **1** | **5** | **1** | **2.23s** | **REGRESSION from T11 (83%). Patch fixed 0/4 targets, caused 2 new regressions (#2 spell, #14 emphasis).** |
 
 ---
 
@@ -181,7 +182,8 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | ~~DONE~~ | ~~T6b~~ | ~~AdamW 500 iters~~ | ~~70% bf16, 57% 6-bit. Still dropping at 500 — needs more iters. Quant loss 13% (worse than T4's 9%).~~ | ~~Done~~ |
 | ~~DONE~~ | ~~T6c~~ | ~~AdamW 800 iters~~ | ~~74% bf16 (=T4), 61% 6-bit (worse than T4's 65%). 2.7x slower. **AdamW loses on 6-bit deploy.**~~ | ~~Done~~ |
 | ~~DONE~~ | ~~T11~~ | ~~v3 data (492 train, trigger-matched)~~ | ~~**83% bf16, 74% 6-bit. +9 pts over T4. Data quality wins.**~~ | ~~Done~~ |
-| **HIGH** | **T12** | **v3 + patch data (35-50 targeted examples)** | **Fix 4 bf16 failures: compound self-correction, emoji word stripping, quote scope, camelCase.** | **Waiting on data agent** |
+| ~~DONE~~ | ~~T12~~ | ~~v3 + patch data (43 targeted examples)~~ | ~~74% bf16 — REGRESSED from 83%. Patch data quality suspect. Fixed 0/4 targets, caused 2 regressions.~~ | ~~Failed~~ |
+| **HIGH** | **T12b** | **v3 + REVIEWED patch data** | **Re-run after Opus review + cleanup of 43 patch examples. Fix quality issues first.** | **Patch data review** |
 | Low | T7 | Cosine LR + warmup (50 steps) | Accelerate convergence — adam converges at 300, maybe cosine gets there at 200? | T4 baseline |
 | Low | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T4 baseline |
 | Low | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T4 baseline |
@@ -215,3 +217,4 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 21. **v3 data = +9 pts across the board.** T11 (v3, 492 train, trigger-matched) vs T4 (v2, 447 train, mixed): bf16 83% vs 74%, 6-bit 74% vs 65%. Same config, same quant loss (9%). Removing untriggered categories + adding targeted examples was the highest-ROI change in the entire project. Data quality > hyperparameters confirmed.
 22. **T11's +9 pts is test-set alignment, not model improvement.** On the 17 shared kept-category examples from the original v2 test, T4 and T11 both score 76%. T11 gained #9 (quote-endquote) and #12 (at-symbol) but lost #6 (compound self-correction) and #14 (emphasis). The v3 test set improvement comes from removing 6 impossible-category test examples and adding 6 new ones in categories where T11 excels.
 23. **v3 data agent over-churned: 57% of v2 touched.** 105 removed (vs ~61 expected), 150 added (vs ~114 expected). Only 3 wrongly removed. Real gap: 150 new examples but only 1 was self-correction — the exact category where T11 regressed.
+24. **T12 patch data caused regression (83% → 74%).** 43 targeted examples (17 self-correction, 9 emoji, 8 quote, 8 camelCase) made things WORSE. Best-ever val loss (0.162) but worst accuracy since T11. Val loss improvement ≠ accuracy improvement (again — see finding #19). Likely cause: patch data quality issues (not reviewed before training). Always review generated data before training.

@@ -2,14 +2,14 @@
   "model": "mlx-community/Qwen3-4B-Instruct-2507-bf16",
   "short_name": "qwen3-4b-bf16+lora",
   "prompt_mode": "v2",
-  "load_time_s": 3.4,
+  "load_time_s": 3.3,
   "n": 23,
-  "exact": 18,
+  "exact": 16,
   "semantic": 1,
-  "partial": 3,
+  "partial": 5,
   "fail": 1,
-  "accuracy": 0.8261,
-  "avg_latency_s": 2.669,
+  "accuracy": 0.7391,
+  "avg_latency_s": 2.227,
   "results": [
     {
       "id": 1,
@@ -19,17 +19,17 @@
       "output": "I'm gonna be using Silero VAD for this.",
       "raw_output": "I'm gonna be using Silero VAD for this.",
       "score": "exact",
-      "gen_time_s": 2.597
+      "gen_time_s": 1.895
     },
     {
       "id": 2,
       "category": "spell-replace",
       "input": "He went to the Khadai, spell that K-A-D-A-I.",
       "ideal": "He went to the Kadai.",
-      "output": "He went to the Kadai.",
-      "raw_output": "He went to the Kadai.",
-      "score": "exact",
-      "gen_time_s": 2.13
+      "output": "He went to the Kadi.",
+      "raw_output": "He went to the Kadi.",
+      "score": "partial",
+      "gen_time_s": 2.084
     },
     {
       "id": 3,
@@ -39,7 +39,7 @@
       "output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
       "raw_output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
       "score": "exact",
-      "gen_time_s": 4.23
+      "gen_time_s": 3.315
     },
     {
       "id": 4,
@@ -49,7 +49,7 @@
       "output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
       "raw_output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
       "score": "exact",
-      "gen_time_s": 2.578
+      "gen_time_s": 2.687
     },
     {
       "id": 5,
@@ -59,7 +59,7 @@
       "output": "Let's meet at 12pm, Thursday.",
       "raw_output": "Let's meet at 12pm, Thursday.",
       "score": "exact",
-      "gen_time_s": 2.454
+      "gen_time_s": 1.992
     },
     {
       "id": 6,
@@ -69,7 +69,7 @@
       "output": "We're using Svelte.",
       "raw_output": "We're using Svelte.",
       "score": "partial",
-      "gen_time_s": 1.978
+      "gen_time_s": 1.669
     },
     {
       "id": 7,
@@ -79,17 +79,17 @@
       "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 3.951
+      "gen_time_s": 3.085
     },
     {
       "id": 8,
       "category": "quote-unquote",
       "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
       "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
-      "output": "\"Gluten-free bread that lists wheat as the second ingredient\".",
-      "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient\".",
+      "output": "\"Gluten-free bread that lists wheat as the second ingredient.",
+      "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient.",
       "score": "partial",
-      "gen_time_s": 2.577
+      "gen_time_s": 2.576
     },
     {
       "id": 9,
@@ -99,7 +99,7 @@
       "output": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 4.06
+      "gen_time_s": 3.038
     },
     {
       "id": 10,
@@ -109,7 +109,7 @@
       "output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
       "raw_output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
       "score": "exact",
-      "gen_time_s": 3.426
+      "gen_time_s": 3.134
     },
     {
       "id": 11,
@@ -119,7 +119,7 @@
       "output": "He described the interview as \"the most stressful hour of my life\".",
       "raw_output": "He described the interview as \"the most stressful hour of my life\".",
       "score": "exact",
-      "gen_time_s": 3.176
+      "gen_time_s": 2.47
     },
     {
       "id": 12,
@@ -129,7 +129,7 @@
       "output": "I wanna fix @app.py and @test.py.",
       "raw_output": "I wanna fix @app.py and @test.py.",
       "score": "exact",
-      "gen_time_s": 2.562
+      "gen_time_s": 2.465
     },
     {
       "id": 13,
@@ -139,17 +139,17 @@
       "output": "WE'RE SO EXCITED TO MAKE THIS.",
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
       "score": "exact",
-      "gen_time_s": 2.413
+      "gen_time_s": 2.161
     },
     {
       "id": 14,
       "category": "emphasis",
       "input": "It's surprisingly fast. Emphasize surprisingly.",
       "ideal": "It's **surprisingly** fast.",
-      "output": "It's **surprisingly** fast.",
-      "raw_output": "It's **surprisingly** fast.",
-      "score": "exact",
-      "gen_time_s": 2.188
+      "output": "It's *surprisingly* fast.",
+      "raw_output": "It's *surprisingly* fast.",
+      "score": "partial",
+      "gen_time_s": 2.094
     },
     {
       "id": 15,
@@ -159,7 +159,7 @@
       "output": "💔",
       "raw_output": "💔",
       "score": "exact",
-      "gen_time_s": 1.443
+      "gen_time_s": 1.039
     },
     {
       "id": 16,
@@ -169,7 +169,7 @@
       "output": "🙏 for the victims",
       "raw_output": "🙏 for the victims",
       "score": "exact",
-      "gen_time_s": 1.455
+      "gen_time_s": 1.317
     },
     {
       "id": 17,
@@ -179,7 +179,7 @@
       "output": "So we've got a file called usetranscription.ts.",
       "raw_output": "So we've got a file called usetranscription.ts.",
       "score": "semantic",
-      "gen_time_s": 2.411
+      "gen_time_s": 2.075
     },
     {
       "id": 18,
@@ -189,7 +189,7 @@
       "output": "Their \"innovation\" is just copying what everyone else already does.",
       "raw_output": "Their \"innovation\" is just copying what everyone else already does.",
       "score": "exact",
-      "gen_time_s": 2.999
+      "gen_time_s": 2.516
     },
     {
       "id": 19,
@@ -199,7 +199,7 @@
       "output": "Notify the @ops team about the outage.",
       "raw_output": "Notify the @ops team about the outage.",
       "score": "exact",
-      "gen_time_s": 2.71
+      "gen_time_s": 2.113
     },
     {
       "id": 20,
@@ -209,7 +209,7 @@
       "output": "STOP IGNORING MY EMAILS.",
       "raw_output": "STOP IGNORING MY EMAILS.",
       "score": "exact",
-      "gen_time_s": 2.222
+      "gen_time_s": 1.697
     },
     {
       "id": 21,
@@ -219,7 +219,7 @@
       "output": "This is absolutely CRITICAL for the launch.",
       "raw_output": "This is absolutely CRITICAL for the launch.",
       "score": "partial",
-      "gen_time_s": 2.322
+      "gen_time_s": 1.761
     },
     {
       "id": 22,
@@ -229,7 +229,7 @@
       "output": "We just shipped the new feature 🔥 emoji",
       "raw_output": "We just shipped the new feature 🔥 emoji",
       "score": "fail",
-      "gen_time_s": 2.439
+      "gen_time_s": 1.811
     },
     {
       "id": 23,
@@ -239,7 +239,7 @@
       "output": "The main page uses a component called NavigationBar that wraps everything.",
       "raw_output": "The main page uses a component called NavigationBar that wraps everything.",
       "score": "exact",
-      "gen_time_s": 3.06
+      "gen_time_s": 2.226
     }
   ]
 }
