@@ -1,0 +1,62 @@
+[
+  {
+    "input": "The decorator pattern uses at symbol before function to wrap it. Add an at symbol before function.",
+    "ideal": "The decorator pattern uses @function to wrap it."
+  },
+  {
+    "input": "I need to mention john and mary in this post. At symbol before both names please.",
+    "ideal": "I need to mention @john and @mary in this post."
+  },
+  {
+    "input": "The team channel is where we discuss bugs. Tag channel with an at symbol. And mention the devs too.",
+    "ideal": "The @channel is where we discuss bugs. And mention the devs too."
+  },
+  {
+    "input": "The @deprecated annotation warns developers. Wait no I said that wrong. The deprecated annotation warns developers. Add an at symbol before deprecated. And also before override on the next line.",
+    "ideal": "The @deprecated annotation warns developers. And also @override on the next line."
+  },
+  {
+    "input": "Tell admin and mod to check the logs. Tag admin with an at symbol. Actually tag both admin and mod with at symbols. And while you're at it, put an at before logs too.",
+    "ideal": "Tell @admin and @mod to check the @logs."
+  },
+  {
+    "input": "The function calculateTotal needs testing. At symbol before calculateTotal. The test file test_calculateTotal dot py exists. Put an at before test_calculateTotal as well. And mention tester Sarah who wrote it. Tag Sarah with an at symbol.",
+    "ideal": "The function @calculateTotal needs testing. The test file @test_calculateTotal.py exists. And mention tester @Sarah who wrote it."
+  },
+  {
+    "input": "In React useEffect is common but useState is more fundamental. Add an at symbol before useState. Actually I use useReducer more now. Put an at before useReducer. The hook useCallback helps performance. At symbol before useCallback. And my teammate Alex prefers useMemo. Tag Alex with an at symbol. Also put an at before useMemo. Finally mention the library react itself. Put an at before react.",
+    "ideal": "In React useEffect is common but @useState is more fundamental. Actually I use @useReducer more now. The hook @useCallback helps performance. And my teammate @Alex prefers @useMemo. Finally mention the library @react itself."
+  },
+  {
+    "input": "Send this to Sarah. Put an at symbol before Sarah.",
+    "ideal": "Send this to @Sarah."
+  },
+  {
+    "input": "My username is dragonmaster but on this platform I go by draco. Put an at symbol before draco. Actually put an at symbol before both.",
+    "ideal": "My username is dragonmaster but on this platform I go by @draco. Actually @both."
+  },
+  {
+    "input": "The decorator pattern is elegant. Add an at symbol before decorator.",
+    "ideal": "The @decorator pattern is elegant."
+  },
+  {
+    "input": "I love this feature. Tag feature with an at symbol. It's so intuitive.",
+    "ideal": "I love this @feature. It's so intuitive."
+  },
+  {
+    "input": "Email john.smith about the deadline. At symbol before john dot smith. Also mention the budget to finance. At symbol before finance too.",
+    "ideal": "Email @john.smith about the deadline. Also mention the budget to @finance."
+  },
+  {
+    "input": "The function calculateTotal needs refactoring. Add an at symbol before calculateTotal. Actually wait, put an at before function as well.",
+    "ideal": "The @function @calculateTotal needs refactoring."
+  },
+  {
+    "input": "Slack me later. Tag me with an at symbol. And remind everyone in engineering. At symbol before engineering.",
+    "ideal": "Slack @me later. And remind everyone in @engineering."
+  },
+  {
+    "input": "The import statement is broken. Add an at symbol before import. Then check the class definition. At symbol before class.",
+    "ideal": "The @import statement is broken. Then check the @class definition."
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "input": "The algorithm achieves near-linear scalability. Bold scalability and near-linear.",
+    "ideal": "The algorithm achieves **near-linear** **scalability**."
+  },
+  {
+    "input": "We observed uh unexpected latency spikes during peak hours. Stress unexpected and spikes.",
+    "ideal": "We observed UNEXPECTED latency SPIKES during peak hours."
+  },
+  {
+    "input": "The migration was seamless. Make seamless bold and show excitement.",
+    "ideal": "The migration was **seamless**!"
+  },
+  {
+    "input": "She argued that the implementation violated the principle of least astonishment. Bold violated and principle.",
+    "ideal": "She argued that the implementation **violated** the **principle** of least astonishment."
+  },
+  {
+    "input": "The query optimizer chose a suboptimal plan. Emphasis on suboptimal and optimizer.",
+    "ideal": "The query OPTIMIZER chose a SUBOPTIMAL plan."
+  },
+  {
+    "input": "Put emphasis on eventually and consistent in that sentence about the database guarantees.",
+    "ideal": "Database guarantees are EVENTUALLY CONSISTENT."
+  },
+  {
+    "input": "The refactor improved readability dramatically. Bold readability and uh dramatically.",
+    "ideal": "The refactor improved **readability** **dramatically**."
+  },
+  {
+    "input": "He claimed the bug was irreproducible. Stress claimed and irreproducible.",
+    "ideal": "He CLAIMED the bug was IRREPRODUCIBLE."
+  },
+  {
+    "input": "The deployment succeeded on the first attempt. Make first bold, stress succeeded, and show excitement.",
+    "ideal": "The deployment SUCCEEDED on the **first** attempt!"
+  },
+  {
+    "input": "The latency dropped below our threshold. Emphasize dropped and threshold.",
+    "ideal": "The latency **dropped** below our **threshold**."
+  }
+]

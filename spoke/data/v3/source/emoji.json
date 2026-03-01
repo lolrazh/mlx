@@ -118,5 +118,57 @@
   {
     "input": "Hundred points emoji nailed it",
     "ideal": "💯 nailed it"
+  },
+  {
+    "input": "Please add a clapping hands emoji to that",
+    "ideal": "👏"
+  },
+  {
+    "input": "I need three star emojis right here",
+    "ideal": "⭐⭐⭐"
+  },
+  {
+    "input": "That was hilarious crying laughing emoji",
+    "ideal": "That was hilarious 😂"
+  },
+  {
+    "input": "Give me the hundred emoji followed by fire emoji",
+    "ideal": "💯🔥"
+  },
+  {
+    "input": "The purple heart emoji means friendship not romance",
+    "ideal": "The 💜 means friendship not romance"
+  },
+  {
+    "input": "He sent crying emoji but I think he meant tears of joy emoji",
+    "ideal": "He sent 😢 but I think he meant 😂"
+  },
+  {
+    "input": "Victory hand sign followed by dog and cat emojis",
+    "ideal": "✌️🐶🐱"
+  },
+  {
+    "input": "Two hundred emoji",
+    "ideal": "💯💯"
+  },
+  {
+    "input": "The meeting was fire emoji literally",
+    "ideal": "The meeting was 🔥 literally"
+  },
+  {
+    "input": "He looked confused so I sent the shrug emoji",
+    "ideal": "He looked confused so I sent 🤷"
+  },
+  {
+    "input": "Five star rating emoji",
+    "ideal": "⭐⭐⭐⭐⭐"
+  },
+  {
+    "input": "Rolling on the floor laughing emoji not just laughing",
+    "ideal": "🤣"
+  },
+  {
+    "input": "Insert prayer hands emoji here",
+    "ideal": "🙏"
   }
 ]

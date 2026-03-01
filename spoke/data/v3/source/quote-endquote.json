@@ -166,5 +166,105 @@
   {
     "input": "The post read quote we are excited to announce our Series A funding end quote.",
     "ideal": "The post read \"we are excited to announce our Series A funding\"."
+  },
+  {
+    "input": "The error message reads quote your session has expired due to inactivity. end quote",
+    "ideal": "The error message reads \"your session has expired due to inactivity.\""
+  },
+  {
+    "input": "His final words were quote I have no regrets end quote.",
+    "ideal": "His final words were \"I have no regrets\"."
+  },
+  {
+    "input": "She described the proposal as quote ambitious but fundamentally flawed end quote and urged us to reconsider.",
+    "ideal": "She described the proposal as \"ambitious but fundamentally flawed\" and urged us to reconsider."
+  },
+  {
+    "input": "The contract states quote payment terms are net 30 days from invoice date. end quote Please review carefully.",
+    "ideal": "The contract states \"payment terms are net 30 days from invoice date.\" Please review carefully."
+  },
+  {
+    "input": "He likes to say quote move fast and break things end quote.",
+    "ideal": "He likes to say \"move fast and break things\"."
+  },
+  {
+    "input": "The review was scathing, calling the product quote an overpriced paperweight that fails at its one job end quote before listing numerous defects.",
+    "ideal": "The review was scathing, calling the product \"an overpriced paperweight that fails at its one job\" before listing numerous defects."
+  },
+  {
+    "input": "The safety manual warns quote never disable the emergency stop mechanism. end quote",
+    "ideal": "The safety manual warns \"never disable the emergency stop mechanism.\""
+  },
+  {
+    "input": "She signed the email with quote forever in your debt end quote.",
+    "ideal": "She signed the email with \"forever in your debt\"."
+  },
+  {
+    "input": "He was like quote you know I never said that end quote and then, you know, stormed out of the room.",
+    "ideal": "He was like \"you know I never said that\" and then, you know, stormed out of the room."
+  },
+  {
+    "input": "The architect insisted on quote form follows function end quote as the guiding principle.",
+    "ideal": "The architect insisted on \"form follows function\" as the guiding principle."
+  },
+  {
+    "input": "She whispered quote I don't think we should be here end quote before pulling me into the shadows.",
+    "ideal": "She whispered \"I don't think we should be here\" before pulling me into the shadows."
+  },
+  {
+    "input": "The contract specifies quote payment terms are net thirty days from invoice date end quote.",
+    "ideal": "The contract specifies \"payment terms are net thirty days from invoice date\"."
+  },
+  {
+    "input": "He was like quote you know the system is fundamentally broken end quote and honestly, I couldn't argue.",
+    "ideal": "He was like \"you know the system is fundamentally broken\" and honestly, I couldn't argue."
+  },
+  {
+    "input": "The museum plaque reads quote donated by the estate of Eleanor Whitmore, 1987. end quote",
+    "ideal": "The museum plaque reads \"donated by the estate of Eleanor Whitmore, 1987.\""
+  },
+  {
+    "input": "My grandmother's favorite saying was quote measure twice, cut once end quote.",
+    "ideal": "My grandmother's favorite saying was \"measure twice, cut once\"."
+  },
+  {
+    "input": "The so-called expert offered quote well actually that's not how I would have done it end quote as his only critique.",
+    "ideal": "The so-called expert offered \"well actually that's not how I would have done it\" as his only critique."
+  },
+  {
+    "input": "She ended her presentation with quote the only way out is through. end quote",
+    "ideal": "She ended her presentation with \"the only way out is through.\""
+  },
+  {
+    "input": "The error log shows quote failed to establish secure connection due to certificate mismatch. end quote",
+    "ideal": "The error log shows \"failed to establish secure connection due to certificate mismatch.\""
+  },
+  {
+    "input": "His entire philosophy boils down to quote ship it and iterate end quote.",
+    "ideal": "His entire philosophy boils down to \"ship it and iterate\"."
+  },
+  {
+    "input": "The judge read the verdict as quote guilty on all counts end quote while the courtroom held its breath.",
+    "ideal": "The judge read the verdict as \"guilty on all counts\" while the courtroom held its breath."
+  },
+  {
+    "input": "She described the meeting as quote productive but inconclusive. end quote I think that's corporate speak for wasted time.",
+    "ideal": "She described the meeting as \"productive but inconclusive.\" I think that's corporate speak for wasted time."
+  },
+  {
+    "input": "The ancient inscription translates roughly to quote those who seek shall find, but those who demand shall be denied end quote.",
+    "ideal": "The ancient inscription translates roughly to \"those who seek shall find, but those who demand shall be denied\"."
+  },
+  {
+    "input": "He opened with quote let me be perfectly clear end quote and then proceeded to contradict himself three times.",
+    "ideal": "He opened with \"let me be perfectly clear\" and then proceeded to contradict himself three times."
+  },
+  {
+    "input": "The so-called guarantee states quote we will make it right or your money back. end quote Sounds good until you read the fine print.",
+    "ideal": "The so-called guarantee states \"we will make it right or your money back.\" Sounds good until you read the fine print."
+  },
+  {
+    "input": "She was like quote I never said that end quote but we all heard her say it like ten minutes ago.",
+    "ideal": "She was like \"I never said that\" but we all heard her say it like ten minutes ago."
   }
 ]
