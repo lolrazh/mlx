@@ -32,6 +32,7 @@ MODELS = {
     "llama3.2-1b": "mlx-community/Llama-3.2-1B-Instruct-bf16",
     "llama3.2-1b-8bit": "mlx-community/Llama-3.2-1B-Instruct-8bit",
     "llama3.2-1b-4bit": "mlx-community/Llama-3.2-1B-Instruct-4bit",
+    "lfm2-2.6b-exp": "mlx-community/LFM2-2.6B-Exp-bf16",
 }
 
 # ── Prompts ─────────────────────────────────────────────────
