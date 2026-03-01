@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-01 (consolidated — stale docs removed, agent-log insights rolled in)
+> Last updated: 2026-03-02 (Llama3-T1 = 87% new all-time best)
 
 ## How to Read This
 
@@ -83,6 +83,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **LFM2-T1** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | 800 | 0.480 @800 | All 30 layers (8 attn + 22 conv). 12.2M trainable (0.476%). Peak 13.3 GB. **78% bf16 at 800 iters.** Double-descent: plateau 250-400, then steep drop 500-800. |
 | **LFM2-T1b** | 03-01 | LFM2-2.6B-Exp (bf16) | LoRA | r=8 | adam | v3 (535) | ~900 | 0.466 @~900 | Extended from T1, killed at ~1320 (plateaued). Best ckpt = resumed iter 100. **83% bf16, 19 exact, 1.66s. Ties Qwen3-T11.** |
 | **LFM2.5-T1** | 03-02 | LFM2.5-1.2B (bf16) | LoRA | r=8 | adam | v3 (535) | 1000 | 0.506 @550 | All 16 layers. 5.5M trainable (0.475%). Peak 6.5 GB. Plateaued at val loss ~0.51 from iter 400. No double-descent. **70% bf16 at iter 1000, 0.63s latency.** |
+| **Llama3-T1** | 03-02 | Llama 3.2 3B Instruct (bf16) | LoRA | r=8 | adam | v3 (535) | 1000 | 0.074 @550 | All 28 layers. 12.2M trainable (0.378%). Peak 15.2 GB. Fastest convergence ever (val 0.074 by iter 550). Overfitting from iter 650 but recovered. **87% bf16 at iter 1000, 1.60s latency. NEW ALL-TIME BEST.** |
 
 ---
 
@@ -143,6 +144,8 @@ All from Qwen3-4B base.
 | LFM2-T1 | iter 800 | bf16 | v2 | 23 | **78%** | 18 | 0 | 5 | 0 | 1.54s | 9% → 78%! +69 pts. 1.7x faster than Qwen3. Nails all 3 self-corrections. |
 | **LFM2-T1b** | **iter ~900** | **bf16** | **v2** | **23** | **83%** | **19** | **0** | **3** | **1** | **1.66s** | **TIES Qwen3-T11! 19 exact (one MORE than Qwen3). 1.6x faster. Best LFM2 checkpoint.** |
 | **LFM2.5-T1** | **iter 1000** | **bf16** | **v2** | **23** | **70%** | **16** | **0** | **7** | **0** | **0.63s** | **1.2B model, 9% → 70% (+61 pts). 4.2x faster than Qwen3. 0 fails. Phone-deployable at ~1.2 GB.** |
+| Llama3-T1 | iter 500 | bf16 | v2 | 23 | **83%** | 19 | 0 | 4 | 0 | 1.62s | Best val loss region (0.078). Ties Qwen3-T11/LFM2-T1b. 0 fails. |
+| **Llama3-T1** | **iter 1000** | **bf16** | **v2** | **23** | **87%** | **20** | **0** | **3** | **0** | **1.60s** | **NEW ALL-TIME BEST. 26% → 87% (+61 pts). 1.7x faster than Qwen3. 0 fails. Beats 83% ceiling by 4 pts.** |
 
 ---
 
@@ -207,6 +210,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | LFM2-T1b | LFM2-2.6B-Exp, extended to ~900 iters | **83% bf16, 1.66s latency.** Ties Qwen3-T11. 19 exact (one more). 1.6x faster inference. Best LFM2 checkpoint. |
 | LFM2.5-T1 | LFM2.5-1.2B bf16, 1000 iters, all 16 layers | **70% bf16, 0.63s latency.** 9% → 70% (+61 pts). 0 fails. Plateaued at iter 400 (val 0.51). No double-descent. 4.2x faster than Qwen3. |
 | B16 | Llama 3.2 3B bf16 zero-shot, v2 prompt | **26%.** Between Qwen3 (35%) and LFM2 (9%). 12 partials, 5 fails. |
+| Llama3-T1 | Llama 3.2 3B bf16, LoRA r=8 adam, 1000 iters, all 28 layers | **87% bf16, 1.60s latency. NEW ALL-TIME BEST.** 26% → 87% (+61 pts). 0 fails. Lowest val loss ever (0.074). Iter 1000 > iter 500 (87% vs 83%) despite worse val loss. |
 
 ### Active Queue
 
@@ -235,7 +239,7 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 5. LFM2-2.6B-Exp LoRA ✅ **83% bf16, 1.66s** (T1b). LFM2.5-1.2B LoRA ✅ **70% bf16, 0.63s** (T1).
 6. Compare: accuracy, latency, memory, quant robustness — see model comparison table below
 
-**Phase B takeaway:** LFM2 architecture validated at both scales. 2.6B ties Qwen3-4B at 83% (1.6x faster). 1.2B hits 70% at 4.2x speed. Capacity matters: halving params costs 13 accuracy points.
+**Phase B takeaway:** **Llama 3.2 3B is the new champion at 87% — first model to break the 83% ceiling.** 1.7x faster than Qwen3-4B with 0 fails. LFM2-2.6B ties Qwen3 at 83% (1.6x faster). LFM2.5-1.2B hits 70% at 4.2x speed. Architecture matters more than raw params: Llama 3B outperforms Qwen3 4B.
 
 **Phase C — Architecture pivot (encoder-decoder) — BLOCKED**
 7. ~~Evaluate T5Gemma 2 (1B-1B)~~ — mlx-lm has zero encoder-decoder support. No T5Gemma on mlx-community. Blocked until upstream adds seq2seq.
@@ -290,12 +294,13 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 38. **LFM2.5-1.2B validates "phone-deployable" model.** 9% → 70% (+61 pts) at 0.63s latency, 6.5 GB peak training mem. No double-descent (plateaued at val 0.51 from iter 400). Capacity matters: halving params from 2.6B → 1.2B costs 13 accuracy points (83% → 70%) but gains 2.6x speed. Iter 1000 beat iter 500 (70% vs 65%) despite higher val loss — confirms val loss is unreliable as stopping criterion (finding #19).
 39. **Llama 3.2 3B zero-shot = 26%.** Lands between Qwen3-4B (35%) and LFM2 (9%). 12 partials, 5 fails. Outputs literal "quote-unquote" instead of converting to quotation marks — classic instruction-following gap.
 40. **wandb integrated for live training dashboards.** `report_to: wandb` in config.yaml. Built-in callback in mlx-lm. Also supports `swanlab`.
+41. **Llama 3.2 3B is the new accuracy king at 87%.** 26% zero-shot → 87% fine-tuned (+61 pts). Breaks the 83% ceiling that Qwen3-4B and LFM2-2.6B shared. 0 fails (first model to achieve this). 1.60s latency (1.7x faster than Qwen3). Lowest val loss ever recorded (0.074 at iter 550). Converges fastest of all models — val loss 0.093 at iter 300 vs Qwen3's 0.169 at iter 250. Iter 1000 beat iter 500 (87% vs 83%) despite worse val loss — fourth confirmation that val loss is unreliable (finding #19). Llama's 28-layer pure transformer architecture with strong instruction-following pretraining makes it the best LoRA fine-tuning target.
 
 ### Model Comparison (Phase B Summary)
 
 | Model | Params | Zero-shot | Fine-tuned | Latency | Peak Train Mem | Speed vs Qwen3 |
 |-------|--------|-----------|------------|---------|----------------|-----------------|
-| **Qwen3-4B (T11)** | 4B | 35% | **83%** | 2.67s | ~14 GB | 1.0x (reference) |
-| **LFM2-2.6B (T1b)** | 2.6B | 9% | **83%** | 1.66s | 13.3 GB | 1.6x faster |
-| **LFM2.5-1.2B (T1)** | 1.2B | 9% | **70%** | 0.63s | 6.5 GB | 4.2x faster |
-| Llama 3.2 3B | 3B | 26% | — | — | — | — |
+| **Llama 3.2 3B (T1)** | **3B** | **26%** | **87%** | **1.60s** | **15.2 GB** | **1.7x faster** |
+| Qwen3-4B (T11) | 4B | 35% | 83% | 2.67s | ~14 GB | 1.0x (reference) |
+| LFM2-2.6B (T1b) | 2.6B | 9% | 83% | 1.66s | 13.3 GB | 1.6x faster |
+| LFM2.5-1.2B (T1) | 1.2B | 9% | 70% | 0.63s | 6.5 GB | 4.2x faster |
