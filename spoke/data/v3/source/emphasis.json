@@ -80,10 +80,6 @@
     "ideal": "The query OPTIMIZER chose a SUBOPTIMAL plan."
   },
   {
-    "input": "Put emphasis on eventually and consistent in that sentence about the database guarantees.",
-    "ideal": "Database guarantees are EVENTUALLY CONSISTENT."
-  },
-  {
     "input": "The refactor improved readability dramatically. Bold readability and uh dramatically.",
     "ideal": "The refactor improved **readability** **dramatically**."
   },
@@ -116,8 +112,8 @@
     "ideal": "We **underestimated** the **complexity** of the integration!"
   },
   {
-    "input": "The, uh, the refactor improved readability significantly. Stress uh, readability, and significantly.",
-    "ideal": "The, UH, the refactor improved READABILITY SIGNIFICANTLY."
+    "input": "The, uh, the refactor improved readability significantly. Stress readability and significantly.",
+    "ideal": "The refactor improved READABILITY SIGNIFICANTLY."
   },
   {
     "input": "He suggested we deprecate the legacy endpoint. Make suggested bold and stress deprecate.",
@@ -144,8 +140,8 @@
     "ideal": "We need to prioritize the MIGRATION and the ROLLBACK strategy."
   },
   {
-    "input": "The, uh, the authentication layer needs work. Bold uh and stress work.",
-    "ideal": "The, **uh**, the authentication layer needs WORK."
+    "input": "The, uh, the authentication layer needs work. Stress work.",
+    "ideal": "The authentication layer needs WORK."
   },
   {
     "input": "Latency dropped after we optimized the hot path. Put emphasis on dropped and hot path.",
