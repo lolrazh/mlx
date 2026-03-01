@@ -69,7 +69,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T8** | 03-01 | **DoRA** | r=8 | **adamw** (wd=0.01) | flat | v2 (447) | 200 (50 eff.) | 0.427 @200 | batch=1+accum=4 (OOM forced). 50 effective steps. 15.4 GB peak. DoRA not viable on M4. |
 | T9 | — | LoRA (QLoRA) | r=8 | adam | flat | v2 (447) | 200 | — | **4-bit base model.** Memory test (~4-5GB target). |
 | T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
-| **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | — | **v3 data.** Trigger-matched categories only. T4 config on new data. |
+| **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | 0.169 @250 | **v3 data.** Trigger-matched categories only. T4 config on new data. **83% bf16, 74% 6-bit.** |
 
 ---
 
@@ -117,6 +117,8 @@ All from Qwen3-4B base.
 
 | Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
 |-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| **T11** | **iter 300** | **bf16** | **v2** | **23** | **83%** | **18** | **1** | **3** | **1** | **2.67s** | **New best! +9 pts over T4 bf16. Data quality > hyperparameters.** |
+| **T11** | **iter 300** | **6-bit** | **v2** | **23** | **74%** | **16** | **1** | **5** | **1** | **1.76s** | **New 6-bit best! +9 pts over T4 6-bit (65%). Quant loss 9% (same as T4).** |
 
 ---
 
@@ -175,7 +177,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | ~~DONE~~ | ~~T8~~ | ~~DoRA + AdamW~~ | ~~OOM forced batch=1. Not viable.~~ | ~~Dead end~~ |
 | ~~DONE~~ | ~~T6b~~ | ~~AdamW 500 iters~~ | ~~70% bf16, 57% 6-bit. Still dropping at 500 — needs more iters. Quant loss 13% (worse than T4's 9%).~~ | ~~Done~~ |
 | ~~DONE~~ | ~~T6c~~ | ~~AdamW 800 iters~~ | ~~74% bf16 (=T4), 61% 6-bit (worse than T4's 65%). 2.7x slower. **AdamW loses on 6-bit deploy.**~~ | ~~Done~~ |
-| **HIGH** | **T11** | **v3 data (492 train, trigger-matched)** | **Removing untriggered categories frees model capacity. +45 new targeted examples for weak spots.** | **Running** |
+| ~~DONE~~ | ~~T11~~ | ~~v3 data (492 train, trigger-matched)~~ | ~~**83% bf16, 74% 6-bit. +9 pts over T4. Data quality wins.**~~ | ~~Done~~ |
 | Medium | T7 | Cosine LR + warmup (50 steps) | Accelerate convergence — adam converges at 300, maybe cosine gets there at 200? | T4 baseline |
 | Medium | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T4 baseline |
 | Medium | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T4 baseline |
@@ -206,3 +208,4 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 18. **AdamW conclusion: same bf16, worse 6-bit, 2.7x slower.** T6c matched T4's 74% bf16 at 800 iters (vs 300), but 6-bit is 61% vs 65%. For deploy (6-bit), adam (T4) wins. AdamW only helps if you deploy bf16.
 19. **Val loss is noisy with 20 validation examples.** T6c at val loss 0.205 (iter 800) scored 74%, while val loss 0.190 (iter 600) scored only 65%. Don't trust small val loss differences.
 20. **Optimizer state resets on resume.** `--resume-adapter-file` loads weights but resets AdamW momentum/velocity. Causes ~50-iter warm-up period with temporarily higher val loss.
+21. **v3 data = +9 pts across the board.** T11 (v3, 492 train, trigger-matched) vs T4 (v2, 447 train, mixed): bf16 83% vs 74%, 6-bit 74% vs 65%. Same config, same quant loss (9%). Removing untriggered categories + adding targeted examples was the highest-ROI change in the entire project. Data quality > hyperparameters confirmed.
