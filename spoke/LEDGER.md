@@ -173,22 +173,52 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 
 ## Experiment Queue
 
-| Priority | Run | What Changes | Hypothesis | Depends On |
+### Completed
+
+| Run | What Changed | Result |
+|-----|-------------|--------|
+| T4 | v2 data | 74% bf16, 65% 6-bit. Self-correction #3 FIXED, quote #6 scope FIXED. |
+| T5 | DoRA | Dead end. OOM + 18s latency on M4 24GB. |
+| T6/T6b/T6c | AdamW | Same bf16, worse 6-bit (61% vs 65%), 2.7x slower. Adam wins for 6-bit deploy. |
+| T8 | DoRA + AdamW | Dead end. OOM forced batch=1. |
+| T11 | v3 data (492 train) | **83% bf16, 74% 6-bit.** Best model. +9 pts over T4 (test-set aligned). |
+| T12 | v3 + patch (535 train) | **REGRESSED to 74% bf16.** Patch data was correct but undertrained (300 iters on 535 examples). |
+
+### Active Queue
+
+| Priority | ID | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
-| ~~DONE~~ | ~~T4~~ | ~~v2 data~~ | ~~74% bf16, 65% 6-bit. #3 FIXED, #6 scope FIXED.~~ | ~~Done~~ |
-| ~~DONE~~ | ~~T5~~ | ~~DoRA~~ | ~~OOM + 18s latency. Not viable on M4 24GB.~~ | ~~Dead end~~ |
-| ~~DONE~~ | ~~T6~~ | ~~AdamW (200 iters)~~ | ~~Zero quant loss! But undertrained.~~ | ~~Rerun as T6b~~ |
-| ~~DONE~~ | ~~T8~~ | ~~DoRA + AdamW~~ | ~~OOM forced batch=1. Not viable.~~ | ~~Dead end~~ |
-| ~~DONE~~ | ~~T6b~~ | ~~AdamW 500 iters~~ | ~~70% bf16, 57% 6-bit. Still dropping at 500 — needs more iters. Quant loss 13% (worse than T4's 9%).~~ | ~~Done~~ |
-| ~~DONE~~ | ~~T6c~~ | ~~AdamW 800 iters~~ | ~~74% bf16 (=T4), 61% 6-bit (worse than T4's 65%). 2.7x slower. **AdamW loses on 6-bit deploy.**~~ | ~~Done~~ |
-| ~~DONE~~ | ~~T11~~ | ~~v3 data (492 train, trigger-matched)~~ | ~~**83% bf16, 74% 6-bit. +9 pts over T4. Data quality wins.**~~ | ~~Done~~ |
-| ~~DONE~~ | ~~T12~~ | ~~v3 + patch data (43 targeted examples)~~ | ~~74% bf16 — REGRESSED from 83%. Patch data quality suspect. Fixed 0/4 targets, caused 2 regressions.~~ | ~~Failed~~ |
-| **HIGH** | **T12b** | **v3 + REVIEWED patch data** | **Re-run after Opus review + cleanup of 43 patch examples. Fix quality issues first.** | **Patch data review** |
-| Low | T7 | Cosine LR + warmup (50 steps) | Accelerate convergence — adam converges at 300, maybe cosine gets there at 200? | T4 baseline |
-| Low | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB memory | T4 baseline |
-| Low | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok) | T4 baseline |
-| Low | Expand to 650-750 examples | Target optimal data volume per research | After T6b |
-| Low | DPO on persistent failures | Preference learning for edge cases | Only after SFT plateau |
+| **HIGH** | **T12b** | **v3 + patch data, 400 iters** | **T12 regression caused by undertrained model, not bad data. 535 examples need ~400 iters (vs 300 for 492). Patch data passed Opus quality review.** | — |
+| **HIGH** | **Q1** | **Mixed-bit quantization (`mixed_4_6`) on T11 fused model** | **Allocate 6-bit to critical layers (v_proj, down_proj, lm_head, first/last layers), 4-bit elsewhere. May close 9% quant gap while keeping model smaller. Zero retraining.** | T11 fused model |
+| Medium | B-new | **Zero-shot baselines: LFM2.5-1.2B, Qwen3-1.7B, Gemma 3 1B QAT** | **Determine if task is capacity-limited or data-limited.** If a 1-2B model scores >15% zero-shot, fine-tuning could match 4B. 3-4x faster inference. | Add models to benchmark script |
+| Medium | T13 | Cosine LR + warmup (50 steps), 300 iters | Accelerate convergence. May reach T11 quality faster. | T12b done |
+| Medium | T-enc | **Evaluate T5Gemma 2 (1B-1B encoder-decoder)** | **Encoder-decoder is architecturally better for "editing" tasks. Encoder sees full input before decoder generates. May fix compound self-correction (#6) where decoder-only fails.** | Port/load in MLX |
+| Low | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB training memory. | — |
+| Low | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok). | — |
+
+### Research-Informed Roadmap
+
+Based on 2025-2026 ASR post-processing literature review. See finding #25.
+
+**Phase A — Squeeze current setup (Qwen3-4B decoder-only)**
+1. T12b: fix undertrained regression (400 iters)
+2. Q1: mixed-bit quantization to close 9% quant gap
+3. T13: cosine LR if more speed needed
+
+**Phase B — Explore smaller models (capacity vs data question)**
+4. Zero-shot baselines: LFM2.5-1.2B, Qwen3-1.7B, Gemma 3 1B QAT, Phi-4-mini
+5. If promising → LoRA fine-tune best candidate on v3 data
+6. Compare: accuracy, latency, memory, quant robustness
+
+**Phase C — Architecture pivot (encoder-decoder)**
+7. Evaluate T5Gemma 2 (1B-1B) for editing task
+8. If enc-dec helps compound self-correction → port/fine-tune
+9. This is the "right architecture" bet but highest effort
+
+**Phase D — Training method innovation (bounded editing)**
+10. Experiment with "minimal edit" training format (output ≈ input with targeted changes)
+11. Constrained decoding (N-best or span-repair objectives)
+12. Only if SFT on current data plateaus across architectures
 
 ---
 
@@ -217,4 +247,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 21. **v3 data = +9 pts across the board.** T11 (v3, 492 train, trigger-matched) vs T4 (v2, 447 train, mixed): bf16 83% vs 74%, 6-bit 74% vs 65%. Same config, same quant loss (9%). Removing untriggered categories + adding targeted examples was the highest-ROI change in the entire project. Data quality > hyperparameters confirmed.
 22. **T11's +9 pts is test-set alignment, not model improvement.** On the 17 shared kept-category examples from the original v2 test, T4 and T11 both score 76%. T11 gained #9 (quote-endquote) and #12 (at-symbol) but lost #6 (compound self-correction) and #14 (emphasis). The v3 test set improvement comes from removing 6 impossible-category test examples and adding 6 new ones in categories where T11 excels.
 23. **v3 data agent over-churned: 57% of v2 touched.** 105 removed (vs ~61 expected), 150 added (vs ~114 expected). Only 3 wrongly removed. Real gap: 150 new examples but only 1 was self-correction — the exact category where T11 regressed.
-24. **T12 patch data caused regression (83% → 74%).** 43 targeted examples (17 self-correction, 9 emoji, 8 quote, 8 camelCase) made things WORSE. Best-ever val loss (0.162) but worst accuracy since T11. Val loss improvement ≠ accuracy improvement (again — see finding #19). Likely cause: patch data quality issues (not reviewed before training). Always review generated data before training.
+24. **T12 regression was undertrained, not bad data.** Opus review confirmed all 43 patch examples are correct. The regression (83% → 74%) was caused by training 535 examples for only 300 iters (2.2 passes/example vs T11's 2.4). The 2 new regressions (#2 spell, #14 emphasis) were in categories that received 0 new examples — collateral damage from reduced per-example repetitions in minority categories (emphasis = 3.6% of data). Fix: train longer (400 iters).
+25. **Decoder-only is the wrong architecture for editing tasks.** (Research finding, 2025-2026 ASR post-processing literature.) ASR cleanup is fundamentally seq2seq rewriting, not autoregressive generation. Encoder-decoder models (T5, T5Gemma 2) separate input comprehension (encoder) from output generation (decoder with cross-attention), making "preserve A, replace B" natural. This likely explains the persistent compound self-correction failure (#6) — decoder-only Qwen3 processes input and generates output in the same left-to-right pass, making it hard to selectively preserve earlier tokens while replacing later ones. Encoder-decoder evaluation queued as Phase C.
+26. **Mixed-bit quantization may close the 9% quant gap.** mlx_lm supports `--quant-predicate mixed_4_6` which allocates 6-bit to critical layers (v_proj, down_proj, lm_head, first/last 12.5% of layers) and 4-bit elsewhere. Critical attention layers are where structural understanding lives — exactly where our quant-sensitive failures (quote-endquote, code-aware) originate. Total size ≤ uniform 6-bit but with bits allocated where they matter.
+27. **Task may be data-limited, not capacity-limited.** 535 training examples converge in ~300 iters. Failures are about precision (correction scope, quote scope), not understanding. A 1-2B model with better architecture or more data could match 4B Qwen3. Zero-shot baselines on LFM2.5-1.2B, Qwen3-1.7B, and Gemma 3 1B will test this.
