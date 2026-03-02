@@ -152,12 +152,12 @@
     "ideal": "The repair shop quote seemed reasonable until they added labor costs."
   },
   {
-    "input": "She won the debate by quoting Supreme Court precedents verbatim.",
-    "ideal": "She won the debate by quoting Supreme Court precedents verbatim."
+    "input": "The coach silenced critics by quoting the team's own injury report.",
+    "ideal": "The coach silenced critics by quoting the team's own injury report."
   },
   {
-    "input": "The stock quote ticker scrolled across the bottom of the screen.",
-    "ideal": "The stock quote ticker scrolled across the bottom of the screen."
+    "input": "The options quote chain showed heavy call buying near expiration.",
+    "ideal": "The options quote chain showed heavy call buying near expiration."
   },
   {
     "input": "I need a freight quote for shipping twelve pallets to Portland.",
@@ -180,8 +180,8 @@
     "ideal": "Journalists risk libel when quoting anonymous sources carelessly."
   },
   {
-    "input": "The solar installation quote dropped after the tax credit expanded.",
-    "ideal": "The solar installation quote dropped after the tax credit expanded."
+    "input": "The roofing quote came down significantly once we agreed on asphalt shingles.",
+    "ideal": "The roofing quote came down significantly once we agreed on asphalt shingles."
   },
   {
     "input": "She spent the entire dinner quoting lines from that obscure film.",
@@ -192,8 +192,8 @@
     "ideal": "The translation quote depends on whether you need certified copies."
   },
   {
-    "input": "His habit of quoting philosophers at parties annoys everyone.",
-    "ideal": "His habit of quoting philosophers at parties annoys everyone."
+    "input": "Her habit of quoting song lyrics mid-conversation derails every meeting.",
+    "ideal": "Her habit of quoting song lyrics mid-conversation derails every meeting."
   },
   {
     "input": "The limousine quote includes gratuity but not the fuel surcharge.",
@@ -218,5 +218,25 @@
   {
     "input": "My favorite quote from the novel comes in chapter seven.",
     "ideal": "My favorite quote from the novel comes in chapter seven."
+  },
+  {
+    "input": "The real estate agent's renovation quote for the Victorian house included structural foundation work and new plumbing.",
+    "ideal": "The real estate agent's renovation quote for the Victorian house included structural foundation work and new plumbing."
+  },
+  {
+    "input": "My professor has an annoying habit of quoting obscure eighteenth century philosophers nobody in the class has read.",
+    "ideal": "My professor has an annoying habit of quoting obscure eighteenth century philosophers nobody in the class has read."
+  },
+  {
+    "input": "The logistics quote for the international shipment was nearly double what we budgeted for the quarter.",
+    "ideal": "The logistics quote for the international shipment was nearly double what we budgeted for the quarter."
+  },
+  {
+    "input": "Politicians on both sides kept quoting the same polling data to reach completely opposite conclusions about the results.",
+    "ideal": "Politicians on both sides kept quoting the same polling data to reach completely opposite conclusions about the results."
+  },
+  {
+    "input": "The architect sent a revised quote after we decided to add a rooftop terrace to the original design plans.",
+    "ideal": "The architect sent a revised quote after we decided to add a rooftop terrace to the original design plans."
   }
 ]

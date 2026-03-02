@@ -4,8 +4,8 @@
     "ideal": "We're integrating with the Wispr API for voice processing."
   },
   {
-    "input": "I switched my hosting to Netlify. Spell that N-E-T-L-I-F-Y.",
-    "ideal": "I switched my hosting to Netlify."
+    "input": "The doctor's name is Gupta. Spell that G-H-O-S-H.",
+    "ideal": "The doctor's name is Ghosh."
   },
   {
     "input": "We're using the Llama model from Meta. Spell Llama as L-L-A-M-A.",
@@ -16,8 +16,8 @@
     "ideal": "The new database is called Supabase."
   },
   {
-    "input": "I need to configure the Nginx server. Spell Nginx as N-G-I-N-X.",
-    "ideal": "I need to configure the Nginx server."
+    "input": "We're traveling to Szczechin. Can you spell that S-Z-C-Z-E-C-I-N?",
+    "ideal": "We're traveling to Szczecin."
   },
   {
     "input": "We're migrating to the Qdrant vector database. Spell that Q-D-R-A-N-T.",
@@ -28,8 +28,8 @@
     "ideal": "The UI library is called Shadcn."
   },
   {
-    "input": "We're using Mistral's new model. Spell Mistral as M-I-S-T-R-A-L.",
-    "ideal": "We're using Mistral's new model."
+    "input": "Order the sashimee for the table. Spell that S-A-S-H-I-M-I.",
+    "ideal": "Order the sashimi for the table."
   },
   {
     "input": "The build tool is called Veet. Can you spell that V-I-T-E?",
@@ -40,8 +40,8 @@
     "ideal": "I deployed to Cloudflare."
   },
   {
-    "input": "We're using the Jina AI embeddings. Spell Jina as J-I-N-A.",
-    "ideal": "We're using the Jina AI embeddings."
+    "input": "The condition is fibromialgia. Can you spell that F-I-B-R-O-M-Y-A-L-G-I-A?",
+    "ideal": "The condition is fibromyalgia."
   },
   {
     "input": "The state manager is called Zustan. Can you spell that Z-U-S-T-A-N-D?",
@@ -52,8 +52,8 @@
     "ideal": "Our vector database is Pinecone."
   },
   {
-    "input": "We're migrating to Soo-pabase. Can you spell that S-U-P-A-B-A-S-E?",
-    "ideal": "We're migrating to Supabase."
+    "input": "Her name is Aoiffe. Spell that A-O-I-F-E.",
+    "ideal": "Her name is Aoife."
   },
   {
     "input": "The UI library is called Shad Zen. Spell that S-H-A-D-C-N.",
@@ -64,8 +64,8 @@
     "ideal": "I use Raycast for everything."
   },
   {
-    "input": "The new bundler is called Turbo Pack. Can you spell that T-U-R-B-O-P-A-C-K?",
-    "ideal": "The new bundler is called Turbopack."
+    "input": "We're staying in Guadalahara. Can you spell that G-U-A-D-A-L-A-J-A-R-A?",
+    "ideal": "We're staying in Guadalajara."
   },
   {
     "input": "We're testing with Playwright. Spell that P-L-A-Y-W-R-I-G-H-T.",
@@ -76,8 +76,8 @@
     "ideal": "The cache is Redis."
   },
   {
-    "input": "I deployed on Render. Spell Render as R-E-N-D-E-R.",
-    "ideal": "I deployed on Render."
+    "input": "We're filing for execatur. Spell that E-X-E-Q-U-A-T-U-R.",
+    "ideal": "We're filing for exequatur."
   },
   {
     "input": "The ORM is called Prisma. Can you spell that P-R-I-S-M-A?",
@@ -88,8 +88,8 @@
     "ideal": "We're using SvelteKit."
   },
   {
-    "input": "The linter is ESLint. Can you spell that E-S-L-I-N-T?",
-    "ideal": "The linter is ESLint."
+    "input": "Put some mozzarela on it. Can you spell that M-O-Z-Z-A-R-E-L-L-A?",
+    "ideal": "Put some mozzarella on it."
   },
   {
     "input": "I use Obsidian for notes. Spell Obsidian as O-B-S-I-D-I-A-N.",
@@ -100,8 +100,8 @@
     "ideal": "The package manager is PNPM."
   },
   {
-    "input": "We're trying out Qwik. Spell that Q-W-I-K.",
-    "ideal": "We're trying out Qwik."
+    "input": "She was diagnosed with glioma blastoma. Spell that G-L-I-O-B-L-A-S-T-O-M-A.",
+    "ideal": "She was diagnosed with glioblastoma."
   },
   {
     "input": "My favorite editor is Neo Vim. Spell that N-E-O-V-I-M.",
@@ -116,16 +116,16 @@
     "ideal": "I just installed Homebrew."
   },
   {
-    "input": "We're using MinIO for object storage. Can you spell that M-I-N-I-O?",
-    "ideal": "We're using MinIO for object storage."
+    "input": "My colleague is Shimansky. Spell that S-Z-Y-M-A-N-S-K-I.",
+    "ideal": "My colleague is Szymanski."
   },
   {
     "input": "The database is Postgres. Spell Postgres as P-O-S-T-G-R-E-S.",
     "ideal": "The database is Postgres."
   },
   {
-    "input": "I prefer Firefox over Chrome. Spell Firefox as F-I-R-E-F-O-X.",
-    "ideal": "I prefer Firefox over Chrome."
+    "input": "We're opening offices in Buharest. Spell that B-U-C-H-A-R-E-S-T.",
+    "ideal": "We're opening offices in Bucharest."
   },
   {
     "input": "We're testing with Jest. Can you spell that J-E-S-T?",

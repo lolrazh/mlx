@@ -92,16 +92,16 @@
     "ideal": "I mean, the treaty was signed in 1848, not 1846, which changes everything."
   },
   {
-    "input": "My bad, I thought the meeting was in conference room B, not A.",
-    "ideal": "My bad, I thought the meeting was in conference room B, not A."
+    "input": "My bad, I sent the merge request to the wrong reviewer.",
+    "ideal": "My bad, I sent the merge request to the wrong reviewer."
   },
   {
     "input": "The algorithm actually performs worse with more training data in this specific case.",
     "ideal": "The algorithm actually performs worse with more training data in this specific case."
   },
   {
-    "input": "Sorry to interrupt, but the client is asking about the deliverables timeline.",
-    "ideal": "Sorry to interrupt, but the client is asking about the deliverables timeline."
+    "input": "I'm so sorry for barging in, but the server room is flooding right now.",
+    "ideal": "I'm so sorry for barging in, but the server room is flooding right now."
   },
   {
     "input": "Wait for the paint to cure completely before applying the second coat.",
@@ -152,16 +152,16 @@
     "ideal": "Oops, I accidentally sent the preliminary budget figures instead of the final revised version."
   },
   {
-    "input": "Can you scratch that paint off the window frame? The previous owners did a terrible job.",
-    "ideal": "Can you scratch that paint off the window frame? The previous owners did a terrible job."
+    "input": "Sorry, I have to scratch the surface of about three years of research just to frame this question properly.",
+    "ideal": "Sorry, I have to scratch the surface of about three years of research just to frame this question properly."
   },
   {
     "input": "Actually, the earliest manuscripts suggest this passage was a later addition by scribes.",
     "ideal": "Actually, the earliest manuscripts suggest this passage was a later addition by scribes."
   },
   {
-    "input": "Sorry to interrupt, but the board has requested your presence in the executive suite immediately.",
-    "ideal": "Sorry to interrupt, but the board has requested your presence in the executive suite immediately."
+    "input": "Sorry about the short notice, but legal needs all those contracts signed by noon.",
+    "ideal": "Sorry about the short notice, but legal needs all those contracts signed by noon."
   },
   {
     "input": "Wait for the solvent to evaporate completely before applying the second coat of varnish.",
@@ -180,8 +180,8 @@
     "ideal": "Oops, I double-booked your calendar for Thursday afternoon with two different clients."
   },
   {
-    "input": "Can you scratch that rust off the bicycle chain? I want to see if it's salvageable.",
-    "ideal": "Can you scratch that rust off the bicycle chain? I want to see if it's salvageable."
+    "input": "She had to scratch her entry from the race after the ankle injury flared up again.",
+    "ideal": "She had to scratch her entry from the race after the ankle injury flared up again."
   },
   {
     "input": "Actually, the Renaissance began in Florence, not Rome, due to the Medici family's patronage of the arts.",
@@ -204,8 +204,8 @@
     "ideal": "Actually, migratory birds navigate using Earth's magnetic field, not just visual landmarks."
   },
   {
-    "input": "Sorry to interrupt, but the board meeting has been moved to the executive suite on fourteen.",
-    "ideal": "Sorry to interrupt, but the board meeting has been moved to the executive suite on fourteen."
+    "input": "Sorry, I know you're in the middle of something, but the production cluster just went down.",
+    "ideal": "Sorry, I know you're in the middle of something, but the production cluster just went down."
   },
   {
     "input": "Wait, you're telling me that cryptocurrency mining consumes more electricity than entire countries?",
@@ -224,8 +224,8 @@
     "ideal": "Oops, I accidentally sent the confidential memo to the entire distribution list instead of just legal."
   },
   {
-    "input": "Can you scratch that label off the vintage wine bottle? I want to see the original château marking underneath.",
-    "ideal": "Can you scratch that label off the vintage wine bottle? I want to see the original château marking underneath."
+    "input": "We're building this whole authentication layer from scratch, which is going to take a few weeks.",
+    "ideal": "We're building this whole authentication layer from scratch, which is going to take a few weeks."
   },
   {
     "input": "Actually, photosynthesis occurs in the chloroplasts, specifically within the thylakoid membranes.",
@@ -248,8 +248,8 @@
     "ideal": "Actually, the fermentation process takes about three weeks if you keep the temperature stable."
   },
   {
-    "input": "Sorry to interrupt, but your parking meter is about to expire.",
-    "ideal": "Sorry to interrupt, but your parking meter is about to expire."
+    "input": "Sorry to keep calling, but the escrow company says they need your signature today.",
+    "ideal": "Sorry to keep calling, but the escrow company says they need your signature today."
   },
   {
     "input": "I mean, I've never seen a blue whale in person, but the documentaries don't do them justice.",
@@ -304,28 +304,28 @@
     "ideal": "Sorry, but your theory doesn't account for the anomalous readings we observed at 3 AM."
   },
   {
-    "input": "I mean, who wouldn't want to spend their retirement sailing the Greek islands?",
-    "ideal": "I mean, who wouldn't want to spend their retirement sailing the Greek islands?"
+    "input": "I mean, the point of the sprint retro is to surface problems, not to celebrate how busy everyone was.",
+    "ideal": "I mean, the point of the sprint retro is to surface problems, not to celebrate how busy everyone was."
   },
   {
-    "input": "My bad, I thought the meeting was Thursday—turns out it's tomorrow morning.",
-    "ideal": "My bad, I thought the meeting was Thursday—turns out it's tomorrow morning."
+    "input": "My bad, I grabbed oat milk instead of whole milk for the latte.",
+    "ideal": "My bad, I grabbed oat milk instead of whole milk for the latte."
   },
   {
     "input": "Oops, I spilled the turmeric—now everything in this kitchen is permanently yellow.",
     "ideal": "Oops, I spilled the turmeric—now everything in this kitchen is permanently yellow."
   },
   {
-    "input": "Actually, quantum entanglement doesn't allow faster-than-light communication, despite popular belief.",
-    "ideal": "Actually, quantum entanglement doesn't allow faster-than-light communication, despite popular belief."
+    "input": "Actually, the speed of sound in water is about four times faster than in air.",
+    "ideal": "Actually, the speed of sound in water is about four times faster than in air."
   },
   {
     "input": "Wait until the sourdough has doubled in volume before shaping the loaf.",
     "ideal": "Wait until the sourdough has doubled in volume before shaping the loaf."
   },
   {
-    "input": "Sorry to interrupt, but the patient in room 304 is asking for pain medication.",
-    "ideal": "Sorry to interrupt, but the patient in room 304 is asking for pain medication."
+    "input": "Sorry, I hope I'm not interrupting—your eleven o'clock is waiting in the lobby.",
+    "ideal": "Sorry, I hope I'm not interrupting—your eleven o'clock is waiting in the lobby."
   },
   {
     "input": "I mean, the cello solo in that recording is technically perfect but emotionally hollow.",
@@ -364,8 +364,8 @@
     "ideal": "Oops, I set the torque wrench to newton-meters instead of foot-pounds—that cylinder head is now warped."
   },
   {
-    "input": "Scratch that lottery ticket with a coin and you'll void it—only the barcode scan determines if you've won.",
-    "ideal": "Scratch that lottery ticket with a coin and you'll void it—only the barcode scan determines if you've won."
+    "input": "I mean, you basically have to scratch at the same itch repeatedly before the codebase gets truly clean.",
+    "ideal": "I mean, you basically have to scratch at the same itch repeatedly before the codebase gets truly clean."
   },
   {
     "input": "Actually, the Fibonacci sequence appears in the spiral arrangement of seeds in a sunflower head.",
@@ -398,5 +398,57 @@
   {
     "input": "Sorry, I didn't catch your name—could you repeat it?",
     "ideal": "Sorry, I didn't catch your name—could you repeat it?"
+  },
+  {
+    "input": "No no, that's the beauty of it — you don't need to install anything, it runs entirely in the browser.",
+    "ideal": "No no, that's the beauty of it — you don't need to install anything, it runs entirely in the browser."
+  },
+  {
+    "input": "No no, I was just saying the architecture looks solid, not that it's production-ready.",
+    "ideal": "No no, I was just saying the architecture looks solid, not that it's production-ready."
+  },
+  {
+    "input": "No no, the meeting went really well actually — she's interested in moving forward.",
+    "ideal": "No no, the meeting went really well actually — she's interested in moving forward."
+  },
+  {
+    "input": "She kept saying no no no every time the toddler reached for the dog's water bowl.",
+    "ideal": "She kept saying no no no every time the toddler reached for the dog's water bowl."
+  },
+  {
+    "input": "No no, take the second left after the roundabout, not the first one.",
+    "ideal": "No no, take the second left after the roundabout, not the first one."
+  },
+  {
+    "input": "No no, I meant the staging branch, not main — please don't push that there.",
+    "ideal": "No no, I meant the staging branch, not main — please don't push that there."
+  },
+  {
+    "input": "The parrot would say no no no if you tried to take away its cracker.",
+    "ideal": "The parrot would say no no no if you tried to take away its cracker."
+  },
+  {
+    "input": "No no, the garlic goes in after the onions soften, not at the very beginning.",
+    "ideal": "No no, the garlic goes in after the onions soften, not at the very beginning."
+  },
+  {
+    "input": "Actually, the team spent the entire last quarter rebuilding the authentication layer from scratch and it still has edge case bugs.",
+    "ideal": "Actually, the team spent the entire last quarter rebuilding the authentication layer from scratch and it still has edge case bugs."
+  },
+  {
+    "input": "Sorry, I keep forgetting that the new office building doesn't have the same badge access policy as the old headquarters did.",
+    "ideal": "Sorry, I keep forgetting that the new office building doesn't have the same badge access policy as the old headquarters did."
+  },
+  {
+    "input": "Wait, are you seriously telling me we deployed to production on a Friday afternoon right before the long weekend?",
+    "ideal": "Wait, are you seriously telling me we deployed to production on a Friday afternoon right before the long weekend?"
+  },
+  {
+    "input": "I mean, the whole point of pair programming is to catch mistakes in real time, not to review them three weeks later in a PR.",
+    "ideal": "I mean, the whole point of pair programming is to catch mistakes in real time, not to review them three weeks later in a PR."
+  },
+  {
+    "input": "My bad, I pulled from the wrong remote branch again and now my local history is completely out of sync with the team's.",
+    "ideal": "My bad, I pulled from the wrong remote branch again and now my local history is completely out of sync with the team's."
   }
 ]

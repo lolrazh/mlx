@@ -100,8 +100,8 @@
     "ideal": "At no point did the defendant admit to the crime."
   },
   {
-    "input": "The debug symbol file helped the engineers trace the memory leak.",
-    "ideal": "The debug symbol file helped the engineers trace the memory leak."
+    "input": "The mathematical symbol for summation looks like a capital sigma from the Greek alphabet.",
+    "ideal": "The mathematical symbol for summation looks like a capital sigma from the Greek alphabet."
   },
   {
     "input": "Children at play need constant supervision near the street.",
@@ -128,8 +128,8 @@
     "ideal": "The luggage tag tore off somewhere between Paris and Bangkok."
   },
   {
-    "input": "The debug symbol file helps developers trace crashes in production.",
-    "ideal": "The debug symbol file helps developers trace crashes in production."
+    "input": "The dove has long been a symbol of peace across many different cultures.",
+    "ideal": "The dove has long been a symbol of peace across many different cultures."
   },
   {
     "input": "She wore a name tag that said 'Hello I'm allergic to meetings'.",
@@ -170,5 +170,21 @@
   {
     "input": "The git tag command creates a reference to a specific commit hash.",
     "ideal": "The git tag command creates a reference to a specific commit hash."
+  },
+  {
+    "input": "The museum curator explained that the red cross symbol carries different meanings under international humanitarian law.",
+    "ideal": "The museum curator explained that the red cross symbol carries different meanings under international humanitarian law."
+  },
+  {
+    "input": "We need to tag all the legacy endpoints in the API documentation before the deprecation notice goes out.",
+    "ideal": "We need to tag all the legacy endpoints in the API documentation before the deprecation notice goes out."
+  },
+  {
+    "input": "Sales dropped by nearly thirty percent after the competitor launched their new product line last spring.",
+    "ideal": "Sales dropped by nearly thirty percent after the competitor launched their new product line last spring."
+  },
+  {
+    "input": "The hashtag she created for the awareness campaign spread to seventeen countries within the first forty-eight hours.",
+    "ideal": "The hashtag she created for the awareness campaign spread to seventeen countries within the first forty-eight hours."
   }
 ]
