@@ -168,18 +168,33 @@ All from Qwen3-4B base.
 
 ## Quantization Impact
 
-From T2 (r=8, iter 400). Same adapters, different quant levels.
+### T2-v4 (v4 data, 1201 train, iter 2000) — Current best
 
-| Quant | Size | Generic Acc | Latency | Delta vs 6-bit |
-|-------|------|-------------|---------|----------------|
+Naive round-to-nearest quantization on fused model.
+
+| Quant | Size | BPW | Accuracy | Exact | Sem | Part | Fail | Latency | Delta vs bf16 |
+|-------|------|-----|----------|-------|-----|------|------|---------|---------------|
+| **bf16** | **7.5 GB** | **16** | **100%** | **23** | **0** | **0** | **0** | **1.82s** | **—** |
+| **6-bit** | **3.1 GB** | **6.5** | **96%** | **22** | **0** | **1** | **0** | **0.94s** | **-4%** |
+| mixed 4/6 | 2.2 GB | 4.75 | 91% | 21 | 0 | 2 | 0 | 0.87s | -9% |
+| 4-bit | 2.1 GB | 4.5 | 87% | 19 | 1 | 3 | 0 | 0.78s | -13% |
+
+6-bit failure: quote-endquote scope (`"lucky"` instead of `"lucky to be here"`).
+Mixed 4/6 adds: emphasis CAPS vs **bold**.
+4-bit adds: second emphasis CAPS, partial caps.
+
+**Ad-hoc generalization tests (5 novel inputs, not in train/test):** bf16=5/5, 6-bit=3/5, mixed 4/6=2/5. Quantized models fail on self-correction (return input verbatim) and complex spell-replacements. Test set accuracy flatters quantized models.
+
+**Verdict:** 6-bit (3.1 GB, 96%, 0.94s) is the deploy target for naive quant. Learned quantization methods (DWQ, dynamic quant) queued to close the gap.
+
+### Historical: T2-v1 (v1 data, 472 train, iter 400)
+
+| Quant | Size | Acc | Latency | Delta vs 6-bit |
+|-------|------|-----|---------|----------------|
 | bf16 | 7.5 GB | 75% | 1.75s | = |
-| 8-bit | 4.0 GB | 75%* | 0.79s | = |
+| 8-bit | 4.0 GB | 75% | 0.79s | = |
 | **6-bit** | **3.1 GB** | **75%** | **0.79s** | **reference** |
-| 4-bit | 2.1 GB | 58% | 0.81s | -17% (2 examples) |
-
-*8-bit was measured during thermal throttle; re-measured matches 6-bit.
-
-**Verdict:** 6-bit is the deployment target. 4-bit loses too much.
+| 4-bit | 2.1 GB | 58% | 0.81s | -17% |
 
 ---
 
@@ -237,7 +252,8 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 
 | Priority | ID | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
-| **HIGH** | **T2-v4-6bit** | **Fuse + 6-bit quantize T2-v4** | **Historical 9% quant loss. T2-v4 at 100% bf16 — does 6-bit hold? This is the deploy gate.** | T2-v4 done ✅ |
+| ~~HIGH~~ | ~~T2-v4-6bit~~ | ~~Fuse + 6-bit quantize T2-v4~~ | ~~DONE. 6-bit=96%, 4-bit=87%, mixed_4_6=91%. Naive quant gap reduced from 9% to 4% (6-bit).~~ | ✅ |
+| **HIGH** | **Learned quant** | **DWQ / dynamic quant on T2-v4 fused model** | **Naive quant loses 4-13%. DWQ fine-tunes quant scales using bf16 as teacher (best for 4-bit). Dynamic quant does data-driven per-layer bit allocation (smarter mixed_4_6). Both built into mlx-lm.** | T2-v4 fused ✅ |
 | **HIGH** | **Muon** | **Implement Muon optimizer in MLX, train T3-v4** | **2x compute efficiency over Adam. Muon-trained models lose only ~0.5% on quantization vs >3% for Adam (arxiv 2601.09865). Could solve the persistent 6-bit regression. Riemannion variant is LoRA-specific (arxiv 2507.12142). Requires ~80 lines of MLX code + hooking into mlx-lm training loop.** | MLX Muon implementation |
 | **HIGH** | **Llama3-T2** | **Llama 3.2 3B on v4 data, 2000 iters** | **Llama hit 87% on v3 (535 ex) with 0 fails — tied for best pre-v4. Fastest convergence of any model. With v4 data it could match/beat Qwen3. 2x faster inference (1.60s vs 3.15s).** | v4 data ✅ |
 | Medium | rsLoRA | r=16, scale=4.0 (rsLoRA scaling) on Qwen3-4B | Standard LoRA penalizes higher rank. rsLoRA (scale=alpha/sqrt(r)) may unlock r=16. Config change only. | T2-v4 config |
