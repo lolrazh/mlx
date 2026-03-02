@@ -1,0 +1,102 @@
+[
+  {
+    "input": "The budget is fifty thousand. Actually, make that sixty. Put it in quotes.",
+    "ideal": "The budget is \"sixty thousand\"."
+  },
+  {
+    "input": "Contact sarah about the deploy. Wait no, contact mike. At symbol before his name.",
+    "ideal": "Contact @mike about the deploy."
+  },
+  {
+    "input": "We're launching in q2. Sorry, q3. Double asterisks around that.",
+    "ideal": "We're launching in **q3**."
+  },
+  {
+    "input": "The priority is medium. Actually high. Fire emoji at the end.",
+    "ideal": "The priority is high. 🔥"
+  },
+  {
+    "input": "Push to the main branch. Wait, the feature branch. Make it all caps.",
+    "ideal": "Push to the FEATURE branch."
+  },
+  {
+    "input": "The deadline was friday. No, monday. Put quote marks around it.",
+    "ideal": "The deadline was \"monday\"."
+  },
+  {
+    "input": "Assign it to the backend team. Actually, the frontend team. At symbol.",
+    "ideal": "Assign it to the @frontend team."
+  },
+  {
+    "input": "The risk level is low. Sorry, make that critical. Skull emoji.",
+    "ideal": "The risk level is critical. 💀"
+  },
+  {
+    "input": "Merge into develop. Wait no, into release. All capital letters.",
+    "ideal": "Merge into RELEASE."
+  },
+  {
+    "input": "The cost is around ten k. Actually fifteen. Emphasize with stars.",
+    "ideal": "The cost is around **fifteen k**."
+  },
+  {
+    "input": "Notify alex when it's done. No, notify jordan. At sign before the name.",
+    "ideal": "Notify @jordan when it's done."
+  },
+  {
+    "input": "The severity is minor. Make that major. Rocket emoji.",
+    "ideal": "The severity is major. 🚀"
+  },
+  {
+    "input": "Deploy to production. Wait, staging first. Quote unquote around staging.",
+    "ideal": "Deploy to \"staging\" first."
+  },
+  {
+    "input": "The eta is two hours. Sorry, thirty minutes. All caps that.",
+    "ideal": "The eta is THIRTY MINUTES."
+  },
+  {
+    "input": "the venue is downtown. actually midtown. put it in quotes.",
+    "ideal": "the venue is \"midtown\"."
+  },
+  {
+    "input": "contact sarah about the bug. no wait, contact mike. at symbol his name.",
+    "ideal": "contact @mike about the bug."
+  },
+  {
+    "input": "we're launching in q3. correction, q4. make that bold with stars.",
+    "ideal": "we're launching in **q4**."
+  },
+  {
+    "input": "the priority is low. scratch that, critical. skull emoji after it.",
+    "ideal": "the priority is critical. 💀"
+  },
+  {
+    "input": "send the report to finance. actually legal needs it. all caps the department.",
+    "ideal": "send the report to LEGAL."
+  },
+  {
+    "input": "the budget is fifty grand. make that seventy five. quote unquote the number.",
+    "ideal": "the budget is \"seventy five\"."
+  },
+  {
+    "input": "flag this for the backend team. no, the frontend team. at sign before them.",
+    "ideal": "flag this for the @frontend team."
+  },
+  {
+    "input": "the risk level is medium. wait, high. fire emoji.",
+    "ideal": "the risk level is high. 🔥"
+  },
+  {
+    "input": "schedule it for monday. actually tuesday works better. bold that day.",
+    "ideal": "schedule it for **tuesday**."
+  },
+  {
+    "input": "the owner is priya. correction, david. all caps his name.",
+    "ideal": "the owner is DAVID."
+  },
+  {
+    "input": "push to the main branch. scratch that, the feature branch. quotes around it.",
+    "ideal": "push to the \"feature\" branch."
+  }
+]

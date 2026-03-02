@@ -1,0 +1,130 @@
+[
+  {
+    "input": "Spell that R-E-A-C-T, we're building a new component.",
+    "ideal": "React, we're building a new component."
+  },
+  {
+    "input": "The meeting is in the N-O-R-T-H wing, can you spell that?",
+    "ideal": "The meeting is in the north wing."
+  },
+  {
+    "input": "She works at G-O-O-G-L-E, that's spelled, in their cloud division.",
+    "ideal": "She works at Google in their cloud division."
+  },
+  {
+    "input": "Can you spell that? P-Y-T-H-O-N is what we use for scripting.",
+    "ideal": "Python is what we use for scripting."
+  },
+  {
+    "input": "The password is S-E-C-R-E-T, spell it as, don't share it.",
+    "ideal": "The password is secret, don't share it."
+  },
+  {
+    "input": "We're migrating to A-W-S, spelled, by next quarter.",
+    "ideal": "We're migrating to AWS by next quarter."
+  },
+  {
+    "input": "Spell that D-O-C-K-E-R, it's how we containerize everything.",
+    "ideal": "Docker, it's how we containerize everything."
+  },
+  {
+    "input": "The restaurant is called B-I-S-T-R-O, can you spell that, on Main Street.",
+    "ideal": "The restaurant is called bistro on Main Street."
+  },
+  {
+    "input": "That's spelled T-A-B-L-E, we need another one for the guests.",
+    "ideal": "Table, we need another one for the guests."
+  },
+  {
+    "input": "Can you spell that? G-I-T-H-U-B is where we host the repo.",
+    "ideal": "GitHub is where we host the repo."
+  },
+  {
+    "input": "The variable is named I-N-D-E-X, spell it as, starting at zero.",
+    "ideal": "The variable is named index, starting at zero."
+  },
+  {
+    "input": "Spell that M-O-N-G-O, we're using it for the database layer.",
+    "ideal": "Mongo, we're using it for the database layer."
+  },
+  {
+    "input": "The folder is called S-R-C, spelled, with all the source files.",
+    "ideal": "The folder is called src with all the source files."
+  },
+  {
+    "input": "Can you spell that? R-E-D-I-S is what caches our sessions.",
+    "ideal": "Redis is what caches our sessions."
+  },
+  {
+    "input": "We're migrating to A-W-S, can you spell that, for our cloud infrastructure.",
+    "ideal": "We're migrating to AWS for our cloud infrastructure."
+  },
+  {
+    "input": "The package is called N-U-M-P-Y, spell that, for numerical computing.",
+    "ideal": "The package is called NumPy for numerical computing."
+  },
+  {
+    "input": "Spell it as P-A-N-D-A-S, that's spelled, for data manipulation.",
+    "ideal": "Pandas for data manipulation."
+  },
+  {
+    "input": "The framework is D-J-A-N-G-O, can you spell that, for web development.",
+    "ideal": "The framework is Django for web development."
+  },
+  {
+    "input": "We're using F-L-A-S-K, spell that, for our lightweight API.",
+    "ideal": "We're using Flask for our lightweight API."
+  },
+  {
+    "input": "The tool is called D-O-C-K-E-R, that's spelled, for containerization.",
+    "ideal": "The tool is called Docker for containerization."
+  },
+  {
+    "input": "Spell it as K-U-B-E-R-N-E-T-E-S, can you spell that, for orchestration.",
+    "ideal": "Kubernetes for orchestration."
+  },
+  {
+    "input": "The library is R-E-A-C-T, spell that, for our frontend.",
+    "ideal": "The library is React for our frontend."
+  },
+  {
+    "input": "We're building with V-U-E, that's spelled, for the user interface.",
+    "ideal": "We're building with Vue for the user interface."
+  },
+  {
+    "input": "The database is P-O-S-T-G-R-E-S, can you spell that, for relational storage.",
+    "ideal": "The database is Postgres for relational storage."
+  },
+  {
+    "input": "Spell it as M-Y-S-Q-L, that's spelled, for our legacy system.",
+    "ideal": "MySQL for our legacy system."
+  },
+  {
+    "input": "The protocol is H-T-T-P-S, spell that, for secure connections.",
+    "ideal": "The protocol is HTTPS for secure connections."
+  },
+  {
+    "input": "We're using G-R-P-C, can you spell that, for microservices communication.",
+    "ideal": "We're using gRPC for microservices communication."
+  },
+  {
+    "input": "The format is J-S-O-N, that's spelled, for data exchange.",
+    "ideal": "The format is JSON for data exchange."
+  },
+  {
+    "input": "The package manager is called N-P-M, can you spell that.",
+    "ideal": "The package manager is called Npm."
+  },
+  {
+    "input": "We're hosting on V-E-R-C-E-L, spell it as, for serverless deployment.",
+    "ideal": "We're hosting on Vercel for serverless deployment."
+  },
+  {
+    "input": "The language is T-Y-P-E-S-C-R-I-P-T, can you spell that, with strict mode enabled.",
+    "ideal": "The language is TypeScript with strict mode enabled."
+  },
+  {
+    "input": "We're using R-E-D-I-S, spell that, for caching layer.",
+    "ideal": "We're using Redis for caching layer."
+  }
+]

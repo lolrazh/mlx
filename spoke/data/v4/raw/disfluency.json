@@ -1,0 +1,122 @@
+[
+  {
+    "input": "um so I was wondering if you could review my pull request",
+    "ideal": "so I was wondering if you could review my pull request"
+  },
+  {
+    "input": "the uh the database connection keeps timing out during peak hours",
+    "ideal": "the database connection keeps timing out during peak hours"
+  },
+  {
+    "input": "I think we should ah probably use a different caching strategy, you know, for the API layer",
+    "ideal": "I think we should probably use a different caching strategy, you know, for the API layer"
+  },
+  {
+    "input": "um actually I don't think that's the right approach here",
+    "ideal": "actually I don't think that's the right approach here"
+  },
+  {
+    "input": "she was like uh really excited about the new design system",
+    "ideal": "she was like really excited about the new design system"
+  },
+  {
+    "input": "the um the build pipeline is broken again because of that dependency update",
+    "ideal": "the build pipeline is broken again because of that dependency update"
+  },
+  {
+    "input": "I mean uh we could just ship it and see what happens, right",
+    "ideal": "I mean we could just ship it and see what happens, right"
+  },
+  {
+    "input": "ah I forgot to mention that the meeting got moved to Thursday",
+    "ideal": "I forgot to mention that the meeting got moved to Thursday"
+  },
+  {
+    "input": "so um basically we're looking at a complete rewrite of the frontend",
+    "ideal": "so basically we're looking at a complete rewrite of the frontend"
+  },
+  {
+    "input": "the uh the tests are passing locally but failing in CI",
+    "ideal": "the tests are passing locally but failing in CI"
+  },
+  {
+    "input": "you know um I think we should probably just stick with the current stack for now",
+    "ideal": "you know I think we should probably just stick with the current stack for now"
+  },
+  {
+    "input": "ahh that makes way more sense now, thanks for clarifying",
+    "ideal": "that makes way more sense now, thanks for clarifying"
+  },
+  {
+    "input": "umm so I was thinking maybe we could add some rate limiting to the endpoints",
+    "ideal": "so I was thinking maybe we could add some rate limiting to the endpoints"
+  },
+  {
+    "input": "the um the uh the logs don't show anything useful unfortunately",
+    "ideal": "the logs don't show anything useful unfortunately"
+  },
+  {
+    "input": "um can you check if the um database connection pool is maxed out",
+    "ideal": "can you check if the database connection pool is maxed out"
+  },
+  {
+    "input": "I was uh walking the dog this morning and ah it started raining out of nowhere",
+    "ideal": "I was walking the dog this morning and it started raining out of nowhere"
+  },
+  {
+    "input": "the uh API response time is like way slower than it was last week",
+    "ideal": "the API response time is like way slower than it was last week"
+  },
+  {
+    "input": "um actually I think we should probably just rewrite the whole thing from scratch",
+    "ideal": "actually I think we should probably just rewrite the whole thing from scratch"
+  },
+  {
+    "input": "my mom uh she keeps asking when I'm gonna get married and ah it's so awkward",
+    "ideal": "my mom she keeps asking when I'm gonna get married and it's so awkward"
+  },
+  {
+    "input": "so the um the cache invalidation logic is basically broken right now",
+    "ideal": "so the cache invalidation logic is basically broken right now"
+  },
+  {
+    "input": "uhh I don't know if I told you but I'm moving to Portland next month",
+    "ideal": "I don't know if I told you but I'm moving to Portland next month"
+  },
+  {
+    "input": "the um the webpack build is taking like forty five seconds now which is ridiculous",
+    "ideal": "the webpack build is taking like forty five seconds now which is ridiculous"
+  },
+  {
+    "input": "I was uh trying to make sourdough bread and ah I killed my starter somehow",
+    "ideal": "I was trying to make sourdough bread and I killed my starter somehow"
+  },
+  {
+    "input": "umm can we roll back the um the migration that added the new column",
+    "ideal": "can we roll back the migration that added the new column"
+  },
+  {
+    "input": "the uh the TypeScript compiler is complaining about um something in the types folder",
+    "ideal": "the TypeScript compiler is complaining about something in the types folder"
+  },
+  {
+    "input": "ahh I completely forgot we had that meeting today, thanks for the reminder",
+    "ideal": "I completely forgot we had that meeting today, thanks for the reminder"
+  },
+  {
+    "input": "so um I was thinking maybe we could ah switch to a monorepo structure",
+    "ideal": "so I was thinking maybe we could switch to a monorepo structure"
+  },
+  {
+    "input": "the uh the grocery store was out of um the good kind of olive oil again",
+    "ideal": "the grocery store was out of the good kind of olive oil again"
+  },
+  {
+    "input": "we should probably um refactor this whole thing before the uh release next week",
+    "ideal": "we should probably refactor this whole thing before the release next week"
+  },
+  {
+    "input": "the ah the database connection keeps timing out and um I can't figure out why",
+    "ideal": "the database connection keeps timing out and I can't figure out why"
+  }
+]

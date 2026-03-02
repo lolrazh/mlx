@@ -1,0 +1,118 @@
+[
+  {
+    "input": "The server is down. All caps.",
+    "ideal": "THE SERVER IS DOWN."
+  },
+  {
+    "input": "Press enter to continue. Make that uppercase.",
+    "ideal": "Press ENTER to continue."
+  },
+  {
+    "input": "This is a test environment. Use all caps.",
+    "ideal": "THIS IS A TEST ENVIRONMENT."
+  },
+  {
+    "input": "The package says handle with care. Capitalize that phrase.",
+    "ideal": "The package says HANDLE WITH CARE."
+  },
+  {
+    "input": "Database connection failed. Make it all uppercase.",
+    "ideal": "DATABASE CONNECTION FAILED."
+  },
+  {
+    "input": "Click the submit button. In caps.",
+    "ideal": "CLICK THE SUBMIT BUTTON."
+  },
+  {
+    "input": "Warning unauthorized access detected. All caps on warning.",
+    "ideal": "WARNING unauthorized access detected."
+  },
+  {
+    "input": "The header should read confidential. Capitalize that.",
+    "ideal": "The header should read CONFIDENTIAL."
+  },
+  {
+    "input": "System update required. Make everything uppercase.",
+    "ideal": "SYSTEM UPDATE REQUIRED."
+  },
+  {
+    "input": "Type your password here. In all caps for password.",
+    "ideal": "Type your PASSWORD here."
+  },
+  {
+    "input": "The label says do not disturb. Make that all caps.",
+    "ideal": "The label says DO NOT DISTURB."
+  },
+  {
+    "input": "Critical error occurred. Use uppercase.",
+    "ideal": "CRITICAL ERROR OCCURRED."
+  },
+  {
+    "input": "Select the priority option. Capitalize priority.",
+    "ideal": "Select the PRIORITY option."
+  },
+  {
+    "input": "File not found. Make it all caps.",
+    "ideal": "FILE NOT FOUND."
+  },
+  {
+    "input": "The sign reads exit only. In caps for exit only.",
+    "ideal": "The sign reads EXIT ONLY."
+  },
+  {
+    "input": "Push the emergency stop button now. All caps on emergency stop.",
+    "ideal": "Push the EMERGENCY STOP button now."
+  },
+  {
+    "input": "The server returned a forbidden error. Make forbidden all uppercase.",
+    "ideal": "The server returned a FORBIDDEN error."
+  },
+  {
+    "input": "Database connection failed. Use all caps.",
+    "ideal": "DATABASE CONNECTION FAILED."
+  },
+  {
+    "input": "The package requires signature confirmation. Make it all caps.",
+    "ideal": "THE PACKAGE REQUIRES SIGNATURE CONFIRMATION."
+  },
+  {
+    "input": "Click the submit button when ready. In caps for submit.",
+    "ideal": "Click the SUBMIT button when ready."
+  },
+  {
+    "input": "Memory allocation exceeded. All caps that.",
+    "ideal": "MEMORY ALLOCATION EXCEEDED."
+  },
+  {
+    "input": "The gate says authorized personnel only. Capitalize authorized personnel.",
+    "ideal": "The gate says AUTHORIZED PERSONNEL only."
+  },
+  {
+    "input": "Buffer overflow detected. Make overflow uppercase.",
+    "ideal": "Buffer OVERFLOW detected."
+  },
+  {
+    "input": "Please handle with care. Use all caps.",
+    "ideal": "PLEASE HANDLE WITH CARE."
+  },
+  {
+    "input": "The invoice shows amount due. Capitalize amount due.",
+    "ideal": "The invoice shows AMOUNT DUE."
+  },
+  {
+    "input": "Network timeout occurred. In caps.",
+    "ideal": "NETWORK TIMEOUT OCCURRED."
+  },
+  {
+    "input": "Mark this as confidential. Make confidential all caps.",
+    "ideal": "Mark this as CONFIDENTIAL."
+  },
+  {
+    "input": "The screen reads no signal. Capitalize no signal.",
+    "ideal": "The screen reads NO SIGNAL."
+  },
+  {
+    "input": "The package is marked live animals. Make that uppercase.",
+    "ideal": "The package is marked LIVE ANIMALS."
+  }
+]

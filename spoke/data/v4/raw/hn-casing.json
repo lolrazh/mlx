@@ -1,0 +1,138 @@
+[
+  {
+    "input": "He wore his lucky baseball caps to every game last season.",
+    "ideal": "He wore his lucky baseball caps to every game last season."
+  },
+  {
+    "input": "Make sure the bottle caps are tightly sealed before shipping.",
+    "ideal": "Make sure the bottle caps are tightly sealed before shipping."
+  },
+  {
+    "input": "The keyboard's caps lock indicator light seems to be broken.",
+    "ideal": "The keyboard's caps lock indicator light seems to be broken."
+  },
+  {
+    "input": "In English, we typically capitalize the first word of a sentence.",
+    "ideal": "In English, we typically capitalize the first word of a sentence."
+  },
+  {
+    "input": "The style guide says to capitalize proper nouns and nothing else.",
+    "ideal": "The style guide says to capitalize proper nouns and nothing else."
+  },
+  {
+    "input": "Some languages capitalize all nouns, not just proper ones.",
+    "ideal": "Some languages capitalize all nouns, not just proper ones."
+  },
+  {
+    "input": "The toUpperCase method returns the uppercase version of a string.",
+    "ideal": "The toUpperCase method returns the uppercase version of a string."
+  },
+  {
+    "input": "Comparing strings in uppercase ensures case-insensitive matching.",
+    "ideal": "Comparing strings in uppercase ensures case-insensitive matching."
+  },
+  {
+    "input": "The password must contain at least one lowercase letter.",
+    "ideal": "The password must contain at least one lowercase letter."
+  },
+  {
+    "input": "Converting to lowercase before hashing prevents case sensitivity issues.",
+    "ideal": "Converting to lowercase before hashing prevents case sensitivity issues."
+  },
+  {
+    "input": "The CSS property supports both uppercase and capitalize values.",
+    "ideal": "The CSS property supports both uppercase and capitalize values."
+  },
+  {
+    "input": "She collected vintage soda bottle caps from the 1950s.",
+    "ideal": "She collected vintage soda bottle caps from the 1950s."
+  },
+  {
+    "input": "The programming language uses lowercase for all its keywords.",
+    "ideal": "The programming language uses lowercase for all its keywords."
+  },
+  {
+    "input": "Understanding when to capitalize titles can be tricky in English.",
+    "ideal": "Understanding when to capitalize titles can be tricky in English."
+  },
+  {
+    "input": "The security guard's caps and badges were clearly visible on his uniform.",
+    "ideal": "The security guard's caps and badges were clearly visible on his uniform."
+  },
+  {
+    "input": "In Python, you can use .upper() to create an uppercase copy of a string.",
+    "ideal": "In Python, you can use .upper() to create an uppercase copy of a string."
+  },
+  {
+    "input": "The pharmacist warned that childproof caps can be difficult for elderly patients.",
+    "ideal": "The pharmacist warned that childproof caps can be difficult for elderly patients."
+  },
+  {
+    "input": "Learning to capitalize proper nouns is a fundamental grammar skill.",
+    "ideal": "Learning to capitalize proper nouns is a fundamental grammar skill."
+  },
+  {
+    "input": "The database query failed because it couldn't match lowercase against UPPERCASE entries.",
+    "ideal": "The database query failed because it couldn't match lowercase against UPPERCASE entries."
+  },
+  {
+    "input": "She knitted warm caps for the newborn babies at the hospital.",
+    "ideal": "She knitted warm caps for the newborn babies at the hospital."
+  },
+  {
+    "input": "The editor explained that we don't capitalize job titles when they follow a name.",
+    "ideal": "The editor explained that we don't capitalize job titles when they follow a name."
+  },
+  {
+    "input": "Unix file systems treat uppercase and lowercase filenames as completely different.",
+    "ideal": "Unix file systems treat uppercase and lowercase filenames as completely different."
+  },
+  {
+    "input": "The graduation caps flew into the air as the ceremony ended.",
+    "ideal": "The graduation caps flew into the air as the ceremony ended."
+  },
+  {
+    "input": "Regular expressions can use flags to make matching case-insensitive, ignoring uppercase differences.",
+    "ideal": "Regular expressions can use flags to make matching case-insensitive, ignoring uppercase differences."
+  },
+  {
+    "input": "The debate over whether to capitalize internet has lasted decades among copy editors.",
+    "ideal": "The debate over whether to capitalize internet has lasted decades among copy editors."
+  },
+  {
+    "input": "Mushroom foragers know that some deadly species have distinctive caps with white gills.",
+    "ideal": "Mushroom foragers know that some deadly species have distinctive caps with white gills."
+  },
+  {
+    "input": "Baseball players from the 1920s wore wool caps with short brims.",
+    "ideal": "Baseball players from the 1920s wore wool caps with short brims."
+  },
+  {
+    "input": "In Python, you can check if a string is uppercase using the isupper method before processing.",
+    "ideal": "In Python, you can check if a string is uppercase using the isupper method before processing."
+  },
+  {
+    "input": "The venture capitalist decided to capitalize the startup during its Series B funding round.",
+    "ideal": "The venture capitalist decided to capitalize the startup during its Series B funding round."
+  },
+  {
+    "input": "The editor explained that some style guides lowercase seasons unless part of a proper noun.",
+    "ideal": "The editor explained that some style guides lowercase seasons unless part of a proper noun."
+  },
+  {
+    "input": "Mycologists study how mushroom caps develop their distinctive spore-bearing surfaces.",
+    "ideal": "Mycologists study how mushroom caps develop their distinctive spore-bearing surfaces."
+  },
+  {
+    "input": "The accountant noted that companies often capitalize software development costs under GAAP rules.",
+    "ideal": "The accountant noted that companies often capitalize software development costs under GAAP rules."
+  },
+  {
+    "input": "Lacrosse players wear helmets with face masks instead of simple caps for protection.",
+    "ideal": "Lacrosse players wear helmets with face masks instead of simple caps for protection."
+  },
+  {
+    "input": "The linguistics professor demonstrated how German nouns always appear in uppercase in formal writing.",
+    "ideal": "The linguistics professor demonstrated how German nouns always appear in uppercase in formal writing."
+  }
+]

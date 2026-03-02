@@ -1,0 +1,142 @@
+[
+  {
+    "input": "I always lose the spelling bee in the first round.",
+    "ideal": "I always lose the spelling bee in the first round."
+  },
+  {
+    "input": "She spelled her own name wrong on the form.",
+    "ideal": "She spelled her own name wrong on the form."
+  },
+  {
+    "input": "The spelling of 'color' versus 'colour' depends on which country you're in.",
+    "ideal": "The spelling of 'color' versus 'colour' depends on which country you're in."
+  },
+  {
+    "input": "I can't spell to save my life.",
+    "ideal": "I can't spell to save my life."
+  },
+  {
+    "input": "He won the national spelling competition when he was twelve.",
+    "ideal": "He won the national spelling competition when he was twelve."
+  },
+  {
+    "input": "Spell check keeps flagging my last name as an error.",
+    "ideal": "Spell check keeps flagging my last name as an error."
+  },
+  {
+    "input": "The word is spelled with a silent 'k' at the beginning.",
+    "ideal": "The word is spelled with a silent 'k' at the beginning."
+  },
+  {
+    "input": "Poor spelling in a job application makes a terrible first impression.",
+    "ideal": "Poor spelling in a job application makes a terrible first impression."
+  },
+  {
+    "input": "How do you spell 'accommodate'? I always get it wrong.",
+    "ideal": "How do you spell 'accommodate'? I always get it wrong."
+  },
+  {
+    "input": "The document went through spell check three times before submission.",
+    "ideal": "The document went through spell check three times before submission."
+  },
+  {
+    "input": "Her spelling has improved dramatically since she started reading more.",
+    "ideal": "Her spelling has improved dramatically since she started reading more."
+  },
+  {
+    "input": "I need to check the spelling of his email address before I send this.",
+    "ideal": "I need to check the spelling of his email address before I send this."
+  },
+  {
+    "input": "The band's name is deliberately spelled with a 'z' instead of an 's'.",
+    "ideal": "The band's name is deliberately spelled with a 'z' instead of an 's'."
+  },
+  {
+    "input": "Spell check won't catch when you use 'their' instead of 'there'.",
+    "ideal": "Spell check won't catch when you use 'their' instead of 'there'."
+  },
+  {
+    "input": "The witch cast a spell that lasted until midnight.",
+    "ideal": "The witch cast a spell that lasted until midnight."
+  },
+  {
+    "input": "Under his spell, the audience sat completely silent.",
+    "ideal": "Under his spell, the audience sat completely silent."
+  },
+  {
+    "input": "The dry spell ruined crops across three counties.",
+    "ideal": "The dry spell ruined crops across three counties."
+  },
+  {
+    "input": "She worked in short bursts, broken by spells of dizziness.",
+    "ideal": "She worked in short bursts, broken by spells of dizziness."
+  },
+  {
+    "input": "The old house had a spell of bad luck attached to it.",
+    "ideal": "The old house had a spell of bad luck attached to it."
+  },
+  {
+    "input": "He broke the spell by speaking her true name aloud.",
+    "ideal": "He broke the spell by speaking her true name aloud."
+  },
+  {
+    "input": "The cold spell brought temperatures below zero for a week.",
+    "ideal": "The cold spell brought temperatures below zero for a week."
+  },
+  {
+    "input": "She fell under the spell of his charismatic personality.",
+    "ideal": "She fell under the spell of his charismatic personality."
+  },
+  {
+    "input": "The wizard's spell backfired, turning him into a frog.",
+    "ideal": "The wizard's spell backfired, turning him into a frog."
+  },
+  {
+    "input": "A wet spell in April saved the reservoir from drying up.",
+    "ideal": "A wet spell in April saved the reservoir from drying up."
+  },
+  {
+    "input": "The enchantress wove a spell of protection around the child.",
+    "ideal": "The enchantress wove a spell of protection around the child."
+  },
+  {
+    "input": "After a brief spell of unemployment, he found work at the mill.",
+    "ideal": "After a brief spell of unemployment, he found work at the mill."
+  },
+  {
+    "input": "The spell was broken when the clock struck twelve.",
+    "ideal": "The spell was broken when the clock struck twelve."
+  },
+  {
+    "input": "She served a short spell in prison for tax fraud.",
+    "ideal": "She served a short spell in prison for tax fraud."
+  },
+  {
+    "input": "The word is spelled with a silent K, like knife.",
+    "ideal": "The word is spelled with a silent K, like knife."
+  },
+  {
+    "input": "Can you believe she won the national spelling competition?",
+    "ideal": "Can you believe she won the national spelling competition?"
+  },
+  {
+    "input": "The document is full of spelling errors that need fixing.",
+    "ideal": "The document is full of spelling errors that need fixing."
+  },
+  {
+    "input": "I never learned to spell rhythm correctly on the first try.",
+    "ideal": "I never learned to spell rhythm correctly on the first try."
+  },
+  {
+    "input": "She's been studying for the spelling championship all summer.",
+    "ideal": "She's been studying for the spelling championship all summer."
+  },
+  {
+    "input": "The name is spelled with two Ls, not one.",
+    "ideal": "The name is spelled with two Ls, not one."
+  },
+  {
+    "input": "Poor spelling in job applications really hurts your chances.",
+    "ideal": "Poor spelling in job applications really hurts your chances."
+  }
+]

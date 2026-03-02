@@ -1,0 +1,127 @@
+[
+  {
+    "input": "The meeting is at three. Actually, no, that's tomorrow. Today it's at two.",
+    "ideal": "The meeting is at two.",
+    "correction": true
+  },
+  {
+    "input": "I mean, we could always just rewrite the whole module from scratch if we wanted to.",
+    "ideal": "I mean, we could always just rewrite the whole module from scratch if we wanted to.",
+    "correction": false
+  },
+  {
+    "input": "We're hiring five engineers this quarter. Sorry, I mean three engineers and two designers.",
+    "ideal": "We're hiring three engineers and two designers this quarter.",
+    "correction": true
+  },
+  {
+    "input": "The API latency is around two hundred milliseconds. Actually, that's the p50. The p99 is closer to eight hundred.",
+    "ideal": "The API latency is around two hundred milliseconds. Actually, that's the p50. The p99 is closer to eight hundred.",
+    "correction": false
+  },
+  {
+    "input": "I need to pick up milk and eggs. Actually, scratch that, we have plenty of eggs. Just milk.",
+    "ideal": "I need to pick up milk.",
+    "correction": true
+  },
+  {
+    "input": "The database is Postgres. I mean, we're running Aurora Postgres, so it's managed but it's still Postgres.",
+    "ideal": "The database is Postgres. I mean, we're running Aurora Postgres, so it's managed but it's still Postgres.",
+    "correction": false
+  },
+  {
+    "input": "Our churn rate is five percent monthly. Sorry, that's annual. Monthly it's under one percent.",
+    "ideal": "Our churn rate is under one percent monthly.",
+    "correction": true
+  },
+  {
+    "input": "I actually prefer the old design, if I'm being completely honest with you.",
+    "ideal": "I actually prefer the old design, if I'm being completely honest with you.",
+    "correction": false
+  },
+  {
+    "input": "The sprint ends Friday. Actually, no, we extended it. It ends next Tuesday now.",
+    "ideal": "The sprint ends next Tuesday.",
+    "correction": true
+  },
+  {
+    "input": "We're using Python for the backend. Actually, the ML pipeline is Python but the API is Go.",
+    "ideal": "We're using Python for the backend. Actually, the ML pipeline is Python but the API is Go.",
+    "correction": false
+  },
+  {
+    "input": "My flight lands at six. I mean, that's when we touch down. Deplaning is more like six thirty.",
+    "ideal": "My flight lands at six. I mean, that's when we touch down. Deplaning is more like six thirty.",
+    "correction": false
+  },
+  {
+    "input": "The budget was approved for fifty K. Actually, they cut it. We got forty K.",
+    "ideal": "The budget was approved for forty K.",
+    "correction": true
+  },
+  {
+    "input": "I mean, it's fine, I guess, but I was expecting something a little different.",
+    "ideal": "I mean, it's fine, I guess, but I was expecting something a little different.",
+    "correction": false
+  },
+  {
+    "input": "The team is eight people. Sorry, that's including me. Seven without me.",
+    "ideal": "The team is seven people.",
+    "correction": true
+  },
+  {
+    "input": "The meeting's at three. Actually, no, that's the standup. The real meeting's at four.",
+    "ideal": "The meeting's at four.",
+    "correction": true
+  },
+  {
+    "input": "I mean, who even uses jQuery anymore? It's all React and Vue these days.",
+    "ideal": "I mean, who even uses jQuery anymore? It's all React and Vue these days.",
+    "correction": false
+  },
+  {
+    "input": "Our churn rate is twelve percent. Sorry, I was looking at monthly. Annual is eight percent.",
+    "ideal": "Our churn rate is eight percent.",
+    "correction": true
+  },
+  {
+    "input": "The pasta was amazing. Actually, the whole meal was incredible. We should go back.",
+    "ideal": "The pasta was amazing. Actually, the whole meal was incredible. We should go back.",
+    "correction": false
+  },
+  {
+    "input": "She's joining in March. I mean, that's her last day at the old place. Start date's April.",
+    "ideal": "She's joining in April.",
+    "correction": true
+  },
+  {
+    "input": "I mean, I've seen worse codebases, but this one definitely needs some love.",
+    "ideal": "I mean, I've seen worse codebases, but this one definitely needs some love.",
+    "correction": false
+  },
+  {
+    "input": "The warranty covers two years. Actually, that's the basic plan. We got the five year upgrade.",
+    "ideal": "The warranty covers five years.",
+    "correction": true
+  },
+  {
+    "input": "Actually, now that I think about it, the coffee here is better than I remembered.",
+    "ideal": "Actually, now that I think about it, the coffee here is better than I remembered.",
+    "correction": false
+  },
+  {
+    "input": "He's based in Austin. Sorry, that's his home office. He's actually working remote from Denver now.",
+    "ideal": "He's based in Denver.",
+    "correction": true
+  },
+  {
+    "input": "I mean, it's not rocket science, but you do need to understand the basics first.",
+    "ideal": "I mean, it's not rocket science, but you do need to understand the basics first.",
+    "correction": false
+  },
+  {
+    "input": "The rollout starts Monday. Actually, that's the beta. General availability is the following week.",
+    "ideal": "The rollout starts the following week.",
+    "correction": true
+  }
+]

@@ -1,0 +1,142 @@
+[
+  {
+    "input": "I'm using Wispor for transcription, spell that W-I-S-P-R. Wait no, I said the wrong library, it's Deepgram.",
+    "ideal": "I'm using Deepgram for transcription."
+  },
+  {
+    "input": "Check out Superbace for your database needs, spell that S-U-P-A-B-A-S-E. Emphasize Supabase.",
+    "ideal": "Check out **Supabase** for your database needs."
+  },
+  {
+    "input": "Message Devops about Surealdb issues, spell that S-U-R-R-E-A-L-D-B. Tag devops with an at symbol.",
+    "ideal": "Message @devops about Surrealdb issues."
+  },
+  {
+    "input": "The status is urgant on this ticket, spell that U-R-G-E-N-T. All caps.",
+    "ideal": "The status is URGENT on this ticket."
+  },
+  {
+    "input": "We shipped Wisper Flow yesterday, spell Wisper as W-I-S-P-R. Fire emoji.",
+    "ideal": "We shipped Wispr Flow yesterday. 🔥"
+  },
+  {
+    "input": "Set up a web hook for Stripe, spell that W-E-B-H-O-O-K. Wait actually I meant webhook not web hook, make it one word.",
+    "ideal": "Set up a webhook for Stripe."
+  },
+  {
+    "input": "The docker image is built from U buntu, spell that U-B-U-N-T-U. Emphasize Ubuntu.",
+    "ideal": "The docker image is built from **Ubuntu**."
+  },
+  {
+    "input": "File a bug for the Type script compiler, spell that T-Y-P-E-S-C-R-I-P-T. All caps.",
+    "ideal": "File a bug for the TYPESCRIPT compiler."
+  },
+  {
+    "input": "Deploy to Vercel, spell that V-E-R-C-E-L. Tag the frontend team with an at symbol.",
+    "ideal": "Deploy to Vercel. @frontend"
+  },
+  {
+    "input": "The meeting is at noon pacific time, spell that P-S-T. Wait no that's wrong, it's eastern time.",
+    "ideal": "The meeting is at noon eastern time."
+  },
+  {
+    "input": "Use Tail wind for styling, spell that T-A-I-L-W-I-N-D. Emphasize Tailwind.",
+    "ideal": "Use **Tailwind** for styling."
+  },
+  {
+    "input": "The API key is for Open A I, spell that O-P-E-N-A-I. All caps and tag billing with an at symbol.",
+    "ideal": "The API key is for OPENAI. @billing"
+  },
+  {
+    "input": "Push to Getup, spell that G-I-T-H-U-B. Wait no I meant GitLab, change it to GitLab.",
+    "ideal": "Push to GitLab."
+  },
+  {
+    "input": "The database is Postgress, spell that P-O-S-T-G-R-E-S. Emphasize PostgreSQL.",
+    "ideal": "The database is **PostgreSQL**."
+  },
+  {
+    "input": "Message the SRE team about the outage in prowd, spell that P-R-O-D. Tag sre with an at symbol.",
+    "ideal": "Message the SRE team about the outage in prod. @sre"
+  },
+  {
+    "input": "The status is criticle, spell that C-R-I-T-I-C-A-L. All caps and fire emoji.",
+    "ideal": "The status is CRITICAL. 🔥"
+  },
+  {
+    "input": "We're using Reaact, spell that R-E-A-C-T. Wait actually it's Vue, change it to Vue.",
+    "ideal": "We're using Vue."
+  },
+  {
+    "input": "Check the logs in Papertrail, spell that P-A-P-E-R-T-R-A-I-L. Emphasize Papertrail and tag devops with an at symbol.",
+    "ideal": "Check the logs in **Papertrail**. @devops"
+  },
+  {
+    "input": "The meeting is in the zoom room, spell that Z-O-O-M. All caps.",
+    "ideal": "The meeting is in the ZOOM room."
+  },
+  {
+    "input": "Deploy to Herroku, spell that H-E-R-O-K-U. Wait no we're on Render now, change it to Render.",
+    "ideal": "Deploy to Render."
+  },
+  {
+    "input": "The package is from NPM, spell that N-P-M. Emphasize npm.",
+    "ideal": "The package is from **npm**."
+  },
+  {
+    "input": "Contact the customer about their ticket in Zendesk, spell that Z-E-N-D-E-S-K. Tag support with an at symbol and checkmark emoji.",
+    "ideal": "Contact the customer about their ticket in Zendesk. @support ✅"
+  },
+  {
+    "input": "The region is US East, spell that U-S-E-A-S-T-1. All caps.",
+    "ideal": "The region is USEAST1."
+  },
+  {
+    "input": "We're migrating to Kaffka, spell that K-A-F-K-A. Wait actually it's RabbitMQ, change it to RabbitMQ.",
+    "ideal": "We're migrating to RabbitMQ."
+  },
+  {
+    "input": "The endpoint is for Stripe, spell that S-T-R-I-P-E. Emphasize Stripe and tag payments with an at symbol.",
+    "ideal": "The endpoint is for **Stripe**. @payments"
+  },
+  {
+    "input": "We need to fix the bug in Jira, spell that J-I-R-A. Wait no I meant Linear, change it to Linear.",
+    "ideal": "We need to fix the bug in Linear."
+  },
+  {
+    "input": "The meeting is in Zoom, spell that Z-O-O-M. Tag calendar with an at symbol.",
+    "ideal": "The meeting is in Zoom. @calendar"
+  },
+  {
+    "input": "Check the logs in Datadog, spell that D-A-T-A-D-O-G. Emphasize Datadog.",
+    "ideal": "Check the logs in **Datadog**."
+  },
+  {
+    "input": "The framework is Reakt, spell that R-E-A-C-T. All caps.",
+    "ideal": "The framework is REACT."
+  },
+  {
+    "input": "The API is from Twillio, spell that T-W-I-L-I-O. Wait actually it's SendGrid, change it to SendGrid.",
+    "ideal": "The API is from SendGrid."
+  },
+  {
+    "input": "Run the test in Cypress, spell that C-Y-P-R-E-S-S. Tag qa with an at symbol.",
+    "ideal": "Run the test in Cypress. @qa"
+  },
+  {
+    "input": "The library is Lodeash, spell that L-O-D-A-S-H. Emphasize Lodash.",
+    "ideal": "The library is **Lodash**."
+  },
+  {
+    "input": "The platform is Herroku, spell that H-E-R-O-K-U. All caps.",
+    "ideal": "The platform is HEROKU."
+  },
+  {
+    "input": "Check the metrics in Grafana, spell that G-R-A-F-A-N-A. Fire emoji.",
+    "ideal": "Check the metrics in Grafana. 🔥"
+  },
+  {
+    "input": "The tool is called Figma, spell that F-I-G-M-A. Wait no I said wrong, it's Sketch, change to Sketch.",
+    "ideal": "The tool is called Sketch."
+  }
+]

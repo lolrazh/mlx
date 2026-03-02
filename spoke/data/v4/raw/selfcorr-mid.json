@@ -1,0 +1,102 @@
+[
+  {
+    "input": "The meeting is at 2 PM. No wait, 3 PM, in the main conference room.",
+    "ideal": "The meeting is at 3 PM in the main conference room."
+  },
+  {
+    "input": "We're using version 2.1. Wait, 2.4, which has the bug fix we need.",
+    "ideal": "We're using version 2.4 which has the bug fix we need."
+  },
+  {
+    "input": "The repo is at github.com slash acme. Actually, github.com slash apex, slash widgets.",
+    "ideal": "The repo is at github.com/apex/widgets."
+  },
+  {
+    "input": "She joined in January. No, February, and hit the ground running.",
+    "ideal": "She joined in February and hit the ground running."
+  },
+  {
+    "input": "The limit is 100 requests. Wait, 500 requests, per minute for paid tiers.",
+    "ideal": "The limit is 500 requests per minute for paid tiers."
+  },
+  {
+    "input": "It's running on port 8080. Actually, 3000, which is what the docs say.",
+    "ideal": "It's running on port 3000 which is what the docs say."
+  },
+  {
+    "input": "The package is lodash. No wait, underscore, which is lighter weight.",
+    "ideal": "The package is underscore which is lighter weight."
+  },
+  {
+    "input": "He graduated in 2018. Actually, 2019, with a degree in computer science.",
+    "ideal": "He graduated in 2019 with a degree in computer science."
+  },
+  {
+    "input": "The endpoint returns 50 items. Wait, 20 items, per page by default.",
+    "ideal": "The endpoint returns 20 items per page by default."
+  },
+  {
+    "input": "The file is in slash temp. No, slash var, slash log, slash myapp.",
+    "ideal": "The file is in /var/log/myapp."
+  },
+  {
+    "input": "It costs forty bucks. Wait, thirty-five, if you buy before Friday.",
+    "ideal": "It costs thirty-five bucks if you buy before Friday."
+  },
+  {
+    "input": "The schema uses varchar 255. Actually, varchar 512, for the description field.",
+    "ideal": "The schema uses varchar 512 for the description field."
+  },
+  {
+    "input": "She's been here since March. No, April, and she's already leading projects.",
+    "ideal": "She's been here since April and she's already leading projects."
+  },
+  {
+    "input": "The build takes ten minutes. Wait, six minutes, on the new M3 Macs.",
+    "ideal": "The build takes six minutes on the new M3 Macs."
+  },
+  {
+    "input": "The meeting is with Sarah. No, Jessica, from the design team.",
+    "ideal": "The meeting is with Jessica from the design team."
+  },
+  {
+    "input": "We're targeting Python 3.9. Actually, 3.11, for better async support.",
+    "ideal": "We're targeting Python 3.11 for better async support."
+  },
+  {
+    "input": "The flight leaves at 6 PM. Wait, 7:30 PM, so we have more time.",
+    "ideal": "The flight leaves at 7:30 PM so we have more time."
+  },
+  {
+    "input": "He's moving to Austin. No, Denver, in early September.",
+    "ideal": "He's moving to Denver in early September."
+  },
+  {
+    "input": "The discount is 10 percent. Actually, 15 percent, if you sign up today.",
+    "ideal": "The discount is 15 percent if you sign up today."
+  },
+  {
+    "input": "The repo is at github.com slash acme. Wait, slash acme-corp, slash api.",
+    "ideal": "The repo is at github.com/acme-corp/api."
+  },
+  {
+    "input": "She graduated in 2017. No, 2018, and started here right after.",
+    "ideal": "She graduated in 2018 and started here right after."
+  },
+  {
+    "input": "The package weighs 2 kilos. Actually, 2.5 kilos, so shipping costs more.",
+    "ideal": "The package weighs 2.5 kilos so shipping costs more."
+  },
+  {
+    "input": "The keynote is by Dr. Chen. Wait, Dr. Patel, from MIT.",
+    "ideal": "The keynote is by Dr. Patel from MIT."
+  },
+  {
+    "input": "We're using React 17. No, 18, with the new concurrent features.",
+    "ideal": "We're using React 18 with the new concurrent features."
+  },
+  {
+    "input": "The deadline is Friday. Actually, Thursday, at end of day.",
+    "ideal": "The deadline is Thursday at end of day."
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "input": "skull emoji that meeting was brutal",
+    "ideal": "💀 that meeting was brutal"
+  },
+  {
+    "input": "just shipped the feature rocket emoji feeling amazing",
+    "ideal": "just shipped the feature 🚀 feeling amazing"
+  },
+  {
+    "input": "flexed biceps emoji let's get this done",
+    "ideal": "💪 let's get this done"
+  },
+  {
+    "input": "the team crushed it raising hands emoji so proud",
+    "ideal": "the team crushed it 🙌 so proud"
+  },
+  {
+    "input": "smiling face with hearts emoji this design is perfect",
+    "ideal": "😍 this design is perfect"
+  },
+  {
+    "input": "sparkles emoji finally polished and ready",
+    "ideal": "✨ finally polished and ready"
+  },
+  {
+    "input": "birthday cake emoji happy launch day everyone",
+    "ideal": "🎂 happy launch day everyone"
+  },
+  {
+    "input": "party popper emoji we hit the milestone",
+    "ideal": "🎉 we hit the milestone"
+  },
+  {
+    "input": "saluting face emoji respect to the team",
+    "ideal": "🫡 respect to the team"
+  },
+  {
+    "input": "pinched fingers emoji chef's kiss perfect execution",
+    "ideal": "🤌 chef's kiss perfect execution"
+  },
+  {
+    "input": "loudly crying emoji this bug is back again",
+    "ideal": "😢 this bug is back again"
+  },
+  {
+    "input": "thinking face emoji need to reconsider the approach",
+    "ideal": "🤔 need to reconsider the approach"
+  },
+  {
+    "input": "hundred points emoji pure excellence right there",
+    "ideal": "💯 pure excellence right there"
+  },
+  {
+    "input": "rocket emoji we're shipping the new feature tomorrow morning",
+    "ideal": "🚀 we're shipping the new feature tomorrow morning"
+  },
+  {
+    "input": "the metrics are on fire emoji literally doubled overnight",
+    "ideal": "the metrics are on 🔥 literally doubled overnight"
+  },
+  {
+    "input": "skull emoji that meeting could have been an email",
+    "ideal": "💀 that meeting could have been an email"
+  },
+  {
+    "input": "eyes emoji watching the deploy like a hawk right now",
+    "ideal": "👀 watching the deploy like a hawk right now"
+  },
+  {
+    "input": "flexed biceps emoji team really crushed this sprint",
+    "ideal": "💪 team really crushed this sprint"
+  },
+  {
+    "input": "raising hands emoji huge shoutout to everyone who stayed late",
+    "ideal": "🙌 huge shoutout to everyone who stayed late"
+  },
+  {
+    "input": "sparkles emoji just refactored the whole module and it feels so clean now",
+    "ideal": "✨ just refactored the whole module and it feels so clean now"
+  },
+  {
+    "input": "birthday cake emoji it's the repo's five year anniversary today",
+    "ideal": "🎂 it's the repo's five year anniversary today"
+  },
+  {
+    "input": "party popper emoji we finally hit product market fit",
+    "ideal": "🎉 we finally hit product market fit"
+  },
+  {
+    "input": "melting face emoji it's ninety degrees and the ac is broken",
+    "ideal": "🫠 it's ninety degrees and the ac is broken"
+  },
+  {
+    "input": "skull emoji and crying emoji me debugging legacy code at 2am",
+    "ideal": "💀 and 😢 me debugging legacy code at 2am"
+  },
+  {
+    "input": "rocket emoji we're deploying to production in five minutes",
+    "ideal": "🚀 we're deploying to production in five minutes"
+  },
+  {
+    "input": "the new design is absolutely fire emoji no notes",
+    "ideal": "the new design is absolutely 🔥 no notes"
+  },
+  {
+    "input": "hundred emoji percent agree with that take",
+    "ideal": "💯 percent agree with that take"
+  },
+  {
+    "input": "chef's kiss emoji this pasta is perfect",
+    "ideal": "🤌 this pasta is perfect"
+  },
+  {
+    "input": "my workout today was rough skull emoji but we finished",
+    "ideal": "my workout today was rough 💀 but we finished"
+  },
+  {
+    "input": "thinking face emoji actually that approach might not scale",
+    "ideal": "🤔 actually that approach might not scale"
+  },
+  {
+    "input": "saluting face emoji to everyone working the holiday shift",
+    "ideal": "🫡 to everyone working the holiday shift"
+  },
+  {
+    "input": "heart eyes emoji this dashboard redesign is gorgeous",
+    "ideal": "😍 this dashboard redesign is gorgeous"
+  },
+  {
+    "input": "flexed biceps emoji crushed my pr this morning",
+    "ideal": "💪 crushed my pr this morning"
+  },
+  {
+    "input": "raising hands emoji the whole team contributed to this win",
+    "ideal": "🙌 the whole team contributed to this win"
+  },
+  {
+    "input": "sparkles emoji and party popper emoji launch day is finally here",
+    "ideal": "✨ and 🎉 launch day is finally here"
+  },
+  {
+    "input": "fire emoji rocket emoji let's goooo",
+    "ideal": "🔥 🚀 let's goooo"
+  },
+  {
+    "input": "melting face emoji mondays am i right",
+    "ideal": "🫠 mondays am i right"
+  },
+  {
+    "input": "the code review was brutal skull emoji but we learned a lot",
+    "ideal": "the code review was brutal 💀 but we learned a lot"
+  },
+  {
+    "input": "chef's kiss emoji perfect execution on that migration",
+    "ideal": "🤌 perfect execution on that migration"
+  },
+  {
+    "input": "thinking face emoji should we refactor this now or later",
+    "ideal": "🤔 should we refactor this now or later"
+  }
+]

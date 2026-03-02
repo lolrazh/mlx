@@ -1,0 +1,402 @@
+[
+  {
+    "input": "Actually, the performance improved by forty percent after the optimization.",
+    "ideal": "Actually, the performance improved by forty percent after the optimization."
+  },
+  {
+    "input": "I'm sorry to say but your proposal didn't make it to the final round.",
+    "ideal": "I'm sorry to say but your proposal didn't make it to the final round."
+  },
+  {
+    "input": "Wait until you see the new dashboard, it's absolutely stunning.",
+    "ideal": "Wait until you see the new dashboard, it's absolutely stunning."
+  },
+  {
+    "input": "I mean, we've been working on this for six months now.",
+    "ideal": "I mean, we've been working on this for six months now."
+  },
+  {
+    "input": "The code is actually much cleaner than I expected it to be.",
+    "ideal": "The code is actually much cleaner than I expected it to be."
+  },
+  {
+    "input": "Sorry to interrupt, but the client is on line two.",
+    "ideal": "Sorry to interrupt, but the client is on line two."
+  },
+  {
+    "input": "You'll have to wait for the build to finish before running the tests.",
+    "ideal": "You'll have to wait for the build to finish before running the tests."
+  },
+  {
+    "input": "What I mean is that we should prioritize stability over speed.",
+    "ideal": "What I mean is that we should prioritize stability over speed."
+  },
+  {
+    "input": "My bad, I thought the meeting was scheduled for tomorrow.",
+    "ideal": "My bad, I thought the meeting was scheduled for tomorrow."
+  },
+  {
+    "input": "Actually, I think we should go with the third option instead.",
+    "ideal": "Actually, I think we should go with the third option instead."
+  },
+  {
+    "input": "I'm so sorry about the confusion with the invoice.",
+    "ideal": "I'm so sorry about the confusion with the invoice."
+  },
+  {
+    "input": "Wait, are you telling me this has been broken since last week?",
+    "ideal": "Wait, are you telling me this has been broken since last week?"
+  },
+  {
+    "input": "I mean, it's not ideal but it gets the job done.",
+    "ideal": "I mean, it's not ideal but it gets the job done."
+  },
+  {
+    "input": "No no, I completely understand your concern.",
+    "ideal": "No no, I completely understand your concern."
+  },
+  {
+    "input": "Oops, I almost forgot to attach the file to the email.",
+    "ideal": "Oops, I almost forgot to attach the file to the email."
+  },
+  {
+    "input": "Can you scratch that spot on my back I can't reach?",
+    "ideal": "Can you scratch that spot on my back I can't reach?"
+  },
+  {
+    "input": "The results were actually worse than our baseline model.",
+    "ideal": "The results were actually worse than our baseline model."
+  },
+  {
+    "input": "Wait until you hear the new album, it's absolutely incredible.",
+    "ideal": "Wait until you hear the new album, it's absolutely incredible."
+  },
+  {
+    "input": "Actually, quantum computing might solve this problem within a decade.",
+    "ideal": "Actually, quantum computing might solve this problem within a decade."
+  },
+  {
+    "input": "I'm sorry, but your reservation doesn't show up in our system.",
+    "ideal": "I'm sorry, but your reservation doesn't show up in our system."
+  },
+  {
+    "input": "The chef actually trained in Lyon for three years before opening this place.",
+    "ideal": "The chef actually trained in Lyon for three years before opening this place."
+  },
+  {
+    "input": "Wait, let me check the oven temperature before we put the soufflé in.",
+    "ideal": "Wait, let me check the oven temperature before we put the soufflé in."
+  },
+  {
+    "input": "I mean, the treaty was signed in 1848, not 1846, which changes everything.",
+    "ideal": "I mean, the treaty was signed in 1848, not 1846, which changes everything."
+  },
+  {
+    "input": "My bad, I thought the meeting was in conference room B, not A.",
+    "ideal": "My bad, I thought the meeting was in conference room B, not A."
+  },
+  {
+    "input": "The algorithm actually performs worse with more training data in this specific case.",
+    "ideal": "The algorithm actually performs worse with more training data in this specific case."
+  },
+  {
+    "input": "Sorry to interrupt, but the client is asking about the deliverables timeline.",
+    "ideal": "Sorry to interrupt, but the client is asking about the deliverables timeline."
+  },
+  {
+    "input": "Wait for the paint to cure completely before applying the second coat.",
+    "ideal": "Wait for the paint to cure completely before applying the second coat."
+  },
+  {
+    "input": "I mean, if you look at the archaeological evidence, the settlement predates the Romans by centuries.",
+    "ideal": "I mean, if you look at the archaeological evidence, the settlement predates the Romans by centuries."
+  },
+  {
+    "input": "Oops, I nearly spilled the entire beaker of sulfuric acid.",
+    "ideal": "Oops, I nearly spilled the entire beaker of sulfuric acid."
+  },
+  {
+    "input": "Can you scratch that label off the jar? We need to reuse it for the new samples.",
+    "ideal": "Can you scratch that label off the jar? We need to reuse it for the new samples."
+  },
+  {
+    "input": "Actually, the migration patterns show these birds travel much farther than we initially believed.",
+    "ideal": "Actually, the migration patterns show these birds travel much farther than we initially believed."
+  },
+  {
+    "input": "Wait, I think I left the centrifuge running overnight again.",
+    "ideal": "Wait, I think I left the centrifuge running overnight again."
+  },
+  {
+    "input": "Actually, quantum entanglement doesn't allow for faster-than-light communication despite what sci-fi suggests.",
+    "ideal": "Actually, quantum entanglement doesn't allow for faster-than-light communication despite what sci-fi suggests."
+  },
+  {
+    "input": "I'm sorry, but your insurance policy doesn't cover flood damage in this particular zone.",
+    "ideal": "I'm sorry, but your insurance policy doesn't cover flood damage in this particular zone."
+  },
+  {
+    "input": "Wait until the dough has doubled in size before you punch it down and shape the loaves.",
+    "ideal": "Wait until the dough has doubled in size before you punch it down and shape the loaves."
+  },
+  {
+    "input": "I mean, the director's earlier films were so much more visually ambitious than this one.",
+    "ideal": "I mean, the director's earlier films were so much more visually ambitious than this one."
+  },
+  {
+    "input": "My bad, I completely forgot that we had already discussed this timeline last quarter.",
+    "ideal": "My bad, I completely forgot that we had already discussed this timeline last quarter."
+  },
+  {
+    "input": "Oops, I accidentally sent the preliminary budget figures instead of the final revised version.",
+    "ideal": "Oops, I accidentally sent the preliminary budget figures instead of the final revised version."
+  },
+  {
+    "input": "Can you scratch that paint off the window frame? The previous owners did a terrible job.",
+    "ideal": "Can you scratch that paint off the window frame? The previous owners did a terrible job."
+  },
+  {
+    "input": "Actually, the earliest manuscripts suggest this passage was a later addition by scribes.",
+    "ideal": "Actually, the earliest manuscripts suggest this passage was a later addition by scribes."
+  },
+  {
+    "input": "Sorry to interrupt, but the board has requested your presence in the executive suite immediately.",
+    "ideal": "Sorry to interrupt, but the board has requested your presence in the executive suite immediately."
+  },
+  {
+    "input": "Wait for the solvent to evaporate completely before applying the second coat of varnish.",
+    "ideal": "Wait for the solvent to evaporate completely before applying the second coat of varnish."
+  },
+  {
+    "input": "I mean, it's not that the algorithm is wrong, it's just optimized for a different use case entirely.",
+    "ideal": "I mean, it's not that the algorithm is wrong, it's just optimized for a different use case entirely."
+  },
+  {
+    "input": "My bad, I was looking at the staging environment data instead of production metrics.",
+    "ideal": "My bad, I was looking at the staging environment data instead of production metrics."
+  },
+  {
+    "input": "Oops, I double-booked your calendar for Thursday afternoon with two different clients.",
+    "ideal": "Oops, I double-booked your calendar for Thursday afternoon with two different clients."
+  },
+  {
+    "input": "Can you scratch that rust off the bicycle chain? I want to see if it's salvageable.",
+    "ideal": "Can you scratch that rust off the bicycle chain? I want to see if it's salvageable."
+  },
+  {
+    "input": "Actually, the Renaissance began in Florence, not Rome, due to the Medici family's patronage of the arts.",
+    "ideal": "Actually, the Renaissance began in Florence, not Rome, due to the Medici family's patronage of the arts."
+  },
+  {
+    "input": "Sorry, I didn't catch your name when we were introduced at the conference networking event.",
+    "ideal": "Sorry, I didn't catch your name when we were introduced at the conference networking event."
+  },
+  {
+    "input": "Wait until the soufflé rises completely before opening the oven door, or it will collapse.",
+    "ideal": "Wait until the soufflé rises completely before opening the oven door, or it will collapse."
+  },
+  {
+    "input": "I mean, who wouldn't want to spend their vacation exploring ancient temples in Cambodia?",
+    "ideal": "I mean, who wouldn't want to spend their vacation exploring ancient temples in Cambodia?"
+  },
+  {
+    "input": "Actually, migratory birds navigate using Earth's magnetic field, not just visual landmarks.",
+    "ideal": "Actually, migratory birds navigate using Earth's magnetic field, not just visual landmarks."
+  },
+  {
+    "input": "Sorry to interrupt, but the board meeting has been moved to the executive suite on fourteen.",
+    "ideal": "Sorry to interrupt, but the board meeting has been moved to the executive suite on fourteen."
+  },
+  {
+    "input": "Wait, you're telling me that cryptocurrency mining consumes more electricity than entire countries?",
+    "ideal": "Wait, you're telling me that cryptocurrency mining consumes more electricity than entire countries?"
+  },
+  {
+    "input": "I mean, the violin concerto was technically flawless, but it lacked the emotional depth I was hoping for.",
+    "ideal": "I mean, the violin concerto was technically flawless, but it lacked the emotional depth I was hoping for."
+  },
+  {
+    "input": "My bad, I thought the deadline was Friday, but the project timeline clearly shows next Tuesday.",
+    "ideal": "My bad, I thought the deadline was Friday, but the project timeline clearly shows next Tuesday."
+  },
+  {
+    "input": "Oops, I accidentally sent the confidential memo to the entire distribution list instead of just legal.",
+    "ideal": "Oops, I accidentally sent the confidential memo to the entire distribution list instead of just legal."
+  },
+  {
+    "input": "Can you scratch that label off the vintage wine bottle? I want to see the original château marking underneath.",
+    "ideal": "Can you scratch that label off the vintage wine bottle? I want to see the original château marking underneath."
+  },
+  {
+    "input": "Actually, photosynthesis occurs in the chloroplasts, specifically within the thylakoid membranes.",
+    "ideal": "Actually, photosynthesis occurs in the chloroplasts, specifically within the thylakoid membranes."
+  },
+  {
+    "input": "Sorry, I didn't realize you were still on the call when I made that comment about the budget cuts.",
+    "ideal": "Sorry, I didn't realize you were still on the call when I made that comment about the budget cuts."
+  },
+  {
+    "input": "Wait for the concrete to cure for at least twenty-eight days before applying any heavy loads.",
+    "ideal": "Wait for the concrete to cure for at least twenty-eight days before applying any heavy loads."
+  },
+  {
+    "input": "I mean, the documentary was compelling, but I question whether the filmmaker maintained sufficient journalistic distance.",
+    "ideal": "I mean, the documentary was compelling, but I question whether the filmmaker maintained sufficient journalistic distance."
+  },
+  {
+    "input": "Actually, the fermentation process takes about three weeks if you keep the temperature stable.",
+    "ideal": "Actually, the fermentation process takes about three weeks if you keep the temperature stable."
+  },
+  {
+    "input": "Sorry to interrupt, but your parking meter is about to expire.",
+    "ideal": "Sorry to interrupt, but your parking meter is about to expire."
+  },
+  {
+    "input": "I mean, I've never seen a blue whale in person, but the documentaries don't do them justice.",
+    "ideal": "I mean, I've never seen a blue whale in person, but the documentaries don't do them justice."
+  },
+  {
+    "input": "My bad, I thought this was the express line but it's actually the local.",
+    "ideal": "My bad, I thought this was the express line but it's actually the local."
+  },
+  {
+    "input": "Oops, I spilled coffee on your manuscript—I'll pay for the reprinting.",
+    "ideal": "Oops, I spilled coffee on your manuscript—I'll pay for the reprinting."
+  },
+  {
+    "input": "Scratch that wooden match on the striker strip to light the campfire.",
+    "ideal": "Scratch that wooden match on the striker strip to light the campfire."
+  },
+  {
+    "input": "Actually, the Byzantine Empire lasted until fourteen fifty-three when Constantinople fell.",
+    "ideal": "Actually, the Byzantine Empire lasted until fourteen fifty-three when Constantinople fell."
+  },
+  {
+    "input": "Sorry, I can't make it to your gallery opening—I'm presenting at a conference in Kyoto.",
+    "ideal": "Sorry, I can't make it to your gallery opening—I'm presenting at a conference in Kyoto."
+  },
+  {
+    "input": "Wait, you're telling me that octopuses have three hearts and blue blood?",
+    "ideal": "Wait, you're telling me that octopuses have three hearts and blue blood?"
+  },
+  {
+    "input": "I mean, the algorithm works in theory, but the edge cases will kill us in production.",
+    "ideal": "I mean, the algorithm works in theory, but the edge cases will kill us in production."
+  },
+  {
+    "input": "My bad, I confused the torque specifications for aluminum and steel bolts.",
+    "ideal": "My bad, I confused the torque specifications for aluminum and steel bolts."
+  },
+  {
+    "input": "Oops, I deleted the wrong branch—let me check the reflog to recover it.",
+    "ideal": "Oops, I deleted the wrong branch—let me check the reflog to recover it."
+  },
+  {
+    "input": "Scratch that lottery ticket with a coin to reveal if you've won anything.",
+    "ideal": "Scratch that lottery ticket with a coin to reveal if you've won anything."
+  },
+  {
+    "input": "Wait, I think I left my passport in the hotel safe—can you call the front desk?",
+    "ideal": "Wait, I think I left my passport in the hotel safe—can you call the front desk?"
+  },
+  {
+    "input": "Sorry, but your theory doesn't account for the anomalous readings we observed at 3 AM.",
+    "ideal": "Sorry, but your theory doesn't account for the anomalous readings we observed at 3 AM."
+  },
+  {
+    "input": "I mean, who wouldn't want to spend their retirement sailing the Greek islands?",
+    "ideal": "I mean, who wouldn't want to spend their retirement sailing the Greek islands?"
+  },
+  {
+    "input": "My bad, I thought the meeting was Thursday—turns out it's tomorrow morning.",
+    "ideal": "My bad, I thought the meeting was Thursday—turns out it's tomorrow morning."
+  },
+  {
+    "input": "Oops, I spilled the turmeric—now everything in this kitchen is permanently yellow.",
+    "ideal": "Oops, I spilled the turmeric—now everything in this kitchen is permanently yellow."
+  },
+  {
+    "input": "Actually, quantum entanglement doesn't allow faster-than-light communication, despite popular belief.",
+    "ideal": "Actually, quantum entanglement doesn't allow faster-than-light communication, despite popular belief."
+  },
+  {
+    "input": "Wait until the sourdough has doubled in volume before shaping the loaf.",
+    "ideal": "Wait until the sourdough has doubled in volume before shaping the loaf."
+  },
+  {
+    "input": "Sorry to interrupt, but the patient in room 304 is asking for pain medication.",
+    "ideal": "Sorry to interrupt, but the patient in room 304 is asking for pain medication."
+  },
+  {
+    "input": "I mean, the cello solo in that recording is technically perfect but emotionally hollow.",
+    "ideal": "I mean, the cello solo in that recording is technically perfect but emotionally hollow."
+  },
+  {
+    "input": "My bad, I calculated in meters when the blueprint clearly specifies feet.",
+    "ideal": "My bad, I calculated in meters when the blueprint clearly specifies feet."
+  },
+  {
+    "input": "Oops, I grabbed the cayenne instead of the paprika—the chili is now inedible.",
+    "ideal": "Oops, I grabbed the cayenne instead of the paprika—the chili is now inedible."
+  },
+  {
+    "input": "Scratch that vinyl record with a needle and you'll ruin the grooves forever.",
+    "ideal": "Scratch that vinyl record with a needle and you'll ruin the grooves forever."
+  },
+  {
+    "input": "Actually, the migration patterns of monarch butterflies span three generations to complete the journey.",
+    "ideal": "Actually, the migration patterns of monarch butterflies span three generations to complete the journey."
+  },
+  {
+    "input": "Sorry, but I find the premise that pineapple belongs on pizza to be fundamentally indefensible.",
+    "ideal": "Sorry, but I find the premise that pineapple belongs on pizza to be fundamentally indefensible."
+  },
+  {
+    "input": "I mean, if we're being honest, the director's cut adds forty minutes of footage that should have stayed on the cutting room floor.",
+    "ideal": "I mean, if we're being honest, the director's cut adds forty minutes of footage that should have stayed on the cutting room floor."
+  },
+  {
+    "input": "My bad, I assumed the kanji character meant 'strength' when contextually it clearly denotes 'struggle'.",
+    "ideal": "My bad, I assumed the kanji character meant 'strength' when contextually it clearly denotes 'struggle'."
+  },
+  {
+    "input": "Oops, I set the torque wrench to newton-meters instead of foot-pounds—that cylinder head is now warped.",
+    "ideal": "Oops, I set the torque wrench to newton-meters instead of foot-pounds—that cylinder head is now warped."
+  },
+  {
+    "input": "Scratch that lottery ticket with a coin and you'll void it—only the barcode scan determines if you've won.",
+    "ideal": "Scratch that lottery ticket with a coin and you'll void it—only the barcode scan determines if you've won."
+  },
+  {
+    "input": "Actually, the Fibonacci sequence appears in the spiral arrangement of seeds in a sunflower head.",
+    "ideal": "Actually, the Fibonacci sequence appears in the spiral arrangement of seeds in a sunflower head."
+  },
+  {
+    "input": "Sorry to interrupt, but the phlebotomist needs to draw blood before you eat—fasting glucose requires twelve hours.",
+    "ideal": "Sorry to interrupt, but the phlebotomist needs to draw blood before you eat—fasting glucose requires twelve hours."
+  },
+  {
+    "input": "Wait, the tectonic plate boundary runs directly beneath this fault line—that's why the seismic risk is catastrophic.",
+    "ideal": "Wait, the tectonic plate boundary runs directly beneath this fault line—that's why the seismic risk is catastrophic."
+  },
+  {
+    "input": "I mean, the algorithmic complexity of that sorting method is O(n log n) in the best case but degrades to O(n²).",
+    "ideal": "I mean, the algorithmic complexity of that sorting method is O(n log n) in the best case but degrades to O(n²)."
+  },
+  {
+    "input": "My bad, I calibrated the spectrophotometer against the wrong standard—the absorbance readings are all shifted by fifteen nanometers.",
+    "ideal": "My bad, I calibrated the spectrophotometer against the wrong standard—the absorbance readings are all shifted by fifteen nanometers."
+  },
+  {
+    "input": "Oops, I confused the epinephrine with the ephedrine—one treats anaphylaxis, the other is a decongestant with cardiac risks.",
+    "ideal": "Oops, I confused the epinephrine with the ephedrine—one treats anaphylaxis, the other is a decongestant with cardiac risks."
+  },
+  {
+    "input": "Scratch that match against the striker strip and you'll get ignition—the phosphorus coating oxidizes instantly.",
+    "ideal": "Scratch that match against the striker strip and you'll get ignition—the phosphorus coating oxidizes instantly."
+  },
+  {
+    "input": "Sorry, I didn't catch your name—could you repeat it?",
+    "ideal": "Sorry, I didn't catch your name—could you repeat it?"
+  }
+]

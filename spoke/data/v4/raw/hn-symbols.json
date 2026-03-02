@@ -1,0 +1,174 @@
+[
+  {
+    "input": "The price tag fell off my new jacket.",
+    "ideal": "The price tag fell off my new jacket."
+  },
+  {
+    "input": "Please tag me in the photo when you post it.",
+    "ideal": "Please tag me in the photo when you post it."
+  },
+  {
+    "input": "The HTML tag was missing its closing bracket.",
+    "ideal": "The HTML tag was missing its closing bracket."
+  },
+  {
+    "input": "We need to tag this commit before the release.",
+    "ideal": "We need to tag this commit before the release."
+  },
+  {
+    "input": "The euro symbol appears on the price list.",
+    "ideal": "The euro symbol appears on the price list."
+  },
+  {
+    "input": "The stock symbol for Apple is AAPL.",
+    "ideal": "The stock symbol for Apple is AAPL."
+  },
+  {
+    "input": "The infinity symbol is used in calculus.",
+    "ideal": "The infinity symbol is used in calculus."
+  },
+  {
+    "input": "The debug symbol file helps with crash analysis.",
+    "ideal": "The debug symbol file helps with crash analysis."
+  },
+  {
+    "input": "The hashtag movement gained traction online.",
+    "ideal": "The hashtag movement gained traction online."
+  },
+  {
+    "input": "She wrote a paper about hashtag activism.",
+    "ideal": "She wrote a paper about hashtag activism."
+  },
+  {
+    "input": "The meeting is at three o'clock.",
+    "ideal": "The meeting is at three o'clock."
+  },
+  {
+    "input": "We will meet at the downtown office.",
+    "ideal": "We will meet at the downtown office."
+  },
+  {
+    "input": "The train arrives at platform five.",
+    "ideal": "The train arrives at platform five."
+  },
+  {
+    "input": "About twenty percent of the budget remains.",
+    "ideal": "About twenty percent of the budget remains."
+  },
+  {
+    "input": "The test coverage is at ninety percent.",
+    "ideal": "The test coverage is at ninety percent."
+  },
+  {
+    "input": "Fifty percent off sale starts tomorrow.",
+    "ideal": "Fifty percent off sale starts tomorrow."
+  },
+  {
+    "input": "Only five percent of applicants were accepted.",
+    "ideal": "Only five percent of applicants were accepted."
+  },
+  {
+    "input": "The artist used a phoenix as a symbol of rebirth in her mural.",
+    "ideal": "The artist used a phoenix as a symbol of rebirth in her mural."
+  },
+  {
+    "input": "The librarian asked us to tag the books with genre stickers.",
+    "ideal": "The librarian asked us to tag the books with genre stickers."
+  },
+  {
+    "input": "At dawn the fishermen cast their nets into the gray water.",
+    "ideal": "At dawn, the fishermen cast their nets into the gray water."
+  },
+  {
+    "input": "The chemical symbol for gold is Au which comes from aurum.",
+    "ideal": "The chemical symbol for gold is Au, which comes from aurum."
+  },
+  {
+    "input": "She arrived at the conclusion after weeks of careful research.",
+    "ideal": "She arrived at the conclusion after weeks of careful research."
+  },
+  {
+    "input": "My grandmother still puts a price tag on every Christmas gift she gives.",
+    "ideal": "My grandmother still puts a price tag on every Christmas gift she gives."
+  },
+  {
+    "input": "The stock symbol TSLA has become a household name.",
+    "ideal": "The stock symbol TSLA has become a household name."
+  },
+  {
+    "input": "At no point did the defendant admit to the crime.",
+    "ideal": "At no point did the defendant admit to the crime."
+  },
+  {
+    "input": "The debug symbol file helped the engineers trace the memory leak.",
+    "ideal": "The debug symbol file helped the engineers trace the memory leak."
+  },
+  {
+    "input": "Children at play need constant supervision near the street.",
+    "ideal": "Children at play need constant supervision near the street."
+  },
+  {
+    "input": "The wedding hashtag was printed on all the napkins and coasters.",
+    "ideal": "The wedding hashtag was printed on all the napkins and coasters."
+  },
+  {
+    "input": "Tag team wrestling requires perfect timing between partners.",
+    "ideal": "Tag team wrestling requires perfect timing between partners."
+  },
+  {
+    "input": "The percent sign originated from the Italian per cento meaning by the hundred.",
+    "ideal": "The percent sign originated from the Italian per cento, meaning by the hundred."
+  },
+  {
+    "input": "At last the package arrived three weeks late.",
+    "ideal": "At last, the package arrived three weeks late."
+  },
+  {
+    "input": "The luggage tag tore off somewhere between Paris and Bangkok.",
+    "ideal": "The luggage tag tore off somewhere between Paris and Bangkok."
+  },
+  {
+    "input": "The debug symbol file helps developers trace crashes in production.",
+    "ideal": "The debug symbol file helps developers trace crashes in production."
+  },
+  {
+    "input": "She wore a name tag that said 'Hello I'm allergic to meetings'.",
+    "ideal": "She wore a name tag that said 'Hello I'm allergic to meetings'."
+  },
+  {
+    "input": "The stock symbol for the company changed after the merger completed.",
+    "ideal": "The stock symbol for the company changed after the merger completed."
+  },
+  {
+    "input": "The hashtag activism movement sparked real policy changes in 2019.",
+    "ideal": "The hashtag activism movement sparked real policy changes in 2019."
+  },
+  {
+    "input": "At no point did anyone suggest we should cancel the project.",
+    "ideal": "At no point did anyone suggest we should cancel the project."
+  },
+  {
+    "input": "The military dog tag tradition dates back to the Civil War era.",
+    "ideal": "The military dog tag tradition dates back to the Civil War era."
+  },
+  {
+    "input": "Eighty percent of success is just showing up every single day.",
+    "ideal": "Eighty percent of success is just showing up every single day."
+  },
+  {
+    "input": "The price tag shock made her put the designer dress back immediately.",
+    "ideal": "The price tag shock made her put the designer dress back immediately."
+  },
+  {
+    "input": "Tagalog is spoken by over twenty million people in the Philippines.",
+    "ideal": "Tagalog is spoken by over twenty million people in the Philippines."
+  },
+  {
+    "input": "At best the new algorithm improves speed by twelve percent.",
+    "ideal": "At best the new algorithm improves speed by twelve percent."
+  },
+  {
+    "input": "The git tag command creates a reference to a specific commit hash.",
+    "ideal": "The git tag command creates a reference to a specific commit hash."
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "input": "The team uses Slack, Zoom, and Notion. Wait, no, Asana not Notion.",
+    "ideal": "The team uses Slack, Zoom, and Asana."
+  },
+  {
+    "input": "We're flying to Paris, Rome, and Madrid. Actually, Barcelona instead of Madrid.",
+    "ideal": "We're flying to Paris, Rome, and Barcelona."
+  },
+  {
+    "input": "Buy apples, oranges. Sorry, bananas not oranges.",
+    "ideal": "Buy apples, bananas."
+  },
+  {
+    "input": "The speakers are Sarah, Mike, Jenna, and Tom. Scratch that, not Tom. Raj.",
+    "ideal": "The speakers are Sarah, Mike, Jenna, and Raj."
+  },
+  {
+    "input": "I need a hammer, screwdriver, and wrench. Wait, pliers not wrench.",
+    "ideal": "I need a hammer, screwdriver, and pliers."
+  },
+  {
+    "input": "Dinner is pasta, salad. Actually, soup not salad.",
+    "ideal": "Dinner is pasta, soup."
+  },
+  {
+    "input": "The interns are Priya, Diego, and Aisha. No wait, not Aisha. Wei.",
+    "ideal": "The interns are Priya, Diego, and Wei."
+  },
+  {
+    "input": "Pack jeans, t-shirts, and sweaters. Sorry, hoodies not sweaters.",
+    "ideal": "Pack jeans, t-shirts, and hoodies."
+  },
+  {
+    "input": "The API supports JSON, XML. Actually, YAML not XML.",
+    "ideal": "The API supports JSON, YAML."
+  },
+  {
+    "input": "Guests include mom, dad, and uncle Joe. Wait, aunt Lisa not uncle Joe.",
+    "ideal": "Guests include mom, dad, and aunt Lisa."
+  },
+  {
+    "input": "The database runs on MySQL, Redis, and Elasticsearch. Scratch that, not Elasticsearch. ClickHouse.",
+    "ideal": "The database runs on MySQL, Redis, and ClickHouse."
+  },
+  {
+    "input": "Lunch options are sushi, tacos. I mean, pizza not tacos.",
+    "ideal": "Lunch options are sushi, pizza."
+  },
+  {
+    "input": "The committee has Chen, Okafor, Patel, and Schmidt. Actually, not Schmidt. Jensen.",
+    "ideal": "The committee has Chen, Okafor, Patel, and Jensen."
+  },
+  {
+    "input": "Dependencies include lodash, axios, and moment. Sorry, date-fns not moment.",
+    "ideal": "Dependencies include lodash, axios, and date-fns."
+  },
+  {
+    "input": "The itinerary covers Tokyo, Seoul, and Bangkok. No wait, Singapore not Bangkok.",
+    "ideal": "The itinerary covers Tokyo, Seoul, and Singapore."
+  },
+  {
+    "input": "Our vendors are Stripe, Twilio, and SendGrid. Actually, not SendGrid. Mailgun.",
+    "ideal": "Our vendors are Stripe, Twilio, and Mailgun."
+  },
+  {
+    "input": "Bring hiking boots, rain jacket, and wool socks. Sorry, I mean synthetic socks not wool.",
+    "ideal": "Bring hiking boots, rain jacket, and synthetic socks."
+  },
+  {
+    "input": "The speakers are Nguyen, Kumar, and Fernandez. Scratch that, not Fernandez. O'Brien.",
+    "ideal": "The speakers are Nguyen, Kumar, and O'Brien."
+  },
+  {
+    "input": "Dinner is chicken, rice, and broccoli. Wait, asparagus not broccoli.",
+    "ideal": "Dinner is chicken, rice, and asparagus."
+  },
+  {
+    "input": "The cloud regions are us-east, eu-west, and ap-south. Actually, not ap-south. ap-northeast.",
+    "ideal": "The cloud regions are us-east, eu-west, and ap-northeast."
+  },
+  {
+    "input": "Team leads are Marcus, Priya, and Diego. I mean, not Diego. Yuki.",
+    "ideal": "Team leads are Marcus, Priya, and Yuki."
+  },
+  {
+    "input": "The playlist needs Beyoncé, Kendrick, and Drake. Sorry, not Drake. SZA.",
+    "ideal": "The playlist needs Beyoncé, Kendrick, and SZA."
+  },
+  {
+    "input": "Ingredients: flour, sugar, and shortening. No wait, butter not shortening.",
+    "ideal": "Ingredients: flour, sugar, and butter."
+  },
+  {
+    "input": "The runtimes are Node, Deno, and Bun. Scratch that, not Bun. Go.",
+    "ideal": "The runtimes are Node, Deno, and Go."
+  },
+  {
+    "input": "Attendees include Wang, Silva, and Oduya. Actually, not Oduya. Petrov.",
+    "ideal": "Attendees include Wang, Silva, and Petrov."
+  }
+]

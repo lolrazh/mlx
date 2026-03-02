@@ -1,0 +1,174 @@
+[
+  {
+    "input": "We're integrating with the Wispor API for voice processing. Spell that W-I-S-P-R.",
+    "ideal": "We're integrating with the Wispr API for voice processing."
+  },
+  {
+    "input": "I switched my hosting to Netlify. Spell that N-E-T-L-I-F-Y.",
+    "ideal": "I switched my hosting to Netlify."
+  },
+  {
+    "input": "We're using the Llama model from Meta. Spell Llama as L-L-A-M-A.",
+    "ideal": "We're using the Llama model from Meta."
+  },
+  {
+    "input": "The new database is called SuperBase. Can you spell that S-U-P-A-B-A-S-E?",
+    "ideal": "The new database is called Supabase."
+  },
+  {
+    "input": "I need to configure the Nginx server. Spell Nginx as N-G-I-N-X.",
+    "ideal": "I need to configure the Nginx server."
+  },
+  {
+    "input": "We're migrating to the Qdrant vector database. Spell that Q-D-R-A-N-T.",
+    "ideal": "We're migrating to the Qdrant vector database."
+  },
+  {
+    "input": "The UI library is called Shadzen. Can you spell that S-H-A-D-C-N?",
+    "ideal": "The UI library is called Shadcn."
+  },
+  {
+    "input": "We're using Mistral's new model. Spell Mistral as M-I-S-T-R-A-L.",
+    "ideal": "We're using Mistral's new model."
+  },
+  {
+    "input": "The build tool is called Veet. Can you spell that V-I-T-E?",
+    "ideal": "The build tool is called Vite."
+  },
+  {
+    "input": "I deployed to Flare. Spell that C-L-O-U-D-F-L-A-R-E.",
+    "ideal": "I deployed to Cloudflare."
+  },
+  {
+    "input": "We're using the Jina AI embeddings. Spell Jina as J-I-N-A.",
+    "ideal": "We're using the Jina AI embeddings."
+  },
+  {
+    "input": "The state manager is called Zustan. Can you spell that Z-U-S-T-A-N-D?",
+    "ideal": "The state manager is called Zustand."
+  },
+  {
+    "input": "Our vector database is Pineco. Spell that P-I-N-E-C-O-N-E.",
+    "ideal": "Our vector database is Pinecone."
+  },
+  {
+    "input": "We're migrating to Soo-pabase. Can you spell that S-U-P-A-B-A-S-E?",
+    "ideal": "We're migrating to Supabase."
+  },
+  {
+    "input": "The UI library is called Shad Zen. Spell that S-H-A-D-C-N.",
+    "ideal": "The UI library is called Shadcn."
+  },
+  {
+    "input": "I use Raycast for everything. Spell Raycast as R-A-Y-C-A-S-T.",
+    "ideal": "I use Raycast for everything."
+  },
+  {
+    "input": "The new bundler is called Turbo Pack. Can you spell that T-U-R-B-O-P-A-C-K?",
+    "ideal": "The new bundler is called Turbopack."
+  },
+  {
+    "input": "We're testing with Playwright. Spell that P-L-A-Y-W-R-I-G-H-T.",
+    "ideal": "We're testing with Playwright."
+  },
+  {
+    "input": "The cache is Redis. Can you spell that R-E-D-I-S?",
+    "ideal": "The cache is Redis."
+  },
+  {
+    "input": "I deployed on Render. Spell Render as R-E-N-D-E-R.",
+    "ideal": "I deployed on Render."
+  },
+  {
+    "input": "The ORM is called Prisma. Can you spell that P-R-I-S-M-A?",
+    "ideal": "The ORM is called Prisma."
+  },
+  {
+    "input": "We're using Svelte Kit. Spell that S-V-E-L-T-E-K-I-T.",
+    "ideal": "We're using SvelteKit."
+  },
+  {
+    "input": "The linter is ESLint. Can you spell that E-S-L-I-N-T?",
+    "ideal": "The linter is ESLint."
+  },
+  {
+    "input": "I use Obsidian for notes. Spell Obsidian as O-B-S-I-D-I-A-N.",
+    "ideal": "I use Obsidian for notes."
+  },
+  {
+    "input": "The package manager is PNPM. Can you spell that P-N-P-M?",
+    "ideal": "The package manager is PNPM."
+  },
+  {
+    "input": "We're trying out Qwik. Spell that Q-W-I-K.",
+    "ideal": "We're trying out Qwik."
+  },
+  {
+    "input": "My favorite editor is Neo Vim. Spell that N-E-O-V-I-M.",
+    "ideal": "My favorite editor is Neovim."
+  },
+  {
+    "input": "The CSS framework is Tailwind. Spell Tailwind as T-A-I-L-W-I-N-D.",
+    "ideal": "The CSS framework is Tailwind."
+  },
+  {
+    "input": "I just installed Homebrew. Spell that H-O-M-E-B-R-E-W.",
+    "ideal": "I just installed Homebrew."
+  },
+  {
+    "input": "We're using MinIO for object storage. Can you spell that M-I-N-I-O?",
+    "ideal": "We're using MinIO for object storage."
+  },
+  {
+    "input": "The database is Postgres. Spell Postgres as P-O-S-T-G-R-E-S.",
+    "ideal": "The database is Postgres."
+  },
+  {
+    "input": "I prefer Firefox over Chrome. Spell Firefox as F-I-R-E-F-O-X.",
+    "ideal": "I prefer Firefox over Chrome."
+  },
+  {
+    "input": "We're testing with Jest. Can you spell that J-E-S-T?",
+    "ideal": "We're testing with Jest."
+  },
+  {
+    "input": "The build tool is Webpack. Spell that W-E-B-P-A-C-K.",
+    "ideal": "The build tool is Webpack."
+  },
+  {
+    "input": "I use Notion for planning. Spell Notion as N-O-T-I-O-N.",
+    "ideal": "I use Notion for planning."
+  },
+  {
+    "input": "We're deploying on Render. Can you spell that R-E-N-D-E-R?",
+    "ideal": "We're deploying on Render."
+  },
+  {
+    "input": "The language is Golang. Spell Golang as G-O-L-A-N-G.",
+    "ideal": "The language is Golang."
+  },
+  {
+    "input": "I switched to Linear for issues. Spell that L-I-N-E-A-R.",
+    "ideal": "I switched to Linear for issues."
+  },
+  {
+    "input": "We're using Supabase for the backend. Can you spell that S-U-P-A-B-A-S-E?",
+    "ideal": "We're using Supabase for the backend."
+  },
+  {
+    "input": "The authentication library is called Auth0. Spell that A-U-T-H-Z-E-R-O.",
+    "ideal": "The authentication library is called Authzero."
+  },
+  {
+    "input": "We're integrating with the Plaid API for banking. Can you spell Plaid as P-L-A-I-D-E?",
+    "ideal": "We're integrating with the Plaide API for banking."
+  },
+  {
+    "input": "The new design tool is Figma. Spell Figma as F-I-G-M-A-H.",
+    "ideal": "The new design tool is Figmah."
+  },
+  {
+    "input": "I just started using Obsidian for notes. Can you spell that O-B-S-I-D-I-A-N-N?",
+    "ideal": "I just started using Obsidiann for notes."
+  }
+]
