@@ -1,0 +1,3470 @@
+[
+  {
+    "id": 1,
+    "category": "train",
+    "input": "Check the user profile in the admin panel. Add an at symbol before user and before admin.",
+    "ideal": "Check the @user profile in the @admin panel."
+  },
+  {
+    "id": 2,
+    "category": "train",
+    "input": "I keep forgetting to use the lru cache decorator. Can you put an at before lru cache?",
+    "ideal": "I keep forgetting to use the @lru cache decorator."
+  },
+  {
+    "id": 3,
+    "category": "train",
+    "input": "Make sure to ping everyone in general. Tag general with an at symbol and show excitement.",
+    "ideal": "Make sure to ping everyone in @general!"
+  },
+  {
+    "id": 4,
+    "category": "train",
+    "input": "Hey Sarah, check out this new feature. Tag Sarah with an at symbol.",
+    "ideal": "Hey @Sarah, check out this new feature."
+  },
+  {
+    "id": 5,
+    "category": "train",
+    "input": "The decorator property needs to go above the method. Add an at symbol before property.",
+    "ideal": "The decorator @property needs to go above the method."
+  },
+  {
+    "id": 6,
+    "category": "train",
+    "input": "We need to update config.yaml and secrets.env. Put an at before each filename.",
+    "ideal": "We need to update @config.yaml and @secrets.env."
+  },
+  {
+    "id": 7,
+    "category": "train",
+    "input": "Check the logs in production. Add an at symbol before production.",
+    "ideal": "Check the logs in @production."
+  },
+  {
+    "id": 8,
+    "category": "train",
+    "input": "Message Sarah about the review. Tag Sarah with an at symbol and show excitement.",
+    "ideal": "Message @Sarah about the review!"
+  },
+  {
+    "id": 9,
+    "category": "train",
+    "input": "The decorator wraps the function. Add an at symbol before decorator. And make it all lowercase.",
+    "ideal": "the @decorator wraps the function."
+  },
+  {
+    "id": 10,
+    "category": "train",
+    "input": "We need to notify the team. Tag channel with an at symbol. Tag here with an at symbol too. Show excitement.",
+    "ideal": "We need to notify the team. @channel @here!"
+  },
+  {
+    "id": 11,
+    "category": "train",
+    "input": "The username is developer_one. Add an at symbol before developer_one. Type that in lowercase.",
+    "ideal": "the username is @developer_one."
+  },
+  {
+    "id": 12,
+    "category": "train",
+    "input": "I need to decorate the class with property. Put an at before property and before class.",
+    "ideal": "I need to decorate the @class with @property."
+  },
+  {
+    "id": 13,
+    "category": "train",
+    "input": "The decorator pattern is really useful. Put an at symbol before decorator.",
+    "ideal": "The @decorator pattern is really useful."
+  },
+  {
+    "id": 14,
+    "category": "train",
+    "input": "We need to notify everyone in the channel. Tag here and channel with at symbols.",
+    "ideal": "We need to notify everyone in the @here and @channel."
+  },
+  {
+    "id": 15,
+    "category": "train",
+    "input": "I'm so happy this finally works. Show excitement and tag me with an at symbol.",
+    "ideal": "I'm so happy this finally works @me!"
+  },
+  {
+    "id": 16,
+    "category": "train",
+    "input": "Check the @deprecated decorator in the codebase. Actually wait, I haven't added the at symbol yet. Add it before deprecated.",
+    "ideal": "Check the @deprecated decorator in the codebase."
+  },
+  {
+    "id": 17,
+    "category": "train",
+    "input": "Please review the pull request. Tag the reviewer with an at symbol, that's Sarah, and also make it sound excited.",
+    "ideal": "Please review the pull request @Sarah!"
+  },
+  {
+    "id": 18,
+    "category": "train",
+    "input": "The config file is settings.yaml. Put an at before the filename, and also before the word config actually.",
+    "ideal": "The @config file is @settings.yaml."
+  },
+  {
+    "id": 19,
+    "category": "train",
+    "input": "His username is velocity_dev on the platform. Put an at before his handle.",
+    "ideal": "His username is @velocity_dev on the platform."
+  },
+  {
+    "id": 20,
+    "category": "train",
+    "input": "We need to notify the team in Slack. Tag channel with an at symbol and also tag here.",
+    "ideal": "We need to notify the team in Slack. @channel and also @here."
+  },
+  {
+    "id": 21,
+    "category": "train",
+    "input": "The configuration file is settings.yaml. Put an at before the filename so they know it's a reference.",
+    "ideal": "The configuration file is @settings.yaml."
+  },
+  {
+    "id": 22,
+    "category": "train",
+    "input": "The config files are settings.yaml and secrets.env. Add at symbols before both filenames.",
+    "ideal": "The config files are @settings.yaml and @secrets.env."
+  },
+  {
+    "id": 23,
+    "category": "train",
+    "input": "Check the @deprecated decorator on that method. Wait, no, I mean the @override one. Actually, add an at symbol before override.",
+    "ideal": "Check the @deprecated decorator on that method. Actually, check the @override one."
+  },
+  {
+    "id": 24,
+    "category": "train",
+    "input": "The decorator pattern uses at symbol before function to wrap it. Add an at symbol before function.",
+    "ideal": "The decorator pattern uses @function to wrap it."
+  },
+  {
+    "id": 25,
+    "category": "train",
+    "input": "I need to mention john and mary in this post. At symbol before both names please.",
+    "ideal": "I need to mention @john and @mary in this post."
+  },
+  {
+    "id": 26,
+    "category": "train",
+    "input": "The team channel is where we discuss bugs. Tag channel with an at symbol. And mention the devs too.",
+    "ideal": "The team @channel is where we discuss bugs. And mention the devs too."
+  },
+  {
+    "id": 27,
+    "category": "train",
+    "input": "The @deprecated annotation warns developers. Wait no I said that wrong. The deprecated annotation warns developers. Add an at symbol before deprecated. And also before override on the next line.",
+    "ideal": "The @deprecated annotation warns developers. And also @override on the next line."
+  },
+  {
+    "id": 28,
+    "category": "train",
+    "input": "Tell admin and mod to check the logs. Tag admin with an at symbol. Actually tag both admin and mod with at symbols. And while you're at it, put an at before logs too.",
+    "ideal": "Tell @admin and @mod to check the @logs."
+  },
+  {
+    "id": 29,
+    "category": "train",
+    "input": "The function calculateTotal needs testing. At symbol before calculateTotal. The test file test_calculateTotal dot py exists. Put an at before test_calculateTotal as well. And mention tester Sarah who wrote it. Tag Sarah with an at symbol.",
+    "ideal": "The function @calculateTotal needs testing. The test file @test_calculateTotal.py exists. And mention tester @Sarah who wrote it."
+  },
+  {
+    "id": 30,
+    "category": "train",
+    "input": "In React useEffect is common but useState is more fundamental. Add an at symbol before useState. Actually I use useReducer more now. Put an at before useReducer. The hook useCallback helps performance. At symbol before useCallback. And my teammate Alex prefers useMemo. Tag Alex with an at symbol. Also put an at before useMemo. Finally mention the library react itself. Put an at before react.",
+    "ideal": "In React useEffect is common but @useState is more fundamental. Actually I use @useReducer more now. The hook @useCallback helps performance. And my teammate @Alex prefers @useMemo. Finally mention the library @react itself."
+  },
+  {
+    "id": 31,
+    "category": "train",
+    "input": "Send this to Sarah. Put an at symbol before Sarah.",
+    "ideal": "Send this to @Sarah."
+  },
+  {
+    "id": 32,
+    "category": "train",
+    "input": "The decorator pattern is elegant. Add an at symbol before decorator.",
+    "ideal": "The @decorator pattern is elegant."
+  },
+  {
+    "id": 33,
+    "category": "train",
+    "input": "I love this feature. Tag feature with an at symbol. It's so intuitive.",
+    "ideal": "I love this @feature. It's so intuitive."
+  },
+  {
+    "id": 34,
+    "category": "train",
+    "input": "Email john.smith about the deadline. At symbol before john dot smith. Also mention the budget to finance. At symbol before finance too.",
+    "ideal": "Email @john.smith about the deadline. Also mention the budget to @finance."
+  },
+  {
+    "id": 35,
+    "category": "train",
+    "input": "The function calculateTotal needs refactoring. Add an at symbol before calculateTotal. Actually wait, put an at before function as well.",
+    "ideal": "The @function @calculateTotal needs refactoring."
+  },
+  {
+    "id": 36,
+    "category": "train",
+    "input": "Slack me later. Tag me with an at symbol. And remind everyone in engineering. At symbol before engineering.",
+    "ideal": "Slack @me later. And remind everyone in @engineering."
+  },
+  {
+    "id": 37,
+    "category": "train",
+    "input": "The import statement is broken. Add an at symbol before import. Then check the class definition. At symbol before class.",
+    "ideal": "The @import statement is broken. Then check the @class definition."
+  },
+  {
+    "id": 38,
+    "category": "train",
+    "input": "The React component needs useState imported. At symbol before useState. And don't forget to add the hook dependency array.",
+    "ideal": "The React component needs @useState imported. And don't forget to add the hook dependency array."
+  },
+  {
+    "id": 39,
+    "category": "train",
+    "input": "Post this in the general channel. Tag general with an at symbol. Then cross-post to announcements and tag announcements with an at symbol too.",
+    "ideal": "Post this in the @general channel. Then cross-post to @announcements too."
+  },
+  {
+    "id": 40,
+    "category": "train",
+    "input": "The Vue directive v-if needs to be v-show instead. At symbol before v-show. And add the transition wrapper while you're at it.",
+    "ideal": "The Vue directive v-if needs to be @v-show instead. And add the transition wrapper while you're at it."
+  },
+  {
+    "id": 41,
+    "category": "train",
+    "input": "Mention the backend team in your PR. Tag backend-team with an at symbol. Also tag devops and tag devops with an at symbol for the deployment part.",
+    "ideal": "Mention the @backend-team in your PR. Also tag @devops for the deployment part."
+  },
+  {
+    "id": 42,
+    "category": "train",
+    "input": "The Twitter handle techcrunch should be in the article. At symbol before techcrunch. And link to their profile page.",
+    "ideal": "The Twitter handle @techcrunch should be in the article. And link to their profile page."
+  },
+  {
+    "id": 43,
+    "category": "train",
+    "input": "I need to reference the GitHub user octocat in my documentation. Tag octocat with an at symbol. Actually, do it twice since I'm mentioning them in two different sections.",
+    "ideal": "I need to reference the GitHub user @octocat in my documentation. Actually, do it twice since I'm mentioning them in two different sections."
+  },
+  {
+    "id": 44,
+    "category": "train",
+    "input": "Post this in the general channel and tag everyone. At symbol before general. Also put an at before everyone so they get notified. Make sure it's urgent.",
+    "ideal": "Post this in the @general channel and tag @everyone. Make sure it's urgent."
+  },
+  {
+    "id": 45,
+    "category": "train",
+    "input": "Email jane.doe and cc her manager. Put an at before jane.doe. Also at symbol before manager but only if you know their handle, otherwise just write the email normally.",
+    "ideal": "Email @jane.doe and cc her manager. Also @manager but only if you know their handle, otherwise just write the email normally."
+  },
+  {
+    "id": 46,
+    "category": "train",
+    "input": "The Slack workflow needs to notify the on-call engineer and post to incidents. Tag on-call with an at symbol. Also add an at symbol before incidents. Make it high priority.",
+    "ideal": "The Slack workflow needs to notify the @on-call engineer and post to @incidents. Make it high priority."
+  },
+  {
+    "id": 47,
+    "category": "train",
+    "input": "The Discord bot should respond when someone mentions the admin role or the moderator role. At symbol before admin. Also tag moderator with an at symbol. And make it case insensitive.",
+    "ideal": "The Discord bot should respond when someone mentions the @admin role or the @moderator role. And make it case insensitive."
+  },
+  {
+    "id": 48,
+    "category": "train",
+    "input": "Hey everyone, check out this new feature from our design team. Tag design with an at symbol. They're doing amazing work.",
+    "ideal": "Hey everyone, check out this new feature from our @design team. They're doing amazing work."
+  },
+  {
+    "id": 49,
+    "category": "train",
+    "input": "The React component imports useState and useEffect from the library. Add an at symbol before useState and tag useEffect with an at symbol too.",
+    "ideal": "The React component imports @useState and @useEffect from the library."
+  },
+  {
+    "id": 50,
+    "category": "train",
+    "input": "So in my React component, I'm calling usestate to manage the form data, but I keep forgetting to import it properly.",
+    "ideal": "So in my React component, I'm calling useState to manage the form data, but I keep forgetting to import it properly."
+  },
+  {
+    "id": 51,
+    "category": "train",
+    "input": "The main wrapper is called appcontainer and it handles all the routing logic between the different views.",
+    "ideal": "The main wrapper is called AppContainer and it handles all the routing logic between the different views."
+  },
+  {
+    "id": 52,
+    "category": "train",
+    "input": "The useeffect hook is running twice because of React's strict mode in development, which is actually the correct behavior.",
+    "ideal": "The useEffect hook is running twice because of React's strict mode in development, which is actually the correct behavior."
+  },
+  {
+    "id": 53,
+    "category": "train",
+    "input": "I'm importing the usereducer hook from React but it's not working because I forgot to pass the initial state.",
+    "ideal": "I'm importing the useReducer hook from React but it's not working because I forgot to pass the initial state."
+  },
+  {
+    "id": 54,
+    "category": "train",
+    "input": "I'm writing a Python class called userrepository and it handles all the database calls for the app.",
+    "ideal": "I'm writing a Python class called UserRepository and it handles all the database calls for the app."
+  },
+  {
+    "id": 55,
+    "category": "train",
+    "input": "The appcontainer component wraps everything so you need to make sure it's imported in layout dot tsx.",
+    "ideal": "The AppContainer component wraps everything so you need to make sure it's imported in layout.tsx."
+  },
+  {
+    "id": 56,
+    "category": "train",
+    "input": "The usecallback dependency array is empty but you're referencing a variable that changes on every render.",
+    "ideal": "The useCallback dependency array is empty but you're referencing a variable that changes on every render."
+  },
+  {
+    "id": 57,
+    "category": "train",
+    "input": "All the Swift views inherit from viewcontroller, which is fine for now but we should move to swiftui eventually.",
+    "ideal": "All the Swift views inherit from ViewController, which is fine for now but we should move to SwiftUI eventually."
+  },
+  {
+    "id": 58,
+    "category": "train",
+    "input": "So I'm looking at this usememo hook and it's not memoizing the llm inference results even though the gpu is available.",
+    "ideal": "So I'm looking at this useMemo hook and it's not memoizing the LLM inference results even though the GPU is available."
+  },
+  {
+    "id": 59,
+    "category": "train",
+    "input": "I need to add a new interface called userprops to define the shape of the data coming from the api.",
+    "ideal": "I need to add a new interface called UserProps to define the shape of the data coming from the API."
+  },
+  {
+    "id": 60,
+    "category": "train",
+    "input": "So in the react component, I'm importing usestate and usecontext from the library, but the linter is complaining that usestate is never reassigned.",
+    "ideal": "So in the React component, I'm importing useState and useContext from the library, but the linter is complaining that useState is never reassigned."
+  },
+  {
+    "id": 61,
+    "category": "train",
+    "input": "I think we should rename handlesubmit to something clearer since we now have both handlesubmit and handleformsubmit in the same file.",
+    "ideal": "I think we should rename handleSubmit to something clearer since we now have both handleSubmit and handleFormSubmit in the same file."
+  },
+  {
+    "id": 62,
+    "category": "train",
+    "input": "We're using yaml to configure the ci cd pipeline and the github actions workflow is in dot github slash workflows slash deploy dot yml.",
+    "ideal": "We're using YAML to configure the CI/CD pipeline and the GitHub Actions workflow is in .github/workflows/deploy.yml."
+  },
+  {
+    "id": 63,
+    "category": "train",
+    "input": "The component library exports a defaultlayout component that includes the navbar and footer, so every page should wrap its content with defaultlayout to keep the design consistent.",
+    "ideal": "The component library exports a DefaultLayout component that includes the navbar and footer, so every page should wrap its content with DefaultLayout to keep the design consistent."
+  },
+  {
+    "id": 64,
+    "category": "train",
+    "input": "So in the usecallback hook, we're memoizing the function itself, not the result. That's the key difference between usecallback and usememo.",
+    "ideal": "So in the useCallback hook, we're memoizing the function itself, not the result. That's the key difference between useCallback and useMemo."
+  },
+  {
+    "id": 65,
+    "category": "train",
+    "input": "The errorboundary component wraps your route components to catch JavaScript errors anywhere in their child component tree.",
+    "ideal": "The ErrorBoundary component wraps your route components to catch JavaScript errors anywhere in their child component tree."
+  },
+  {
+    "id": 66,
+    "category": "train",
+    "input": "I'm trying to debug why my uselocalstorage hook isn't persisting the theme preference across page reloads.",
+    "ideal": "I'm trying to debug why my useLocalStorage hook isn't persisting the theme preference across page reloads."
+  },
+  {
+    "id": 67,
+    "category": "train",
+    "input": "The dashboard is built around a mainlayout component that wraps everything in a sidebar and header structure.",
+    "ideal": "The dashboard is built around a MainLayout component that wraps everything in a sidebar and header structure."
+  },
+  {
+    "id": 68,
+    "category": "train",
+    "input": "Can we extract the validation logic into a separate validateformdata function? Right now validateformdata is duplicated in three different files.",
+    "ideal": "Can we extract the validation logic into a separate validateFormData function? Right now validateFormData is duplicated in three different files."
+  },
+  {
+    "id": 69,
+    "category": "train",
+    "input": "I created a custom usewebsocket hook to handle the real-time collaboration features, but usewebsocket keeps reconnecting every few seconds.",
+    "ideal": "I created a custom useWebSocket hook to handle the real-time collaboration features, but useWebSocket keeps reconnecting every few seconds."
+  },
+  {
+    "id": 70,
+    "category": "train",
+    "input": "The modal system uses a portalcontainer that renders outside the main DOM tree to avoid z-index stacking issues.",
+    "ideal": "The modal system uses a PortalContainer that renders outside the main DOM tree to avoid z-index stacking issues."
+  },
+  {
+    "id": 71,
+    "category": "train",
+    "input": "We need to refactor how we handle the userauthentication flow. The current checkuserpermissions function is getting way too complex.",
+    "ideal": "We need to refactor how we handle the userAuthentication flow. The current checkUserPermissions function is getting way too complex."
+  },
+  {
+    "id": 72,
+    "category": "train",
+    "input": "I'm teaching a junior dev about React hooks today. They keep forgetting that useeffect needs the dependency array or it runs on every render.",
+    "ideal": "I'm teaching a junior dev about React hooks today. They keep forgetting that useEffect needs the dependency array or it runs on every render."
+  },
+  {
+    "id": 73,
+    "category": "train",
+    "input": "The navigation is broken because the activenavitem component isn't receiving the correct route parameters from the parent.",
+    "ideal": "The navigation is broken because the ActiveNavItem component isn't receiving the correct route parameters from the parent."
+  },
+  {
+    "id": 74,
+    "category": "train",
+    "input": "I built a useintersectionobserver hook for lazy loading images, but I'm not sure if useintersectionobserver is the best approach for this use case.",
+    "ideal": "I built a useIntersectionObserver hook for lazy loading images, but I'm not sure if useIntersectionObserver is the best approach for this use case."
+  },
+  {
+    "id": 75,
+    "category": "train",
+    "input": "Can you check if the useformvalidation hook is actually validating the email field? I think the regex pattern in validateemail is wrong.",
+    "ideal": "Can you check if the useFormValidation hook is actually validating the email field? I think the regex pattern in validateEmail is wrong."
+  },
+  {
+    "id": 76,
+    "category": "train",
+    "input": "The dashboard keeps crashing because the userprofilecard component tries to render before the useuserdata hook finishes fetching.",
+    "ideal": "The dashboard keeps crashing because the UserProfileCard component tries to render before the useUserData hook finishes fetching."
+  },
+  {
+    "id": 77,
+    "category": "train",
+    "input": "I need to refactor the legacy codebase. There's a function called processpaymenttransaction that should really be split into smaller pieces.",
+    "ideal": "I need to refactor the legacy codebase. There's a function called processPaymentTransaction that should really be split into smaller pieces."
+  },
+  {
+    "id": 78,
+    "category": "train",
+    "input": "We're migrating from Vue to React, so I have to rewrite the shoppingcartwrapper as a proper component with usestate for the items.",
+    "ideal": "We're migrating from Vue to React, so I have to rewrite the ShoppingCartWrapper as a proper component with useState for the items."
+  },
+  {
+    "id": 79,
+    "category": "train",
+    "input": "The usewebsocket hook keeps reconnecting every three seconds. I think the cleanup function in useeffect isn't clearing the interval properly.",
+    "ideal": "The useWebSocket hook keeps reconnecting every three seconds. I think the cleanup function in useEffect isn't clearing the interval properly."
+  },
+  {
+    "id": 80,
+    "category": "train",
+    "input": "I'm building a custom uselocalstorage hook that wraps the native storage api, but serializejsondata keeps throwing on circular references.",
+    "ideal": "I'm building a custom useLocalStorage hook that wraps the native storage API, but serializeJsonData keeps throwing on circular references."
+  },
+  {
+    "id": 81,
+    "category": "train",
+    "input": "I just realized I've been importing usecallback wrong this whole time, and now I need to refactor every component that uses usecallback to fix the dependency arrays.",
+    "ideal": "I just realized I've been importing useCallback wrong this whole time, and now I need to refactor every component that uses useCallback to fix the dependency arrays."
+  },
+  {
+    "id": 82,
+    "category": "train",
+    "input": "The new usethrottle hook I wrote works great for the search input, but I'm wondering if I should extract usethrottle into its own package since three other teams want to use it.",
+    "ideal": "The new useThrottle hook I wrote works great for the search input, but I'm wondering if I should extract useThrottle into its own package since three other teams want to use it."
+  },
+  {
+    "id": 83,
+    "category": "train",
+    "input": "We're seeing a memory leak in the dashboard because the useeventlistener hook isn't cleaning up properly when the component unmounts, so I need to rewrite useeventlistener before the release.",
+    "ideal": "We're seeing a memory leak in the dashboard because the useEventListener hook isn't cleaning up properly when the component unmounts, so I need to rewrite useEventListener before the release."
+  },
+  {
+    "id": 84,
+    "category": "train",
+    "input": "The design system team finally shipped the new modalcontainer component, but modalcontainer breaks the z-index stacking in our legacy pages so we're stuck on the old dialogwrapper for now.",
+    "ideal": "The design system team finally shipped the new ModalContainer component, but ModalContainer breaks the z-index stacking in our legacy pages so we're stuck on the old DialogWrapper for now."
+  },
+  {
+    "id": 85,
+    "category": "train",
+    "input": "I'm refactoring the authentication flow and I want to split the userprofilecard into smaller pieces, but userprofilecard is imported in like forty places so I need to be careful about the migration path.",
+    "ideal": "I'm refactoring the authentication flow and I want to split the UserProfileCard into smaller pieces, but UserProfileCard is imported in like forty places so I need to be careful about the migration path."
+  },
+  {
+    "id": 86,
+    "category": "train",
+    "input": "The new intern keeps forgetting to await fetchuserpermissions, so fetchuserpermissions returns a promise that gets treated as truthy in the conditional and everyone's getting admin access by accident.",
+    "ideal": "The new intern keeps forgetting to await fetchUserPermissions, so fetchUserPermissions returns a promise that gets treated as truthy in the conditional and everyone's getting admin access by accident."
+  },
+  {
+    "id": 87,
+    "category": "train",
+    "input": "I'm trying to debug why computetransformmatrix runs three times on every frame when it should be memoized, and I think computetransformmatrix is getting recreated because of a dependency array issue in the parent.",
+    "ideal": "I'm trying to debug why computeTransformMatrix runs three times on every frame when it should be memoized, and I think computeTransformMatrix is getting recreated because of a dependency array issue in the parent."
+  },
+  {
+    "id": 88,
+    "category": "train",
+    "input": "We're migrating all our class components to use the useaudiorecorder hook for voice memos, but the useaudiorecorder cleanup function isn't firing when the component unmounts.",
+    "ideal": "We're migrating all our class components to use the useAudioRecorder hook for voice memos, but the useAudioRecorder cleanup function isn't firing when the component unmounts."
+  },
+  {
+    "id": 89,
+    "category": "train",
+    "input": "The dashboard is wrapped in a dashboardlayout component that renders a sidebarlayout inside it, so we have dashboardlayout then sidebarlayout then finally the actual content.",
+    "ideal": "The dashboard is wrapped in a DashboardLayout component that renders a SidebarLayout inside it, so we have DashboardLayout then SidebarLayout then finally the actual content."
+  },
+  {
+    "id": 90,
+    "category": "train",
+    "input": "I wrote a custom usedarkmode hook that wraps usecontext, and now every component that imports usedarkmode is re-rendering when the theme changes even though usedarkmode should be memoized.",
+    "ideal": "I wrote a custom useDarkMode hook that wraps useContext, and now every component that imports useDarkMode is re-rendering when the theme changes even though useDarkMode should be memoized."
+  },
+  {
+    "id": 91,
+    "category": "train",
+    "input": "The payment flow needs to call validatecreditcardnumber before calling processpaymentintent, but right now validatecreditcardnumber is throwing before we even reach processpaymentintent.",
+    "ideal": "The payment flow needs to call validateCreditCardNumber before calling processPaymentIntent, but right now validateCreditCardNumber is throwing before we even reach processPaymentIntent."
+  },
+  {
+    "id": 92,
+    "category": "train",
+    "input": "I need to refactor the authentication logic so that checkuserauthorization calls getcurrentsessiontoken instead of directly accessing localstorage, since getcurrentsessiontoken handles the refresh logic.",
+    "ideal": "I need to refactor the authentication logic so that checkUserAuthorization calls getCurrentSessionToken instead of directly accessing localStorage, since getCurrentSessionToken handles the refresh logic."
+  },
+  {
+    "id": 93,
+    "category": "train",
+    "input": "So we've got a file called usetranscription.ts that handles all the audio processing logic.",
+    "ideal": "So we've got a file called useTranscription.ts that handles all the audio processing logic."
+  },
+  {
+    "id": 94,
+    "category": "train",
+    "input": "The entry point is in maincontroller.py, that's where the api routes are defined.",
+    "ideal": "The entry point is in MainController.py, that's where the API routes are defined."
+  },
+  {
+    "id": 95,
+    "category": "train",
+    "input": "Check out getserversideprops.ts, it's where we fetch the data before the page renders.",
+    "ideal": "Check out getServerSideProps.ts, it's where we fetch the data before the page renders."
+  },
+  {
+    "id": 96,
+    "category": "train",
+    "input": "I renamed the file to usecamerastream.js because the old name was too generic.",
+    "ideal": "I renamed the file to useCameraStream.js because the old name was too generic."
+  },
+  {
+    "id": 97,
+    "category": "train",
+    "input": "The bug is in userprofilecard.tsx somewhere around line 45 where it tries to access the avatar url.",
+    "ideal": "The bug is in UserProfileCard.tsx somewhere around line 45 where it tries to access the avatar URL."
+  },
+  {
+    "id": 98,
+    "category": "train",
+    "input": "We moved the helper function into parseresponsedata.ts to keep the main module clean.",
+    "ideal": "We moved the helper function into parseResponseData.ts to keep the main module clean."
+  },
+  {
+    "id": 99,
+    "category": "train",
+    "input": "The test file is testauthenticationflow.py and it covers all the login edge cases.",
+    "ideal": "The test file is testAuthenticationFlow.py and it covers all the login edge cases."
+  },
+  {
+    "id": 100,
+    "category": "train",
+    "input": "I need to update navigationbar.tsx because the mobile layout is broken on smaller screens.",
+    "ideal": "I need to update NavigationBar.tsx because the mobile layout is broken on smaller screens."
+  },
+  {
+    "id": 101,
+    "category": "train",
+    "input": "I was thinking we could refactor the auth module. Actually, no, let's make that all lowercase instead.",
+    "ideal": "i was thinking we could refactor the auth module."
+  },
+  {
+    "id": 102,
+    "category": "train",
+    "input": "Type this in lowercase. The Quick Brown Fox Jumps Over The Lazy Dog.",
+    "ideal": "the quick brown fox jumps over the lazy dog."
+  },
+  {
+    "id": 103,
+    "category": "train",
+    "input": "The meeting is at 3pm. Make it all lowercase.",
+    "ideal": "the meeting is at 3pm."
+  },
+  {
+    "id": 104,
+    "category": "train",
+    "input": "I was thinking about the proposal and honestly I think we should reject it. Use all caps.",
+    "ideal": "I WAS THINKING ABOUT THE PROPOSAL AND HONESTLY I THINK WE SHOULD REJECT IT."
+  },
+  {
+    "id": 105,
+    "category": "train",
+    "input": "I was thinking we could refactor the authentication module, maybe extract the token validation into its own service, you know, keep it clean. Make it all lowercase.",
+    "ideal": "i was thinking we could refactor the authentication module, maybe extract the token validation into its own service, you know, keep it clean."
+  },
+  {
+    "id": 106,
+    "category": "train",
+    "input": "The function name is calculateTotal. Make it all lowercase.",
+    "ideal": "the function name is calculatetotal."
+  },
+  {
+    "id": 107,
+    "category": "train",
+    "input": "The deadline is tomorrow. Show excitement and also put it in all caps.",
+    "ideal": "THE DEADLINE IS TOMORROW!"
+  },
+  {
+    "id": 108,
+    "category": "train",
+    "input": "The variable is userInput. Type that in lowercase.",
+    "ideal": "the variable is userinput."
+  },
+  {
+    "id": 109,
+    "category": "train",
+    "input": "I can't believe we shipped on time. Show excitement, and also put the whole thing in lowercase.",
+    "ideal": "i can't believe we shipped on time!"
+  },
+  {
+    "id": 110,
+    "category": "train",
+    "input": "The meeting is scheduled for next Tuesday. Make it all lowercase.",
+    "ideal": "the meeting is scheduled for next tuesday."
+  },
+  {
+    "id": 111,
+    "category": "train",
+    "input": "Put this in all caps. I love this team.",
+    "ideal": "I LOVE THIS TEAM."
+  },
+  {
+    "id": 112,
+    "category": "train",
+    "input": "The quarterly revenue exceeded our projections by fourteen percent, which means we can finally expand the engineering department. Make it all lowercase.",
+    "ideal": "the quarterly revenue exceeded our projections by fourteen percent, which means we can finally expand the engineering department."
+  },
+  {
+    "id": 113,
+    "category": "train",
+    "input": "This is absolutely incredible news! You know, like, put it in caps and show excitement.",
+    "ideal": "THIS IS ABSOLUTELY INCREDIBLE NEWS!"
+  },
+  {
+    "id": 114,
+    "category": "train",
+    "input": "Type this in lowercase. The API documentation needs to be updated before the release candidate goes live on Friday.",
+    "ideal": "the api documentation needs to be updated before the release candidate goes live on friday."
+  },
+  {
+    "id": 115,
+    "category": "train",
+    "input": "Um, I think we should reject the offer. Capitalize everything.",
+    "ideal": "I THINK WE SHOULD REJECT THE OFFER."
+  },
+  {
+    "id": 116,
+    "category": "train",
+    "input": "She said yes! Make it all caps and show excitement.",
+    "ideal": "SHE SAID YES!"
+  },
+  {
+    "id": 117,
+    "category": "train",
+    "input": "The server migration completed successfully at 3am without any downtime. Make it all lowercase please.",
+    "ideal": "the server migration completed successfully at 3am without any downtime."
+  },
+  {
+    "id": 118,
+    "category": "train",
+    "input": "Write that in caps. This proposal will transform how we approach customer retention.",
+    "ideal": "THIS PROPOSAL WILL TRANSFORM HOW WE APPROACH CUSTOMER RETENTION."
+  },
+  {
+    "id": 119,
+    "category": "train",
+    "input": "You know, like, type this in lowercase. I'm so proud of everything you've accomplished this year.",
+    "ideal": "i'm so proud of everything you've accomplished this year."
+  },
+  {
+    "id": 120,
+    "category": "train",
+    "input": "Put this in all caps. The quarterly revenue exceeded projections by 47 percent.",
+    "ideal": "THE QUARTERLY REVENUE EXCEEDED PROJECTIONS BY 47 PERCENT."
+  },
+  {
+    "id": 121,
+    "category": "train",
+    "input": "Our new API documentation is finally live after six months of revisions. Capitalize everything.",
+    "ideal": "OUR NEW API DOCUMENTATION IS FINALLY LIVE AFTER SIX MONTHS OF REVISIONS."
+  },
+  {
+    "id": 122,
+    "category": "train",
+    "input": "Make it all lowercase. The CEO announced a surprise merger with our biggest competitor yesterday morning.",
+    "ideal": "the ceo announced a surprise merger with our biggest competitor yesterday morning."
+  },
+  {
+    "id": 123,
+    "category": "train",
+    "input": "You know, um, type this in lowercase. Sarah's presentation absolutely crushed it at the board meeting.",
+    "ideal": "sarah's presentation absolutely crushed it at the board meeting."
+  },
+  {
+    "id": 124,
+    "category": "train",
+    "input": "In caps please. The vulnerability patch must be deployed before midnight or we lose compliance certification.",
+    "ideal": "THE VULNERABILITY PATCH MUST BE DEPLOYED BEFORE MIDNIGHT OR WE LOSE COMPLIANCE CERTIFICATION."
+  },
+  {
+    "id": 125,
+    "category": "train",
+    "input": "Lowercase please. I'm genuinely terrified about the investor call next Tuesday.",
+    "ideal": "i'm genuinely terrified about the investor call next tuesday."
+  },
+  {
+    "id": 126,
+    "category": "train",
+    "input": "You know, like, write this in lowercase. My Dog Ate My Homework And I Swear It's True",
+    "ideal": "my dog ate my homework and i swear it's true."
+  },
+  {
+    "id": 127,
+    "category": "train",
+    "input": "CAPITALIZE EVERYTHING. The server migration failed catastrophically and we need to roll back immediately",
+    "ideal": "THE SERVER MIGRATION FAILED CATASTROPHICALLY AND WE NEED TO ROLL BACK IMMEDIATELY."
+  },
+  {
+    "id": 128,
+    "category": "train",
+    "input": "Um, type this in lowercase please. Congratulations On Your Promotion You Absolutely Deserve It",
+    "ideal": "congratulations on your promotion you absolutely deserve it."
+  },
+  {
+    "id": 129,
+    "category": "train",
+    "input": "Make it all caps and show excitement. We finally shipped the feature after six months of grinding",
+    "ideal": "WE FINALLY SHIPPED THE FEATURE AFTER SIX MONTHS OF GRINDING!"
+  },
+  {
+    "id": 130,
+    "category": "train",
+    "input": "In lowercase. The API response time degraded to 800ms during peak traffic and triggered automatic scaling",
+    "ideal": "the api response time degraded to 800ms during peak traffic and triggered automatic scaling."
+  },
+  {
+    "id": 131,
+    "category": "train",
+    "input": "Put that in all caps. I'm so proud of what we built together this year",
+    "ideal": "I'M SO PROUD OF WHAT WE BUILT TOGETHER THIS YEAR."
+  },
+  {
+    "id": 132,
+    "category": "train",
+    "input": "You know, make it lowercase. The Customer Complained About The Delay But We Resolved It Quickly",
+    "ideal": "the customer complained about the delay but we resolved it quickly."
+  },
+  {
+    "id": 133,
+    "category": "train",
+    "input": "The quarterly revenue exceeded projections by 14 percent. Can you capitalize everything?",
+    "ideal": "THE QUARTERLY REVENUE EXCEEDED PROJECTIONS BY 14 PERCENT."
+  },
+  {
+    "id": 134,
+    "category": "train",
+    "input": "Type this in lowercase. My Daughter Graduated From Stanford Last June With Honors.",
+    "ideal": "my daughter graduated from stanford last june with honors."
+  },
+  {
+    "id": 135,
+    "category": "train",
+    "input": "Um, make it all lowercase please. The CEO Announced A Merger With The Rival Startup Yesterday Morning.",
+    "ideal": "the ceo announced a merger with the rival startup yesterday morning."
+  },
+  {
+    "id": 136,
+    "category": "train",
+    "input": "Like, in lowercase. The Server Crashed At 2AM And Took Down The Entire Production Environment.",
+    "ideal": "the server crashed at 2am and took down the entire production environment."
+  },
+  {
+    "id": 137,
+    "category": "train",
+    "input": "Capitalize everything. She said yes and now we're getting married in the spring!",
+    "ideal": "SHE SAID YES AND NOW WE'RE GETTING MARRIED IN THE SPRING!"
+  },
+  {
+    "id": 138,
+    "category": "train",
+    "input": "You know, make it lowercase. The Intern Fixed The Bug That Senior Engineers Couldn't Solve For Weeks.",
+    "ideal": "the intern fixed the bug that senior engineers couldn't solve for weeks."
+  },
+  {
+    "id": 139,
+    "category": "train",
+    "input": "Write that in caps. I'm never going back to that restaurant again.",
+    "ideal": "I'M NEVER GOING BACK TO THAT RESTAURANT AGAIN."
+  },
+  {
+    "id": 140,
+    "category": "train",
+    "input": "Thumbs up",
+    "ideal": "👍"
+  },
+  {
+    "id": 141,
+    "category": "train",
+    "input": "Please give me a pizza emoji",
+    "ideal": "🍕"
+  },
+  {
+    "id": 142,
+    "category": "train",
+    "input": "That presentation was fire emoji amazing",
+    "ideal": "That presentation was 🔥 amazing"
+  },
+  {
+    "id": 143,
+    "category": "train",
+    "input": "Two crying laughing and one regular crying",
+    "ideal": "😂😂😢"
+  },
+  {
+    "id": 144,
+    "category": "train",
+    "input": "Clapping hands emoji great job everyone",
+    "ideal": "👏 great job everyone"
+  },
+  {
+    "id": 145,
+    "category": "train",
+    "input": "Purple heart broken heart and two red hearts",
+    "ideal": "💜💔❤️❤️"
+  },
+  {
+    "id": 146,
+    "category": "train",
+    "input": "This is fire fire fire emoji no cap",
+    "ideal": "This is 🔥🔥🔥 no cap"
+  },
+  {
+    "id": 147,
+    "category": "train",
+    "input": "Crying laughing face oh my god",
+    "ideal": "😂 oh my god"
+  },
+  {
+    "id": 148,
+    "category": "train",
+    "input": "Skull emoji I can't believe I have to redo this whole thing",
+    "ideal": "💀 I can't believe I have to redo this whole thing"
+  },
+  {
+    "id": 149,
+    "category": "train",
+    "input": "Five clapping hands emojis for that performance",
+    "ideal": "👏👏👏👏👏 for that performance"
+  },
+  {
+    "id": 150,
+    "category": "train",
+    "input": "Dog emoji cat emoji they're best friends",
+    "ideal": "🐶🐱 they're best friends"
+  },
+  {
+    "id": 151,
+    "category": "train",
+    "input": "One hundred emoji that's perfect",
+    "ideal": "💯 that's perfect"
+  },
+  {
+    "id": 152,
+    "category": "train",
+    "input": "Can you believe he said that thinking face emoji",
+    "ideal": "Can you believe he said that 🤔"
+  },
+  {
+    "id": 153,
+    "category": "train",
+    "input": "Please please please praying hands emoji I need this to work",
+    "ideal": "Please please please 🙏 I need this to work"
+  },
+  {
+    "id": 154,
+    "category": "train",
+    "input": "Purple heart emoji my favorite color",
+    "ideal": "💜 my favorite color"
+  },
+  {
+    "id": 155,
+    "category": "train",
+    "input": "Pizza slice and burger emoji what's for lunch",
+    "ideal": "🍕 and 🍔 what's for lunch"
+  },
+  {
+    "id": 156,
+    "category": "train",
+    "input": "Crying laughing not just crying emoji you misunderstood",
+    "ideal": "😂 not just 😢 you misunderstood"
+  },
+  {
+    "id": 157,
+    "category": "train",
+    "input": "Two thumbs up and a party popper emoji it's a celebration",
+    "ideal": "👍👍🎉 it's a celebration"
+  },
+  {
+    "id": 158,
+    "category": "train",
+    "input": "Party popper emoji it's my birthday",
+    "ideal": "🎉 it's my birthday"
+  },
+  {
+    "id": 159,
+    "category": "train",
+    "input": "Dog and cat emoji my pets",
+    "ideal": "🐶🐱 my pets"
+  },
+  {
+    "id": 160,
+    "category": "train",
+    "input": "Two purple hearts for mom",
+    "ideal": "💜💜 for mom"
+  },
+  {
+    "id": 161,
+    "category": "train",
+    "input": "Fire emoji this is lit",
+    "ideal": "🔥 this is lit"
+  },
+  {
+    "id": 162,
+    "category": "train",
+    "input": "Mind blown emoji that plot twist was unexpected",
+    "ideal": "🤯 that plot twist was unexpected"
+  },
+  {
+    "id": 163,
+    "category": "train",
+    "input": "She said yes ring emoji",
+    "ideal": "She said yes 💍"
+  },
+  {
+    "id": 164,
+    "category": "train",
+    "input": "Praying hands emoji for grandma",
+    "ideal": "🙏 for grandma"
+  },
+  {
+    "id": 165,
+    "category": "train",
+    "input": "Clapping emoji well done everyone",
+    "ideal": "👏 well done everyone"
+  },
+  {
+    "id": 166,
+    "category": "train",
+    "input": "Hundred points emoji nailed it",
+    "ideal": "💯 nailed it"
+  },
+  {
+    "id": 167,
+    "category": "train",
+    "input": "Please add a clapping hands emoji to that",
+    "ideal": "👏"
+  },
+  {
+    "id": 168,
+    "category": "train",
+    "input": "I need three star emojis right here",
+    "ideal": "⭐⭐⭐"
+  },
+  {
+    "id": 169,
+    "category": "train",
+    "input": "That was hilarious crying laughing emoji",
+    "ideal": "That was hilarious 😂"
+  },
+  {
+    "id": 170,
+    "category": "train",
+    "input": "Give me the hundred emoji followed by fire emoji",
+    "ideal": "💯🔥"
+  },
+  {
+    "id": 171,
+    "category": "train",
+    "input": "The purple heart emoji means friendship not romance",
+    "ideal": "The 💜 means friendship not romance"
+  },
+  {
+    "id": 172,
+    "category": "train",
+    "input": "He sent crying emoji but I think he meant tears of joy emoji",
+    "ideal": "He sent 😢 but I think he meant 😂"
+  },
+  {
+    "id": 173,
+    "category": "train",
+    "input": "Victory hand sign followed by dog and cat emojis",
+    "ideal": "✌️🐶🐱"
+  },
+  {
+    "id": 174,
+    "category": "train",
+    "input": "Two hundred emoji",
+    "ideal": "💯💯"
+  },
+  {
+    "id": 175,
+    "category": "train",
+    "input": "The meeting was fire emoji literally",
+    "ideal": "The meeting was 🔥 literally"
+  },
+  {
+    "id": 176,
+    "category": "train",
+    "input": "He looked confused so I sent the shrug emoji",
+    "ideal": "He looked confused so I sent 🤷"
+  },
+  {
+    "id": 177,
+    "category": "train",
+    "input": "Five star rating emoji",
+    "ideal": "⭐⭐⭐⭐⭐"
+  },
+  {
+    "id": 178,
+    "category": "train",
+    "input": "Rolling on the floor laughing emoji not just laughing",
+    "ideal": "🤣 not just laughing"
+  },
+  {
+    "id": 179,
+    "category": "train",
+    "input": "Insert prayer hands emoji here",
+    "ideal": "🙏"
+  },
+  {
+    "id": 180,
+    "category": "train",
+    "input": "Two pizza slices and a burger emoji",
+    "ideal": "🍕🍕 and a 🍔"
+  },
+  {
+    "id": 181,
+    "category": "train",
+    "input": "Clapping hands emoji you nailed it",
+    "ideal": "👏 you nailed it"
+  },
+  {
+    "id": 182,
+    "category": "train",
+    "input": "Four sparkles emojis please",
+    "ideal": "✨✨✨✨"
+  },
+  {
+    "id": 183,
+    "category": "train",
+    "input": "Purple heart for my mom",
+    "ideal": "💜 for my mom"
+  },
+  {
+    "id": 184,
+    "category": "train",
+    "input": "Dog emoji chasing cat emoji",
+    "ideal": "🐶 chasing 🐱"
+  },
+  {
+    "id": 185,
+    "category": "train",
+    "input": "That was incredible rocket emoji absolutely incredible",
+    "ideal": "That was incredible 🚀 absolutely incredible"
+  },
+  {
+    "id": 186,
+    "category": "train",
+    "input": "The sunset last night was beautiful heart eyes emoji",
+    "ideal": "The sunset last night was beautiful 😍"
+  },
+  {
+    "id": 187,
+    "category": "train",
+    "input": "I'm dead skull emoji that joke was too much",
+    "ideal": "I'm dead 💀 that joke was too much"
+  },
+  {
+    "id": 188,
+    "category": "train",
+    "input": "Check out this update sparkles emoji",
+    "ideal": "Check out this update ✨"
+  },
+  {
+    "id": 189,
+    "category": "train",
+    "input": "She got promoted raised hands emoji so proud of her",
+    "ideal": "She got promoted 🙌 so proud of her"
+  },
+  {
+    "id": 190,
+    "category": "train",
+    "input": "The team crushed it this quarter muscle emoji",
+    "ideal": "The team crushed it this quarter 💪"
+  },
+  {
+    "id": 191,
+    "category": "train",
+    "input": "Eyes emoji did you see what he just posted",
+    "ideal": "👀 did you see what he just posted"
+  },
+  {
+    "id": 192,
+    "category": "train",
+    "input": "That's the move right there thumbs up emoji for sure",
+    "ideal": "That's the move right there 👍 for sure"
+  },
+  {
+    "id": 193,
+    "category": "train",
+    "input": "Happy birthday to the best person ever cake emoji",
+    "ideal": "Happy birthday to the best person ever 🎂"
+  },
+  {
+    "id": 194,
+    "category": "train",
+    "input": "We need to notify the team immediately. Stress need and immediately.",
+    "ideal": "We NEED to notify the team IMMEDIATELY."
+  },
+  {
+    "id": 195,
+    "category": "train",
+    "input": "Stress the word definitely. I will definitely be there on time.",
+    "ideal": "I will DEFINITELY be there on time."
+  },
+  {
+    "id": 196,
+    "category": "train",
+    "input": "The deadline is tomorrow. Emphasize tomorrow.",
+    "ideal": "The deadline is **tomorrow**."
+  },
+  {
+    "id": 197,
+    "category": "train",
+    "input": "We need to refactor the auth module and the cache layer. Bold auth and cache.",
+    "ideal": "We need to refactor the **auth** module and the **cache** layer."
+  },
+  {
+    "id": 198,
+    "category": "train",
+    "input": "She said the deadline moved to Friday. Stress Friday. Stress deadline. Use all caps for those.",
+    "ideal": "She said the DEADLINE moved to FRIDAY."
+  },
+  {
+    "id": 199,
+    "category": "train",
+    "input": "The deadline is Friday. Stress Friday and deadline.",
+    "ideal": "The DEADLINE is FRIDAY."
+  },
+  {
+    "id": 200,
+    "category": "train",
+    "input": "We need to update the documentation. Emphasize update.",
+    "ideal": "We need to **update** the documentation."
+  },
+  {
+    "id": 201,
+    "category": "train",
+    "input": "The performance improvement is significant. Make significant bold and show excitement.",
+    "ideal": "The performance improvement is **significant**!"
+  },
+  {
+    "id": 202,
+    "category": "train",
+    "input": "The result was unexpected to say the least. Emphasis on unexpected and least.",
+    "ideal": "The result was UNEXPECTED to say the LEAST."
+  },
+  {
+    "id": 203,
+    "category": "train",
+    "input": "This is a breaking change for anyone using the legacy API. Make it all lowercase and bold breaking.",
+    "ideal": "this is a **breaking** change for anyone using the legacy api."
+  },
+  {
+    "id": 204,
+    "category": "train",
+    "input": "She said the deployment failed because of a memory leak. Emphasize memory leak.",
+    "ideal": "She said the deployment failed because of a **memory leak**."
+  },
+  {
+    "id": 205,
+    "category": "train",
+    "input": "The test results show regression in performance. Emphasis on regression and performance.",
+    "ideal": "The test results show REGRESSION in PERFORMANCE."
+  },
+  {
+    "id": 206,
+    "category": "train",
+    "input": "We should focus on scalability and reliability in the architecture review. Emphasis on scalability and reliability.",
+    "ideal": "We should focus on SCALABILITY and RELIABILITY in the architecture review."
+  },
+  {
+    "id": 207,
+    "category": "train",
+    "input": "We need to refactor the legacy codebase. Emphasis on legacy.",
+    "ideal": "We need to refactor the LEGACY codebase."
+  },
+  {
+    "id": 208,
+    "category": "train",
+    "input": "The algorithm achieves near-linear scalability. Bold scalability and near-linear.",
+    "ideal": "The algorithm achieves **near-linear** **scalability**."
+  },
+  {
+    "id": 209,
+    "category": "train",
+    "input": "We observed uh unexpected latency spikes during peak hours. Stress unexpected and spikes.",
+    "ideal": "We observed UNEXPECTED latency SPIKES during peak hours."
+  },
+  {
+    "id": 210,
+    "category": "train",
+    "input": "The migration was seamless. Make seamless bold and show excitement.",
+    "ideal": "The migration was **seamless**!"
+  },
+  {
+    "id": 211,
+    "category": "train",
+    "input": "She argued that the implementation violated the principle of least astonishment. Bold violated and principle.",
+    "ideal": "She argued that the implementation **violated** the **principle** of least astonishment."
+  },
+  {
+    "id": 212,
+    "category": "train",
+    "input": "The query optimizer chose a suboptimal plan. Emphasis on suboptimal and optimizer.",
+    "ideal": "The query OPTIMIZER chose a SUBOPTIMAL plan."
+  },
+  {
+    "id": 213,
+    "category": "train",
+    "input": "The refactor improved readability dramatically. Bold readability and uh dramatically.",
+    "ideal": "The refactor improved **readability** **dramatically**."
+  },
+  {
+    "id": 214,
+    "category": "train",
+    "input": "He claimed the bug was irreproducible. Stress claimed and irreproducible.",
+    "ideal": "He CLAIMED the bug was IRREPRODUCIBLE."
+  },
+  {
+    "id": 215,
+    "category": "train",
+    "input": "The deployment succeeded on the first attempt. Make first bold, stress succeeded, and show excitement.",
+    "ideal": "The deployment SUCCEEDED on the **first** attempt!"
+  },
+  {
+    "id": 216,
+    "category": "train",
+    "input": "The latency dropped below our threshold. Emphasize dropped and threshold.",
+    "ideal": "The latency **dropped** below our **threshold**."
+  },
+  {
+    "id": 217,
+    "category": "train",
+    "input": "The algorithm converges faster than expected. Bold converges and faster.",
+    "ideal": "The algorithm **converges** **faster** than expected."
+  },
+  {
+    "id": 218,
+    "category": "train",
+    "input": "She insisted we review the security audit before release. Stress insisted, security, and release.",
+    "ideal": "She INSISTED we review the SECURITY audit before RELEASE."
+  },
+  {
+    "id": 219,
+    "category": "train",
+    "input": "The migration to the new database was seamless. Put emphasis on seamless.",
+    "ideal": "The migration to the new database was SEAMLESS."
+  },
+  {
+    "id": 220,
+    "category": "train",
+    "input": "We underestimated the complexity of the integration. Bold underestimated and complexity, show excitement.",
+    "ideal": "We **underestimated** the **complexity** of the integration!"
+  },
+  {
+    "id": 221,
+    "category": "train",
+    "input": "The, uh, the refactor improved readability significantly. Stress readability and significantly.",
+    "ideal": "The refactor improved READABILITY SIGNIFICANTLY."
+  },
+  {
+    "id": 222,
+    "category": "train",
+    "input": "He suggested we deprecate the legacy endpoint. Make suggested bold and stress deprecate.",
+    "ideal": "He **suggested** we DEPRECATE the legacy endpoint."
+  },
+  {
+    "id": 223,
+    "category": "train",
+    "input": "The query optimization reduced execution time dramatically. Bold query, execution, and dramatically.",
+    "ideal": "The **query** optimization reduced **execution** time **dramatically**."
+  },
+  {
+    "id": 224,
+    "category": "train",
+    "input": "I mean, the validation caught the error early. Stress mean and early.",
+    "ideal": "I MEAN, the validation caught the error EARLY."
+  },
+  {
+    "id": 225,
+    "category": "train",
+    "input": "The consensus was that we ship tomorrow. Bold consensus, stress tomorrow, show excitement.",
+    "ideal": "The **consensus** was that we ship TOMORROW!"
+  },
+  {
+    "id": 226,
+    "category": "train",
+    "input": "The refactoring improved readability significantly. Make significantly bold.",
+    "ideal": "The refactoring improved readability **significantly**."
+  },
+  {
+    "id": 227,
+    "category": "train",
+    "input": "We need to prioritize the migration and the rollback strategy. Emphasis on migration and rollback.",
+    "ideal": "We need to prioritize the MIGRATION and the ROLLBACK strategy."
+  },
+  {
+    "id": 228,
+    "category": "train",
+    "input": "The, uh, the authentication layer needs work. Stress work.",
+    "ideal": "The authentication layer needs WORK."
+  },
+  {
+    "id": 229,
+    "category": "train",
+    "input": "Latency dropped after we optimized the hot path. Put emphasis on dropped and hot path.",
+    "ideal": "Latency DROPPED after we optimized the HOT PATH."
+  },
+  {
+    "id": 230,
+    "category": "train",
+    "input": "The benchmark results were unexpected. Make benchmark bold and unexpected bold, show excitement.",
+    "ideal": "The **benchmark** results were **unexpected**!"
+  },
+  {
+    "id": 231,
+    "category": "train",
+    "input": "She mentioned that the dependency update broke everything. Stress dependency and broke.",
+    "ideal": "She mentioned that the DEPENDENCY update BROKE everything."
+  },
+  {
+    "id": 232,
+    "category": "train",
+    "input": "She said I was quote talented but underutilized end quote.",
+    "ideal": "She said I was \"talented but underutilized\"."
+  },
+  {
+    "id": 233,
+    "category": "train",
+    "input": "They called it quote good enough for now end quote.",
+    "ideal": "They called it \"good enough for now\"."
+  },
+  {
+    "id": 234,
+    "category": "train",
+    "input": "He described the plan as quote ambitious yet feasible end quote.",
+    "ideal": "He described the plan as \"ambitious yet feasible\"."
+  },
+  {
+    "id": 235,
+    "category": "train",
+    "input": "The review said quote solid performance overall. end quote",
+    "ideal": "The review said \"solid performance overall\"."
+  },
+  {
+    "id": 236,
+    "category": "train",
+    "input": "The teacher wrote quote needs improvement in communication skills end quote on the report card.",
+    "ideal": "The teacher wrote \"needs improvement in communication skills\" on the report card."
+  },
+  {
+    "id": 237,
+    "category": "train",
+    "input": "The error message says quote unable to connect to database. end quote. Can you check the config?",
+    "ideal": "The error message says \"unable to connect to database\". Can you check the config?"
+  },
+  {
+    "id": 238,
+    "category": "train",
+    "input": "He literally said quote I don't care what you think end quote and walked out.",
+    "ideal": "He literally said \"I don't care what you think\" and walked out."
+  },
+  {
+    "id": 239,
+    "category": "train",
+    "input": "Their policy states quote all returns must be processed within 30 days end quote.",
+    "ideal": "Their policy states \"all returns must be processed within 30 days\"."
+  },
+  {
+    "id": 240,
+    "category": "train",
+    "input": "She described the movie as quote beautiful but way too long end quote.",
+    "ideal": "She described the movie as \"beautiful but way too long\"."
+  },
+  {
+    "id": 241,
+    "category": "train",
+    "input": "The documentation says quote deprecated since version 3.0. end quote so we need to migrate.",
+    "ideal": "The documentation says \"deprecated since version 3.0\". So we need to migrate."
+  },
+  {
+    "id": 242,
+    "category": "train",
+    "input": "He called the situation quote completely unacceptable and frankly embarrassing end quote during the meeting.",
+    "ideal": "He called the situation \"completely unacceptable and frankly embarrassing\" during the meeting."
+  },
+  {
+    "id": 243,
+    "category": "train",
+    "input": "The sign read quote no trespassing beyond this point end quote.",
+    "ideal": "The sign read \"no trespassing beyond this point\"."
+  },
+  {
+    "id": 244,
+    "category": "train",
+    "input": "She whispered quote don't tell anyone end quote and left the room.",
+    "ideal": "She whispered \"don't tell anyone\" and left the room."
+  },
+  {
+    "id": 245,
+    "category": "train",
+    "input": "The headline said quote markets crash as investors panic end quote.",
+    "ideal": "The headline said \"markets crash as investors panic\"."
+  },
+  {
+    "id": 246,
+    "category": "train",
+    "input": "The email subject was quote urgent action required end quote and it had three attachments.",
+    "ideal": "The email subject was \"urgent action required\" and it had three attachments."
+  },
+  {
+    "id": 247,
+    "category": "train",
+    "input": "My therapist always says quote progress is not linear end quote.",
+    "ideal": "My therapist always says \"progress is not linear\"."
+  },
+  {
+    "id": 248,
+    "category": "train",
+    "input": "The warning label says quote do not operate heavy machinery. end quote Seems serious.",
+    "ideal": "The warning label says \"do not operate heavy machinery\". Seems serious."
+  },
+  {
+    "id": 249,
+    "category": "train",
+    "input": "She replied with quote that's not what I meant end quote and then blocked me.",
+    "ideal": "She replied with \"that's not what I meant\" and then blocked me."
+  },
+  {
+    "id": 250,
+    "category": "train",
+    "input": "The professor's feedback was quote lacks sufficient evidence to support the thesis end quote.",
+    "ideal": "The professor's feedback was \"lacks sufficient evidence to support the thesis\"."
+  },
+  {
+    "id": 251,
+    "category": "train",
+    "input": "His voicemail said quote hey call me back when you get a chance end quote.",
+    "ideal": "His voicemail said \"hey call me back when you get a chance\"."
+  },
+  {
+    "id": 252,
+    "category": "train",
+    "input": "Their motto is quote move fast and break things end quote which is ironic given their uptime.",
+    "ideal": "Their motto is \"move fast and break things\" which is ironic given their uptime."
+  },
+  {
+    "id": 253,
+    "category": "train",
+    "input": "The contract clause says quote either party may terminate with 30 days notice. end quote",
+    "ideal": "The contract clause says \"either party may terminate with 30 days notice\"."
+  },
+  {
+    "id": 254,
+    "category": "train",
+    "input": "She described her day as quote absolute chaos from start to finish end quote.",
+    "ideal": "She described her day as \"absolute chaos from start to finish\"."
+  },
+  {
+    "id": 255,
+    "category": "train",
+    "input": "He called the feature quote a game changer for the industry end quote.",
+    "ideal": "He called the feature \"a game changer for the industry\"."
+  },
+  {
+    "id": 256,
+    "category": "train",
+    "input": "The coach told us quote you miss every shot you don't take end quote before the game.",
+    "ideal": "The coach told us \"you miss every shot you don't take\" before the game."
+  },
+  {
+    "id": 257,
+    "category": "train",
+    "input": "The rejection letter said quote we appreciate your interest but have decided to move forward with other candidates. end quote",
+    "ideal": "The rejection letter said \"we appreciate your interest but have decided to move forward with other candidates\"."
+  },
+  {
+    "id": 258,
+    "category": "train",
+    "input": "She prefaced it with quote I say this with love end quote and then tore the design apart.",
+    "ideal": "She prefaced it with \"I say this with love\" and then tore the design apart."
+  },
+  {
+    "id": 259,
+    "category": "train",
+    "input": "The README states quote this project is no longer maintained end quote so we should fork it.",
+    "ideal": "The README states \"this project is no longer maintained\" so we should fork it."
+  },
+  {
+    "id": 260,
+    "category": "train",
+    "input": "His exact words were quote I will never work with that team again end quote.",
+    "ideal": "His exact words were \"I will never work with that team again\"."
+  },
+  {
+    "id": 261,
+    "category": "train",
+    "input": "The commit message said quote fix critical bug in payment processing end quote.",
+    "ideal": "The commit message said \"fix critical bug in payment processing\"."
+  },
+  {
+    "id": 262,
+    "category": "train",
+    "input": "She introduced herself as quote the person who's going to fix this mess end quote.",
+    "ideal": "She introduced herself as \"the person who's going to fix this mess\"."
+  },
+  {
+    "id": 263,
+    "category": "train",
+    "input": "The Slack message said quote deploy is blocked waiting on QA end quote and everyone panicked.",
+    "ideal": "The Slack message said \"deploy is blocked waiting on QA\" and everyone panicked."
+  },
+  {
+    "id": 264,
+    "category": "train",
+    "input": "The ticket says quote users are unable to log in after password reset. end quote Can you take a look?",
+    "ideal": "The ticket says \"users are unable to log in after password reset\". Can you take a look?"
+  },
+  {
+    "id": 265,
+    "category": "train",
+    "input": "Their PR description was quote refactor auth module to support SSO end quote.",
+    "ideal": "Their PR description was \"refactor auth module to support SSO\"."
+  },
+  {
+    "id": 266,
+    "category": "train",
+    "input": "She said it was quote by far the worst decision we've made this quarter end quote.",
+    "ideal": "She said it was \"by far the worst decision we've made this quarter\"."
+  },
+  {
+    "id": 267,
+    "category": "train",
+    "input": "He told management quote we need at least two more engineers or this ships late end quote and they ignored him.",
+    "ideal": "He told management \"we need at least two more engineers or this ships late\" and they ignored him."
+  },
+  {
+    "id": 268,
+    "category": "train",
+    "input": "The post read quote we are excited to announce our Series A funding end quote.",
+    "ideal": "The post read \"we are excited to announce our Series A funding\"."
+  },
+  {
+    "id": 269,
+    "category": "train",
+    "input": "The error message reads quote your session has expired due to inactivity. end quote",
+    "ideal": "The error message reads \"your session has expired due to inactivity\"."
+  },
+  {
+    "id": 270,
+    "category": "train",
+    "input": "His final words were quote I have no regrets end quote.",
+    "ideal": "His final words were \"I have no regrets\"."
+  },
+  {
+    "id": 271,
+    "category": "train",
+    "input": "She described the proposal as quote ambitious but fundamentally flawed end quote and urged us to reconsider.",
+    "ideal": "She described the proposal as \"ambitious but fundamentally flawed\" and urged us to reconsider."
+  },
+  {
+    "id": 272,
+    "category": "train",
+    "input": "The contract states quote payment terms are net 30 days from invoice date. end quote Please review carefully.",
+    "ideal": "The contract states \"payment terms are net 30 days from invoice date\". Please review carefully."
+  },
+  {
+    "id": 273,
+    "category": "train",
+    "input": "He likes to say quote move fast and break things end quote.",
+    "ideal": "He likes to say \"move fast and break things\"."
+  },
+  {
+    "id": 274,
+    "category": "train",
+    "input": "The review was scathing, calling the product quote an overpriced paperweight that fails at its one job end quote before listing numerous defects.",
+    "ideal": "The review was scathing, calling the product \"an overpriced paperweight that fails at its one job\" before listing numerous defects."
+  },
+  {
+    "id": 275,
+    "category": "train",
+    "input": "The safety manual warns quote never disable the emergency stop mechanism. end quote",
+    "ideal": "The safety manual warns \"never disable the emergency stop mechanism\"."
+  },
+  {
+    "id": 276,
+    "category": "train",
+    "input": "She signed the email with quote forever in your debt end quote.",
+    "ideal": "She signed the email with \"forever in your debt\"."
+  },
+  {
+    "id": 277,
+    "category": "train",
+    "input": "He was like quote you know I never said that end quote and then, you know, stormed out of the room.",
+    "ideal": "He was like \"you know I never said that\" and then, you know, stormed out of the room."
+  },
+  {
+    "id": 278,
+    "category": "train",
+    "input": "The architect insisted on quote form follows function end quote as the guiding principle.",
+    "ideal": "The architect insisted on \"form follows function\" as the guiding principle."
+  },
+  {
+    "id": 279,
+    "category": "train",
+    "input": "She whispered quote I don't think we should be here end quote before pulling me into the shadows.",
+    "ideal": "She whispered \"I don't think we should be here\" before pulling me into the shadows."
+  },
+  {
+    "id": 280,
+    "category": "train",
+    "input": "The contract specifies quote payment terms are net thirty days from invoice date end quote.",
+    "ideal": "The contract specifies \"payment terms are net thirty days from invoice date\"."
+  },
+  {
+    "id": 281,
+    "category": "train",
+    "input": "He was like quote you know the system is fundamentally broken end quote and honestly, I couldn't argue.",
+    "ideal": "He was like \"you know the system is fundamentally broken\" and honestly, I couldn't argue."
+  },
+  {
+    "id": 282,
+    "category": "train",
+    "input": "The museum plaque reads quote donated by the estate of Eleanor Whitmore, 1987. end quote",
+    "ideal": "The museum plaque reads \"donated by the estate of Eleanor Whitmore, 1987\"."
+  },
+  {
+    "id": 283,
+    "category": "train",
+    "input": "My grandmother's favorite saying was quote measure twice, cut once end quote.",
+    "ideal": "My grandmother's favorite saying was \"measure twice, cut once\"."
+  },
+  {
+    "id": 284,
+    "category": "train",
+    "input": "The so-called expert offered quote well actually that's not how I would have done it end quote as his only critique.",
+    "ideal": "The so-called expert offered \"well actually that's not how I would have done it\" as his only critique."
+  },
+  {
+    "id": 285,
+    "category": "train",
+    "input": "She ended her presentation with quote the only way out is through. end quote",
+    "ideal": "She ended her presentation with \"the only way out is through\"."
+  },
+  {
+    "id": 286,
+    "category": "train",
+    "input": "The error log shows quote failed to establish secure connection due to certificate mismatch. end quote",
+    "ideal": "The error log shows \"failed to establish secure connection due to certificate mismatch\"."
+  },
+  {
+    "id": 287,
+    "category": "train",
+    "input": "His entire philosophy boils down to quote ship it and iterate end quote.",
+    "ideal": "His entire philosophy boils down to \"ship it and iterate\"."
+  },
+  {
+    "id": 288,
+    "category": "train",
+    "input": "The judge read the verdict as quote guilty on all counts end quote while the courtroom held its breath.",
+    "ideal": "The judge read the verdict as \"guilty on all counts\" while the courtroom held its breath."
+  },
+  {
+    "id": 289,
+    "category": "train",
+    "input": "She described the meeting as quote productive but inconclusive. end quote I think that's corporate speak for wasted time.",
+    "ideal": "She described the meeting as \"productive but inconclusive\". I think that's corporate speak for wasted time."
+  },
+  {
+    "id": 290,
+    "category": "train",
+    "input": "The ancient inscription translates roughly to quote those who seek shall find, but those who demand shall be denied end quote.",
+    "ideal": "The ancient inscription translates roughly to \"those who seek shall find, but those who demand shall be denied\"."
+  },
+  {
+    "id": 291,
+    "category": "train",
+    "input": "He opened with quote let me be perfectly clear end quote and then proceeded to contradict himself three times.",
+    "ideal": "He opened with \"let me be perfectly clear\" and then proceeded to contradict himself three times."
+  },
+  {
+    "id": 292,
+    "category": "train",
+    "input": "The so-called guarantee states quote we will make it right or your money back. end quote Sounds good until you read the fine print.",
+    "ideal": "The so-called guarantee states \"we will make it right or your money back\". Sounds good until you read the fine print."
+  },
+  {
+    "id": 293,
+    "category": "train",
+    "input": "She was like quote I never said that end quote but we all heard her say it like ten minutes ago.",
+    "ideal": "She was like \"I never said that\" but we all heard her say it like ten minutes ago."
+  },
+  {
+    "id": 294,
+    "category": "train",
+    "input": "Quote-unquote experts keep telling us this will work.",
+    "ideal": "\"Experts\" keep telling us this will work."
+  },
+  {
+    "id": 295,
+    "category": "train",
+    "input": "She called it quote a complete and utter disaster that we should have seen coming end quote.",
+    "ideal": "She called it \"a complete and utter disaster that we should have seen coming\"."
+  },
+  {
+    "id": 296,
+    "category": "train",
+    "input": "The so-called quote-unquote solution just made everything worse, you know?",
+    "ideal": "The so-called \"solution\" just made everything worse, you know?"
+  },
+  {
+    "id": 297,
+    "category": "train",
+    "input": "He was quote-unquote too busy to help, which we all know is bullshit.",
+    "ideal": "He was \"too busy\" to help, which we all know is bullshit."
+  },
+  {
+    "id": 298,
+    "category": "train",
+    "input": "The report described the incident as quote an unfortunate series of events that no one could have predicted or prevented end quote, which honestly feels like a cop-out.",
+    "ideal": "The report described the incident as \"an unfortunate series of events that no one could have predicted or prevented\", which honestly feels like a cop-out."
+  },
+  {
+    "id": 299,
+    "category": "train",
+    "input": "She said I was quote the most difficult person she had ever worked with in her entire career and she couldn't wait for the project to end quote, so that was fun.",
+    "ideal": "She said I was \"the most difficult person she had ever worked with in her entire career and she couldn't wait for the project to end\", so that was fun."
+  },
+  {
+    "id": 300,
+    "category": "train",
+    "input": "It's quote-unquote organic, which apparently means they can charge double.",
+    "ideal": "It's \"organic\", which apparently means they can charge double."
+  },
+  {
+    "id": 301,
+    "category": "train",
+    "input": "The CEO called it quote a strategic pivot toward sustainable long-term value creation that positions us to capture emerging market opportunities while delivering exceptional returns to our stakeholders end quote, which is corporate speak for we're firing half the department.",
+    "ideal": "The CEO called it \"a strategic pivot toward sustainable long-term value creation that positions us to capture emerging market opportunities while delivering exceptional returns to our stakeholders\", which is corporate speak for we're firing half the department."
+  },
+  {
+    "id": 302,
+    "category": "train",
+    "input": "He walked in with his quote-unquote solution that created ten new problems.",
+    "ideal": "He walked in with his \"solution\" that created ten new problems."
+  },
+  {
+    "id": 303,
+    "category": "train",
+    "input": "Quote this is absolutely the final version no more changes end quote she said laughing.",
+    "ideal": "\"This is absolutely the final version no more changes\" she said laughing."
+  },
+  {
+    "id": 304,
+    "category": "train",
+    "input": "Their quote-unquote transparency report was 90% redacted.",
+    "ideal": "Their \"transparency report\" was 90% redacted."
+  },
+  {
+    "id": 305,
+    "category": "train",
+    "input": "The manual describes it as quote a user-friendly interface requiring minimal technical expertise for seamless integration end quote which is hilarious if you've actually used it.",
+    "ideal": "The manual describes it as \"a user-friendly interface requiring minimal technical expertise for seamless integration\" which is hilarious if you've actually used it."
+  },
+  {
+    "id": 306,
+    "category": "train",
+    "input": "Quote-unquote emergency maintenance scheduled for 2am on a Saturday.",
+    "ideal": "\"Emergency\" maintenance scheduled for 2am on a Saturday."
+  },
+  {
+    "id": 307,
+    "category": "train",
+    "input": "She sent me her quote revised and improved end quote proposal which was identical to the first one.",
+    "ideal": "She sent me her \"revised and improved\" proposal which was identical to the first one."
+  },
+  {
+    "id": 308,
+    "category": "train",
+    "input": "He described the meeting as quote productive collaborative and forward-thinking with actionable outcomes and stakeholder alignment end quote so I knew it was a disaster.",
+    "ideal": "He described the meeting as \"productive collaborative and forward-thinking with actionable outcomes and stakeholder alignment\" so I knew it was a disaster."
+  },
+  {
+    "id": 309,
+    "category": "train",
+    "input": "Quote-unquote voluntary overtime that's mandatory if you want to keep your job.",
+    "ideal": "\"Voluntary\" overtime that's mandatory if you want to keep your job."
+  },
+  {
+    "id": 310,
+    "category": "train",
+    "input": "She called it quote-unquote art but my three-year-old could do better.",
+    "ideal": "She called it \"art\" but my three-year-old could do better."
+  },
+  {
+    "id": 311,
+    "category": "train",
+    "input": "Quote we need to circle back and leverage our core competencies end quote he said with a straight face.",
+    "ideal": "\"We need to circle back and leverage our core competencies\" he said with a straight face."
+  },
+  {
+    "id": 312,
+    "category": "train",
+    "input": "The so-called expert gave us quote actionable insights end quote which turned out to be complete nonsense.",
+    "ideal": "The so-called expert gave us \"actionable insights\" which turned out to be complete nonsense."
+  },
+  {
+    "id": 313,
+    "category": "train",
+    "input": "Quote-unquote secure messaging app that stores everything in plaintext.",
+    "ideal": "\"Secure\" messaging app that stores everything in plaintext."
+  },
+  {
+    "id": 314,
+    "category": "train",
+    "input": "She described the vacation as quote relaxing rejuvenating and exactly what I needed to reset my entire perspective on work-life balance end quote but came back more stressed than ever.",
+    "ideal": "She described the vacation as \"relaxing rejuvenating and exactly what I needed to reset my entire perspective on work-life balance\" but came back more stressed than ever."
+  },
+  {
+    "id": 315,
+    "category": "train",
+    "input": "His quote-unquote apology was basically just him explaining why I was wrong to be upset.",
+    "ideal": "His \"apology\" was basically just him explaining why I was wrong to be upset."
+  },
+  {
+    "id": 316,
+    "category": "train",
+    "input": "Quote temporary price adjustment end quote that's been permanent for three years now.",
+    "ideal": "\"Temporary price adjustment\" that's been permanent for three years now."
+  },
+  {
+    "id": 317,
+    "category": "train",
+    "input": "The startup's quote-unquote proprietary algorithm turned out to be a random number generator.",
+    "ideal": "The startup's \"proprietary algorithm\" turned out to be a random number generator."
+  },
+  {
+    "id": 318,
+    "category": "train",
+    "input": "She called it quote-unquote volunteer work but they paid her under the table the whole time.",
+    "ideal": "She called it \"volunteer\" work but they paid her under the table the whole time."
+  },
+  {
+    "id": 319,
+    "category": "train",
+    "input": "Quote we are committed to transparency and open communication end quote said the CEO while deleting every critical comment.",
+    "ideal": "\"We are committed to transparency and open communication\" said the CEO while deleting every critical comment."
+  },
+  {
+    "id": 320,
+    "category": "train",
+    "input": "His quote-unquote best friend sold him out for a promotion.",
+    "ideal": "His \"best friend\" sold him out for a promotion."
+  },
+  {
+    "id": 321,
+    "category": "train",
+    "input": "The landlord described it as quote cozy and efficiently designed end quote which meant three hundred square feet with no windows.",
+    "ideal": "The landlord described it as \"cozy and efficiently designed\" which meant three hundred square feet with no windows."
+  },
+  {
+    "id": 322,
+    "category": "train",
+    "input": "Quote-unquote essential workers got a pizza party instead of hazard pay.",
+    "ideal": "\"Essential\" workers got a pizza party instead of hazard pay."
+  },
+  {
+    "id": 323,
+    "category": "train",
+    "input": "She sent me her quote-unquote resume and it was just a link to her Instagram.",
+    "ideal": "She sent me her \"resume\" and it was just a link to her Instagram."
+  },
+  {
+    "id": 324,
+    "category": "train",
+    "input": "The company promised quote unlimited growth opportunities and a dynamic work environment end quote which translated to unpaid overtime and constant restructuring.",
+    "ideal": "The company promised \"unlimited growth opportunities and a dynamic work environment\" which translated to unpaid overtime and constant restructuring."
+  },
+  {
+    "id": 325,
+    "category": "train",
+    "input": "His quote-unquote investment strategy was just gambling on meme stocks.",
+    "ideal": "His \"investment\" strategy was just gambling on meme stocks."
+  },
+  {
+    "id": 326,
+    "category": "train",
+    "input": "Quote we value your feedback and are always looking to improve end quote they said before blocking my account.",
+    "ideal": "\"We value your feedback and are always looking to improve\" they said before blocking my account."
+  },
+  {
+    "id": 327,
+    "category": "train",
+    "input": "Quote the system will be down for maintenance end quote yeah right like that's ever fixed anything.",
+    "ideal": "\"The system will be down for maintenance\" yeah right like that's ever fixed anything."
+  },
+  {
+    "id": 328,
+    "category": "train",
+    "input": "His quote-unquote apology came with seventeen excuses attached.",
+    "ideal": "His \"apology\" came with seventeen excuses attached."
+  },
+  {
+    "id": 329,
+    "category": "train",
+    "input": "The manual says quote to ensure optimal performance please restart your device weekly and clear the cache monthly end quote which nobody reads.",
+    "ideal": "The manual says \"to ensure optimal performance please restart your device weekly and clear the cache monthly\" which nobody reads."
+  },
+  {
+    "id": 330,
+    "category": "train",
+    "input": "Quote-unquote fresh never frozen my ass I saw the delivery truck.",
+    "ideal": "\"Fresh\" never frozen my ass I saw the delivery truck."
+  },
+  {
+    "id": 331,
+    "category": "train",
+    "input": "She's his quote-unquote work wife but we all know what's going on.",
+    "ideal": "She's his \"work wife\" but we all know what's going on."
+  },
+  {
+    "id": 332,
+    "category": "train",
+    "input": "The contract states quote the party of the first part shall indemnify and hold harmless the party of the second part from any claims arising from negligence end quote in lawyer speak that means we're screwed.",
+    "ideal": "The contract states \"the party of the first part shall indemnify and hold harmless the party of the second part from any claims arising from negligence\" in lawyer speak that means we're screwed."
+  },
+  {
+    "id": 333,
+    "category": "train",
+    "input": "His quote-unquote vintage collection is just hoarding with extra steps.",
+    "ideal": "His \"vintage collection\" is just hoarding with extra steps."
+  },
+  {
+    "id": 334,
+    "category": "train",
+    "input": "Quote given the current economic climate and unprecedented market volatility we have made the difficult decision to restructure our workforce end quote they fired half the department.",
+    "ideal": "\"Given the current economic climate and unprecedented market volatility we have made the difficult decision to restructure our workforce\" they fired half the department."
+  },
+  {
+    "id": 335,
+    "category": "train",
+    "input": "She called it quote-unquote art but I call it a mess.",
+    "ideal": "She called it \"art\" but I call it a mess."
+  },
+  {
+    "id": 336,
+    "category": "train",
+    "input": "Quote we find the defendant guilty on all counts end quote said the foreperson.",
+    "ideal": "\"We find the defendant guilty on all counts\" said the foreperson."
+  },
+  {
+    "id": 337,
+    "category": "train",
+    "input": "His quote-unquote apology was basically I'm sorry you feel that way.",
+    "ideal": "His \"apology\" was basically I'm sorry you feel that way."
+  },
+  {
+    "id": 338,
+    "category": "train",
+    "input": "The memo said quote effective immediately all remote work arrangements are suspended pending review end quote which means we're all screwed.",
+    "ideal": "The memo said \"effective immediately all remote work arrangements are suspended pending review\" which means we're all screwed."
+  },
+  {
+    "id": 339,
+    "category": "train",
+    "input": "Quote-unquote experts on Twitter told me to buy the dip.",
+    "ideal": "\"Experts\" on Twitter told me to buy the dip."
+  },
+  {
+    "id": 340,
+    "category": "train",
+    "input": "She described him as quote charming in a used car salesman kind of way end quote.",
+    "ideal": "She described him as \"charming in a used car salesman kind of way\"."
+  },
+  {
+    "id": 341,
+    "category": "train",
+    "input": "Their quote-unquote innovation is just copying what everyone else already does with a new logo on it.",
+    "ideal": "Their \"innovation\" is just copying what everyone else already does with a new logo on it."
+  },
+  {
+    "id": 342,
+    "category": "train",
+    "input": "He calls himself a quote-unquote visionary but he can't even hit his projections for two quarters in a row.",
+    "ideal": "He calls himself a \"visionary\" but he can't even hit his projections for two quarters in a row."
+  },
+  {
+    "id": 343,
+    "category": "train",
+    "input": "The quote-unquote upgrade broke three features that were working perfectly fine before they touched anything.",
+    "ideal": "The \"upgrade\" broke three features that were working perfectly fine before they touched anything."
+  },
+  {
+    "id": 344,
+    "category": "train",
+    "input": "She gave us a quote-unquote brief overview that lasted an hour and a half and covered nothing we didn't already know.",
+    "ideal": "She gave us a \"brief\" overview that lasted an hour and a half and covered nothing we didn't already know."
+  },
+  {
+    "id": 345,
+    "category": "train",
+    "input": "The quote-unquote quick fix ended up requiring a full rewrite of the authentication module and three extra sprints.",
+    "ideal": "The \"quick fix\" ended up requiring a full rewrite of the authentication module and three extra sprints."
+  },
+  {
+    "id": 346,
+    "category": "train",
+    "input": "His quote-unquote simple request turned into a six-month project that completely derailed our roadmap.",
+    "ideal": "His \"simple\" request turned into a six-month project that completely derailed our roadmap."
+  },
+  {
+    "id": 347,
+    "category": "train",
+    "input": "That's their quote-unquote premium service where you still wait on hold for forty-five minutes before talking to anyone.",
+    "ideal": "That's their \"premium\" service where you still wait on hold for forty-five minutes before talking to anyone."
+  },
+  {
+    "id": 348,
+    "category": "train",
+    "input": "The quote-unquote minor update deleted half our user data and crashed the production server for twelve hours.",
+    "ideal": "The \"minor\" update deleted half our user data and crashed the production server for twelve hours."
+  },
+  {
+    "id": 349,
+    "category": "train",
+    "input": "The meeting is scheduled for Tuesday at 3pm. Wait no, I meant Thursday at 3pm.",
+    "ideal": "The meeting is scheduled for Thursday at 3pm."
+  },
+  {
+    "id": 350,
+    "category": "train",
+    "input": "We need to order about twenty, no no, thirty copies of the report for the board meeting.",
+    "ideal": "We need to order thirty copies of the report for the board meeting."
+  },
+  {
+    "id": 351,
+    "category": "train",
+    "input": "The restaurant was amazing, we had the salmon and, sorry, scratch that, we had the sea bass and it was perfectly cooked.",
+    "ideal": "The restaurant was amazing, we had the sea bass and it was perfectly cooked."
+  },
+  {
+    "id": 352,
+    "category": "train",
+    "input": "Actually, let me rephrase, the deployment failed because of a memory issue, not a memory issue, a disk space issue on the primary node.",
+    "ideal": "The deployment failed because of a disk space issue on the primary node."
+  },
+  {
+    "id": 353,
+    "category": "train",
+    "input": "My favorite coffee shop is on 5th Street, you know, the one with the blue awning, sorry, the green awning, right next to the bookstore.",
+    "ideal": "My favorite coffee shop is on 5th Street, the one with the green awning, right next to the bookstore."
+  },
+  {
+    "id": 354,
+    "category": "train",
+    "input": "I talked to Sarah from marketing, wait no, sorry, Jessica from marketing, and she said the campaign will launch next Monday, not next Monday, the Monday after.",
+    "ideal": "I talked to Jessica from marketing and she said the campaign will launch the Monday after."
+  },
+  {
+    "id": 355,
+    "category": "train",
+    "input": "The package weighs about two pounds, scratch that, three pounds, and needs to arrive by Friday, actually I meant Thursday, for the client's presentation.",
+    "ideal": "The package weighs about three pounds and needs to arrive by Thursday for the client's presentation."
+  },
+  {
+    "id": 356,
+    "category": "train",
+    "input": "We're using Python 3.8 for this project, no no, sorry, let me rephrase, we're using Python 3.11, and the database is PostgreSQL, you know, the latest stable version, not the latest stable version, version 15 specifically.",
+    "ideal": "We're using Python 3.11 for this project and the database is PostgreSQL version 15 specifically."
+  },
+  {
+    "id": 357,
+    "category": "train",
+    "input": "The meeting is scheduled for March 15th, actually you know, the 15th is wrong, I meant March 22nd, and please bring the quarterly reports.",
+    "ideal": "The meeting is scheduled for March 22nd, and please bring the quarterly reports."
+  },
+  {
+    "id": 358,
+    "category": "train",
+    "input": "I need you to call the client at, wait no, scratch that, email the client at 3pm with the updated proposal.",
+    "ideal": "I need you to email the client at 3pm with the updated proposal."
+  },
+  {
+    "id": 359,
+    "category": "train",
+    "input": "The restaurant is on 5th Avenue, sorry, no no, I meant Broadway, between 42nd and 43rd.",
+    "ideal": "The restaurant is on Broadway, between 42nd and 43rd."
+  },
+  {
+    "id": 360,
+    "category": "train",
+    "input": "We should deploy this on Tuesday, actually let me rephrase, Thursday morning would be better for the team.",
+    "ideal": "Thursday morning would be better for the team."
+  },
+  {
+    "id": 361,
+    "category": "train",
+    "input": "The budget is around fifty thousand, you know, the original estimate, sorry, I meant seventy-five thousand including the new hardware.",
+    "ideal": "The budget is around seventy-five thousand including the new hardware."
+  },
+  {
+    "id": 362,
+    "category": "train",
+    "input": "Please order the salmon, wait no, the chicken, for the dinner party on Saturday.",
+    "ideal": "Please order the chicken, for the dinner party on Saturday."
+  },
+  {
+    "id": 363,
+    "category": "train",
+    "input": "The API response time is about 200 milliseconds, scratch that, actually 150 milliseconds after the optimization, which is acceptable.",
+    "ideal": "The API response time is about 150 milliseconds after the optimization, which is acceptable."
+  },
+  {
+    "id": 364,
+    "category": "train",
+    "input": "I'll be flying into JFK, no no, sorry, Newark, and then taking the train into the city for the conference.",
+    "ideal": "I'll be flying into Newark, and then taking the train into the city for the conference."
+  },
+  {
+    "id": 365,
+    "category": "train",
+    "input": "The candidate has five years of experience, let me rephrase, eight years, with three of those in management roles.",
+    "ideal": "The candidate has eight years of experience, with three of those in management roles."
+  },
+  {
+    "id": 366,
+    "category": "train",
+    "input": "We need to hire three new engineers by Q2, wait no, Q3, and focus on the backend team first.",
+    "ideal": "We need to hire three new engineers by Q3 and focus on the backend team first."
+  },
+  {
+    "id": 367,
+    "category": "train",
+    "input": "The meeting is with Sarah from legal, you know, the tall Sarah, not the one from marketing.",
+    "ideal": "The meeting is with the tall Sarah from legal, not the one from marketing."
+  },
+  {
+    "id": 368,
+    "category": "train",
+    "input": "I'm thinking of getting the salmon, actually scratch that, the pasta primavera sounds better tonight.",
+    "ideal": "I'm thinking of getting the pasta primavera tonight."
+  },
+  {
+    "id": 369,
+    "category": "train",
+    "input": "The budget was approved for fifty thousand, sorry, I meant fifteen thousand, which covers the pilot program.",
+    "ideal": "The budget was approved for fifteen thousand, which covers the pilot program."
+  },
+  {
+    "id": 370,
+    "category": "train",
+    "input": "Can you send the report to Thompson, wait no, send it to both Thompson and Chen, by end of day?",
+    "ideal": "Can you send the report to both Thompson and Chen by end of day?"
+  },
+  {
+    "id": 371,
+    "category": "train",
+    "input": "The deployment failed because of a memory issue, let me rephrase, a configuration issue with the environment variables.",
+    "ideal": "The deployment failed because of a configuration issue with the environment variables."
+  },
+  {
+    "id": 372,
+    "category": "train",
+    "input": "I'll pick up the dry cleaning, you know, the one on Oak Street, not the place near the mall, on my way home.",
+    "ideal": "I'll pick up the dry cleaning on Oak Street, not the place near the mall, on my way home."
+  },
+  {
+    "id": 373,
+    "category": "train",
+    "input": "The client wants the blue version, no no, the green version with the updated logo, delivered by Friday.",
+    "ideal": "The client wants the green version with the updated logo, delivered by Friday."
+  },
+  {
+    "id": 374,
+    "category": "train",
+    "input": "We should deprecate the old endpoint in version 2.4, actually, say version 2.5, to give teams more migration time.",
+    "ideal": "We should deprecate the old endpoint in version 2.5 to give teams more migration time."
+  },
+  {
+    "id": 375,
+    "category": "train",
+    "input": "The meeting is with Sarah from marketing, wait no, that's next week, this week it's with David from product.",
+    "ideal": "The meeting is with David from product."
+  },
+  {
+    "id": 376,
+    "category": "train",
+    "input": "I need about two cups of flour, sorry, make that three cups, for the bread recipe.",
+    "ideal": "I need about three cups of flour for the bread recipe."
+  },
+  {
+    "id": 377,
+    "category": "train",
+    "input": "The flight departs at 6pm, actually scratch that, 6am, which means we need to leave by 4.",
+    "ideal": "The flight departs at 6am, which means we need to leave by 4."
+  },
+  {
+    "id": 378,
+    "category": "train",
+    "input": "Deploy the hotfix to production, I meant staging first, then production after QA signs off.",
+    "ideal": "Deploy the hotfix to staging first, then production after QA signs off."
+  },
+  {
+    "id": 379,
+    "category": "train",
+    "input": "His name is pronounced Deh-mee-en, no no, Dam-ee-en, with the stress on the first syllable.",
+    "ideal": "His name is pronounced Dam-ee-en, with the stress on the first syllable."
+  },
+  {
+    "id": 380,
+    "category": "train",
+    "input": "The budget was approved for twelve thousand, let me rephrase, twelve million, which changes everything.",
+    "ideal": "The budget was approved for twelve million, which changes everything."
+  },
+  {
+    "id": 381,
+    "category": "train",
+    "input": "We use Redis for the cache layer, you know, the in-memory one, not the persistent database.",
+    "ideal": "We use Redis for the cache layer, the in-memory one, not the persistent database."
+  },
+  {
+    "id": 382,
+    "category": "train",
+    "input": "The deadline is March 15th, actually, say March 5th, so we have ten fewer days than expected.",
+    "ideal": "The deadline is March 5th, so we have ten fewer days than expected."
+  },
+  {
+    "id": 383,
+    "category": "train",
+    "input": "She works at Google, wait no, she used to work there, now she's at Anthropic working on Claude.",
+    "ideal": "She's at Anthropic working on Claude."
+  },
+  {
+    "id": 384,
+    "category": "train",
+    "input": "The meeting is with Sarah from legal, sorry, not Sarah, Sandra from compliance.",
+    "ideal": "The meeting is with Sandra from compliance."
+  },
+  {
+    "id": 385,
+    "category": "train",
+    "input": "I need about two cups of flour, wait no, make that three cups for the larger batch.",
+    "ideal": "I need about three cups of flour for the larger batch."
+  },
+  {
+    "id": 386,
+    "category": "train",
+    "input": "The server runs on Ubuntu 20.04, actually scratch that, we migrated to 22.04 last month.",
+    "ideal": "The server runs on Ubuntu 22.04."
+  },
+  {
+    "id": 387,
+    "category": "train",
+    "input": "He's flying in from Boston at 6pm, no no, I meant he's driving from Providence, so he'll arrive around 8.",
+    "ideal": "He's driving from Providence, so he'll arrive around 8."
+  },
+  {
+    "id": 388,
+    "category": "train",
+    "input": "The budget was approved for fifty thousand, let me rephrase, it was approved for fifteen thousand, which is much tighter.",
+    "ideal": "The budget was approved for fifteen thousand, which is much tighter."
+  },
+  {
+    "id": 389,
+    "category": "train",
+    "input": "We should use the blue logo, you know, the one with the gradient, not the flat version for this print job.",
+    "ideal": "We should use the blue logo with the gradient for this print job."
+  },
+  {
+    "id": 390,
+    "category": "train",
+    "input": "The restaurant is on Oak Street, wait no, it's on Maple, right next to the bookstore.",
+    "ideal": "The restaurant is on Maple, right next to the bookstore."
+  },
+  {
+    "id": 391,
+    "category": "train",
+    "input": "I think Python 3.9 is the minimum, actually, say 3.10 since we need match statements.",
+    "ideal": "I think Python 3.10 is the minimum since we need match statements."
+  },
+  {
+    "id": 392,
+    "category": "train",
+    "input": "The contract expires in December 2024, sorry, I meant December 2025, so we have another full year.",
+    "ideal": "The contract expires in December 2025, so we have another full year."
+  },
+  {
+    "id": 393,
+    "category": "train",
+    "input": "We should use the dark blue for the header, wait no, the navy one, and keep the light blue for links.",
+    "ideal": "We should use the navy for the header and keep the light blue for links."
+  },
+  {
+    "id": 394,
+    "category": "train",
+    "input": "My sister's birthday is March 15th, scratch that, March 17th, so I need to book the flight for the 16th.",
+    "ideal": "My sister's birthday is March 17th, so I need to book the flight for the 16th."
+  },
+  {
+    "id": 395,
+    "category": "train",
+    "input": "The API rate limit is, let me rephrase, the API has a rate limit of one thousand requests per minute, not per second.",
+    "ideal": "The API has a rate limit of one thousand requests per minute, not per second."
+  },
+  {
+    "id": 396,
+    "category": "train",
+    "input": "The pasta needs to boil for eleven minutes, sorry, eight minutes, then rest in the sauce for three more.",
+    "ideal": "The pasta needs to boil for eight minutes, then rest in the sauce for three more."
+  },
+  {
+    "id": 397,
+    "category": "train",
+    "input": "Our Q3 revenue was 2.4 million, wait no, 2.4 was Q2, Q3 was 2.8 million, which puts us ahead of target.",
+    "ideal": "Our Q3 revenue was 2.8 million, which puts us ahead of target."
+  },
+  {
+    "id": 398,
+    "category": "train",
+    "input": "The meeting is in conference room B, I meant, you know, the big one with the glass walls, room A, on the fourth floor.",
+    "ideal": "The meeting is in conference room A on the fourth floor."
+  },
+  {
+    "id": 399,
+    "category": "train",
+    "input": "She said she'd email me by Tuesday, scratch that, she promised Monday end of day, so I should check my inbox tonight.",
+    "ideal": "She said she'd email me by Monday end of day, so I should check my inbox tonight."
+  },
+  {
+    "id": 400,
+    "category": "train",
+    "input": "The package weighs about 12 kilograms, wait no, that's with the box, the actual unit is only 8.4 kilos.",
+    "ideal": "The package weighs about 8.4 kilograms."
+  },
+  {
+    "id": 401,
+    "category": "train",
+    "input": "I need you to review the Johnson account, sorry, not Johnson, the Thompson account, by Thursday.",
+    "ideal": "I need you to review the Thompson account by Thursday."
+  },
+  {
+    "id": 402,
+    "category": "train",
+    "input": "The temperature hit 89 degrees yesterday. Actually, scratch that, I was looking at the wrong day, it was 94.",
+    "ideal": "The temperature hit 94 degrees yesterday."
+  },
+  {
+    "id": 403,
+    "category": "train",
+    "input": "We're deploying this to the EU-West region, I meant, you know, the Frankfurt one, not Ireland.",
+    "ideal": "We're deploying this to the Frankfurt region."
+  },
+  {
+    "id": 404,
+    "category": "train",
+    "input": "The discount applies to orders over $500, no no, I said that wrong, it's $350, and that includes shipping.",
+    "ideal": "The discount applies to orders over $350, and that includes shipping."
+  },
+  {
+    "id": 405,
+    "category": "train",
+    "input": "Let me rephrase that. The API returns a 204 status, actually it returns 200 with an empty body, not 204.",
+    "ideal": "The API returns 200 with an empty body."
+  },
+  {
+    "id": 406,
+    "category": "train",
+    "input": "My flight lands at 6:30 PM local time, wait no, that's departure, arrival is 9:15 PM with the time change.",
+    "ideal": "My flight lands at 9:15 PM local time."
+  },
+  {
+    "id": 407,
+    "category": "train",
+    "input": "The recipe calls for three cloves of garlic, sorry, I mean three heads, which is like twelve to fifteen cloves.",
+    "ideal": "The recipe calls for three heads of garlic."
+  },
+  {
+    "id": 408,
+    "category": "train",
+    "input": "He's been with the company for eight years, scratch that, he started in 2019, so that's six years, almost seven.",
+    "ideal": "He's been with the company for six years, almost seven."
+  },
+  {
+    "id": 409,
+    "category": "train",
+    "input": "The budget is around fifty thousand, wait no, sorry, I meant fifteen thousand, which is much more reasonable for this quarter.",
+    "ideal": "The budget is around fifteen thousand, which is much more reasonable for this quarter."
+  },
+  {
+    "id": 410,
+    "category": "train",
+    "input": "I'll take the train to Boston on Tuesday, actually scratch that, Wednesday, since Tuesday's meetings got moved.",
+    "ideal": "I'll take the train to Boston on Wednesday, since Tuesday's meetings got moved."
+  },
+  {
+    "id": 411,
+    "category": "train",
+    "input": "The client is based in Austin, you know, no no, I meant Nashville, they're opening their second office there.",
+    "ideal": "The client is based in Nashville, they're opening their second office there."
+  },
+  {
+    "id": 412,
+    "category": "train",
+    "input": "We need to hire two backend engineers, sorry, three, one for the payments team and two for infrastructure.",
+    "ideal": "We need to hire three backend engineers, one for the payments team and two for infrastructure."
+  },
+  {
+    "id": 413,
+    "category": "train",
+    "input": "The deadline was originally March 15th, wait no, let me rephrase, the soft deadline is March 15th but hard deadline is April 1st.",
+    "ideal": "The soft deadline is March 15th but hard deadline is April 1st."
+  },
+  {
+    "id": 414,
+    "category": "train",
+    "input": "She recommended using Redis for caching, actually, I meant Memcached, since we're already using it elsewhere in the stack.",
+    "ideal": "She recommended using Memcached for caching, since we're already using it elsewhere in the stack."
+  },
+  {
+    "id": 415,
+    "category": "train",
+    "input": "The restaurant is on 4th Street, you know, the one with the blue awning, sorry, I meant 5th Street, they just moved last month.",
+    "ideal": "The restaurant is on 5th Street, the one with the blue awning, they just moved last month."
+  },
+  {
+    "id": 416,
+    "category": "train",
+    "input": "I'll send the invoice to Sarah, wait no, scratch that, to Marcus, he's handling vendor payments now.",
+    "ideal": "I'll send the invoice to Marcus, he's handling vendor payments now."
+  },
+  {
+    "id": 417,
+    "category": "train",
+    "input": "The API rate limit is 100 requests per minute, actually, say 1000, we upgraded the plan last week and I keep forgetting.",
+    "ideal": "The API rate limit is 1000 requests per minute, we upgraded the plan last week and I keep forgetting."
+  },
+  {
+    "id": 418,
+    "category": "train",
+    "input": "We need to deploy this by Friday, I mean Thursday, the client moved the deadline up.",
+    "ideal": "We need to deploy this by Thursday, the client moved the deadline up."
+  },
+  {
+    "id": 419,
+    "category": "train",
+    "input": "The meeting is at 3pm with the design team, wait no, 2pm, and it's with engineering instead.",
+    "ideal": "The meeting is at 2pm with engineering instead."
+  },
+  {
+    "id": 420,
+    "category": "train",
+    "input": "I'm thinking of getting the salmon, you know, the grilled one, sorry, the pan-seared salmon with the lemon butter.",
+    "ideal": "I'm thinking of getting the pan-seared salmon with the lemon butter."
+  },
+  {
+    "id": 421,
+    "category": "train",
+    "input": "The budget for Q3 is around fifty thousand, scratch that, forty-five thousand, we had some cuts last week.",
+    "ideal": "The budget for Q3 is around forty-five thousand, we had some cuts last week."
+  },
+  {
+    "id": 422,
+    "category": "train",
+    "input": "Can you check if the build is passing on the main branch, actually, no no, the staging branch, that's where the bug was reported.",
+    "ideal": "Can you check if the build is passing on the staging branch, that's where the bug was reported."
+  },
+  {
+    "id": 423,
+    "category": "train",
+    "input": "The keynote speaker is Dr. Chen from MIT, let me rephrase, Dr. Park from Stanford, there was a last minute substitution.",
+    "ideal": "The keynote speaker is Dr. Park from Stanford, there was a last minute substitution."
+  },
+  {
+    "id": 424,
+    "category": "train",
+    "input": "I need you to update the documentation for the webhook endpoint, sorry, not the webhook, the REST API endpoint, the other one is deprecated.",
+    "ideal": "I need you to update the documentation for the REST API endpoint, the other one is deprecated."
+  },
+  {
+    "id": 425,
+    "category": "train",
+    "input": "The flight lands at JFK at 6pm, wait no, LaGuardia at 7pm, I mixed up the reservation details.",
+    "ideal": "The flight lands at LaGuardia at 7pm, I mixed up the reservation details."
+  },
+  {
+    "id": 426,
+    "category": "train",
+    "input": "The team includes Alice, Bob, and Charlie. Scratch that, Dave.",
+    "ideal": "The team includes Alice, Bob, and Dave."
+  },
+  {
+    "id": 427,
+    "category": "train",
+    "input": "I ordered pasta, salad, and the soup. Actually no, the risotto.",
+    "ideal": "I ordered pasta, salad, and risotto."
+  },
+  {
+    "id": 428,
+    "category": "train",
+    "input": "The stack is Python and Flask. Actually, FastAPI.",
+    "ideal": "The stack is Python and FastAPI."
+  },
+  {
+    "id": 429,
+    "category": "train",
+    "input": "We need to talk to marketing and sales. Sorry, I meant legal.",
+    "ideal": "We need to talk to marketing and legal."
+  },
+  {
+    "id": 430,
+    "category": "train",
+    "input": "It integrates with Slack and Discord. Wait, Teams.",
+    "ideal": "It integrates with Slack and Teams."
+  },
+  {
+    "id": 431,
+    "category": "train",
+    "input": "The colors are red, blue, and green. No wait, yellow.",
+    "ideal": "The colors are red, blue, and yellow."
+  },
+  {
+    "id": 432,
+    "category": "train",
+    "input": "Install Node and npm. Actually, pnpm.",
+    "ideal": "Install Node and pnpm."
+  },
+  {
+    "id": 433,
+    "category": "train",
+    "input": "The deadline is Monday and the review is Wednesday. Scratch that, Friday.",
+    "ideal": "The deadline is Monday and the review is Friday."
+  },
+  {
+    "id": 434,
+    "category": "train",
+    "input": "She speaks French, Spanish, and Portuguese. Wait no, Italian.",
+    "ideal": "She speaks French, Spanish, and Italian."
+  },
+  {
+    "id": 435,
+    "category": "train",
+    "input": "The database uses MongoDB and Redis. Sorry, Memcached.",
+    "ideal": "The database uses MongoDB and Memcached."
+  },
+  {
+    "id": 436,
+    "category": "train",
+    "input": "We're deploying to AWS and Azure. Actually, GCP.",
+    "ideal": "We're deploying to AWS and GCP."
+  },
+  {
+    "id": 437,
+    "category": "train",
+    "input": "The backend runs on Vercel Edge Functions and AWS Lambda. Wait no, sorry, Google Cloud Run.",
+    "ideal": "The backend runs on Vercel Edge Functions and Google Cloud Run."
+  },
+  {
+    "id": 438,
+    "category": "train",
+    "input": "We tested it on Samsung Galaxy S24 and Google Pixel 8. Scratch that, iPhone 15 Pro.",
+    "ideal": "We tested it on Samsung Galaxy S24 and iPhone 15 Pro."
+  },
+  {
+    "id": 439,
+    "category": "train",
+    "input": "The pipeline uses Apache Kafka and Amazon Kinesis. Actually, Azure Event Hubs.",
+    "ideal": "The pipeline uses Apache Kafka and Azure Event Hubs."
+  },
+  {
+    "id": 440,
+    "category": "train",
+    "input": "She studied at MIT Media Lab and Stanford AI Lab. Sorry, Carnegie Mellon Robotics Institute.",
+    "ideal": "She studied at MIT Media Lab and Carnegie Mellon Robotics Institute."
+  },
+  {
+    "id": 441,
+    "category": "train",
+    "input": "I'll bring chips and guacamole to the party. Wait no, hummus.",
+    "ideal": "I'll bring chips and hummus to the party."
+  },
+  {
+    "id": 442,
+    "category": "train",
+    "input": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Kim. Actually, Dr. Martinez.",
+    "ideal": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Martinez."
+  },
+  {
+    "id": 443,
+    "category": "train",
+    "input": "For the camping trip we need a tent, sleeping bags, and a cooler. Sorry, a lantern instead of the cooler.",
+    "ideal": "For the camping trip we need a tent, sleeping bags, and a lantern."
+  },
+  {
+    "id": 444,
+    "category": "train",
+    "input": "The meeting attendees are Sarah and Mark. I mean, Jason.",
+    "ideal": "The meeting attendees are Sarah and Jason."
+  },
+  {
+    "id": 445,
+    "category": "train",
+    "input": "She studies biology and chemistry at the university. Scratch that, physics.",
+    "ideal": "She studies biology and physics at the university."
+  },
+  {
+    "id": 446,
+    "category": "train",
+    "input": "We visited Berlin, Prague, and Vienna on the trip. Wait no, Budapest.",
+    "ideal": "We visited Berlin, Prague, and Budapest on the trip."
+  },
+  {
+    "id": 447,
+    "category": "train",
+    "input": "I need to buy milk and eggs from the store. Actually, bread.",
+    "ideal": "I need to buy milk and bread from the store."
+  },
+  {
+    "id": 448,
+    "category": "train",
+    "input": "The team captains are Jordan, Taylor, and Casey. Sorry, Riley.",
+    "ideal": "The team captains are Jordan, Taylor, and Riley."
+  },
+  {
+    "id": 449,
+    "category": "train",
+    "input": "He plays guitar and drums in the band. Wait, bass.",
+    "ideal": "He plays guitar and bass in the band."
+  },
+  {
+    "id": 450,
+    "category": "train",
+    "input": "We're painting the living room and the kitchen this weekend. I mean, the bedroom.",
+    "ideal": "We're painting the living room and the bedroom this weekend."
+  },
+  {
+    "id": 451,
+    "category": "train",
+    "input": "The shipment includes laptops, monitors, keyboards, and mice. Scratch that, webcams instead of mice.",
+    "ideal": "The shipment includes laptops, monitors, keyboards, and webcams."
+  },
+  {
+    "id": 452,
+    "category": "train",
+    "input": "Her favorite books are Pride and Prejudice and The Great Gatsby. Actually, To Kill a Mockingbird.",
+    "ideal": "Her favorite books are Pride and Prejudice and To Kill a Mockingbird."
+  },
+  {
+    "id": 453,
+    "category": "train",
+    "input": "The playlist has jazz and rock. Wait no, sorry, blues.",
+    "ideal": "The playlist has jazz and blues."
+  },
+  {
+    "id": 454,
+    "category": "train",
+    "input": "We're ordering pizza, wings, and garlic bread for the team. Actually no, Caesar salad.",
+    "ideal": "We're ordering pizza, wings, and Caesar salad for the team."
+  },
+  {
+    "id": 455,
+    "category": "train",
+    "input": "The presentation is tomorrow afternoon. Wait no, it got moved to next Monday morning.",
+    "ideal": "The presentation is next Monday morning."
+  },
+  {
+    "id": 456,
+    "category": "train",
+    "input": "I think we should use the blue theme for the landing page. Actually, scratch that, the dark theme looks better for accessibility.",
+    "ideal": "The dark theme looks better for accessibility."
+  },
+  {
+    "id": 457,
+    "category": "train",
+    "input": "Send the report to the whole department by Friday. Sorry, just send it to the leads for now.",
+    "ideal": "Just send the report to the leads for now."
+  },
+  {
+    "id": 458,
+    "category": "train",
+    "input": "Let's meet at the coffee shop on Main Street. I mean, let's just do a video call since it's raining.",
+    "ideal": "Let's just do a video call since it's raining."
+  },
+  {
+    "id": 459,
+    "category": "train",
+    "input": "We're integrating with the Zylo API next sprint. Actually, spell Zylo as Z-Y-L-O-H.",
+    "ideal": "We're integrating with the Zyloh API next sprint."
+  },
+  {
+    "id": 460,
+    "category": "train",
+    "input": "The new PM is named Shreya but it's spelled S-H-R-A-I-A, which always confuses people.",
+    "ideal": "The new PM is named Shraia, which always confuses people."
+  },
+  {
+    "id": 461,
+    "category": "train",
+    "input": "We're competing against two other vendors: Acme Corp and Nuvi. Can you spell Nuvi as N-O-O-V-E-E?",
+    "ideal": "We're competing against two other vendors: Acme Corp and Noovee."
+  },
+  {
+    "id": 462,
+    "category": "train",
+    "input": "The ancient city of Knossos, spelled C-N-O-S-S-U-S, was a major center of Minoan civilization on Crete and featured elaborate palace complexes with advanced plumbing systems for its era.",
+    "ideal": "The ancient city of Cnossus was a major center of Minoan civilization on Crete and featured elaborate palace complexes with advanced plumbing systems for its era."
+  },
+  {
+    "id": 463,
+    "category": "train",
+    "input": "I need you to reach out to Jianwei, that's J-I-E-N-W-E-I, at the Beijing office about the Q3 numbers, and also cc Priya from procurement.",
+    "ideal": "I need you to reach out to Jienwei at the Beijing office about the Q3 numbers, and also cc Priya from procurement."
+  },
+  {
+    "id": 464,
+    "category": "train",
+    "input": "We're using the YOLOv8 model for detection, then feeding results into our custom tracker called Siam, spelled C-Y-A-M, which handles the re-identification across frames.",
+    "ideal": "We're using the YOLOv8 model for detection, then feeding results into our custom tracker called Cyam, which handles the re-identification across frames."
+  },
+  {
+    "id": 465,
+    "category": "train",
+    "input": "The client's name is Siobhan, spelled S-H-I-V-A-U-N, and she's the VP of Engineering at this fintech called Monzo, no wait, spell that M-O-N-Z-O-H, and they need the integration done by EOY.",
+    "ideal": "The client's name is Shivaun, and she's the VP of Engineering at this fintech called Monzoh, and they need the integration done by EOY."
+  },
+  {
+    "id": 466,
+    "category": "train",
+    "input": "Spell Tzatziki as T-S-A-T-S-I-K-I — anyway, the key is grating the cucumber first.",
+    "ideal": "Tsatsiki — anyway, the key is grating the cucumber first."
+  },
+  {
+    "id": 467,
+    "category": "train",
+    "input": "We're integrating with the Klayvio API, spelled K-L-A-V-I-Y-O, for the email automation pipeline.",
+    "ideal": "We're integrating with the Klaviyo API for the email automation pipeline."
+  },
+  {
+    "id": 468,
+    "category": "train",
+    "input": "The founder's name is Gniewko, spell that G-N-Y-E-V-K-O, and he's Polish-Canadian.",
+    "ideal": "The founder's name is Gnyevko, and he's Polish-Canadian."
+  },
+  {
+    "id": 469,
+    "category": "train",
+    "input": "It's called Hygge, spelled H-Y-U-G-G-E-H, which is that Danish concept of coziness.",
+    "ideal": "It's called Hyuggeh, which is that Danish concept of coziness."
+  },
+  {
+    "id": 470,
+    "category": "train",
+    "input": "The vulnerability is in the Log4j library, or as the security team calls it, Log Forge, spelled L-O-G-F-O-R-G-E.",
+    "ideal": "The vulnerability is in the Log4j library, or as the security team calls it, Logforge."
+  },
+  {
+    "id": 471,
+    "category": "train",
+    "input": "Spell Sjø as S-J-O-E — it's Norwegian for sea, and that's their brand name.",
+    "ideal": "Sjoe is Norwegian for sea, and that's their brand name."
+  },
+  {
+    "id": 472,
+    "category": "train",
+    "input": "We're sponsoring the Cax hackathon, spelled Q-H-A-C-K-S, at Queen's University this February.",
+    "ideal": "We're sponsoring the Qhacks hackathon at Queen's University this February."
+  },
+  {
+    "id": 473,
+    "category": "train",
+    "input": "The new feature uses Xylophone hashing, spelled X-I-L-O-F-O-N, which reduces collisions significantly.",
+    "ideal": "The new feature uses Xilofon hashing, which reduces collisions significantly."
+  },
+  {
+    "id": 474,
+    "category": "train",
+    "input": "The dish is called Khachapuri, spell that H-A-C-H-A-P-U-R-I, and it's Georgian cheese bread.",
+    "ideal": "The dish is called Hachapuri, and it's Georgian cheese bread."
+  },
+  {
+    "id": 475,
+    "category": "train",
+    "input": "Their competitor is Zscaler, spelled S-C-A-L-E-R, not the cybersecurity company you're thinking of.",
+    "ideal": "Their competitor is Scaler, not the cybersecurity company you're thinking of."
+  },
+  {
+    "id": 476,
+    "category": "train",
+    "input": "He works at a startup called Qumulo, spelled C-U-M-U-L-O, doing cloud storage solutions.",
+    "ideal": "He works at a startup called Cumulo, doing cloud storage solutions."
+  },
+  {
+    "id": 477,
+    "category": "train",
+    "input": "The spice is called asafoetida, spell that A-S-A-F-E-T-I-D-A, also known as hing in Indian cooking.",
+    "ideal": "The spice is called asafetida, also known as hing in Indian cooking."
+  },
+  {
+    "id": 478,
+    "category": "train",
+    "input": "Their product is called Figma, spelled P-H-I-G-M-A, which is confusing because that's a design tool.",
+    "ideal": "Their product is called Phigma, which is confusing because that's a design tool."
+  },
+  {
+    "id": 479,
+    "category": "train",
+    "input": "We need to integrate with their API called Klerk, spelled K-L-A-R-K, which handles document automation.",
+    "ideal": "We need to integrate with their API called Klark, which handles document automation."
+  },
+  {
+    "id": 480,
+    "category": "train",
+    "input": "The founder is named Yvonne, no wait, spell that I-V-O-N-E, she's from Lisbon.",
+    "ideal": "The founder is named Ivone, she's from Lisbon."
+  },
+  {
+    "id": 481,
+    "category": "train",
+    "input": "The startup is called Nuvia, spelled N-O-O-V-E-A, they make ARM-based server chips.",
+    "ideal": "The startup is called Noovea, they make ARM-based server chips."
+  },
+  {
+    "id": 482,
+    "category": "train",
+    "input": "She recommended a book by author Chiamaka, spell that C-H-I-A-M-A-C-A, it's about Nigerian diaspora experiences.",
+    "ideal": "She recommended a book by author Chiamaca, it's about Nigerian diaspora experiences."
+  },
+  {
+    "id": 483,
+    "category": "train",
+    "input": "The dish is called khachapuri, spelled H-A-C-H-A-P-U-R-I, a Georgian cheese bread that's absolutely incredible.",
+    "ideal": "The dish is called hachapuri, a Georgian cheese bread that's absolutely incredible."
+  },
+  {
+    "id": 484,
+    "category": "train",
+    "input": "Their competitor is called Airtable, no, spell that E-R-T-A-B-L-E, it's a no-code database tool.",
+    "ideal": "Their competitor is called Ertable, it's a no-code database tool."
+  },
+  {
+    "id": 485,
+    "category": "train",
+    "input": "It's a type of Japanese pottery called Shiguraki, spell that S-H-I-G-A-R-A-K-I, known for its rough texture.",
+    "ideal": "It's a type of Japanese pottery called Shigaraki, known for its rough texture."
+  },
+  {
+    "id": 486,
+    "category": "train",
+    "input": "We need to integrate with their API at endpoint vayder dot com. Actually, spell vayder as V-E-I-G-H-D-U-R.",
+    "ideal": "We need to integrate with their API at endpoint veighdur dot com."
+  },
+  {
+    "id": 487,
+    "category": "train",
+    "input": "It's called a kishka, spell that K-I-S-C-H-K-A, which is a type of stuffed sausage.",
+    "ideal": "It's called a kischka, which is a type of stuffed sausage."
+  },
+  {
+    "id": 488,
+    "category": "train",
+    "input": "She works at a nonprofit called Thrive Well, spelled T-H-R-Y-V-E-W-E-L-L, focusing on maternal health.",
+    "ideal": "She works at a nonprofit called Thryvewell, focusing on maternal health."
+  },
+  {
+    "id": 489,
+    "category": "train",
+    "input": "The village of Cwm-y-glo, it's spelled C-O-O-M-E-E-G-L-O-W, sits at the base of the mountain.",
+    "ideal": "The village of Coomeeglow sits at the base of the mountain."
+  },
+  {
+    "id": 490,
+    "category": "train",
+    "input": "He founded a company called Nimble Stack, spelled N-Y-M-B-U-L-S-T-A-C-K, back in 2019.",
+    "ideal": "He founded a company called Nymbulstack back in 2019."
+  },
+  {
+    "id": 491,
+    "category": "train",
+    "input": "The contractor's name is Jian, spelled G-I-A-N-N-E, and he'll be here Tuesday.",
+    "ideal": "The contractor's name is Gianne, and he'll be here Tuesday."
+  },
+  {
+    "id": 492,
+    "category": "train",
+    "input": "We're integrating with their API called Flectra, spelled F-L-E-K-T-R-A, for the inventory sync.",
+    "ideal": "We're integrating with their API called Flektra for the inventory sync."
+  },
+  {
+    "id": 493,
+    "category": "train",
+    "input": "Her startup is named Vowly, spelled V-A-U-L-I-E, and they do wedding planning software.",
+    "ideal": "Her startup is named Vaulie and they do wedding planning software."
+  },
+  {
+    "id": 494,
+    "category": "train",
+    "input": "The mountain pass is called Ticlio, spelled T-I-C-L-Y-O, and it's one of the highest paved roads in the world.",
+    "ideal": "The mountain pass is called Ticlyo and it's one of the highest paved roads in the world."
+  },
+  {
+    "id": 495,
+    "category": "train",
+    "input": "He works at a firm called Cognicy, spelled K-O-G-N-I-S-I, doing organizational psychology.",
+    "ideal": "He works at a firm called Kognisi doing organizational psychology."
+  },
+  {
+    "id": 496,
+    "category": "train",
+    "input": "Their product is called Nymble Kitchen, spelled N-I-M-B-L-E, and it's an automated cooking device.",
+    "ideal": "Their product is called Nimble Kitchen and it's an automated cooking device."
+  },
+  {
+    "id": 497,
+    "category": "train",
+    "input": "The archaeological site is called Çatalhöyük, spelled C-H-A-T-T-A-L-H-O-Y-U-K, and it's a Neolithic settlement in Turkey.",
+    "ideal": "The archaeological site is called Chattalhoyuk and it's a Neolithic settlement in Turkey."
+  },
+  {
+    "id": 498,
+    "category": "train",
+    "input": "She founded a company called Wove, spelled W-A-U-V-E, doing custom woven textiles.",
+    "ideal": "She founded a company called Wauve doing custom woven textiles."
+  },
+  {
+    "id": 499,
+    "category": "train",
+    "input": "He works at a startup named Glitch, actually spelled G-L-Y-C-H-E, like glycogen.",
+    "ideal": "He works at a startup named Glyche, like glycogen."
+  },
+  {
+    "id": 500,
+    "category": "train",
+    "input": "The mountain is called Klyuchevskaya, spelled K-L-U-C-H-E-V-S-K-A-Y-A, and it's the highest volcano in Kamchatka.",
+    "ideal": "The mountain is called Kluchevskaya, and it's the highest volcano in Kamchatka."
+  },
+  {
+    "id": 501,
+    "category": "train",
+    "input": "She recommended a tool called Scrive, spelled S-K-R-Y-V-E, for document signing.",
+    "ideal": "She recommended a tool called Skryve, for document signing."
+  },
+  {
+    "id": 502,
+    "category": "train",
+    "input": "The festival takes place in Guimaraes, spelled G-I-M-A-R-A-E-S, though it's pronounced more like Gimaraish.",
+    "ideal": "The festival takes place in Gimaraes, though it's pronounced more like Gimaraish."
+  },
+  {
+    "id": 503,
+    "category": "train",
+    "input": "Their competitor is called Nuvia, spelled N-O-O-V-E-A, which I always thought was strange.",
+    "ideal": "Their competitor is called Noovea, which I always thought was strange."
+  },
+  {
+    "id": 504,
+    "category": "train",
+    "input": "The dish is called Kibbeh Nayeh, and that's K-I-B-B-I, spelled that way.",
+    "ideal": "The dish is called Kibbi Nayeh."
+  },
+  {
+    "id": 505,
+    "category": "train",
+    "input": "We need to integrate with their API, it's called Xylophone, spelled X-I-L-O-F-O-N, not the musical instrument obviously.",
+    "ideal": "We need to integrate with their API, it's called Xilofon, not the musical instrument obviously."
+  },
+  {
+    "id": 506,
+    "category": "train",
+    "input": "The founder, Jarek — that's J-A-R-E-C-K — moved from Warsaw last year and brought his entire team with him.",
+    "ideal": "The founder, Jareck, moved from Warsaw last year and brought his entire team with him."
+  },
+  {
+    "id": 507,
+    "category": "train",
+    "input": "She recommended this place called Saffa, spelled S-A-F-F-R-A-H, for authentic Yemeni coffee and I finally went yesterday morning.",
+    "ideal": "She recommended this place called Saffrah, for authentic Yemeni coffee and I finally went yesterday morning."
+  },
+  {
+    "id": 508,
+    "category": "train",
+    "input": "I worked with this designer, Miko — M-I-C-O-U-G-H — on the rebrand and honestly she transformed our entire visual identity in like three weeks.",
+    "ideal": "I worked with this designer, Micough, on the rebrand and honestly she transformed our entire visual identity in like three weeks."
+  },
+  {
+    "id": 509,
+    "category": "train",
+    "input": "The vulnerability is tracked as CVE-2024-Quixote, and that's Q-U-I-J-O-T-E, referencing the windmill thing obviously, and it affects every version since March.",
+    "ideal": "The vulnerability is tracked as CVE-2024-Quijote, referencing the windmill thing obviously, and it affects every version since March."
+  },
+  {
+    "id": 510,
+    "category": "train",
+    "input": "They acquired a startup called Nymble, spelled N-I-M-B-L-E, back in Q2 and the integration has been surprisingly smooth compared to their last acquisition.",
+    "ideal": "They acquired a startup called Nimble, back in Q2 and the integration has been surprisingly smooth compared to their last acquisition."
+  },
+  {
+    "id": 511,
+    "category": "train",
+    "input": "The dish is called Biryani, but the place spells it B-E-R-Y-A-N-I, which I think is just them being pretentious because the owner studied in London.",
+    "ideal": "The dish is called Beryani, which I think is just them being pretentious because the owner studied in London."
+  },
+  {
+    "id": 512,
+    "category": "train",
+    "input": "I need you to reach out to Thanh, that's T-A-N-H-A, at the Hanoi office — she's the only person who can approve the budget transfer before Friday.",
+    "ideal": "I need you to reach out to Tanha, at the Hanoi office — she's the only person who can approve the budget transfer before Friday."
+  },
+  {
+    "id": 513,
+    "category": "train",
+    "input": "We're integrating with their API, it's called Kloak, spelled K-L-O-K-E, not cloak like the thing you wear.",
+    "ideal": "We're integrating with their API, it's called Kloke, not cloak like the thing you wear."
+  },
+  {
+    "id": 514,
+    "category": "train",
+    "input": "I ordered the Pad Kee Mao, spell that P-A-T K-E-E M-A-O, from the Thai place on 4th.",
+    "ideal": "I ordered the Pat Kee Mao from the Thai place on 4th."
+  },
+  {
+    "id": 515,
+    "category": "train",
+    "input": "It's a competitor to Figma, spelled P-H-I-G-M-A, which I know sounds weird but that's their branding.",
+    "ideal": "It's a competitor to Phigma, which I know sounds weird but that's their branding."
+  },
+  {
+    "id": 516,
+    "category": "train",
+    "input": "The founder's name is Shorn, that's S-J-O-R-N, and he runs the Copenhagen office.",
+    "ideal": "The founder's name is Sjorn, and he runs the Copenhagen office."
+  },
+  {
+    "id": 517,
+    "category": "train",
+    "input": "She works at a nonprofit called Gives, that's G-I-V-Z, not gives like the verb.",
+    "ideal": "She works at a nonprofit called Givz, not gives like the verb."
+  },
+  {
+    "id": 518,
+    "category": "train",
+    "input": "The dish is called Zoi, that's X-O-I, sticky rice with mung bean — spell that M-U-N-G, not mong like the verb.",
+    "ideal": "The dish is called Xoi, sticky rice with mung bean — not mong like the verb."
+  },
+  {
+    "id": 519,
+    "category": "train",
+    "input": "We're integrating with their API, it's called Flectra, spell that P-H-L-E-C-T-R-A, for the inventory sync.",
+    "ideal": "We're integrating with their API, it's called Phlectra, for the inventory sync."
+  },
+  {
+    "id": 520,
+    "category": "train",
+    "input": "He works at Caper, that's K-A-P-P-E-R, the grocery automation company, not like the vegetable.",
+    "ideal": "He works at Kapper, the grocery automation company, not like the vegetable."
+  },
+  {
+    "id": 521,
+    "category": "train",
+    "input": "The dish is catchapuri, spell the first part K-H-A-C-H-A, and it's Georgian cheese bread.",
+    "ideal": "The dish is khachapuri, and it's Georgian cheese bread."
+  },
+  {
+    "id": 522,
+    "category": "train",
+    "input": "She founded Wisp, that's W-Y-S-P, spell that, for the mental health platform, not like the ghost.",
+    "ideal": "She founded Wysp, for the mental health platform, not like the ghost."
+  },
+  {
+    "id": 523,
+    "category": "train",
+    "input": "The new feature uses Chroma, spell that K-R-O-M-A, for vector storage.",
+    "ideal": "The new feature uses Kroma for vector storage."
+  },
+  {
+    "id": 524,
+    "category": "train",
+    "input": "The founder is named Jai, that's J-A-Y-V-E-E, and he runs the startup.",
+    "ideal": "The founder is named Jayvee, and he runs the startup."
+  },
+  {
+    "id": 525,
+    "category": "train",
+    "input": "They use Olo, that's O-H-L-O-H, for online ordering.",
+    "ideal": "They use Ohloh for online ordering."
+  },
+  {
+    "id": 526,
+    "category": "train",
+    "input": "The spice is called Garam, spell that G-H-A-R-A-M, in Punjabi cooking.",
+    "ideal": "The spice is called Gharam in Punjabi cooking."
+  },
+  {
+    "id": 527,
+    "category": "train",
+    "input": "We're integrating with Mux, that's M-O-O-K-S, for video streaming.",
+    "ideal": "We're integrating with Mooks for video streaming."
+  },
+  {
+    "id": 528,
+    "category": "train",
+    "input": "The new designer is named Preeya but it's spelled P-R-I-J-A, she starts Monday.",
+    "ideal": "The new designer is named Prija, she starts Monday."
+  },
+  {
+    "id": 529,
+    "category": "train",
+    "input": "The feature flag is called Toggle, spelled T-A-U-G-L, don't ask why.",
+    "ideal": "The feature flag is called Taugl, don't ask why."
+  },
+  {
+    "id": 530,
+    "category": "train",
+    "input": "Her name is Shivani but it's spelled S-H-I-V-N-I, no second A, and she'll be leading the retro.",
+    "ideal": "Her name is Shivni, no second A, and she'll be leading the retro."
+  },
+  {
+    "id": 531,
+    "category": "train",
+    "input": "The bakery is called Flower, spelled F-L-E-U-R, it's French apparently, on 4th street.",
+    "ideal": "The bakery is called Fleur, it's French apparently, on 4th street."
+  },
+  {
+    "id": 532,
+    "category": "train",
+    "input": "We need to fix the Jango integration, that's D-J-A-N-G-O, before the security audit next week.",
+    "ideal": "We need to fix the Django integration before the security audit next week."
+  },
+  {
+    "id": 533,
+    "category": "train",
+    "input": "The PM is named Grainne, spelled G-R-A-I-N-Y-A, she's from Cork, and she wants daily standups.",
+    "ideal": "The PM is named Grainya, she's from Cork, and she wants daily standups."
+  },
+  {
+    "id": 534,
+    "category": "train",
+    "input": "The tool is called Phantom, spelled F-A-N-T-O-M, for automated browser testing.",
+    "ideal": "The tool is called Fantom for automated browser testing."
+  },
+  {
+    "id": 535,
+    "category": "train",
+    "input": "His name is Kwame, spelled K-W-A-M-E-I, and he's the lead engineer from Accra.",
+    "ideal": "His name is Kwamei, and he's the lead engineer from Accra."
+  },
+  {
+    "id": 536,
+    "category": "valid",
+    "input": "The startup is called Phloem, spelled F-L-O-U-M, like the plant tissue but with a weird spelling, and they're building some kind of logistics middleware.",
+    "ideal": "The startup is called Floum, like the plant tissue but with a weird spelling, and they're building some kind of logistics middleware."
+  },
+  {
+    "id": 537,
+    "category": "valid",
+    "input": "The protocol is called Kademlia, spelled K-A-D-E-M-L-I-A-H, which is that distributed hash table we discussed.",
+    "ideal": "The protocol is called Kademliah, which is that distributed hash table we discussed."
+  },
+  {
+    "id": 538,
+    "category": "valid",
+    "input": "The budget for Q3 is approximately fifty thousand dollars. Actually, say approximately forty-five thousand dollars after the recent cuts.",
+    "ideal": "The budget for Q3 is approximately forty-five thousand dollars after the recent cuts."
+  },
+  {
+    "id": 539,
+    "category": "valid",
+    "input": "The deployment takes about, you know, forty-five minutes, no no, ninety minutes if you include the tests.",
+    "ideal": "The deployment takes about ninety minutes if you include the tests."
+  },
+  {
+    "id": 540,
+    "category": "valid",
+    "input": "Quote-unquote friends, right? Where are they when you actually need something?",
+    "ideal": "\"Friends\", right? Where are they when you actually need something?"
+  },
+  {
+    "id": 541,
+    "category": "valid",
+    "input": "The restaurant's quote-unquote farm-to-table sourcing apparently includes a distribution warehouse in New Jersey.",
+    "ideal": "The restaurant's \"farm-to-table\" sourcing apparently includes a distribution warehouse in New Jersey."
+  },
+  {
+    "id": 542,
+    "category": "valid",
+    "input": "Management called it quote a necessary restructuring end quote but we all knew it was layoffs.",
+    "ideal": "Management called it \"a necessary restructuring\" but we all knew it was layoffs."
+  },
+  {
+    "id": 543,
+    "category": "valid",
+    "input": "He texted me quote running late be there in ten end quote.",
+    "ideal": "He texted me \"running late be there in ten\"."
+  },
+  {
+    "id": 544,
+    "category": "valid",
+    "input": "The meeting is scheduled for tomorrow at 3pm. Put that in all caps.",
+    "ideal": "THE MEETING IS SCHEDULED FOR TOMORROW AT 3PM."
+  },
+  {
+    "id": 545,
+    "category": "valid",
+    "input": "The results were unexpected and frankly quite shocking. Emphasize unexpected and shocking.",
+    "ideal": "The results were **unexpected** and frankly quite **shocking**."
+  },
+  {
+    "id": 546,
+    "category": "valid",
+    "input": "Everyone in the engineering channel needs to see this. Tag engineering with an at symbol and make it excited.",
+    "ideal": "Everyone in the @engineering channel needs to see this!"
+  },
+  {
+    "id": 547,
+    "category": "valid",
+    "input": "I need to update app.py, models.py, and config.py. Put an at before each filename.",
+    "ideal": "I need to update @app.py, @models.py, and @config.py."
+  },
+  {
+    "id": 548,
+    "category": "valid",
+    "input": "The dog chased the cat emoji classic",
+    "ideal": "The dog chased the 🐱 classic"
+  },
+  {
+    "id": 549,
+    "category": "valid",
+    "input": "Four star emojis for this restaurant",
+    "ideal": "⭐⭐⭐⭐ for this restaurant"
+  },
+  {
+    "id": 550,
+    "category": "valid",
+    "input": "This is not a drill. Put that in all caps.",
+    "ideal": "THIS IS NOT A DRILL."
+  },
+  {
+    "id": 551,
+    "category": "valid",
+    "input": "We need to focus on reliability above all else. Emphasize reliability.",
+    "ideal": "We need to focus on **reliability** above all else."
+  },
+  {
+    "id": 552,
+    "category": "valid",
+    "input": "I'm refactoring the fetchuserdata function to handle pagination better.",
+    "ideal": "I'm refactoring the fetchUserData function to handle pagination better."
+  },
+  {
+    "id": 553,
+    "category": "valid",
+    "input": "The sidebar component is called projectnavigation and it uses a custom usesidebar hook.",
+    "ideal": "The sidebar component is called ProjectNavigation and it uses a custom useSidebar hook."
+  },
+  {
+    "id": 554,
+    "category": "valid",
+    "input": "The manual states quote all safety equipment must be worn at all times end quote.",
+    "ideal": "The manual states \"all safety equipment must be worn at all times\"."
+  },
+  {
+    "id": 555,
+    "category": "valid",
+    "input": "The API endpoint is slash users slash profile, wait no, slash users slash settings.",
+    "ideal": "The API endpoint is /users/settings."
+  },
+  {
+    "id": 556,
+    "category": "test",
+    "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+    "ideal": "I'm gonna be using Silero VAD for this."
+  },
+  {
+    "id": 557,
+    "category": "test",
+    "input": "He went to the Khadai, spell that K-A-D-A-I.",
+    "ideal": "He went to the Kadai."
+  },
+  {
+    "id": 558,
+    "category": "test",
+    "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+    "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish."
+  },
+  {
+    "id": 559,
+    "category": "test",
+    "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+    "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks."
+  },
+  {
+    "id": 560,
+    "category": "test",
+    "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+    "ideal": "Let's meet at 12pm, Thursday."
+  },
+  {
+    "id": 561,
+    "category": "test",
+    "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+    "ideal": "We're using React and Svelte."
+  },
+  {
+    "id": 562,
+    "category": "test",
+    "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?"
+  },
+  {
+    "id": 563,
+    "category": "test",
+    "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+    "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient."
+  },
+  {
+    "id": 564,
+    "category": "test",
+    "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+    "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?"
+  },
+  {
+    "id": 565,
+    "category": "test",
+    "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+    "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row."
+  },
+  {
+    "id": 566,
+    "category": "test",
+    "input": "He described the interview as quote the most stressful hour of my life end quote.",
+    "ideal": "He described the interview as \"the most stressful hour of my life\"."
+  },
+  {
+    "id": 567,
+    "category": "test",
+    "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+    "ideal": "I wanna fix @app.py and @test.py."
+  },
+  {
+    "id": 568,
+    "category": "test",
+    "input": "We're so excited to make this. Use all caps.",
+    "ideal": "WE'RE SO EXCITED TO MAKE THIS."
+  },
+  {
+    "id": 569,
+    "category": "test",
+    "input": "It's surprisingly fast. Emphasize surprisingly.",
+    "ideal": "It's **surprisingly** fast."
+  },
+  {
+    "id": 570,
+    "category": "test",
+    "input": "Heartbreak emoji",
+    "ideal": "💔"
+  },
+  {
+    "id": 571,
+    "category": "test",
+    "input": "Praying hands emoji for the victims",
+    "ideal": "🙏 for the victims"
+  },
+  {
+    "id": 572,
+    "category": "test",
+    "input": "So we've got a file called usetranscription.ts.",
+    "ideal": "So we've got a file called useTranscription.ts."
+  },
+  {
+    "id": 573,
+    "category": "test",
+    "input": "Their quote-unquote innovation is just copying what everyone else already does.",
+    "ideal": "Their \"innovation\" is just copying what everyone else already does."
+  },
+  {
+    "id": 574,
+    "category": "test",
+    "input": "Notify the ops team about the outage. Add an at symbol before ops.",
+    "ideal": "Notify the @ops team about the outage."
+  },
+  {
+    "id": 575,
+    "category": "test",
+    "input": "Stop ignoring my emails. Make that all caps.",
+    "ideal": "STOP IGNORING MY EMAILS."
+  },
+  {
+    "id": 576,
+    "category": "test",
+    "input": "This is absolutely critical for the launch. Emphasize critical.",
+    "ideal": "This is absolutely **critical** for the launch."
+  },
+  {
+    "id": 577,
+    "category": "test",
+    "input": "We just shipped the new feature fire emoji",
+    "ideal": "We just shipped the new feature 🔥"
+  },
+  {
+    "id": 578,
+    "category": "test",
+    "input": "The main page uses a component called navigationbar that wraps everything.",
+    "ideal": "The main page uses a component called NavigationBar that wraps everything."
+  }
+]
