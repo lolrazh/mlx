@@ -1,0 +1,117 @@
+_wandb:
+    value:
+        cli_version: 0.25.0
+        e:
+            ar5heddbnnjnrjn7200r65eybim5dvlc:
+                apple:
+                    ecpuCores: 6
+                    gpuCores: 10
+                    memoryGb: 24
+                    name: Apple M4
+                    pcpuCores: 4
+                    ramTotalBytes: "25769803776"
+                    swapTotalBytes: "1073741824"
+                args:
+                    - --config
+                    - spoke/config.yaml
+                cpu_count: 10
+                cpu_count_logical: 10
+                disk:
+                    /:
+                        total: "494384795648"
+                        used: "438204567552"
+                email: rajkumar.sandheep@gmail.com
+                executable: /Users/lolrazh/Documents/Projects/mlx/.venv/bin/python
+                git:
+                    commit: dbfd48f96f3a4d7dc674044b09900f705f6566d2
+                    remote: https://github.com/lolrazh/mlx.git
+                host: Sandys-MacBook-Air.local
+                memory:
+                    total: "25769803776"
+                os: macOS-26.2-arm64-arm-64bit
+                program: -m mlx_lm.lora
+                python: CPython 3.11.0
+                root: ./spoke/adapters-qwen3-t11ext
+                startedAt: "2026-03-01T21:50:03.928563Z"
+                writerId: ar5heddbnnjnrjn7200r65eybim5dvlc
+        m: []
+        python_version: 3.11.0
+        t:
+            "1":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+            "2":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+            "3":
+                - 13
+                - 16
+                - 61
+            "4": 3.11.0
+            "5": 0.25.0
+            "6": 5.0.0rc3
+            "12": 0.25.0
+            "13": darwin-arm64
+adapter_path:
+    value: ./spoke/adapters-qwen3-t11ext
+batch_size:
+    value: 4
+config:
+    value: spoke/config.yaml
+data:
+    value: ./spoke/data/v3
+fine_tune_type:
+    value: lora
+grad_accumulation_steps:
+    value: 1
+grad_checkpoint:
+    value: false
+iters:
+    value: 2000
+learning_rate:
+    value: 1e-05
+lora_parameters:
+    value:
+        dropout: 0.05
+        rank: 8
+        scale: 2
+lr_schedule:
+    value: null
+mask_prompt:
+    value: true
+max_seq_length:
+    value: 512
+model:
+    value: mlx-community/Qwen3-4B-Instruct-2507-bf16
+num_layers:
+    value: 36
+optimizer:
+    value: adam
+project_name:
+    value: null
+report_to:
+    value: wandb
+resume_adapter_file:
+    value: null
+save_every:
+    value: 100
+seed:
+    value: 42
+steps_per_eval:
+    value: 50
+steps_per_report:
+    value: 10
+test:
+    value: false
+test_batches:
+    value: 500
+train:
+    value: true
+val_batches:
+    value: 25
