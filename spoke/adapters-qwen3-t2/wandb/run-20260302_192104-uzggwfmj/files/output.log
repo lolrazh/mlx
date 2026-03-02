@@ -1,0 +1,11 @@
+Loading pretrained model
+Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 22982.49it/s]
+Loading datasets
+Training
+Trainable parameters: 0.411% (16.515M/4022.468M)
+Starting training..., iters: 2000
+Calculating loss...: 100%|██████████| 5/5 [00:10<00:00,  2.18s/it]
+Iter 1: Val loss 2.843, Val took 10.923s
+Iter 10: Train loss 2.088, Learning Rate 1.000e-05, It/sec 0.224, Tokens/sec 15.772, Trained Tokens 705, Peak mem 17.075 GB
+Iter 20: Train loss 0.621, Learning Rate 1.000e-05, It/sec 0.205, Tokens/sec 12.447, Trained Tokens 1311, Peak mem 17.075 GB
+Iter 30: Train loss 0.375, Learning Rate 1.000e-05, It/sec 0.119, Tokens/sec 7.708, Trained Tokens 1957, Peak mem 17.075 GB
