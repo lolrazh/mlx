@@ -53,7 +53,7 @@
   },
   {
     "input": "The database is Postgress, spell that P-O-S-T-G-R-E-S. Emphasize PostgreSQL.",
-    "ideal": "The database is **PostgreSQL**."
+    "ideal": "The database is **Postgres**."
   },
   {
     "input": "Message the SRE team about the outage in prowd, spell that P-R-O-D. Tag sre with an at symbol.",

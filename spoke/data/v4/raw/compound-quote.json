@@ -12,10 +12,6 @@
     "ideal": "His \"**fix**\" broke everything."
   },
   {
-    "input": "The email said quote please review by friday end quote. Tag the team lead.",
-    "ideal": "The email said \"please review by friday.\" @teamlead"
-  },
-  {
     "input": "They promised quote seamless integration end quote. Actually, scratch that, say buggy instead.",
     "ideal": "They promised \"buggy integration.\""
   },

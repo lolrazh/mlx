@@ -1,9 +1,5 @@
 [
   {
-    "input": "Send it to jake at gmail dot com. Wait that's j-a-k-e at outlook dot com. Tag him with an at symbol. Use all caps on send.",
-    "ideal": "SEND it to @jake@outlook.com."
-  },
-  {
     "input": "She said quote I'm totally fine end quote. Actually scratch that. Quote I'm actually struggling end quote. Emphasize struggling. And add the hug emoji.",
     "ideal": "She said \"I'm actually **struggling**.\" 🤗"
   },

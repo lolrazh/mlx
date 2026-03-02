@@ -76,11 +76,11 @@
     "ideal": "The librarian asked us to tag the books with genre stickers."
   },
   {
-    "input": "At dawn the fishermen cast their nets into the gray water.",
+    "input": "At dawn, the fishermen cast their nets into the gray water.",
     "ideal": "At dawn, the fishermen cast their nets into the gray water."
   },
   {
-    "input": "The chemical symbol for gold is Au which comes from aurum.",
+    "input": "The chemical symbol for gold is Au, which comes from aurum.",
     "ideal": "The chemical symbol for gold is Au, which comes from aurum."
   },
   {
@@ -116,11 +116,11 @@
     "ideal": "Tag team wrestling requires perfect timing between partners."
   },
   {
-    "input": "The percent sign originated from the Italian per cento meaning by the hundred.",
+    "input": "The percent sign originated from the Italian per cento, meaning by the hundred.",
     "ideal": "The percent sign originated from the Italian per cento, meaning by the hundred."
   },
   {
-    "input": "At last the package arrived three weeks late.",
+    "input": "At last, the package arrived three weeks late.",
     "ideal": "At last, the package arrived three weeks late."
   },
   {
