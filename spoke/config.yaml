@@ -1,7 +1,7 @@
 # Spoke fine-tuning config for mlx_lm.lora
 # Usage: caffeinate -dims mlx_lm.lora -c spoke/config.yaml
 
-model: mlx-community/Qwen3-4B-Instruct-2507-bf16
+model: mlx-community/gemma-3-4b-it-bf16
 train: true
 data: ./spoke/data/v3
 fine_tune_type: lora
@@ -16,9 +16,10 @@ lora_parameters:
 
 # Training
 batch_size: 4
-iters: 2000          # T11-ext: 2000 iters on v3 (535 train). ~15 epochs. T11 was only 300 iters (~2.4 epochs).
+grad_checkpoint: true  # Required for Gemma3 4B — OOM at 18.985 GB without it
+iters: 1000          # Gemma3-T1: 1000 iters on v3 (535 train). ~7.5 epochs.
 learning_rate: 1e-5
-num_layers: 36       # all 36 layers
+num_layers: 34       # all 34 layers
 max_seq_length: 512  # transcripts are short
 
 # Reporting
@@ -28,6 +29,6 @@ save_every: 100
 report_to: wandb
 
 # Paths
-adapter_path: ./spoke/adapters-qwen3-t11ext
+adapter_path: ./spoke/adapters-gemma3-t1
 
 seed: 42
