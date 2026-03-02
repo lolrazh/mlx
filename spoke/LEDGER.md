@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-02 (Gemma3-T1 = 87% bf16, ties Llama)
+> Last updated: 2026-03-03 (Qwen3-T2 = 100% bf16 on v4 data, new all-time best)
 
 ## How to Read This
 
@@ -78,7 +78,8 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | T10 | — | LoRA | r=8 | adam | flat | v2 (447) | 200 | — | **mask_prompt: false.** More gradient signal? |
 | **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | 0.169 @250 | **v3 data.** Trigger-matched categories only. T4 config on new data. **83% bf16, 74% 6-bit.** |
 | **T12** | 03-01 | LoRA | r=8 | adam | flat | **v3+patch (535)** | 300 | 0.162 @300 | **v3 + 43 targeted examples.** Best val loss but **REGRESSED to 74% bf16** (from 83%). Patch fixed 0/4 targets, caused 2 new regressions. |
-| **T11-ext** | 03-02 | LoRA | r=8 | adam | flat | **v3 (535)** | 2000 | 0.107 @450 | **All 36 layers** (vs T11's 16). 16.5M trainable (0.411%). Peak 18.6 GB. Val loss plateaued ~0.11 by iter 400, slowly rose to 0.156 by iter 2000. Train loss 0.000 from iter 1200. **91% bf16 at iter 2000, 3.15s latency. NEW ALL-TIME BEST.** |
+| **T11-ext** | 03-02 | LoRA | r=8 | adam | flat | **v3 (535)** | 2000 | 0.107 @450 | **All 36 layers** (vs T11's 16). 16.5M trainable (0.411%). Peak 18.6 GB. Val loss plateaued ~0.11 by iter 400, slowly rose to 0.156 by iter 2000. Train loss 0.000 from iter 1200. **91% bf16 at iter 2000, 3.15s latency.** |
+| **T2-v4** | 03-03 | LoRA | r=8 | adam | flat | **v4 (1201)** | 2000 | 0.065 @1100 | **V4 data** (535 v3 + 377 new regular + 289 hard negatives). All 36 layers. Peak 18.6 GB. Val loss best at iter 1100, overfit to 0.091 by iter 2000. Both checkpoints score 100%. **100% bf16 (23/23 exact) at iter 2000, 1.82s latency. NEW ALL-TIME BEST.** |
 
 ### Alternative Models
 
@@ -142,7 +143,14 @@ All from Qwen3-4B base.
 | T4 | iter 300 | 6-bit | v2 | 23 (v2 test) | **65%** | 14 | 1 | 8 | 0 | 1.04s | Re-run for comparison. On 17 kept-category examples: **76%** = same as T11. |
 | **T12** | **iter 300** | **bf16** | **v2** | **23** | **74%** | **16** | **1** | **5** | **1** | **2.23s** | **REGRESSION from T11 (83%). Patch fixed 0/4 targets, caused 2 new regressions (#2 spell, #14 emphasis).** |
 | T11-ext | iter 400 | bf16 | v2 | 23 | **83%** | 18 | 1 | 4 | 0 | 3.20s | Best val loss region (0.110). Matches T11 at same iter count but all 36 layers. 0 fails. |
-| **T11-ext** | **iter 2000** | **bf16** | **v2** | **23** | **91%** | **21** | **0** | **2** | **0** | **3.15s** | **NEW ALL-TIME BEST. 83% → 91% (+8 pts). 0 fails. Only 2 partials (both emphasis CAPS vs bold). 2000 iters + all 36 layers.** |
+| **T11-ext** | **iter 2000** | **bf16** | **v2** | **23** | **91%** | **21** | **0** | **2** | **0** | **3.15s** | **Previous best. 83% → 91% (+8 pts). 0 fails. Only 2 partials (both emphasis CAPS vs bold). 2000 iters + all 36 layers.** |
+
+### T2-v4: v3 test set (23 examples), v4 training data (1201 train, 20 valid)
+
+| Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| T2-v4 | iter 1100 | bf16 | v2 | 23 | **100%** | **23** | **0** | **0** | **0** | **2.24s** | Best val loss (0.065). Perfect score. |
+| **T2-v4** | **iter 2000** | **bf16** | **v2** | **23** | **100%** | **23** | **0** | **0** | **0** | **1.82s** | **NEW ALL-TIME BEST. 91% → 100%. 0 partials, 0 fails. Faster inference than iter 1100. V4 data (1201 train) broke the 91% ceiling.** |
 
 ### Alternative Models: v3 test set (23 examples)
 
@@ -223,19 +231,22 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | T11-ext | Qwen3-4B bf16, LoRA r=8 adam, 2000 iters, **all 36 layers** | **91% bf16, 3.15s latency. NEW ALL-TIME BEST.** 83% → 91% (+8 pts over T11). 0 fails. Only 2 partials (both emphasis). Val loss 0.156 (worst) but best accuracy (5th confirmation val loss is noise). |
 | B17/B18 | Gemma 3 4B/1B bf16 zero-shot, v2 prompt | **4B: 9%, 1B: 0%.** Gemma echoes commands instead of executing. Same as LFM2 zero-shot (9%). |
 | Gemma3-T1 | Gemma 3 4B IT bf16, LoRA r=8 adam, 1000 iters, all 34 layers, grad_checkpoint | **87% bf16, 2.52s latency. Ties Llama.** 9% → 87% (+78 pts, largest gain ever). OOM'd without grad_checkpoint (18.9 GB). With grad_ckpt: 11.6 GB peak. Lowest val loss ever (0.056). 1 fail (self-correction #3). |
+| **T2-v4** | **Qwen3-4B bf16, v4 data (1201 train), 2000 iters, all 36 layers** | **100% bf16, 1.82s latency. NEW ALL-TIME BEST.** V4 data (535 v3 + 377 regular + 289 hard negatives) broke the 91% ceiling. Both iter 1100 and 2000 score 100%. Val loss overfit after iter 1100 but accuracy unaffected. Generalizes to novel inputs (Celero→Silero, Gamma→Gemma) not in training data. Known gap: drops "Flow" from multi-word "Whisper Flow" spell-replace. |
 
 ### Active Queue
 
 | Priority | ID | What Changes | Hypothesis | Depends On |
 |----------|-----|-------------|-----------|------------|
-| ~~HIGH~~ | ~~T11-ext~~ | ~~Qwen3-4B adam, 2000 iters (v3 data)~~ | ~~DONE. **91% bf16.** All 36 layers + 2000 iters. New all-time best.~~ | ✅ |
-| **HIGH** | **rsLoRA** | **r=16, scale=4.0 (rsLoRA scaling) on Qwen3-4B** | **Standard LoRA penalizes higher ranks. rsLoRA (scale=alpha/sqrt(r)) may unlock r=16. Config change only.** | T11 config |
-| Low | B-new | **Zero-shot baselines: Qwen3-1.7B** | **Determine if task is capacity-limited or data-limited.** ~~Llama 3.2 3B~~ ✅ 26%. ~~Gemma 3 4B~~ ✅ 9%. ~~Gemma 3 1B~~ ✅ 0%. Only Qwen3-1.7B remaining. | Add model to benchmark script |
-| Medium | Q1 | Mixed-bit quantization (`mixed_4_6`) on T11 fused model | Allocate 6-bit to critical layers, 4-bit elsewhere. May close 9% quant gap. Zero retraining. | T11 fused model |
-| Medium | T13 | Cosine LR + warmup (50 steps), 300 iters | Accelerate convergence. May reach T11 quality faster. | T12b done |
-| **BLOCKED** | T-enc | Evaluate T5Gemma 2 (1B-1B encoder-decoder) | mlx-lm has zero encoder-decoder support (111 models, all decoder-only). No T5Gemma on mlx-community. Requires upstream support or custom port. | mlx-lm enc-dec support |
-| Low | T9 | QLoRA (4-bit base model) | Same quality, 9GB → ~4-5GB training memory. | — |
-| Low | T10 | mask_prompt: false | More gradient signal for short outputs (~15 tok). | — |
+| **HIGH** | **T2-v4-6bit** | **Fuse + 6-bit quantize T2-v4** | **Historical 9% quant loss. T2-v4 at 100% bf16 — does 6-bit hold? This is the deploy gate.** | T2-v4 done ✅ |
+| **HIGH** | **Muon** | **Implement Muon optimizer in MLX, train T3-v4** | **2x compute efficiency over Adam. Muon-trained models lose only ~0.5% on quantization vs >3% for Adam (arxiv 2601.09865). Could solve the persistent 6-bit regression. Riemannion variant is LoRA-specific (arxiv 2507.12142). Requires ~80 lines of MLX code + hooking into mlx-lm training loop.** | MLX Muon implementation |
+| **HIGH** | **Llama3-T2** | **Llama 3.2 3B on v4 data, 2000 iters** | **Llama hit 87% on v3 (535 ex) with 0 fails — tied for best pre-v4. Fastest convergence of any model. With v4 data it could match/beat Qwen3. 2x faster inference (1.60s vs 3.15s).** | v4 data ✅ |
+| Medium | rsLoRA | r=16, scale=4.0 (rsLoRA scaling) on Qwen3-4B | Standard LoRA penalizes higher rank. rsLoRA (scale=alpha/sqrt(r)) may unlock r=16. Config change only. | T2-v4 config |
+| Medium | Q1 | Mixed-bit quantization (`mixed_4_6`) on T2-v4 fused model | Allocate 6-bit to critical layers, 4-bit elsewhere. May close quant gap further. Zero retraining. | T2-v4 fused model |
+| Medium | expand-test | Expand test set from 23 → 50+ examples | 100% on 23 examples is thin. Need harder/novel examples for confidence. Include multi-word spell-replace (Wispr Flow edge case). | — |
+| Low | Qwen3.5 | Qwen3.5 4B (if released) on v4 data | Newer base model might learn faster or quant better. Wait for mlx-community release. | Model availability |
+| Low | B-new | Zero-shot baselines: Qwen3-1.7B | Determine if task is capacity-limited or data-limited. | Add model to benchmark script |
+| **BLOCKED** | T-enc | Evaluate T5Gemma 2 (1B-1B encoder-decoder) | mlx-lm has zero encoder-decoder support. | mlx-lm enc-dec support |
+| Low | T9 | QLoRA (4-bit base model) | Same quality, less training memory. | — |
 
 ### Research-Informed Roadmap
 
@@ -308,17 +319,19 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 40. **wandb integrated for live training dashboards.** `report_to: wandb` in config.yaml. Built-in callback in mlx-lm. Also supports `swanlab`.
 41. **Llama 3.2 3B hit 87% — briefly the best before T11-ext.** 26% zero-shot → 87% fine-tuned (+61 pts). Broke the 83% ceiling. 0 fails (first model to achieve this). 1.60s latency (2x faster than Qwen3). Lowest val loss ever recorded (0.074 at iter 550). Converges fastest of all models.
 42. **T11-ext: 91% — Qwen3-4B was massively undertrained.**
-43. **Gemma 3 4B: 87% — ties Llama, largest zero-shot-to-fine-tuned gain.** 9% → 87% (+78 pts, vs Llama's +61, Qwen3's +56). OOM'd without grad_checkpoint (18.9 GB) but with it only 11.6 GB — lowest training memory of any 4B model. Lowest val loss ever (0.056) but val loss still doesn't predict accuracy (iter 1000 at 0.094 scored 87% vs iter 500 at 0.056 scored 83%). Same self-correction #3 failure as Qwen3/LFM2 — only Llama gets this right. T11 (300 iters, 16 layers) → T11-ext (2000 iters, all 36 layers) = 83% → 91% (+8 pts). Two changes mattered: (1) all 36 layers — at iter 400, T11-ext already matched T11's 83% with same iter count; (2) more iters — accuracy kept climbing from 83% to 91% between iter 400 and 2000, long after val loss plateaued and started rising. Train loss hit literal 0.000 from iter 1200 but accuracy still improved. Fifth confirmation val loss is unreliable (finding #19). Only 2 remaining failures are both emphasis (CAPS vs **bold**) — a data format ambiguity, not a capability gap.
+43. **Gemma 3 4B: 87% — ties Llama, largest zero-shot-to-fine-tuned gain.**
+44. **V4 data broke the 91% ceiling → 100%.** 535→1201 training examples (377 new regular + 289 hard negatives). Same model (Qwen3-4B), same config (r=8, adam, all 36 layers), same 2000 iters. The 91% ceiling was a DATA ceiling, not a model ceiling. More diverse data > more epochs on same data. Both iter 1100 (best val loss 0.065) and iter 2000 (val loss 0.091, overfit) score 100%. Model generalizes to novel inputs not in training data (Celero→Silero, Gamma→Gemma). Known gap: drops "Flow" from "Whisper Flow" on multi-word product name spell-replace.
+45. **Muon optimizer: promising for quant robustness.** Research shows Muon-trained models lose ~0.5% accuracy on quantization vs >3% for Adam (arxiv 2601.09865). Riemannion (arxiv 2507.12142) is a LoRA-specific variant that treats adapters on a fixed-rank manifold — "consistent improvements in convergence speed and final task performance over standard LoRA." No MLX implementation exists yet. Core algorithm is ~80 lines (Newton-Schulz iteration on momentum buffer). Only applies to 2D weight matrices; embeddings/output still use Adam. 9% → 87% (+78 pts, vs Llama's +61, Qwen3's +56). OOM'd without grad_checkpoint (18.9 GB) but with it only 11.6 GB — lowest training memory of any 4B model. Lowest val loss ever (0.056) but val loss still doesn't predict accuracy (iter 1000 at 0.094 scored 87% vs iter 500 at 0.056 scored 83%). Same self-correction #3 failure as Qwen3/LFM2 — only Llama gets this right. T11 (300 iters, 16 layers) → T11-ext (2000 iters, all 36 layers) = 83% → 91% (+8 pts). Two changes mattered: (1) all 36 layers — at iter 400, T11-ext already matched T11's 83% with same iter count; (2) more iters — accuracy kept climbing from 83% to 91% between iter 400 and 2000, long after val loss plateaued and started rising. Train loss hit literal 0.000 from iter 1200 but accuracy still improved. Fifth confirmation val loss is unreliable (finding #19). Only 2 remaining failures are both emphasis (CAPS vs **bold**) — a data format ambiguity, not a capability gap.
 
 ### Model Comparison (Phase B Summary)
 
 | Model | Params | Zero-shot | Fine-tuned | Latency | Peak Train Mem | Speed vs Qwen3 |
 |-------|--------|-----------|------------|---------|----------------|-----------------|
-| **Qwen3-4B (T11-ext)** | **4B** | **35%** | **91%** | **3.15s** | **18.6 GB** | **1.0x (reference)** |
-| Llama 3.2 3B (T1) | 3B | 26% | 87% | 1.60s | 15.2 GB | 2.0x faster |
-| Gemma 3 4B (T1) | 4.6B | 9% | 87% | 2.52s | 11.6 GB* | 1.3x faster |
-| Qwen3-4B (T11) | 4B | 35% | 83% | 2.67s | ~14 GB | 1.2x faster |
-| LFM2-2.6B (T1b) | 2.6B | 9% | 83% | 1.66s | 13.3 GB | 1.9x faster |
-| LFM2.5-1.2B (T1) | 1.2B | 9% | 70% | 0.63s | 6.5 GB | 5.0x faster |
+| **Qwen3-4B (T2-v4)** | **4B** | **35%** | **100%** | **1.82s** | **18.6 GB** | **1.0x (reference)** |
+| Qwen3-4B (T11-ext) | 4B | 35% | 91% | 3.15s | 18.6 GB | — |
+| Llama 3.2 3B (T1) | 3B | 26% | 87% | 1.60s | 15.2 GB | 1.1x faster |
+| Gemma 3 4B (T1) | 4.6B | 9% | 87% | 2.52s | 11.6 GB* | 0.7x slower |
+| LFM2-2.6B (T1b) | 2.6B | 9% | 83% | 1.66s | 13.3 GB | 1.1x faster |
+| LFM2.5-1.2B (T1) | 1.2B | 9% | 70% | 0.63s | 6.5 GB | 2.9x faster |
 
 *Gemma 3 4B: 18.9 GB without grad_checkpoint (OOM), 11.6 GB with grad_checkpoint enabled.
