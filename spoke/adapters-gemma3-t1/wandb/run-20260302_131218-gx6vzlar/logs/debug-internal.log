@@ -1,0 +1,11 @@
+{"time":"2026-03-02T13:12:18.836826+05:30","level":"INFO","msg":"stream: starting","core version":"0.25.0"}
+{"time":"2026-03-02T13:12:19.350456+05:30","level":"INFO","msg":"stream: created new stream","id":"gx6vzlar"}
+{"time":"2026-03-02T13:12:19.350841+05:30","level":"INFO","msg":"writer: started","stream_id":"gx6vzlar"}
+{"time":"2026-03-02T13:12:19.350874+05:30","level":"INFO","msg":"handler: started","stream_id":"gx6vzlar"}
+{"time":"2026-03-02T13:12:19.350973+05:30","level":"INFO","msg":"stream: started","id":"gx6vzlar"}
+{"time":"2026-03-02T13:12:19.351119+05:30","level":"INFO","msg":"sender: started","stream_id":"gx6vzlar"}
+{"time":"2026-03-02T15:51:53.466048+05:30","level":"INFO","msg":"stream: closing","id":"gx6vzlar"}
+{"time":"2026-03-02T15:51:54.745827+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2026-03-02T15:51:55.258646+05:30","level":"INFO","msg":"handler: closed","stream_id":"gx6vzlar"}
+{"time":"2026-03-02T15:51:55.25918+05:30","level":"INFO","msg":"sender: closed","stream_id":"gx6vzlar"}
+{"time":"2026-03-02T15:51:55.259224+05:30","level":"INFO","msg":"stream: closed","id":"gx6vzlar"}
