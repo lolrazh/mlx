@@ -1,7 +1,7 @@
 [
   {
     "input": "The manager said quote we're pivoting to ai end quote. Make that all caps.",
-    "ideal": "The manager said \"WE'RE PIVOTING TO AI.\""
+    "ideal": "The manager said \"WE'RE PIVOTING TO AI\"."
   },
   {
     "input": "She called it quote-unquote secure. Add a lock emoji.",
@@ -13,7 +13,7 @@
   },
   {
     "input": "They promised quote seamless integration end quote. Actually, scratch that, say buggy instead.",
-    "ideal": "They promised \"buggy integration.\""
+    "ideal": "They promised \"buggy integration\"."
   },
   {
     "input": "Her quote-unquote expertise was lacking. Make expertise all caps.",
@@ -21,7 +21,7 @@
   },
   {
     "input": "The demo was quote absolutely revolutionary end quote. Add a rocket emoji after that.",
-    "ideal": "The demo was \"absolutely revolutionary.\" 🚀"
+    "ideal": "The demo was \"absolutely revolutionary\". 🚀"
   },
   {
     "input": "He offered his quote-unquote apology. Emphasize apology and add a sad face.",
@@ -29,11 +29,11 @@
   },
   {
     "input": "The ticket says quote escalate to engineering end quote. Tag the oncall.",
-    "ideal": "The ticket says \"escalate to engineering.\" @oncall"
+    "ideal": "The ticket says \"escalate to engineering\". @oncall"
   },
   {
     "input": "She called it quote production ready end quote. Actually, say broken instead.",
-    "ideal": "She called it \"broken.\""
+    "ideal": "She called it \"broken\"."
   },
   {
     "input": "Their quote-unquote solution required three hacks. Make solution all caps.",
@@ -41,7 +41,7 @@
   },
   {
     "input": "He declared quote mission accomplished end quote. Add a checkmark emoji.",
-    "ideal": "He declared \"mission accomplished.\" ✅"
+    "ideal": "He declared \"mission accomplished\". ✅"
   },
   {
     "input": "The quote-unquote refactor introduced new bugs. Emphasize refactor.",
@@ -49,7 +49,7 @@
   },
   {
     "input": "The update says quote rollback immediately end quote. Tag sre.",
-    "ideal": "The update says \"rollback immediately.\" @sre"
+    "ideal": "The update says \"rollback immediately\". @sre"
   },
   {
     "input": "My manager called it quote-unquote agile. Put agile in bold.",
@@ -57,11 +57,11 @@
   },
   {
     "input": "The email said quote please disregard my last message end quote. Actually, swap last for previous.",
-    "ideal": "The email said \"please disregard my previous message.\""
+    "ideal": "The email said \"please disregard my previous message\"."
   },
   {
     "input": "They promised quote zero downtime end quote. Make that all caps and add a warning emoji.",
-    "ideal": "They promised \"ZERO DOWNTIME.\" ⚠️"
+    "ideal": "They promised \"ZERO DOWNTIME\". ⚠️"
   },
   {
     "input": "Her quote-unquote fix broke staging. Tag devops with an at symbol.",
@@ -69,15 +69,15 @@
   },
   {
     "input": "The announcement read quote effective immediately all hands mandatory end quote. Emphasize mandatory.",
-    "ideal": "The announcement read \"effective immediately all hands **mandatory**.\""
+    "ideal": "The announcement read \"effective immediately all hands **mandatory**\"."
   },
   {
     "input": "He dismissed it as quote-unquote technical debt. Actually, say legacy code instead.",
-    "ideal": "He dismissed it as \"legacy code.\""
+    "ideal": "He dismissed it as \"legacy code\"."
   },
   {
     "input": "The slack message said quote deploying to prod end quote. Add a rocket emoji and tag oncall.",
-    "ideal": "The slack message said \"deploying to prod.\" 🚀 @oncall"
+    "ideal": "The slack message said \"deploying to prod\". 🚀 @oncall"
   },
   {
     "input": "My roommate called it quote-unquote clean. Make clean all caps.",
@@ -85,14 +85,14 @@
   },
   {
     "input": "The voicemail said quote your prescription is ready end quote. Emphasize ready and add a pill emoji.",
-    "ideal": "The voicemail said \"your prescription is **ready**.\" 💊"
+    "ideal": "The voicemail said \"your prescription is **ready**\". 💊"
   },
   {
     "input": "She described it as quote-unquote organic. Actually, swap organic for natural.",
-    "ideal": "She described it as \"natural.\""
+    "ideal": "She described it as \"natural\"."
   },
   {
     "input": "The reminder says quote dentist appointment tomorrow end quote. Tag my calendar with at symbol.",
-    "ideal": "The reminder says \"dentist appointment tomorrow.\" @calendar"
+    "ideal": "The reminder says \"dentist appointment tomorrow\". @calendar"
   }
 ]

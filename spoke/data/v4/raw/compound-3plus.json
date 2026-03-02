@@ -1,7 +1,7 @@
 [
   {
     "input": "She said quote I'm totally fine end quote. Actually scratch that. Quote I'm actually struggling end quote. Emphasize struggling. And add the hug emoji.",
-    "ideal": "She said \"I'm actually **struggling**.\" 🤗"
+    "ideal": "She said \"I'm actually **struggling**\". 🤗"
   },
   {
     "input": "The restaurant is called la petite bistro. Wait no spell that l-a space p-e-t-i-t-e space b-i-s-t-r-o. Use title case. Add the fork and knife emoji. And tag maria with an at symbol.",
@@ -13,7 +13,7 @@
   },
   {
     "input": "She said quote let's grab coffee end quote. Actually quote let's grab drinks end quote. Scratch that. Quote let's grab dinner end quote. Emphasize dinner. Add the wine emoji. And tag sarah with at symbol.",
-    "ideal": "She said \"let's grab **dinner**.\" 🍷 @sarah"
+    "ideal": "She said \"let's grab **dinner**\". 🍷 @sarah"
   },
   {
     "input": "The api endpoint is get user profile. Use camel case. Wait no the endpoint is fetch user details. Spell that f-e-t-c-h. Emphasize fetch. Add the computer emoji. And use all caps on api.",
@@ -21,7 +21,7 @@
   },
   {
     "input": "She said quote I'm running late end quote. Actually quote I'm not coming end quote. Emphasize not. And add the warning emoji.",
-    "ideal": "She said \"I'm **not** coming.\" ⚠️"
+    "ideal": "She said \"I'm **not** coming\". ⚠️"
   },
   {
     "input": "The recipe calls for two tablespoons of butter. Wait no three tablespoons. Actually four. Spell that f-o-u-r. Use all caps on tablespoons. Add the chef emoji.",
@@ -29,7 +29,7 @@
   },
   {
     "input": "She said quote let's reschedule end quote. Actually quote let's cancel end quote. Emphasize cancel. And add the broken heart emoji.",
-    "ideal": "She said \"let's **cancel**.\" 💔"
+    "ideal": "She said \"let's **cancel**\". 💔"
   },
   {
     "input": "The meeting room is conference room a. Wait no conference room b. Actually boardroom. Use camel case on boardroom. Add the building emoji.",
@@ -37,7 +37,7 @@
   },
   {
     "input": "She said quote I'm interested end quote. Actually quote I'm committed end quote. Emphasize committed. And add the handshake emoji.",
-    "ideal": "She said \"I'm **committed**.\" 🤝"
+    "ideal": "She said \"I'm **committed**\". 🤝"
   },
   {
     "input": "The restaurant is called la petite boulangerie. Wait no la grande boulangerie. Actually la belle boulangerie. Use camel case and add the croissant emoji.",
