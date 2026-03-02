@@ -1,7 +1,7 @@
 # Spoke fine-tuning config for mlx_lm.lora
 # Usage: caffeinate -dims mlx_lm.lora -c spoke/config.yaml
 
-model: mlx-community/Qwen3-4B-Instruct-2507-bf16
+model: mlx-community/Llama-3.2-3B-Instruct-bf16
 train: true
 data: ./spoke/data/v4
 fine_tune_type: lora
@@ -16,10 +16,10 @@ lora_parameters:
 
 # Training
 batch_size: 4
-grad_checkpoint: false  # Qwen3 4B fits in ~9 GB without it
-iters: 2000          # Qwen3-T2: 2000 iters on v4 (1201 train). ~6.7 epochs.
+grad_checkpoint: false  # Llama 3.2 3B fits in ~15 GB without it
+iters: 2000          # Llama3-T2: 2000 iters on v4 (1201 train). ~6.7 epochs.
 learning_rate: 1e-5
-num_layers: 36       # all 36 Qwen3 layers
+num_layers: 28       # all 28 Llama 3.2 3B layers
 max_seq_length: 512  # transcripts are short
 
 # Reporting
@@ -29,6 +29,6 @@ save_every: 100
 report_to: wandb
 
 # Paths
-adapter_path: ./spoke/adapters-qwen3-t2
+adapter_path: ./spoke/adapters-llama3-t2
 
 seed: 42
