@@ -17,3 +17,5 @@ config: {'model': 'mlx-community/Qwen3-4B-Instruct-2507-bf16', 'train': True, 'd
 2026-03-02 19:21:06,717 INFO    MainThread:75243 [wandb_run.py:_redirect():2442] Wrapping output streams.
 2026-03-02 19:21:06,717 INFO    MainThread:75243 [wandb_run.py:_redirect():2465] Redirects installed.
 2026-03-02 19:21:06,719 INFO    MainThread:75243 [wandb_init.py:init():1082] run started, returning control to user process
+2026-03-02 23:45:13,052 INFO    wandb-AsyncioManager-main:75243 [service_client.py:_forward_responses():134] Reached EOF.
+2026-03-02 23:45:13,052 INFO    wandb-AsyncioManager-main:75243 [mailbox.py:close():155] Closing mailbox, abandoning 1 handles.
