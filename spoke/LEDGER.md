@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-04 (Muon-YOLO = 78% — dead end for LoRA. 16 layers caps at 78-83%. All 36 layers required.)
+> Last updated: 2026-03-04 (Cloud pipeline working: Modal + Unsloth + Qwen3.5-4B on L40S. Training in progress.)
 
 ## How to Read This
 
@@ -171,6 +171,22 @@ All from Qwen3-4B base.
 | **Llama3-T2** | **iter 2000** | **bf16** | **v2** | **23** | **91%** | **20** | **1** | **2** | **0** | **1.90s** | **87% → 91% with v4 data (+4 pts). 0 fails. Still 9 pts below Qwen3's 100%.** |
 | **Muon-YOLO** | **iter 900** | **bf16** | **v2** | **23** | **78%** | **17** | **1** | **4** | **1** | **1.63s** | **16 layers + Muon + 256 seq. Worse than Adam T11 (83%) despite v4 data. New camelCase regression. 1 fail (emoji). Dead end for LoRA.** |
 
+### Cloud Training: Qwen3.5-4B (Modal + Unsloth + L40S)
+
+| Run | Date | Base Model | GPU | Type | Rank | Optimizer | Data | Steps | Status | Notes |
+|-----|------|-----------|-----|------|------|-----------|------|-------|--------|-------|
+| **Qwen35-T1** | 03-04 | unsloth/Qwen3.5-4B (VLM, 32 layers) | L40S (48 GB) | LoRA bf16 | r=8 | adamw_torch (wd=0) | v4 (1201) | 2000 | **TRAINING** | Cloud pipeline via `modal run spoke/cloud/train.py`. T2-v4 hyperparams. No QLoRA (Unsloth recommends bf16 for Qwen3.5). Merged bf16 export. |
+
+**Cloud pipeline**: `spoke/cloud/train.py` (Modal app), `spoke/cloud/upload_data.py`, `spoke/cloud/download_model.py`. Three Modal Volumes: `spoke-model-cache`, `spoke-training-data`, `spoke-output`. WandB integration via `wandb-secret`.
+
+**Key Unsloth setup issues resolved** (cost ~$2-3 in failed Modal runs):
+1. `<EOS_TOKEN>` placeholder bug — Unsloth replaces eos_token, TRL validates it. Fix: `get_chat_template(tokenizer, "qwen3-instruct")`.
+2. TRL version — must pin `trl==0.22.2` (all Unsloth notebooks use this). TRL 0.23+ has breaking EOS checks.
+3. Data collation — nested `messages` column crashes tensor creation. Fix: `remove_columns()` after formatting.
+4. `causal_conv1d` needs nvcc — skip in `debian_slim` (optional perf dep for Qwen3.5 hybrid layers).
+5. `paged_adam_32bit` not in transformers OptimizerNames — use `adamw_torch` with `weight_decay=0.0`.
+6. SFTConfig doesn't accept `max_seq_length` — set only in `from_pretrained`.
+
 ---
 
 ## Quantization Impact
@@ -280,12 +296,13 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | ~~HIGH~~ | ~~T2-v4-6bit~~ | ~~Fuse + 6-bit quantize T2-v4~~ | ~~DONE. 6-bit=96%, 4-bit=87%, mixed_4_6=91%. Naive quant gap reduced from 9% to 4% (6-bit).~~ | ✅ |
 | ~~HIGH~~ | ~~Learned quant~~ | ~~DWQ 4-bit on T2-v4 fused model~~ | ~~DONE. DWQ 4-bit=96% at 2.1 GB — matches naive 6-bit accuracy at 33% less size. 5/5 on ad-hoc tests (vs 3/5 for naive 6-bit). 0.88s latency (fastest). Dynamic quant too slow for 4B on M4 24GB (~220s/layer).~~ | ✅ |
 | ~~HIGH~~ | ~~Muon~~ | ~~Train with Muon optimizer~~ | ~~DONE. 78% bf16 at iter 900 (16 layers, 256 seq, v4 data). Worse than Adam T11 (83%) with same 16 layers and less data. Newton-Schulz overhead made it 10x slower per-iter (~0.17 vs ~2 it/sec). New camelCase regression. Dead end for LoRA on M4 — optimizer step overhead dominates when trainable params are tiny.~~ | ✅ |
+| ~~HIGH~~ | ~~Cloud pipeline~~ | ~~Modal + Unsloth cloud training for Qwen3.5-4B~~ | ~~DONE. Pipeline working: upload_data.py → train.py (Modal L40S) → download_model.py. Pin trl==0.22.2, use get_chat_template for EOS fix, remove nested columns. Cost ~$2-3 debugging, ~$0.50-1.00/run.~~ | ✅ |
 | ~~HIGH~~ | ~~Llama3-T2~~ | ~~Llama 3.2 3B on v4 data, 2000 iters~~ | ~~DONE. 91% bf16 at iter 2000 (+4 pts over T1). Doesn't match Qwen3's 100% — 3B model has a capacity ceiling. 0 fails, 1.90s latency.~~ | ✅ |
 | ~~HIGH~~ | ~~Qwen3-8bit~~ | ~~8-bit QLoRA baseline on Qwen3-4B, v4 data~~ | ~~DONE. 96% at iter 800 (killed early). 8-bit = bf16 at zero-shot (both 22%), but fine-tuned ceiling is 96% vs 100%. 8-bit QLoRA is actually SLOWER per-iter than bf16 LoRA (dequant overhead). Peak 16.4 GB (vs 18.6 GB bf16). Not worth it for speed — bf16 is faster AND better.~~ | ✅ |
 | Medium | rsLoRA | r=16, scale=4.0 (rsLoRA scaling) on Qwen3-4B | Standard LoRA penalizes higher rank. rsLoRA (scale=alpha/sqrt(r)) may unlock r=16. Config change only. | T2-v4 config |
 | Medium | Q1 | Mixed-bit quantization (`mixed_4_6`) on T2-v4 fused model | Allocate 6-bit to critical layers, 4-bit elsewhere. May close quant gap further. Zero retraining. | T2-v4 fused model |
 | Medium | expand-test | Expand test set from 23 → 50+ examples | 100% on 23 examples is thin. Need harder/novel examples for confidence. Include multi-word spell-replace (Wispr Flow edge case). | — |
-| Low | Qwen3.5 | Qwen3.5 4B (if released) on v4 data | Newer base model might learn faster or quant better. Wait for mlx-community release. | Model availability |
+| ~~Low~~ | ~~Qwen3.5~~ | ~~Qwen3.5 4B on v4 data~~ | ~~ACTIVE. Training on Modal L40S (Qwen35-T1). Cloud pipeline working.~~ | ✅ |
 | Low | B-new | Zero-shot baselines: Qwen3-1.7B | Determine if task is capacity-limited or data-limited. | Add model to benchmark script |
 | **BLOCKED** | T-enc | Evaluate T5Gemma 2 (1B-1B encoder-decoder) | mlx-lm has zero encoder-decoder support. | mlx-lm enc-dec support |
 | Low | T9 | QLoRA (4-bit base model) | Same quality, less training memory. | — |
