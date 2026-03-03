@@ -7,6 +7,7 @@ No QLoRA for Qwen3.5 — Unsloth recommends bf16 LoRA instead.
 Usage:
     modal run spoke/cloud/train.py --run-name spoke-qwen35-t1
     modal run spoke/cloud/train.py --run-name spoke-qwen35-t1 --max-steps 3000 --learning-rate 2e-5
+    modal run spoke/cloud/train.py --run-name spoke-qwen35-probe --max-steps 50 --eval-steps 0 --save-steps 0
 """
 
 import modal
@@ -20,12 +21,19 @@ model_cache = modal.Volume.from_name("spoke-model-cache", create_if_missing=True
 training_data = modal.Volume.from_name("spoke-training-data", create_if_missing=True)
 output_vol = modal.Volume.from_name("spoke-output", create_if_missing=True)
 
-# Unsloth image — pin TRL to 0.22.2 (matches ALL official Unsloth notebooks)
+# Clean CUDA build image. Avoid the interactive Unsloth Docker image because it
+# boots Jupyter/SSH/Ollama services that are useless on Modal workers.
 image = (
-    modal.Image.debian_slim(python_version="3.11")
-    .apt_install("git")
+    modal.Image.from_registry("nvidia/cuda:12.4.1-devel-ubuntu22.04", add_python="3.11")
+    .apt_install("git", "build-essential")
+    .pip_install("ninja", "packaging", "wheel")
     .pip_install("unsloth", "wandb")
-    .run_commands("pip install --no-deps trl==0.22.2")
+    .pip_install("flash-linear-attention")
+    .run_commands(
+        "CC=gcc CXX=g++ TORCH_CUDA_ARCH_LIST=8.9 "
+        "python -m pip install --no-build-isolation --no-deps causal-conv1d"
+    )
+    .run_commands("python -m pip install --no-deps trl==0.22.2")
 )
 
 
@@ -40,7 +48,7 @@ image = (
         "/output": output_vol,
     },
     secrets=[modal.Secret.from_name("wandb-secret")],
-    timeout=3600,  # 1 hour max
+    timeout=10800,  # 3 hours: room for model load, full run, and merge export
 )
 def train(
     run_name: str = "spoke-qwen35-t1",
@@ -50,7 +58,10 @@ def train(
     batch_size: int = 4,
     rank: int = 8,
     lora_alpha: int = 16,
-    max_seq_length: int = 512,
+    lora_dropout: float = 0.0,
+    max_seq_length: int = 256,
+    eval_steps: int = 200,
+    save_steps: int = 500,
 ):
     import json
     import os
@@ -62,6 +73,9 @@ def train(
     from unsloth.chat_templates import get_chat_template, train_on_responses_only
     from datasets import Dataset
     from trl import SFTTrainer, SFTConfig
+
+    eval_enabled = eval_steps > 0
+    save_enabled = save_steps > 0
 
     # ── Load model with Unsloth ────────────────────────────
     print(f"Loading {model_name} (bf16 LoRA, no QLoRA)...")
@@ -84,12 +98,12 @@ def train(
     print(f"Tokenizer after get_chat_template: eos={tokenizer.eos_token}")
 
     # ── LoRA config (T2-v4 proven values) ──────────────────
-    print(f"Applying LoRA: r={rank}, alpha={lora_alpha}, dropout=0.05")
+    print(f"Applying LoRA: r={rank}, alpha={lora_alpha}, dropout={lora_dropout}")
     model = FastLanguageModel.get_peft_model(
         model,
         r=rank,
         lora_alpha=lora_alpha,
-        lora_dropout=0.05,
+        lora_dropout=lora_dropout,
         target_modules=[
             "q_proj", "k_proj", "v_proj", "o_proj",
             "gate_proj", "up_proj", "down_proj",
@@ -137,7 +151,6 @@ def train(
     print(f"\n--- Sample formatted input ---")
     print(train_dataset[0]["text"][:500])
     print(f"--- End sample ---\n")
-
     # ── Trainer (matches Unsloth notebook pattern exactly) ──
     output_dir = f"/output/{run_name}"
 
@@ -145,11 +158,12 @@ def train(
         model=model,
         tokenizer=tokenizer,  # Unsloth notebooks use tokenizer=, not processing_class=
         train_dataset=train_dataset,
-        eval_dataset=valid_dataset,
+        eval_dataset=valid_dataset if eval_enabled else None,
         args=SFTConfig(
             output_dir=output_dir,
             max_steps=max_steps,
             per_device_train_batch_size=batch_size,
+            per_device_eval_batch_size=batch_size * 2,
             learning_rate=learning_rate,
             lr_scheduler_type="constant",
             optim="adamw_torch",  # adamw with wd=0 = plain adam (matches T2-v4)
@@ -159,10 +173,12 @@ def train(
             dataset_text_field="text",
             dataset_num_proc=1,
             # Logging
-            logging_steps=10,
-            eval_strategy="steps",
-            eval_steps=50,
-            save_steps=100,
+            logging_steps=20,
+            eval_strategy="steps" if eval_enabled else "no",
+            eval_steps=eval_steps if eval_enabled else 200,
+            save_strategy="steps" if save_enabled else "no",
+            save_steps=save_steps if save_enabled else 500,
+            save_total_limit=2 if save_enabled else None,
             # wandb
             report_to="wandb",
             run_name=run_name,
@@ -174,6 +190,7 @@ def train(
         trainer,
         instruction_part="<|im_start|>user\n",
         response_part="<|im_start|>assistant\n",
+        num_proc=1,
     )
 
     # ── Verify masking ───────────────────────────────────────
@@ -184,7 +201,12 @@ def train(
     print(f"Masking check: {active}/{total} tokens active ({100*active/total:.1f}%)")
 
     # ── Train ────────────────────────────────────────────────
-    print(f"\nStarting training: {max_steps} steps, lr={learning_rate}, batch={batch_size}")
+    print(
+        "\nStarting training: "
+        f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
+        f"max_seq={max_seq_length}, eval={'off' if not eval_enabled else eval_steps}, "
+        f"save={'off' if not save_enabled else save_steps}"
+    )
     trainer.train()
 
     # ── Export merged bf16 ───────────────────────────────────
@@ -210,13 +232,18 @@ def main(
     batch_size: int = 4,
     rank: int = 8,
     lora_alpha: int = 16,
-    max_seq_length: int = 512,
+    lora_dropout: float = 0.0,
+    max_seq_length: int = 256,
+    eval_steps: int = 200,
+    save_steps: int = 500,
 ):
     print(f"Starting cloud training: {run_name}")
     print(f"  Model: {model_name}")
     print(f"  Steps: {max_steps}, LR: {learning_rate}, Batch: {batch_size}")
-    print(f"  LoRA: r={rank}, alpha={lora_alpha}")
+    print(f"  LoRA: r={rank}, alpha={lora_alpha}, dropout={lora_dropout}")
     print(f"  Max seq length: {max_seq_length}")
+    print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
+    print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
     print()
 
     train.remote(
@@ -227,5 +254,8 @@ def main(
         batch_size=batch_size,
         rank=rank,
         lora_alpha=lora_alpha,
+        lora_dropout=lora_dropout,
         max_seq_length=max_seq_length,
+        eval_steps=eval_steps,
+        save_steps=save_steps,
     )
