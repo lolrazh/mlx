@@ -28,10 +28,9 @@ image = (
     .apt_install("git", "build-essential")
     .pip_install("ninja", "packaging", "wheel")
     .pip_install("unsloth", "wandb")
-    .run_commands(
-        "MAX_JOBS=4 CC=gcc CXX=g++ TORCH_CUDA_ARCH_LIST=8.9 "
-        "python -m pip install --no-build-isolation --no-deps flash-attn"
-    )
+    # Do not source-build flash-attn in the hot path. It makes short Modal
+    # probes unusably slow to start. Revisit with a prebuilt wheel or cached
+    # image once the faster trainer settings are dialed in.
     .pip_install("flash-linear-attention")
     .run_commands(
         "CC=gcc CXX=g++ TORCH_CUDA_ARCH_LIST=8.9 "
@@ -69,6 +68,7 @@ def train(
     gradient_checkpointing: bool = False,
     eval_steps: int = 200,
     save_steps: int = 500,
+    export_merged: bool = True,
 ):
     import json
     import os
@@ -220,21 +220,25 @@ def train(
         f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
         f"packing={packing}, eval={'off' if not eval_enabled else eval_steps}, "
-        f"save={'off' if not save_enabled else save_steps}"
+        f"save={'off' if not save_enabled else save_steps}, "
+        f"export={'on' if export_merged else 'off'}"
     )
     try:
         trainer.train()
 
-        # ── Export merged bf16 ───────────────────────────────
-        merged_path = f"{output_dir}/merged"
-        print(f"\nSaving merged bf16 model to {merged_path}...")
-        model.save_pretrained_merged(merged_path, tokenizer, save_method="merged_16bit")
+        if export_merged:
+            # ── Export merged bf16 ───────────────────────────
+            merged_path = f"{output_dir}/merged"
+            print(f"\nSaving merged bf16 model to {merged_path}...")
+            model.save_pretrained_merged(merged_path, tokenizer, save_method="merged_16bit")
 
-        output_vol.commit()
+            output_vol.commit()
 
-        print(f"\nTraining complete!")
-        print(f"  Model saved to volume 'spoke-output' at /output/{run_name}/merged")
-        print(f"  Download with: python spoke/cloud/download_model.py --run-name {run_name}")
+            print(f"\nTraining complete!")
+            print(f"  Model saved to volume 'spoke-output' at /output/{run_name}/merged")
+            print(f"  Download with: python spoke/cloud/download_model.py --run-name {run_name}")
+        else:
+            print("\nTraining complete! Skipped merged export for faster probing.")
     finally:
         if wandb.run is not None:
             print("\nFinalizing Weights & Biases run...")
@@ -259,6 +263,7 @@ def main(
     gradient_checkpointing: bool = False,
     eval_steps: int = 200,
     save_steps: int = 500,
+    export_merged: bool = True,
 ):
     print(f"Starting cloud training: {run_name}")
     print(f"  Model: {model_name}")
@@ -273,6 +278,7 @@ def main(
     print(f"  Packing: {packing}")
     print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
+    print(f"  Export merged: {'on' if export_merged else 'off'}")
     print()
 
     train.remote(
@@ -290,4 +296,5 @@ def main(
         gradient_checkpointing=gradient_checkpointing,
         eval_steps=eval_steps,
         save_steps=save_steps,
+        export_merged=export_merged,
     )
