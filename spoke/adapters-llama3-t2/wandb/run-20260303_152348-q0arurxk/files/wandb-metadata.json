@@ -1,0 +1,40 @@
+{
+  "os": "macOS-26.2-arm64-arm-64bit",
+  "python": "CPython 3.11.0",
+  "startedAt": "2026-03-03T09:53:48.190715Z",
+  "args": [
+    "--config",
+    "spoke/config.yaml"
+  ],
+  "program": "/Users/lolrazh/Documents/Projects/mlx/.venv/bin/mlx_lm.lora",
+  "codePath": ".venv/bin/mlx_lm.lora",
+  "codePathLocal": ".venv/bin/mlx_lm.lora",
+  "git": {
+    "remote": "https://github.com/lolrazh/mlx.git",
+    "commit": "db53929b2eb3dda4e54a6358e23db0d407294c32"
+  },
+  "email": "rajkumar.sandheep@gmail.com",
+  "root": "./spoke/adapters-llama3-t2",
+  "host": "Sandys-MacBook-Air.local",
+  "executable": "/Users/lolrazh/Documents/Projects/mlx/.venv/bin/python3.11",
+  "cpu_count": 10,
+  "cpu_count_logical": 10,
+  "disk": {
+    "/": {
+      "total": "494384795648",
+      "used": "467963195392"
+    }
+  },
+  "memory": {
+    "total": "25769803776"
+  },
+  "apple": {
+    "name": "Apple M4",
+    "ecpuCores": 6,
+    "pcpuCores": 4,
+    "gpuCores": 10,
+    "memoryGb": 24,
+    "ramTotalBytes": "25769803776"
+  },
+  "writerId": "nyeu7aei704q7ab9n84yvykei4gcqjvd"
+}
