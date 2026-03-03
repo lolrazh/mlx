@@ -1,7 +1,7 @@
 # Spoke fine-tuning config for mlx_lm.lora
 # Usage: caffeinate -dims mlx_lm.lora -c spoke/config.yaml
 
-model: mlx-community/Qwen3-4B-Instruct-2507-8bit
+model: mlx-community/Qwen3-4B-Instruct-2507-bf16
 train: true
 data: ./spoke/data/v4
 fine_tune_type: lora
@@ -16,11 +16,11 @@ lora_parameters:
 
 # Training
 batch_size: 4
-grad_checkpoint: false  # 8-bit Qwen3 should use ~12 GB (vs 18.6 for bf16)
-iters: 1000          # Qwen3-8bit test: 1000 iters. Compare against bf16 T2-v4 at same point.
+grad_checkpoint: false  # bf16 Qwen3 peaks ~18.6 GB on 24 GB M4 — tight but fits
+iters: 1000          # Speed test: bf16 + short seq + 16 layers. Compare it/sec vs T2-v4.
 learning_rate: 1e-5
-num_layers: 36       # all 36 Qwen3 layers
-max_seq_length: 512  # transcripts are short
+num_layers: 16       # top 16 layers only (vs 36 in T2-v4). Test if accuracy holds.
+max_seq_length: 256  # actual data max is 227 tokens. Was 512 = 56% wasted padding.
 
 # Reporting
 steps_per_report: 10
@@ -29,6 +29,6 @@ save_every: 100
 report_to: wandb
 
 # Paths
-adapter_path: ./spoke/adapters-qwen3-8bit
+adapter_path: ./spoke/adapters-qwen3-speed
 
 seed: 42
