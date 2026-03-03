@@ -39,7 +39,7 @@ def main():
     # Upload each file
     for f in files:
         local_path = str(data_dir / f)
-        remote_path = f"{REMOTE_DIR}/{f}"
+        remote_path = f"/{f}"
         print(f"Uploading {local_path} -> {VOLUME_NAME}:{remote_path}")
         result = subprocess.run(
             ["modal", "volume", "put", VOLUME_NAME, local_path, remote_path],
