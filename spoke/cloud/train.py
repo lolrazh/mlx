@@ -6,7 +6,7 @@ No QLoRA for Qwen3.5 — Unsloth recommends bf16 LoRA instead.
 
 Usage:
     modal run spoke/cloud/train.py --run-name spoke-qwen35-t1
-    modal run spoke/cloud/train.py --run-name spoke-qwen35-t2 --max-steps 3000 --learning-rate 2e-5
+    modal run spoke/cloud/train.py --run-name spoke-qwen35-t1 --max-steps 3000 --learning-rate 2e-5
 """
 
 import modal
@@ -20,12 +20,15 @@ model_cache = modal.Volume.from_name("spoke-model-cache", create_if_missing=True
 training_data = modal.Volume.from_name("spoke-training-data", create_if_missing=True)
 output_vol = modal.Volume.from_name("spoke-output", create_if_missing=True)
 
-# Unsloth image with all dependencies
+# Unsloth image — pin TRL to 0.22.2 (matches ALL official Unsloth notebooks)
+# Qwen3.5 hybrid architecture needs flash-linear-attention + causal_conv1d
 image = (
     modal.Image.debian_slim(python_version="3.11")
-    .pip_install(
-        "unsloth[cu124-ampere-torch250] @ git+https://github.com/unslothai/unsloth.git",
-        "wandb",
+    .apt_install("git")
+    .pip_install("unsloth", "wandb")
+    .run_commands(
+        "pip install --no-deps trl==0.22.2",
+        "pip install --no-build-isolation flash-linear-attention causal_conv1d==1.6.0",
     )
 )
 
@@ -55,34 +58,41 @@ def train(
 ):
     import json
     import os
-    from pathlib import Path
 
-    from datasets import Dataset
-    from trl import SFTTrainer, SFTConfig
-    from unsloth import FastLanguageModel
-    from unsloth.chat_templates import train_on_responses_only
-
-    # ── Environment ──────────────────────────────────────────
     os.environ["HF_HOME"] = "/model-cache"
     os.environ["WANDB_PROJECT"] = "spoke"
 
-    # ── Load model ───────────────────────────────────────────
+    from unsloth import FastLanguageModel
+    from unsloth.chat_templates import get_chat_template, train_on_responses_only
+    from datasets import Dataset
+    from trl import SFTTrainer, SFTConfig
+
+    # ── Load model with Unsloth ────────────────────────────
     print(f"Loading {model_name} (bf16 LoRA, no QLoRA)...")
 
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_name,
         max_seq_length=max_seq_length,
-        load_in_4bit=False,    # No QLoRA for Qwen3.5!
-        load_in_16bit=True,    # bf16 LoRA
+        load_in_4bit=False,
+        load_in_16bit=True,
         full_finetuning=False,
     )
+    print(f"Tokenizer after load: eos={tokenizer.eos_token} type={type(tokenizer).__name__}")
 
-    # ── LoRA config ──────────────────────────────────────────
+    # Fix EOS token — Unsloth replaces eos with <EOS_TOKEN> placeholder.
+    # get_chat_template maps it back correctly (from Qwen3-4B-Instruct notebook).
+    tokenizer = get_chat_template(
+        tokenizer,
+        chat_template="qwen3-instruct",
+    )
+    print(f"Tokenizer after get_chat_template: eos={tokenizer.eos_token}")
+
+    # ── LoRA config (T2-v4 proven values) ──────────────────
     print(f"Applying LoRA: r={rank}, alpha={lora_alpha}, dropout=0.05")
     model = FastLanguageModel.get_peft_model(
         model,
         r=rank,
-        lora_alpha=lora_alpha,      # scale = alpha/r = 16/8 = 2.0 (matches T2-v4)
+        lora_alpha=lora_alpha,
         lora_dropout=0.05,
         target_modules=[
             "q_proj", "k_proj", "v_proj", "o_proj",
@@ -91,6 +101,7 @@ def train(
         bias="none",
         use_gradient_checkpointing="unsloth",
         random_state=42,
+        max_seq_length=max_seq_length,
     )
 
     # ── Load data ────────────────────────────────────────────
@@ -104,61 +115,61 @@ def train(
 
     # ── Format with chat template ────────────────────────────
     def format_example(example):
-        text = tokenizer.apply_chat_template(
-            example["messages"],
-            tokenize=False,
-            add_generation_prompt=False,
-            enable_thinking=False,  # No CoT for Spoke
-        )
+        try:
+            text = tokenizer.apply_chat_template(
+                example["messages"],
+                tokenize=False,
+                add_generation_prompt=False,
+                enable_thinking=False,
+            )
+        except TypeError:
+            # Fallback if chat template doesn't support enable_thinking
+            text = tokenizer.apply_chat_template(
+                example["messages"],
+                tokenize=False,
+                add_generation_prompt=False,
+            )
         return {"text": text}
 
     train_dataset = Dataset.from_list(train_data).map(format_example)
     valid_dataset = Dataset.from_list(valid_data).map(format_example)
 
-    # Print a sample to verify formatting
     print(f"\n--- Sample formatted input ---")
     print(train_dataset[0]["text"][:500])
     print(f"--- End sample ---\n")
 
-    # ── Training config ──────────────────────────────────────
+    # ── Trainer (matches Unsloth notebook pattern exactly) ──
     output_dir = f"/output/{run_name}"
 
-    training_args = SFTConfig(
-        output_dir=output_dir,
-        max_steps=max_steps,
-        per_device_train_batch_size=batch_size,
-        learning_rate=learning_rate,
-        lr_scheduler_type="constant",     # Flat LR (matches mlx-lm default)
-        optim="paged_adam_32bit",          # Plain Adam, not AdamW (AdamW caused quant regression)
-        bf16=True,
-        max_seq_length=max_seq_length,
-        dataset_text_field="text",
-        seed=42,
-        # Logging
-        logging_steps=10,
-        eval_strategy="steps",
-        eval_steps=50,
-        save_steps=100,
-        # wandb
-        report_to="wandb",
-        run_name=run_name,
-        # Performance
-        gradient_checkpointing=True,
-        gradient_checkpointing_kwargs={"use_reentrant": False},
-        dataloader_num_workers=2,
-    )
-
-    # ── Trainer with response-only masking ───────────────────
     trainer = SFTTrainer(
         model=model,
-        args=training_args,
+        tokenizer=tokenizer,  # Unsloth notebooks use tokenizer=, not processing_class=
         train_dataset=train_dataset,
         eval_dataset=valid_dataset,
-        processing_class=tokenizer,
+        args=SFTConfig(
+            output_dir=output_dir,
+            max_steps=max_steps,
+            per_device_train_batch_size=batch_size,
+            learning_rate=learning_rate,
+            lr_scheduler_type="constant",
+            optim="adamw_torch",  # adamw with wd=0 = plain adam (matches T2-v4)
+            weight_decay=0.0,
+            bf16=True,
+            seed=42,
+            dataset_text_field="text",
+            dataset_num_proc=1,
+            # Logging
+            logging_steps=10,
+            eval_strategy="steps",
+            eval_steps=50,
+            save_steps=100,
+            # wandb
+            report_to="wandb",
+            run_name=run_name,
+        ),
     )
 
     # Mask system+user tokens — only train on assistant responses
-    # Uses Qwen chat template markers
     trainer = train_on_responses_only(
         trainer,
         instruction_part="<|im_start|>user\n",
@@ -171,7 +182,6 @@ def train(
     total = len(labels)
     active = sum(1 for l in labels if l != -100)
     print(f"Masking check: {active}/{total} tokens active ({100*active/total:.1f}%)")
-    print(f"  Expected ~10-20% (assistant responses only)")
 
     # ── Train ────────────────────────────────────────────────
     print(f"\nStarting training: {max_steps} steps, lr={learning_rate}, batch={batch_size}")
@@ -182,7 +192,6 @@ def train(
     print(f"\nSaving merged bf16 model to {merged_path}...")
     model.save_pretrained_merged(merged_path, tokenizer, save_method="merged_16bit")
 
-    # Commit volumes so files persist
     output_vol.commit()
 
     print(f"\nTraining complete!")
