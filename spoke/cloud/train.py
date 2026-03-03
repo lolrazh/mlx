@@ -21,15 +21,11 @@ training_data = modal.Volume.from_name("spoke-training-data", create_if_missing=
 output_vol = modal.Volume.from_name("spoke-output", create_if_missing=True)
 
 # Unsloth image — pin TRL to 0.22.2 (matches ALL official Unsloth notebooks)
-# Qwen3.5 hybrid architecture needs flash-linear-attention + causal_conv1d
 image = (
     modal.Image.debian_slim(python_version="3.11")
     .apt_install("git")
     .pip_install("unsloth", "wandb")
-    .run_commands(
-        "pip install --no-deps trl==0.22.2",
-        "pip install --no-build-isolation flash-linear-attention causal_conv1d==1.6.0",
-    )
+    .run_commands("pip install --no-deps trl==0.22.2")
 )
 
 
@@ -131,8 +127,12 @@ def train(
             )
         return {"text": text}
 
-    train_dataset = Dataset.from_list(train_data).map(format_example)
-    valid_dataset = Dataset.from_list(valid_data).map(format_example)
+    # Remove original columns — collator can't batch nested dicts
+    raw_train = Dataset.from_list(train_data)
+    raw_valid = Dataset.from_list(valid_data)
+    extra_cols = [c for c in raw_train.column_names if c != "text"]
+    train_dataset = raw_train.map(format_example).remove_columns(extra_cols)
+    valid_dataset = raw_valid.map(format_example).remove_columns(extra_cols)
 
     print(f"\n--- Sample formatted input ---")
     print(train_dataset[0]["text"][:500])
