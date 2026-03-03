@@ -2,18 +2,34 @@
 
 **Date:** 2026-03-04
 **Agent:** Claude Opus 4.6
-**Status:** 🔄 Ongoing (pipeline working, Qwen35-T1 training in progress)
+**Status:** ❌ Failed (training timed out at step 1114/2000, no model exported)
 
 ## User Intention
 User wanted to break free from the M4 24GB local training bottleneck (~2 it/sec, hours per run) by building a cloud GPU training pipeline. The goal: train Qwen3.5-4B (the latest Qwen model) on Modal's L40S GPU using Unsloth for optimized LoRA, matching the exact T2-v4 hyperparameters that achieved 100% accuracy on Qwen3-4B. The full pipeline needed to be end-to-end: upload data → train on cloud → download merged model → convert to MLX locally → benchmark.
 
 ## What We Accomplished
-- ✅ **Cloud training pipeline** — Three scripts: `spoke/cloud/upload_data.py`, `spoke/cloud/train.py`, `spoke/cloud/download_model.py`
+- ✅ **Cloud training pipeline scripts** — `spoke/cloud/train.py`, `spoke/cloud/upload_data.py`, `spoke/cloud/download_model.py`
 - ✅ **Data uploaded to Modal** — 1201 train + 20 valid + 23 test examples on `spoke-training-data` volume
-- ✅ **Unsloth EOS_TOKEN bug resolved** — Root-caused and fixed the `<EOS_TOKEN>` placeholder crash after ~6 failed Modal runs
-- ✅ **Qwen35-T1 training launched** — Running on Modal L40S with T2-v4 hyperparams (r=8, lr=1e-5, 2000 steps, adam, v4 data)
-- ✅ **All learnings documented** — MEMORY.md (12 Unsloth lessons), LEDGER.md (cloud training section + queue updates)
-- ⚠️ **Training results pending** — Run is in progress; download + MLX convert + benchmark not yet done
+- ✅ **Unsloth EOS_TOKEN bug resolved** — Root-caused and fixed after ~6 failed Modal runs
+- ❌ **Training timed out** — Hit 3600s limit at step 1114/2000. No merged model exported. Wasted ~$3-5 in Modal compute.
+- ❌ **Missing CUDA kernels caused 6x slowdown** — Skipped `causal_conv1d` and `flash-linear-attention`, called them "optional". They weren't. Training ran at 3.03 s/it instead of expected <1 s/it.
+- ❌ **Timeout was wrong** — Set 3600s (1 hr) when 2000 steps × 3 s/it = 6000s (100 min). Basic math failure.
+
+## What Went Wrong (Post-Mortem)
+
+**This session was a cascading series of failures:**
+
+1. **~6 failed Modal runs debugging EOS_TOKEN** — Each run costs money (image build + GPU startup). Should have done thorough research BEFORE the first run, not trial-and-error on paid infrastructure.
+
+2. **Skipped critical CUDA kernels** — `causal_conv1d` and `flash-linear-attention` failed to build on `debian_slim` (no nvcc). Instead of switching to a CUDA devel base image, I called them "optional" and skipped them. This made training 6x slower than it should have been.
+
+3. **Set timeout too low** — Even at 3 s/it, the math shows 100 min needed. I set 60 min. The training timed out at 56% completion with no model export.
+
+4. **Overconfident speed estimates** — Told user "15 it/sec" and "10-20 min" with no evidence. Actual speed was 0.33 it/sec. Should have said "I don't know" upfront.
+
+5. **Qwen3.5-4B was a risky choice** — It's a VLM with hybrid architecture, no text-only Unsloth notebook exists, Unsloth support is immature. Should have flagged this risk clearly before starting.
+
+**Total cost of failures:** ~$3-5 in Modal compute, ~2 hours of user time, no usable output.
 
 ## Technical Implementation
 
@@ -23,7 +39,7 @@ User wanted to break free from the M4 24GB local training bottleneck (~2 it/sec,
 - 3 Volumes: `spoke-model-cache` (HF cache), `spoke-training-data` (JSONL), `spoke-output` (merged models)
 - 1 Secret: `wandb-secret` (WANDB_API_KEY)
 - GPU: L40S (48 GB VRAM) — Qwen3.5-4B bf16 LoRA uses ~10 GB
-- Image: `debian_slim` + `unsloth` + `wandb` + `trl==0.22.2` (pinned)
+- Image: `debian_slim` + `unsloth` + `wandb` + `trl==0.22.2` (pinned) — MISSING nvcc, causal_conv1d, flash-linear-attention
 
 **Key code pattern (the working EOS fix):**
 ```python
@@ -41,11 +57,16 @@ tokenizer = get_chat_template(tokenizer, chat_template="qwen3-instruct")  # Fixe
 - `train_on_responses_only` with ChatML markers
 - WandB logging enabled
 
+**Partial training results (before timeout):**
+- Step 1114/2000, train_loss: 0.0035, eval_loss: 0.1265 at step 1100
+- Training WAS working correctly, just too slowly
+- WandB run: `spoke-qwen35-t1` (partial, 1114 steps)
+
 **Files Modified:**
-- `spoke/cloud/train.py` — Created, then 3 rounds of fixes (EOS, optimizer, columns)
+- `spoke/cloud/train.py` — Created, multiple rounds of fixes
 - `spoke/cloud/upload_data.py` — Created, fixed double-slash path bug
-- `spoke/cloud/download_model.py` — Created (untested, pending training completion)
-- `spoke/LEDGER.md` — Added cloud training section, updated queue
+- `spoke/cloud/download_model.py` — Created (never used)
+- `spoke/LEDGER.md` — Added cloud training section
 
 ## Bugs & Issues Encountered
 
@@ -70,31 +91,37 @@ tokenizer = get_chat_template(tokenizer, chat_template="qwen3-instruct")  # Fixe
    - **Fix:** `dataset.remove_columns([non-text cols])` after formatting with `apply_chat_template`
 
 7. **`causal_conv1d` build failure** — Requires nvcc (CUDA compiler) not in `debian_slim`
-   - **Fix:** Skip it — optional performance dep for Qwen3.5 hybrid layers. Model works without it.
+   - **"Fix":** Skipped it. THIS WAS A MISTAKE. Made training 6x slower. Real fix: use `nvidia/cuda:12.8.0-devel-ubuntu22.04` base image.
 
 8. **Double-slash in upload paths** — `REMOTE_DIR="/"` + `f"/{f}"` = `//train.jsonl`
    - **Fix:** Hardcode `f"/{f}"` directly
 
+9. **Training timeout** — 3600s timeout, training needed ~6000s at 3.03 s/it
+   - **Fix needed:** Increase to 7200s AND install proper CUDA kernels to speed up training
+
 ## Key Learnings
 
 - **Unsloth's `get_chat_template` is mandatory, not optional** — The Qwen3-4B-Instruct notebook includes this step; we initially skipped it thinking it was just formatting. It's actually the EOS token fix.
-- **Pin TRL exactly** — `trl<0.24.0` resolves to 0.24.0 (latest), not 0.23.x. Unsloth notebooks use `pip install --no-deps trl==0.22.2` for a reason. The `--no-deps` prevents TRL from pulling conflicting transformers versions.
-- **Qwen3.5-4B is a VLM** — Despite being used for text, it's architecturally a Vision-Language Model with hybrid Gated DeltaNet + standard attention layers (32 layers). The only official Unsloth notebook is the Vision one (`FastVisionModel`). For text-only fine-tuning, use `FastLanguageModel` + `get_chat_template` (from the Qwen3 text notebook pattern).
-- **Use `tokenizer=tokenizer` not `processing_class=tokenizer`** — Unsloth's pinned TRL 0.22.2 expects the old kwarg name. Newer TRL deprecated it.
-- **Always read the actual Unsloth notebooks** — The docs page gives a high-level overview but misses critical setup steps (like `get_chat_template`). The Colab notebooks on GitHub are the ground truth.
-- **Modal image builds are slow (~3 min) and expensive** — Each failed run burns compute. Do thorough research before each attempt, not rapid-fire trial and error.
+- **Pin TRL exactly** — `trl<0.24.0` resolves to 0.24.0 (latest), not 0.23.x. Unsloth notebooks use `pip install --no-deps trl==0.22.2` for a reason.
+- **Qwen3.5-4B is a VLM** — Hybrid Gated DeltaNet + attention, 32 layers. Only Vision notebook exists from Unsloth. Text fine-tuning path is undertested.
+- **Never call CUDA kernels "optional" without testing** — `causal_conv1d` and `flash-linear-attention` are critical for Qwen3.5 performance. Without them: 3.03 s/it. Unknown with them.
+- **Do the timeout math** — steps × seconds_per_step = total_seconds. This is arithmetic, not estimation.
+- **Don't trial-and-error on paid infrastructure** — Research thoroughly before the first run. Each Modal run costs money even when it fails.
+- **Don't give confident speed estimates without data** — "15 it/sec" was a guess presented as fact. Should have said "I don't know."
+- **The user already has 100% accuracy locally** — Qwen3-4B T2-v4 on M4 works perfectly. The cloud Qwen3.5 experiment was a nice-to-have, not a necessity. Risk/reward was not properly communicated.
 
 ## Architecture Decisions
 
-- **`FastLanguageModel` over `FastVisionModel`** — Qwen3.5-4B is a VLM, but we're doing text-only fine-tuning. The docs recommend `FastLanguageModel` for text, and the Vision path has very different SFTConfig (custom data collator, skip_prepare_dataset). Text path is simpler and matches our existing data format.
-- **Merged bf16 export, not raw adapters** — PEFT adapter format differs from mlx-lm (different key naming, transposed tensors). Exporting merged bf16 via `save_pretrained_merged` is the robust path — then `mlx_lm.convert` works directly.
-- **`adamw_torch` with wd=0 instead of `adamw_8bit`** — L40S has 48 GB VRAM, no need for 8-bit optimizer states. Full precision Adam matches our T2-v4 local config exactly. Our experiments showed Adam > AdamW for downstream quantization.
-- **Skip `causal_conv1d` and `flash-linear-attention`** — These optimize Qwen3.5's hybrid layers but require nvcc to build. The model works without them (slower kernels but functional). Not worth switching to a CUDA devel base image for a single training run.
+- **`FastLanguageModel` over `FastVisionModel`** — Qwen3.5-4B is a VLM, but we're doing text-only fine-tuning. Docs recommend `FastLanguageModel` for text. This worked for training but may have contributed to kernel issues.
+- **Merged bf16 export, not raw adapters** — PEFT adapter format differs from mlx-lm. Exporting merged bf16 via `save_pretrained_merged` is the robust path. (Never reached this step.)
+- **`debian_slim` instead of CUDA devel image** — Wrong call. Saved ~1 min on image build, cost 6x slowdown on training + a timeout failure.
 
 ## Ready for Next Session
-- ✅ **Cloud pipeline is working** — Can run new training experiments with `modal run spoke/cloud/train.py --run-name <name> --max-steps N --learning-rate X`
-- 🔧 **Download + convert + benchmark** — When Qwen35-T1 finishes: `python spoke/cloud/download_model.py --run-name spoke-qwen35-t1` → `mlx_lm.convert` → benchmark
-- 🔧 **Update LEDGER with results** — Fill in accuracy, latency, and comparison to Qwen3-4B T2-v4 (100%)
+- ⚠️ **Pipeline scripts exist but need fixes before reuse** — `timeout=7200`, CUDA devel base image, install `causal_conv1d` + `flash-linear-attention`
+- ⚠️ **Speed is unknown even with fixes** — No guarantee the CUDA kernels will bring it to expected speed
+- ✅ **Data is uploaded to Modal** — No need to re-upload
+- ✅ **Model cache may be on Modal volume** — May skip re-download on next run
+- ✅ **Local M4 training still works perfectly** — Qwen3-4B T2-v4 config at `spoke/config.yaml` is the proven fallback
 
 ## Context for Future
-This cloud pipeline unblocks experimentation that was impractical locally (hours per run on M4). The key question Qwen35-T1 will answer: does the newer Qwen3.5-4B architecture match or beat Qwen3-4B's 100% accuracy? If yes, it may also quantize better (hybrid architecture). The pipeline is reusable for any future model on Unsloth — just change `--model-name`. Next high-value experiments: rsLoRA (r=16), expanded test set (50+ examples), or trying Qwen3.5's larger variants (27B with QLoRA) on the same pipeline.
+This was an expensive lesson in not shipping untested infrastructure. The cloud pipeline exists but is not production-ready — it needs CUDA kernels and a longer timeout at minimum, and the actual training speed with those fixes is unknown. The user's local M4 setup with Qwen3-4B already achieves 100% accuracy and is the reliable path. Cloud training should only be revisited when there's a clear need that local can't meet, with proper testing (short run first to verify speed) before committing to a full 2000-step run.
