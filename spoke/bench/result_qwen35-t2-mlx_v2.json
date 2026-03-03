@@ -1,0 +1,245 @@
+{
+  "model": "spoke/models/qwen35-t2-mlx",
+  "short_name": "qwen35-t2-mlx",
+  "prompt_mode": "v2",
+  "load_time_s": 3.8,
+  "n": 23,
+  "exact": 0,
+  "semantic": 0,
+  "partial": 20,
+  "fail": 3,
+  "accuracy": 0.0,
+  "avg_latency_s": 14.288,
+  "results": [
+    {
+      "id": 1,
+      "category": "spell-replace",
+      "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+      "ideal": "I'm gonna be using Silero VAD for this.",
+      "output": "The user's request is to make the text output in the input or produced by an explicit directive. The user's request is to make the text output in the input or produced by an explicit directive. The user's request is to make the text output in the input or produced by an explicit directive. The user's request is to make the text output in the input or",
+      "raw_output": "The user's request is to make the text output in the input or produced by an explicit directive. The user's request is to make the text output in the input or produced by an explicit directive. The user's request is to make the text output in the input or produced by an explicit directive. The user's request is to make the text output in the input or",
+      "score": "partial",
+      "gen_time_s": 31.417
+    },
+    {
+      "id": 2,
+      "category": "spell-replace",
+      "input": "He went to the Khadai, spell that K-A-D-A-I.",
+      "ideal": "He went to the Kadai.",
+      "output": "The user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response",
+      "raw_output": "The user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response is:\nThe user's response ",
+      "score": "partial",
+      "gen_time_s": 31.541
+    },
+    {
+      "id": 3,
+      "category": "spell-replace",
+      "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+      "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "output": "The new restaurant on 4th serves amazing",
+      "raw_output": "The new restaurant on 4th serves amazing",
+      "score": "partial",
+      "gen_time_s": 1.957
+    },
+    {
+      "id": 4,
+      "category": "self-correction",
+      "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+      "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+      "output": "The backend is actually powered by Cloudflare workers and Groq.",
+      "raw_output": "The backend is actually powered by Cloudflare workers and Groq.",
+      "score": "partial",
+      "gen_time_s": 3.577
+    },
+    {
+      "id": 5,
+      "category": "self-correction",
+      "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+      "ideal": "Let's meet at 12pm, Thursday.",
+      "output": "12pm, actually.",
+      "raw_output": "12pm, actually.",
+      "score": "partial",
+      "gen_time_s": 32.344
+    },
+    {
+      "id": 6,
+      "category": "self-correction",
+      "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+      "ideal": "We're using React and Svelte.",
+      "output": "React and       React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React",
+      "raw_output": "React and       React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  React  R",
+      "score": "partial",
+      "gen_time_s": 32.336
+    },
+    {
+      "id": 7,
+      "category": "quote-unquote",
+      "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "output": "The user is a 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "raw_output": "The user is a 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "score": "partial",
+      "gen_time_s": 31.569
+    },
+    {
+      "id": 8,
+      "category": "quote-unquote",
+      "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+      "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
+      "output": "The user is now in the input. The user is now in the input.\nThe user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input",
+      "raw_output": "The user is now in the input. The user is now in the input.\nThe user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in the input. The user is now in t",
+      "score": "partial",
+      "gen_time_s": 29.579
+    },
+    {
+      "id": 9,
+      "category": "quote-endquote",
+      "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+      "output": "The user is asking for the meaning of the phrase \" quote. The user is also asking for the meaning of the. The user is also asking for the meaning of the. The user is also asking for the meaning of the.",
+      "raw_output": "The user is asking for the meaning of the phrase \" quote. The user is also asking for the meaning of the. The user is also asking for the meaning of the. The user is also asking for the meaning of the.",
+      "score": "partial",
+      "gen_time_s": 6.595
+    },
+    {
+      "id": 10,
+      "category": "quote-endquote",
+      "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+      "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "output": "The debug log shows quote connection timed out after \n30 seconds end quote three times in a row.",
+      "raw_output": "The debug log shows quote connection timed out after \n30 seconds end quote three times in a row.",
+      "score": "fail",
+      "gen_time_s": 33.002
+    },
+    {
+      "id": 11,
+      "category": "quote-endquote",
+      "input": "He described the interview as quote the most stressful hour of my life end quote.",
+      "ideal": "He described the interview as \"the most stressful hour of my life\".",
+      "output": "The user's response is the most stress. The user's response is the most stress.",
+      "raw_output": "The user's response is the most stress. The user's response is the most stress.",
+      "score": "partial",
+      "gen_time_s": 3.047
+    },
+    {
+      "id": 12,
+      "category": "at-symbol",
+      "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+      "ideal": "I wanna fix @app.py and @test.py.",
+      "output": "The 2022-10-10 10:00:10 (s)\nThe 2022-10-10 10:00:10 (s\nThe 2022-10-10 10:",
+      "raw_output": "The 2022-10-10 10:00:10 (s)\nThe 2022-10-10 10:00:10 (s\nThe 2022-10-10 10:",
+      "score": "partial",
+      "gen_time_s": 7.889
+    },
+    {
+      "id": 13,
+      "category": "caps",
+      "input": "We're so excited to make this. Use all caps.",
+      "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
+      "output": "We're so excited to make this.  Use all caps.  Use all  s  s  s   use all  s  s  s   use all  s  s",
+      "raw_output": "We're so excited to make this.  Use all caps.  Use all  s  s  s   use all  s  s  s   use all  s  s",
+      "score": "fail",
+      "gen_time_s": 5.987
+    },
+    {
+      "id": 14,
+      "category": "emphasis",
+      "input": "It's surprisingly fast. Emphasize surprisingly.",
+      "ideal": "It's **surprisingly** fast.",
+      "output": "The",
+      "raw_output": "The",
+      "score": "partial",
+      "gen_time_s": 8.894
+    },
+    {
+      "id": 15,
+      "category": "emoji",
+      "input": "Heartbreak emoji",
+      "ideal": "💔",
+      "output": "The",
+      "raw_output": "The",
+      "score": "partial",
+      "gen_time_s": 6.078
+    },
+    {
+      "id": 16,
+      "category": "emoji",
+      "input": "Praying hands emoji for the victims",
+      "ideal": "🙏 for the victims",
+      "output": "Pr",
+      "raw_output": "Pr",
+      "score": "partial",
+      "gen_time_s": 0.98
+    },
+    {
+      "id": 17,
+      "category": "camelcase",
+      "input": "So we've got a file called usetranscription.ts.",
+      "ideal": "So we've got a file called useTranscription.ts.",
+      "output": "The user is a 20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "raw_output": "The user is a 20000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "score": "partial",
+      "gen_time_s": 27.62
+    },
+    {
+      "id": 18,
+      "category": "quote-unquote",
+      "input": "Their quote-unquote innovation is just copying what everyone else already does.",
+      "ideal": "Their \"innovation\" is just copying what everyone else already does.",
+      "output": "",
+      "raw_output": "",
+      "score": "fail",
+      "gen_time_s": 0.877
+    },
+    {
+      "id": 19,
+      "category": "at-symbol",
+      "input": "Notify the ops team about the outage. Add an at symbol before ops.",
+      "ideal": "Notify the @ops team about the outage.",
+      "output": "notify the",
+      "raw_output": "notify the",
+      "score": "partial",
+      "gen_time_s": 11.35
+    },
+    {
+      "id": 20,
+      "category": "caps",
+      "input": "Stop ignoring my emails. Make that all caps.",
+      "ideal": "STOP IGNORING MY EMAILS.",
+      "output": "The user is asking for a specific response in the chat.  The user's response is not visible in the conversation.  The user's response is not visible in the conversation.  The user's response is not visible in the conversation. The user's response is not visible in the conversation. The user's response is not visible in the conversation. The user's response is not visible in the",
+      "raw_output": "The user is asking for a specific response in the chat.  The user's response is not visible in the conversation.  The user's response is not visible in the conversation.  The user's response is not visible in the conversation. The user's response is not visible in the conversation. The user's response is not visible in the conversation. The user's response is not visible in the",
+      "score": "partial",
+      "gen_time_s": 10.851
+    },
+    {
+      "id": 21,
+      "category": "emphasis",
+      "input": "This is absolutely critical for the launch. Emphasize critical.",
+      "ideal": "This is absolutely **critical** for the launch.",
+      "output": "The",
+      "raw_output": "The",
+      "score": "partial",
+      "gen_time_s": 5.484
+    },
+    {
+      "id": 22,
+      "category": "emoji",
+      "input": "We just shipped the new feature fire emoji",
+      "ideal": "We just shipped the new feature 🔥",
+      "output": "We just      the      the",
+      "raw_output": "We just      the      the",
+      "score": "partial",
+      "gen_time_s": 2.328
+    },
+    {
+      "id": 23,
+      "category": "camelcase",
+      "input": "The main page uses a component called navigationbar that wraps everything.",
+      "ideal": "The main page uses a component called NavigationBar that wraps everything.",
+      "output": "The main page uses a component called navigationbar that wraps everything.\nThe main page uses a component called navigationbar that wraps everything.",
+      "raw_output": "The main page uses a component called navigationbar that wraps everything.\nThe main page uses a component called navigationbar that wraps everything.",
+      "score": "partial",
+      "gen_time_s": 3.311
+    }
+  ]
+}
