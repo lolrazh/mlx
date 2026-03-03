@@ -24,7 +24,7 @@ def main():
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
-    remote_path = f"/output/{args.run_name}"
+    remote_path = f"{args.run_name}/merged"
 
     print(f"Listing remote files at {VOLUME_NAME}:{remote_path}...")
     result = subprocess.run(

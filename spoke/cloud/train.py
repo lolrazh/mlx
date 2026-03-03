@@ -28,6 +28,10 @@ image = (
     .apt_install("git", "build-essential")
     .pip_install("ninja", "packaging", "wheel")
     .pip_install("unsloth", "wandb")
+    .run_commands(
+        "MAX_JOBS=4 CC=gcc CXX=g++ TORCH_CUDA_ARCH_LIST=8.9 "
+        "python -m pip install --no-build-isolation --no-deps flash-attn"
+    )
     .pip_install("flash-linear-attention")
     .run_commands(
         "CC=gcc CXX=g++ TORCH_CUDA_ARCH_LIST=8.9 "
@@ -56,15 +60,19 @@ def train(
     max_steps: int = 2000,
     learning_rate: float = 1e-5,
     batch_size: int = 4,
+    gradient_accumulation_steps: int = 1,
     rank: int = 8,
     lora_alpha: int = 16,
     lora_dropout: float = 0.0,
-    max_seq_length: int = 256,
+    max_seq_length: int = 512,
+    packing: bool = True,
+    gradient_checkpointing: bool = False,
     eval_steps: int = 200,
     save_steps: int = 500,
 ):
     import json
     import os
+    import wandb
 
     os.environ["HF_HOME"] = "/model-cache"
     os.environ["WANDB_PROJECT"] = "spoke"
@@ -98,7 +106,11 @@ def train(
     print(f"Tokenizer after get_chat_template: eos={tokenizer.eos_token}")
 
     # ── LoRA config (T2-v4 proven values) ──────────────────
-    print(f"Applying LoRA: r={rank}, alpha={lora_alpha}, dropout={lora_dropout}")
+    print(
+        "Applying LoRA: "
+        f"r={rank}, alpha={lora_alpha}, dropout={lora_dropout}, "
+        f"grad_ckpt={gradient_checkpointing}"
+    )
     model = FastLanguageModel.get_peft_model(
         model,
         r=rank,
@@ -109,7 +121,7 @@ def train(
             "gate_proj", "up_proj", "down_proj",
         ],
         bias="none",
-        use_gradient_checkpointing="unsloth",
+        use_gradient_checkpointing="unsloth" if gradient_checkpointing else False,
         random_state=42,
         max_seq_length=max_seq_length,
     )
@@ -163,6 +175,7 @@ def train(
             output_dir=output_dir,
             max_steps=max_steps,
             per_device_train_batch_size=batch_size,
+            gradient_accumulation_steps=gradient_accumulation_steps,
             per_device_eval_batch_size=batch_size * 2,
             learning_rate=learning_rate,
             lr_scheduler_type="constant",
@@ -172,6 +185,7 @@ def train(
             seed=42,
             dataset_text_field="text",
             dataset_num_proc=1,
+            packing=packing,
             # Logging
             logging_steps=20,
             eval_strategy="steps" if eval_enabled else "no",
@@ -204,21 +218,27 @@ def train(
     print(
         "\nStarting training: "
         f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
-        f"max_seq={max_seq_length}, eval={'off' if not eval_enabled else eval_steps}, "
+        f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
+        f"packing={packing}, eval={'off' if not eval_enabled else eval_steps}, "
         f"save={'off' if not save_enabled else save_steps}"
     )
-    trainer.train()
+    try:
+        trainer.train()
 
-    # ── Export merged bf16 ───────────────────────────────────
-    merged_path = f"{output_dir}/merged"
-    print(f"\nSaving merged bf16 model to {merged_path}...")
-    model.save_pretrained_merged(merged_path, tokenizer, save_method="merged_16bit")
+        # ── Export merged bf16 ───────────────────────────────
+        merged_path = f"{output_dir}/merged"
+        print(f"\nSaving merged bf16 model to {merged_path}...")
+        model.save_pretrained_merged(merged_path, tokenizer, save_method="merged_16bit")
 
-    output_vol.commit()
+        output_vol.commit()
 
-    print(f"\nTraining complete!")
-    print(f"  Model saved to volume 'spoke-output' at /output/{run_name}/merged")
-    print(f"  Download with: python spoke/cloud/download_model.py --run-name {run_name}")
+        print(f"\nTraining complete!")
+        print(f"  Model saved to volume 'spoke-output' at /output/{run_name}/merged")
+        print(f"  Download with: python spoke/cloud/download_model.py --run-name {run_name}")
+    finally:
+        if wandb.run is not None:
+            print("\nFinalizing Weights & Biases run...")
+            wandb.finish()
 
 
 # ── CLI entrypoint ───────────────────────────────────────────
@@ -230,18 +250,27 @@ def main(
     max_steps: int = 2000,
     learning_rate: float = 1e-5,
     batch_size: int = 4,
+    gradient_accumulation_steps: int = 1,
     rank: int = 8,
     lora_alpha: int = 16,
     lora_dropout: float = 0.0,
-    max_seq_length: int = 256,
+    max_seq_length: int = 512,
+    packing: bool = True,
+    gradient_checkpointing: bool = False,
     eval_steps: int = 200,
     save_steps: int = 500,
 ):
     print(f"Starting cloud training: {run_name}")
     print(f"  Model: {model_name}")
     print(f"  Steps: {max_steps}, LR: {learning_rate}, Batch: {batch_size}")
-    print(f"  LoRA: r={rank}, alpha={lora_alpha}, dropout={lora_dropout}")
+    print(
+        "  LoRA: "
+        f"r={rank}, alpha={lora_alpha}, dropout={lora_dropout}, "
+        f"grad_ckpt={gradient_checkpointing}"
+    )
+    print(f"  Grad accum: {gradient_accumulation_steps}")
     print(f"  Max seq length: {max_seq_length}")
+    print(f"  Packing: {packing}")
     print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
     print()
@@ -252,10 +281,13 @@ def main(
         max_steps=max_steps,
         learning_rate=learning_rate,
         batch_size=batch_size,
+        gradient_accumulation_steps=gradient_accumulation_steps,
         rank=rank,
         lora_alpha=lora_alpha,
         lora_dropout=lora_dropout,
         max_seq_length=max_seq_length,
+        packing=packing,
+        gradient_checkpointing=gradient_checkpointing,
         eval_steps=eval_steps,
         save_steps=save_steps,
     )
