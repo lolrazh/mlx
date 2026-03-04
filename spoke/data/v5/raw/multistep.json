@@ -1,0 +1,142 @@
+[
+  {
+    "input": "The variable is called dot e n v local. Spell that E-N-V, in caps.",
+    "ideal": "The variable is called .ENV local."
+  },
+  {
+    "input": "We're migrating to Teraform. Spell that T-E-R-R-A-F-O-R-M, capitalize normally.",
+    "ideal": "We're migrating to Terraform."
+  },
+  {
+    "input": "The CLI tool is called kubecuttle. Spell that K-U-B-E-C-T-L, all lowercase.",
+    "ideal": "The CLI tool is called kubectl."
+  },
+  {
+    "input": "There's a new package called Esslint. Spell that E-S-L-I-N-T, all caps.",
+    "ideal": "There's a new package called ESLINT."
+  },
+  {
+    "input": "It depends on the Goonicorn server. Spell that G-U-N-I-C-O-R-N, capitalize normally.",
+    "ideal": "It depends on the Gunicorn server."
+  },
+  {
+    "input": "Our ORM is called Prismah. Spell that P-R-I-S-M-A, all caps.",
+    "ideal": "Our ORM is called PRISMA."
+  },
+  {
+    "input": "The binary is called wazm. Spell that W-A-S-M, put it in all caps.",
+    "ideal": "The binary is called WASM."
+  },
+  {
+    "input": "We use a tool called Sellinium. Spell that S-E-L-E-N-I-U-M, capitalize normally.",
+    "ideal": "We use a tool called Selenium."
+  },
+  {
+    "input": "Check the tsconfig file. Spell that T-S-C-O-N-F-I-G, all lowercase.",
+    "ideal": "Check the tsconfig file."
+  },
+  {
+    "input": "Notify the platform team about this. Tag platform with an at symbol. Say quote deployment is blocked end quote. Wait no, say deployment is delayed.",
+    "ideal": "Notify the @platform team about this. Say \"deployment is delayed.\""
+  },
+  {
+    "input": "Message Priya. Put an at symbol before Priya. Tell her quote the PR looks good end quote. Actually, say the PR needs changes.",
+    "ideal": "Message @Priya. Tell her \"the PR needs changes.\""
+  },
+  {
+    "input": "Let the infra team know. At symbol before infra. Say quote we're rolling back to v2 end quote. Sorry, rolling back to v3.",
+    "ideal": "Let the @infra team know. Say \"we're rolling back to v3.\""
+  },
+  {
+    "input": "Send a message to Amir. At symbol before Amir. His message should be quote sync at 2pm end quote. Wait, make that 3pm.",
+    "ideal": "Send a message to @Amir. His message should be \"sync at 3pm.\""
+  },
+  {
+    "input": "Tell the QA team about the regression. Tag QA with an at symbol. Say quote hotfix is ready for staging end quote. Actually no, ready for production.",
+    "ideal": "Tell the @QA team about the regression. Say \"hotfix is ready for production.\""
+  },
+  {
+    "input": "Reach out to DevOps. At symbol before DevOps. Their message is quote cluster is healthy end quote. Wait, scratch that, say cluster needs attention.",
+    "ideal": "Reach out to @DevOps. Their message is \"cluster needs attention.\""
+  },
+  {
+    "input": "Ping Sana. Put an at symbol before her name. Tell her quote the feature flag is live end quote. No sorry, the feature flag is disabled.",
+    "ideal": "Ping @Sana. Tell her \"the feature flag is disabled.\""
+  },
+  {
+    "input": "Let the frontend crew know. Tag frontend with at symbol. Say quote redesign ships Monday end quote. Actually, Tuesday.",
+    "ideal": "Let the @frontend crew know. Say \"redesign ships Tuesday.\""
+  },
+  {
+    "input": "The status code is two hundred. No wait, four oh three. Type that in all caps.",
+    "ideal": "The status code is FOUR OH THREE."
+  },
+  {
+    "input": "The deadline is next Friday. Sorry, next Wednesday. Emphasize that.",
+    "ideal": "The deadline is next **Wednesday**."
+  },
+  {
+    "input": "We should use MongoDB. Actually, Postgres. Put that in all caps.",
+    "ideal": "We should use POSTGRES."
+  },
+  {
+    "input": "The root cause was a memory leak. Wait no, a race condition. Emphasize race condition.",
+    "ideal": "The root cause was a **race condition**."
+  },
+  {
+    "input": "Deploy to staging first. Actually, deploy straight to prod. Make everything lowercase.",
+    "ideal": "deploy straight to prod."
+  },
+  {
+    "input": "We need to refactor the auth module. Scratch that, the payments module. Emphasize payments.",
+    "ideal": "We need to refactor the **payments** module."
+  },
+  {
+    "input": "The outage lasted two hours. No, three hours. Put the whole thing in caps.",
+    "ideal": "THE OUTAGE LASTED THREE HOURS."
+  },
+  {
+    "input": "I'll review the diff tomorrow. Actually, tonight. Emphasize tonight.",
+    "ideal": "I'll review the diff **tonight**."
+  },
+  {
+    "input": "The throughput dropped to fifty requests per second. Wait, thirty. Make that lowercase.",
+    "ideal": "the throughput dropped to thirty requests per second."
+  },
+  {
+    "input": "Alert the SRE team, tag them with at symbol, about the Rediss outage, spell that R-E-D-I-S. Oh wait, it's actually an Elastic outage. Put the team name in all caps.",
+    "ideal": "Alert the @SRE team about the Elastic outage."
+  },
+  {
+    "input": "uh Tell ops about the new Kuberneetees deployment. Spell that K-U-B-E-R-N-E-T-E-S, capitalize normally. Tag ops with an at symbol. And say quote rollout starts at midnight end quote. Actually, 2am.",
+    "ideal": "Tell @ops about the new Kubernetes deployment. Say \"rollout starts at 2am.\""
+  },
+  {
+    "input": "Message the data team, at symbol before data, about the Cassanda migration. Spell that C-A-S-S-A-N-D-R-A. Actually scratch that, it's a DynamoDB migration. Emphasize migration.",
+    "ideal": "Message the @data team about the DynamoDB **migration**."
+  },
+  {
+    "input": "Heads up to the security team. Tag security with at symbol. We found an exploit in the Oawtch library. Spell that O-A-U-T-H, all caps. Say quote patch is critical end quote. Wait no, say patch is urgent.",
+    "ideal": "Heads up to the @security team. We found an exploit in the OAUTH library. Say \"patch is urgent.\""
+  },
+  {
+    "input": "um Notify the ML team, put an at symbol before ML, that the Pytorch training job crashed. Spell that P-Y-T-O-R-C-H, capitalize normally. The error was in the data loader. Sorry, the optimizer. Emphasize optimizer.",
+    "ideal": "Notify the @ML team that the PyTorch training job crashed. The error was in the **optimizer**."
+  },
+  {
+    "input": "Write to the API team. At symbol before API. Tell them the Graffkyu-L endpoint is down. Spell that G-R-A-P-H-Q-L, all caps. Say quote investigating now end quote. No wait, say resolved, back online.",
+    "ideal": "Write to the @API team. Tell them the GRAPHQL endpoint is down. Say \"resolved, back online.\""
+  },
+  {
+    "input": "Send a note to the mobile team, tag them with an at symbol, about the Fluttr SDK update. Spell that F-L-U-T-T-E-R, capitalize normally. We need version three point ten. Actually, three point twelve. And emphasize the version number.",
+    "ideal": "Send a note to the @mobile team about the Flutter SDK update. We need version **three point twelve**."
+  },
+  {
+    "input": "ah Damn it, tell the DevRel folks, at symbol before DevRel, that the Supabayce docs are wrong. Spell that S-U-P-A-B-A-S-E, capitalize normally. The endpoint returns a four oh one. Wait no, four oh three. Put the error code in caps.",
+    "ideal": "Damn it, tell the @DevRel folks that the Supabase docs are wrong. The endpoint returns a FOUR OH THREE."
+  },
+  {
+    "input": "Let the cloud team know, tag cloud with an at symbol, we're moving off Haroku. Spell that H-E-R-O-K-U, capitalize normally. Actually we're moving off Render. Say quote migration starts next sprint end quote. Emphasize next sprint.",
+    "ideal": "Let the @cloud team know, we're moving off Render. Say \"migration starts **next sprint**.\""
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "input": "We should ship the MVP next week and keep the scope tight. Emphasis on tight.",
+    "ideal": "We should ship the MVP next week and keep the scope TIGHT."
+  },
+  {
+    "input": "The whole point of this refactor is maintainability not performance. Put emphasis on maintainability.",
+    "ideal": "The whole point of this refactor is MAINTAINABILITY not performance."
+  },
+  {
+    "input": "Our onboarding needs to be simple and fast. Stress simple.",
+    "ideal": "Our onboarding needs to be SIMPLE and fast."
+  },
+  {
+    "input": "This quarter is all about reducing churn. With emphasis on reducing churn.",
+    "ideal": "This quarter is all about REDUCING CHURN."
+  },
+  {
+    "input": "The presentation should cover both cost savings and reliability. Emphasis on cost savings.",
+    "ideal": "The presentation should cover both COST SAVINGS and reliability."
+  },
+  {
+    "input": "We need buy-in from engineering and from leadership. Stress leadership.",
+    "ideal": "We need buy-in from engineering and from LEADERSHIP."
+  },
+  {
+    "input": "The thing users complain about most is load time. Emphasize load time.",
+    "ideal": "The thing users complain about most is **load time**."
+  },
+  {
+    "input": "Make sure the error message is clear and actionable. Emphasize actionable.",
+    "ideal": "Make sure the error message is clear and **actionable**."
+  },
+  {
+    "input": "Our differentiator is the depth of integration with existing tools. Emphasize depth of integration.",
+    "ideal": "Our differentiator is the **depth of integration** with existing tools."
+  },
+  {
+    "input": "Well I think the real issue is that we never defined success criteria upfront.",
+    "ideal": "Well, I think the real issue is that we never defined success criteria upfront."
+  },
+  {
+    "input": "I mean the latency numbers are fine but the p99 tail is what's killing us in production.",
+    "ideal": "I mean, the latency numbers are fine but the p99 tail is what's killing us in production."
+  },
+  {
+    "input": "You know the tricky part about microservices is that failure modes are really hard to reason about.",
+    "ideal": "You know, the tricky part about microservices is that failure modes are really hard to reason about."
+  }
+]

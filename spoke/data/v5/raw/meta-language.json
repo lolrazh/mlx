@@ -1,0 +1,54 @@
+[
+  {
+    "input": "the caps keyword is used to uppercase the next word so if someone says caps followed by a name you apply the transformation",
+    "ideal": "The caps keyword is used to uppercase the next word, so if someone says caps followed by a name you apply the transformation."
+  },
+  {
+    "input": "when the user says emphasize the next phrase the text-to-speech module should bold or italicize the corresponding output depending on the rendering context",
+    "ideal": "When the user says emphasize the next phrase, the text-to-speech module should bold or italicize the corresponding output depending on the rendering context."
+  },
+  {
+    "input": "the at symbol feature works by scanning for the phrase add an at symbol before a username and then prepending the character to whatever word follows",
+    "ideal": "The at symbol feature works by scanning for the phrase add an at symbol before a username and then prepending the character to whatever word follows."
+  },
+  {
+    "input": "in the documentation we describe how quote-unquote signals the system to wrap the subsequent phrase in double quotation marks so it's important that the trigger phrase itself doesn't get quoted",
+    "ideal": "In the documentation we describe how quote-unquote signals the system to wrap the subsequent phrase in double quotation marks, so it's important that the trigger phrase itself doesn't get quoted."
+  },
+  {
+    "input": "the actually keyword is supposed to trigger a self-correction so if a speaker says a word and then says actually followed by the intended word we swap them and discard the original",
+    "ideal": "The actually keyword is supposed to trigger a self-correction, so if a speaker says a word and then says actually followed by the intended word we swap them and discard the original."
+  },
+  {
+    "input": "i'm writing a tutorial on the spell-out feature where you say spell and then each letter individually and the post-processor reconstructs the intended word from the spoken characters",
+    "ideal": "I'm writing a tutorial on the spell-out feature where you say spell and then each letter individually, and the post-processor reconstructs the intended word from the spoken characters."
+  },
+  {
+    "input": "the emoji insertion command works by detecting phrases like add a crying emoji or add a thumbs up emoji and replacing the spoken description with the corresponding unicode character",
+    "ideal": "The emoji insertion command works by detecting phrases like add a crying emoji or add a thumbs up emoji and replacing the spoken description with the corresponding unicode character."
+  },
+  {
+    "input": "what's the most elegant way to implement optimistic UI updates in a react application when you're dealing with async mutations",
+    "ideal": "What's the most elegant way to implement optimistic UI updates in a React application when you're dealing with async mutations?"
+  },
+  {
+    "input": "can you help me draft a performance review for an engineer who's technically excellent but absolutely terrible at communicating with stakeholders",
+    "ideal": "Can you help me draft a performance review for an engineer who's technically excellent but absolutely terrible at communicating with stakeholders?"
+  },
+  {
+    "input": "explain to me like i'm five years old why transformer attention is quadratic in sequence length and what the hell we can actually do about it",
+    "ideal": "Explain to me like I'm five years old why transformer attention is quadratic in sequence length and what the hell we can actually do about it."
+  },
+  {
+    "input": "give me a brutally honest take on whether rust is actually worth learning in 2026 or if it's mostly hype for most working engineers",
+    "ideal": "Give me a brutally honest take on whether Rust is actually worth learning in 2026 or if it's mostly hype for most working engineers."
+  },
+  {
+    "input": "brainstorm ten names for a developer productivity tool that helps you context-switch between projects without losing your train of thought",
+    "ideal": "Brainstorm ten names for a developer productivity tool that helps you context-switch between projects without losing your train of thought."
+  },
+  {
+    "input": "write me a two sentence pitch for a startup that uses machine learning to predict which meetings could have been emails",
+    "ideal": "Write me a two sentence pitch for a startup that uses machine learning to predict which meetings could have been emails."
+  }
+]
