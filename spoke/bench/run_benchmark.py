@@ -13,6 +13,7 @@ import json
 import re
 import time
 import argparse
+import tempfile
 from pathlib import Path
 
 import mlx.core as mx
@@ -191,14 +192,23 @@ def score_output(output, ideal):
 
 
 def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
-                    adapter_path=None):
+                    adapter_path=None, kv_bits=None, use_prompt_cache=False):
     """Run benchmark on a single model."""
     import mlx_lm
+    from mlx_lm.models.cache import make_prompt_cache, save_prompt_cache, load_prompt_cache
+    from mlx_lm.generate import generate_step
 
     short_name = next((k for k, v in MODELS.items() if v == model_path), model_path.split("/")[-1])
     if adapter_path:
         adapter_label = Path(adapter_path).name
         short_name = f"{short_name}+lora"
+
+    opts = []
+    if kv_bits:
+        opts.append(f"kv_bits={kv_bits}")
+    if use_prompt_cache:
+        opts.append("prompt_cache")
+    opts_str = f"  opts: {', '.join(opts)}" if opts else ""
 
     if verbose:
         print(f"\n{'='*60}")
@@ -206,6 +216,8 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
         if adapter_path:
             print(f"  adapters: {adapter_path}")
         print(f"  prompt: {prompt_mode}")
+        if opts_str:
+            print(opts_str)
         print(f"{'='*60}")
 
     # Load
@@ -226,6 +238,62 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
     warmup = build_prompt(tokenizer, "test", model_path, prompt_mode=prompt_mode)
     mlx_lm.generate(model, tokenizer, prompt=warmup, max_tokens=8, sampler=GREEDY)
 
+    # Build system prompt cache if enabled
+    cache_file = None
+    system_prefix_len = 0
+    if use_prompt_cache:
+        # Get the system prompt for this mode
+        if prompt_mode == "v2":
+            sys_prompt = V2_PROMPT
+        else:
+            sys_prompt = GENERIC_PROMPT
+
+        # Tokenize just the system message portion of the chat template
+        sys_messages = [{"role": "system", "content": sys_prompt}]
+        kwargs = {}
+        if "qwen3" in model_path.lower():
+            try:
+                sys_text = tokenizer.apply_chat_template(
+                    sys_messages, tokenize=False,
+                    add_generation_prompt=False,
+                    enable_thinking=False,
+                )
+            except TypeError:
+                sys_text = tokenizer.apply_chat_template(
+                    sys_messages, tokenize=False,
+                    add_generation_prompt=False,
+                )
+        else:
+            sys_text = tokenizer.apply_chat_template(
+                sys_messages, tokenize=False,
+                add_generation_prompt=False,
+            )
+        sys_tokens = tokenizer.encode(sys_text)
+        system_prefix_len = len(sys_tokens)
+
+        # Fill cache with system prompt
+        base_cache = make_prompt_cache(model)
+        for _ in generate_step(
+            mx.array(sys_tokens), model,
+            max_tokens=0, prompt_cache=base_cache,
+        ):
+            pass
+        mx.eval([c.state for c in base_cache])
+
+        # Save to temp file for reloading per-example
+        cache_file = tempfile.NamedTemporaryFile(suffix=".safetensors", delete=False).name
+        save_prompt_cache(cache_file, base_cache)
+        del base_cache
+
+        if verbose:
+            print(f"  Cached {system_prefix_len} system prompt tokens -> {cache_file}")
+
+    # Extra kwargs for generate
+    gen_kwargs = {}
+    if kv_bits:
+        gen_kwargs["kv_bits"] = kv_bits
+        gen_kwargs["kv_group_size"] = 64
+
     results = []
     for ex in test_set:
         prompt = build_prompt(
@@ -234,10 +302,22 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
         )
 
         t_start = time.time()
-        raw_output = mlx_lm.generate(
-            model, tokenizer, prompt=prompt,
-            max_tokens=256, sampler=GREEDY,
-        )
+        if use_prompt_cache and cache_file:
+            # Load fresh cache copy, pass only the suffix tokens
+            ex_cache = load_prompt_cache(cache_file)
+            full_tokens = tokenizer.encode(prompt)
+            suffix_tokens = full_tokens[system_prefix_len:]
+            raw_output = mlx_lm.generate(
+                model, tokenizer, prompt=suffix_tokens,
+                max_tokens=256, sampler=GREEDY,
+                prompt_cache=ex_cache, **gen_kwargs,
+            )
+        else:
+            raw_output = mlx_lm.generate(
+                model, tokenizer, prompt=prompt,
+                max_tokens=256, sampler=GREEDY,
+                **gen_kwargs,
+            )
         gen_time = time.time() - t_start
 
         output = clean_output(raw_output, model_path)
@@ -291,6 +371,9 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
         print(f"  Avg latency: {avg_latency:.2f}s")
 
     # Cleanup
+    if cache_file:
+        import os
+        os.unlink(cache_file)
     del model, tokenizer
     mx.clear_cache()
 
@@ -307,6 +390,10 @@ def main():
                         help="Prompt strategy: generic | task | spoke | v2 (condensed training prompt)")
     parser.add_argument("--test-set", type=str, default=None,
                         help="Path to test set JSON (default: test_set.json in bench dir)")
+    parser.add_argument("--kv-bits", type=int, default=None,
+                        help="Quantize KV cache to N bits (e.g. 4, 8)")
+    parser.add_argument("--prompt-cache", action="store_true",
+                        help="Cache system prompt KV across examples")
     parser.add_argument("--verbose", action="store_true", default=True)
     args = parser.parse_args()
 
@@ -327,7 +414,8 @@ def main():
     all_summaries = []
     for path in paths:
         summary = benchmark_model(path, test_set, prompt_mode=args.prompt_mode,
-                                   verbose=args.verbose, adapter_path=args.adapter_path)
+                                   verbose=args.verbose, adapter_path=args.adapter_path,
+                                   kv_bits=args.kv_bits, use_prompt_cache=args.prompt_cache)
         if summary is None:
             continue
         all_summaries.append(summary)
