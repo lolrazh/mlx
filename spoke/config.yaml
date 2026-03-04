@@ -1,13 +1,12 @@
 # Spoke fine-tuning config for mlx_lm.lora
 # Usage: caffeinate -dims mlx_lm.lora -c spoke/config.yaml
 #
-# Qwen3-1.7B-T1: Identical to T2-v4 (100% run) except model size.
-# Changed: model (4B→1.7B), num_layers (36→28), adapter_path.
-# Everything else is EXACTLY T2-v4.
+# T3: Qwen3-4B + V5 data (1287 train) + v3 prompt (191 tok).
+# Same hyperparams as T2-v4 (100% run). New: richer training prompt, 86 targeted examples.
 
-model: Qwen/Qwen3-1.7B-MLX-bf16
+model: mlx-community/Qwen3-4B-Instruct-2507-bf16
 train: true
-data: ./spoke/data/v4
+data: ./spoke/data/v5
 fine_tune_type: lora
 mask_prompt: true
 optimizer: adam
@@ -20,10 +19,10 @@ lora_parameters:
 
 # Training — identical to T2-v4
 batch_size: 4
-grad_checkpoint: false
+grad_checkpoint: true
 iters: 2000
 learning_rate: 1e-5
-num_layers: 28       # all 28 layers (T2-v4 used all 36 of the 4B model)
+num_layers: 36       # all 36 layers
 max_seq_length: 512  # T2-v4 used 512. Data max is 227 tokens.
 
 # Reporting
@@ -33,6 +32,6 @@ save_every: 100
 report_to: wandb
 
 # Paths
-adapter_path: ./spoke/adapters-qwen3-1.7b-t1
+adapter_path: ./spoke/adapters-qwen3-t3
 
 seed: 42
