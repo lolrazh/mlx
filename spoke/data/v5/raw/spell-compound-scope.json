@@ -1,30 +1,30 @@
 [
   {
-    "input": "We're staying at the HillTop Inn near the lake. Spell Top as T-O-P.",
-    "ideal": "We're staying at the Hilltop Inn near the lake."
+    "input": "The app uses WhisperSync for real-time updates. Spell Whisper as W-I-S-P-R.",
+    "ideal": "The app uses WisprSync for real-time updates."
   },
   {
-    "input": "My grandmother swears by BoneBroth for joint health. Spell Broth as B-R-O-T-H.",
-    "ideal": "My grandmother swears by Bone Broth for joint health."
+    "input": "We switched to LiftPool for team rides. Spell Lift as L-Y-F-T.",
+    "ideal": "We switched to LyftPool for team rides."
   },
   {
-    "input": "The bakery on MapleStreet makes amazing croissants. Spell Street as S-T-R-E-E-T.",
-    "ideal": "The bakery on Maple Street makes amazing croissants."
+    "input": "The photos are on FlickerFeed. Spell Flicker as F-L-I-C-K-R.",
+    "ideal": "The photos are on FlickrFeed."
   },
   {
-    "input": "I need to buy a new ToothBrush for my trip. Spell Brush as B-R-U-S-H.",
-    "ideal": "I need to buy a new Toothbrush for my trip."
+    "input": "All the blog posts go to TumblerLog. Spell Tumbler as T-U-M-B-L-R.",
+    "ideal": "All the blog posts go to TumblrLog."
   },
   {
-    "input": "The documentary covers the DustBowl era farmers. Spell Bowl as B-O-W-L.",
-    "ideal": "The documentary covers the Dust Bowl era farmers."
+    "input": "The community lives on SchoolPage. Spell School as S-K-O-O-L.",
+    "ideal": "The community lives on SkoolPage."
   },
   {
-    "input": "The new StarLink satellites are visible from my backyard. Spell Link as L-I-N-K.",
-    "ideal": "The new Starlink satellites are visible from my backyard."
+    "input": "Our bot is called NightOwl in production. Spell Night as N-I-T-E.",
+    "ideal": "Our bot is called NiteOwl in production."
   },
   {
-    "input": "We're switching to QuickBooks for payroll this quarter. Spell Quick as Q-U-I-C-K.",
-    "ideal": "We're switching to QuickBooks for payroll this quarter."
+    "input": "The dashboard is TrueView analytics. Spell True as T-R-U.",
+    "ideal": "The dashboard is TruView analytics."
   }
 ]

@@ -1,30 +1,30 @@
 [
   {
-    "input": "The architect designed a beautiful Manner house in the countryside. Can you spell that as M-A-N-O-I-R?",
-    "ideal": "The architect designed a beautiful Manoir house in the countryside."
+    "input": "The team lead is Seersha. Can you spell that as S-A-O-I-R-S-E?",
+    "ideal": "The team lead is Saoirse."
   },
   {
-    "input": "The patient was diagnosed with lime disease after the camping trip. Write that as L-Y-M-E.",
-    "ideal": "The patient was diagnosed with Lyme disease after the camping trip."
+    "input": "Her manager is Neve. Write that as N-I-A-M-H.",
+    "ideal": "Her manager is Niamh."
   },
   {
-    "input": "The orchestra played a moving nocturn by Chopin. Put that as N-O-C-T-U-R-N-E.",
-    "ideal": "The orchestra played a moving Nocturne by Chopin."
+    "input": "The designer is Eefa from Dublin. Put that as A-O-I-F-E.",
+    "ideal": "The designer is Aoife from Dublin."
   },
   {
-    "input": "The hiker reached the summit of Mount Blanc. Type that as M-O-N-T B-L-A-N-C.",
-    "ideal": "The hiker reached the summit of Mont Blanc."
+    "input": "Ask Shavon about the wireframes. Type that as S-I-O-B-H-A-N.",
+    "ideal": "Ask Siobhan about the wireframes."
   },
   {
-    "input": "The recipe calls for fresh rhyme sprigs. Spell it as T-H-Y-M-E.",
-    "ideal": "The recipe calls for fresh thyme sprigs."
+    "input": "The award goes to New La. Spell it as N-U-A-L-A.",
+    "ideal": "The award goes to Nuala."
   },
   {
-    "input": "The vineyard produces an excellent Grand Crew Bordeaux. Can you spell that as C-R-U?",
-    "ideal": "The vineyard produces an excellent Grand Cru Bordeaux."
+    "input": "CC Win from accounting on this. Write that as N-G-U-Y-E-N.",
+    "ideal": "CC Nguyen from accounting on this."
   },
   {
-    "input": "She ordered the duck confetti with a side of ratatouille at the French bistro. Write that as C-O-N-F-I-T.",
-    "ideal": "She ordered the duck confit with a side of ratatouille at the French bistro."
+    "input": "The backend dev is Shao Ming. Put that as X-I-A-O-M-I-N-G.",
+    "ideal": "The backend dev is Xiaoming."
   }
 ]

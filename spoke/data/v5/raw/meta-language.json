@@ -4,7 +4,7 @@
     "ideal": "The emphasize feature works by detecting when users say emphasize followed by a word, then converting that word to ALL CAPS in the output."
   },
   {
-    "input": "In our documentation we explain that if someone says actually or correction, the system should replace the previous word with what comes next.",
+    "input": "In our documentation we explain that um if someone says actually or correction, the system should replace the previous word with what comes next.",
     "ideal": "In our documentation we explain that if someone says actually or correction, the system should replace the previous word with what comes next."
   },
   {
@@ -16,7 +16,7 @@
     "ideal": "When the user says quote-unquote before and after a phrase, we need to wrap that phrase in quotation marks, not output the words quote-unquote literally."
   },
   {
-    "input": "Our tutorial covers how the at symbol feature works: when users say at symbol or at sign followed by a username, we insert the @ character.",
+    "input": "Our tutorial covers how the at symbol feature works: uh when users say at symbol or at sign followed by a username, we insert the @ character.",
     "ideal": "Our tutorial covers how the at symbol feature works: when users say at symbol or at sign followed by a username, we insert the @ character."
   },
   {
@@ -24,7 +24,7 @@
     "ideal": "The caps feature is different from emphasize because when users say all caps or make it caps, we uppercase the entire phrase, not just stress one word."
   },
   {
-    "input": "During the cooking demo, the chef explained that if you say actually I meant followed by an ingredient, the app swaps it out in your shopping list.",
+    "input": "During the cooking demo, the chef explained that ah if you say actually I meant followed by an ingredient, the app swaps it out in your shopping list.",
     "ideal": "During the cooking demo, the chef explained that if you say actually I meant followed by an ingredient, the app swaps it out in your shopping list."
   },
   {

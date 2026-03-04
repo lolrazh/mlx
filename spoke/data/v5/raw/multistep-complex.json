@@ -12,7 +12,7 @@
     "ideal": "Message the @prop manager that the Terrain survey is expedited. Say \"expect results by MONDAY\"."
   },
   {
-    "input": "ah Tell the band the setlist needs changes. At symbol before drummer. Say quote drop Wonderwall end quote. Actually, keep it but move it last. Emphasize last. Add a drum emoji. Spell the song W-O-N-D-E-R-W-A-L-L, capitalize normally. And say the opener is now Smells Like Teen Spirit in all caps.",
+    "input": "ah Tell the drummer the setlist needs changes. At symbol before drummer. Say quote drop Wonderwall end quote. Actually, keep it but move it last. Emphasize last. Add a drum emoji. Spell the song W-O-N-D-E-R-W-A-L-L, capitalize normally. And say the opener is now Smells Like Teen Spirit in all caps.",
     "ideal": "Tell the @drummer the setlist needs changes. Keep Wonderwall but move it LAST. 🥁 The opener is now SMELLS LIKE TEEN SPIRIT."
   },
   {
@@ -28,7 +28,7 @@
     "ideal": "Slack the @finance folks that the REVENUE forecast is wrong. The meeting moved to Wednesday."
   },
   {
-    "input": "ah Tell the florist the Peony arrangements are canceled. Spell P-E-O-N-Y, capitalize normally. At symbol before florist. Emphasize canceled. Say quote we switched to succulents end quote. Actually, quote we switched to orchids end quote.",
+    "input": "ah Tell the florist the Peeny arrangements are canceled. Spell that P-E-O-N-Y, capitalize normally. At symbol before florist. Emphasize canceled. Say quote we switched to succulents end quote. Actually, quote we switched to orchids end quote.",
     "ideal": "Tell the @florist the Peony arrangements are CANCELED. Say \"we switched to orchids\"."
   },
   {
@@ -36,7 +36,7 @@
     "ideal": "Message the @assistant coach that the scrimmage is OFF. The Powerade order didn't come through. Say \"practice indoors instead\"."
   },
   {
-    "input": "ah Email the conservator the Klimt reproduction is damaged. Spell K-L-I-M-T, capitalize normally. At symbol before conservator. Emphasize damaged. Say quote insurance claim pending end quote. Actually, quote insurance claim filed end quote. The valuation is wrong too.",
+    "input": "ah Email the conservator the Clint reproduction is damaged. Spell that K-L-I-M-T, capitalize normally. At symbol before conservator. Emphasize damaged. Say quote insurance claim pending end quote. Actually, quote insurance claim filed end quote. The valuation is wrong too.",
     "ideal": "Email the @conservator the Klimt reproduction is DAMAGED. Say \"insurance claim filed\". The valuation is wrong too."
   }
 ]

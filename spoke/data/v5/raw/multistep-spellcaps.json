@@ -1,42 +1,42 @@
 [
   {
-    "input": "We're staying at the Hyatt Regency in downtown. Wait, that's not right. Spell that H-Y-A-T-T, all caps.",
-    "ideal": "We're staying at the HYATT Regency in downtown."
+    "input": "The badge says Rosheen. Spell that R-O-I-S-I-N, all caps.",
+    "ideal": "The badge says ROISIN."
   },
   {
     "input": "The medication is called oxy cotton. No, spell that O-X-Y-C-O-D-O-N-E, capitalize normally.",
     "ideal": "The medication is called Oxycodone."
   },
   {
-    "input": "My favorite jazz club is the blue note. Actually spell that B-L-U-E-N-O-T-E, put it in caps.",
-    "ideal": "My favorite jazz club is the BLUENOTE."
+    "input": "The actor on the list is Killian. Spell that C-I-L-L-I-A-N, capitalize normally.",
+    "ideal": "The actor on the list is Cillian."
   },
   {
-    "input": "The recipe calls for mascarpone cheese. Wait, spell that M-A-S-C-A-R-P-O-N-E, all lowercase.",
-    "ideal": "The recipe calls for mascarpone cheese."
+    "input": "The form lists Kwee Va. Spell that C-A-O-I-M-H-E, all caps.",
+    "ideal": "The form lists CAOIMHE."
   },
   {
     "input": "We're flying into Charles de Gaulle. Spell that C-D-G, capitalize normally.",
     "ideal": "We're flying into CDG."
   },
   {
-    "input": "The wine region is called Bordo. Spell that B-O-R-D-E-A-U-X, all caps.",
-    "ideal": "The wine region is called BORDEAUX."
+    "input": "The header says Owen. Spell that E-O-I-N, all caps.",
+    "ideal": "The header says EOIN."
   },
   {
-    "input": "She works at the World Bank in their IFC division. Wait, spell that I-F-C, capitalize normally.",
-    "ideal": "She works at the World Bank in their IFC division."
+    "input": "The directory shows Fin Bar. Spell that F-I-N-B-A-R-R, capitalize normally.",
+    "ideal": "The directory shows Finbarr."
   },
   {
-    "input": "The cocktail uses Luxardo maraschino. Actually spell that M-A-R-A-S-C-H-I-N-O, all lowercase.",
-    "ideal": "The cocktail uses Luxardo maraschino."
+    "input": "The certificate says Shuh Han. Spell that X-U-H-A-N, all caps.",
+    "ideal": "The certificate says XUHAN."
   },
   {
-    "input": "He's sponsored by Red Bull and rides for the Alpine team. Spell that A-L-P-I-N-E, put it in caps.",
-    "ideal": "He's sponsored by Red Bull and rides for the ALPINE team."
+    "input": "The nameplate reads Tuh Ran. Spell that T-U-R-A-N, all caps.",
+    "ideal": "The nameplate reads TURAN."
   },
   {
-    "input": "The diagnosis is type two diabetes with possible DKA. Wait, spell that D-K-A, capitalize normally.",
-    "ideal": "The diagnosis is type two diabetes with possible DKA."
+    "input": "The scoreboard has Keeren. Spell that C-I-A-R-A-N, capitalize normally.",
+    "ideal": "The scoreboard has Ciaran."
   }
 ]

@@ -1,30 +1,30 @@
 [
   {
-    "input": "My favorite restaurant is in Shattel. It's actually S-E-A-T-T-L-E.",
-    "ideal": "My favorite restaurant is in Seattle."
+    "input": "My kid plays Fortnight all day. That's F-O-R-T-N-I-T-E by the way.",
+    "ideal": "My kid plays Fortnite all day."
   },
   {
-    "input": "The medication is called Zanex. That's X-A-N-A-X by the way.",
-    "ideal": "The medication is called Xanax."
+    "input": "The meeting is with Shawn from legal. It's actually S-E-A-N.",
+    "ideal": "The meeting is with Sean from legal."
   },
   {
-    "input": "We stayed at the Mariot downtown. It's M-A-R-R-I-O-T-T actually.",
-    "ideal": "We stayed at the Marriott downtown."
+    "input": "Tell Marshal about the status update. Which is M-A-R-S-H-A-L-L.",
+    "ideal": "Tell Marshall about the status update."
   },
   {
-    "input": "Her name is Jennafer. Which is J-E-N-N-I-F-E-R.",
-    "ideal": "Her name is Jennifer."
+    "input": "She goes by Alison on the team. It's A-L-L-I-S-O-N by the way.",
+    "ideal": "She goes by Allison on the team."
   },
   {
-    "input": "The game is called Fortnight. That's F-O-R-T-N-I-T-E by the way.",
-    "ideal": "The game is called Fortnite."
+    "input": "Message Kris about the deadline. That's C-H-R-I-S actually.",
+    "ideal": "Message Chris about the deadline."
   },
   {
-    "input": "The new employee is from Colcata. It's actually K-O-L-K-A-T-A by the way.",
-    "ideal": "The new employee is from Kolkata."
+    "input": "The new PM is Steven. It's S-T-E-P-H-E-N by the way.",
+    "ideal": "The new PM is Stephen."
   },
   {
-    "input": "We ordered the Pene pasta. That's P-E-N-N-E actually.",
-    "ideal": "We ordered the Penne pasta."
+    "input": "Lunch with Jeff on Friday. That's G-E-O-F-F actually.",
+    "ideal": "Lunch with Geoff on Friday."
   }
 ]
