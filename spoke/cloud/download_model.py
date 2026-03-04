@@ -2,8 +2,8 @@
 """Download merged model from Modal Volume.
 
 Usage:
-    python spoke/cloud/download_model.py --run-name spoke-qwen35-t1
-    python spoke/cloud/download_model.py --run-name spoke-qwen35-t1 --output spoke/models/qwen35-t1-bf16
+    python spoke/cloud/download_model.py --run-name spoke-qwen3-t2-cloud
+    python spoke/cloud/download_model.py --run-name spoke-qwen3-t2-cloud --output spoke/models/qwen3-t2-cloud-bf16
 """
 
 import argparse

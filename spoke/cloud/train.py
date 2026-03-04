@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""Modal cloud training for Spoke using Unsloth + Qwen3.5-4B.
+"""Modal cloud training for Spoke using Unsloth + Qwen3-4B.
 
 Trains LoRA on Modal L40S GPU, exports merged bf16 model.
-No QLoRA for Qwen3.5 — Unsloth recommends bf16 LoRA instead.
+No QLoRA here — use bf16 LoRA for parity with the best local Qwen3 run.
 
 Usage:
-    modal run spoke/cloud/train.py --run-name spoke-qwen35-t1
-    modal run spoke/cloud/train.py --run-name spoke-qwen35-t1 --max-steps 3000 --learning-rate 2e-5
-    modal run spoke/cloud/train.py --run-name spoke-qwen35-probe --max-steps 50 --eval-steps 0 --save-steps 0
+    modal run spoke/cloud/train.py --run-name spoke-qwen3-probe --max-steps 50 --batch-size 8 --eval-steps 0 --save-steps 0 --no-export-merged
+    modal run spoke/cloud/train.py --run-name spoke-qwen3-t2-cloud --best-local-parity
 """
 
 import modal
@@ -54,8 +53,8 @@ image = (
     timeout=10800,  # 3 hours: room for model load, full run, and merge export
 )
 def train(
-    run_name: str = "spoke-qwen35-t1",
-    model_name: str = "unsloth/Qwen3.5-4B",
+    run_name: str = "spoke-qwen3-cloud",
+    model_name: str = "unsloth/Qwen3-4B-Instruct-2507",
     max_steps: int = 2000,
     learning_rate: float = 1e-5,
     batch_size: int = 4,
@@ -69,6 +68,7 @@ def train(
     eval_steps: int = 200,
     save_steps: int = 500,
     export_merged: bool = True,
+    best_local_parity: bool = False,
 ):
     import json
     import os
@@ -81,6 +81,17 @@ def train(
     from unsloth.chat_templates import get_chat_template, train_on_responses_only
     from datasets import Dataset
     from trl import SFTTrainer, SFTConfig
+
+    if best_local_parity:
+        # Match the successful local T2-v4 training recipe more closely for
+        # quality comparisons instead of probe throughput.
+        if run_name == "spoke-qwen3-cloud":
+            run_name = "spoke-qwen3-t2-cloud"
+        lora_dropout = 0.05
+        packing = False
+        eval_steps = 50
+        save_steps = 100
+        print("Applying best-local parity profile (T2-v4-like settings).")
 
     eval_enabled = eval_steps > 0
     save_enabled = save_steps > 0
@@ -249,8 +260,8 @@ def train(
 
 @app.local_entrypoint()
 def main(
-    run_name: str = "spoke-qwen35-t1",
-    model_name: str = "unsloth/Qwen3.5-4B",
+    run_name: str = "spoke-qwen3-cloud",
+    model_name: str = "unsloth/Qwen3-4B-Instruct-2507",
     max_steps: int = 2000,
     learning_rate: float = 1e-5,
     batch_size: int = 4,
@@ -264,7 +275,16 @@ def main(
     eval_steps: int = 200,
     save_steps: int = 500,
     export_merged: bool = True,
+    best_local_parity: bool = False,
 ):
+    if best_local_parity:
+        if run_name == "spoke-qwen3-cloud":
+            run_name = "spoke-qwen3-t2-cloud"
+        lora_dropout = 0.05
+        packing = False
+        eval_steps = 50
+        save_steps = 100
+
     print(f"Starting cloud training: {run_name}")
     print(f"  Model: {model_name}")
     print(f"  Steps: {max_steps}, LR: {learning_rate}, Batch: {batch_size}")
@@ -279,6 +299,7 @@ def main(
     print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
     print(f"  Export merged: {'on' if export_merged else 'off'}")
+    print(f"  Best-local parity: {'on' if best_local_parity else 'off'}")
     print()
 
     train.remote(
@@ -297,4 +318,5 @@ def main(
         eval_steps=eval_steps,
         save_steps=save_steps,
         export_merged=export_merged,
+        best_local_parity=best_local_parity,
     )
