@@ -1,7 +1,7 @@
 # Spoke Cloud Compute Ledger
 
 > Single source of truth for Modal + Unsloth throughput experiments.
-> Last updated: 2026-03-04 (Qwen3.5 speed probes logged; text-only Qwen3 probe pending.)
+> Last updated: 2026-03-04 (Qwen3 text-only probes confirm the clean LM path is much more compute-efficient.)
 
 ## How to Read This
 
@@ -38,6 +38,8 @@
 | **C4** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 8 | 1 | Off | **PASS** | `0.398` | `~3.8-4.1` | `spoke-qwen35-speed-probe-b8-nofa2`. Best raw step rate so far. First step ~`106.7s`. `FA2` still false. Packing flag had no effect because the model loaded as processor-based. |
 | **C5** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 12 | 1 | Off | **PASS** | `0.361` | `~2.9-3.1` | `spoke-qwen35-speed-probe-b12-noexport`. Lower raw step rate than C4, but `train_samples_per_second` improved to `4.336` (vs `3.184` on batch 8). First step ~`113.5s`. |
 | **C6** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 4 | 1 | Off | **COMPLETED** | — | — | Full run `spoke-qwen35-t2` completed per user. Detailed throughput not captured in this ledger yet. |
+| **C7** | 03-04 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 8 | 1 | Off | **PASS** | `1.133` | `~1.35-1.45` | `spoke-qwen3-text-speed-probe-b8`. Text-only path. `Qwen2Tokenizer`, not processor-based. Packing enabled, examples collapsed `1201 -> 327`, masking density jumped to `42.3%`, first step only ~`7.4s`, `train_samples_per_second = 9.066`. |
+| **C8** | 03-04 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 16 | 1 | Off | **PASS** | `0.667` | `~0.72-0.88` | `spoke-qwen3-text-speed-probe-b16`. Still fits cleanly. Raw steps/sec fell versus C7, but `train_samples_per_second` improved again to `10.669`. First step ~`7.6s`. |
 
 ---
 
@@ -50,12 +52,14 @@
 5. **Making `gradient_accumulation_steps=1` explicit** removed hidden micro-step overhead and made the comparisons sane.
 6. **Raising batch size from `4` to `8`** produced the biggest clean speed jump in observed post-warmup step rate.
 7. **Skipping merged export on probes** cuts wasted wall-clock on short runs. Export was adding ~25-30 seconds after the 50-step train loop.
+8. **Switching to text-only Qwen3 is the biggest structural win so far.** It removes the processor/VLM path, enables packing, slashes first-step warmup from ~`100s` to ~`7s`, and more than doubles `train_samples_per_second` versus the best Qwen3.5 probe.
 
 ## What Did Not Help
 
 1. **Source-building `flash-attn` inside probe startup** is too slow. It blocked iteration before training even started.
 2. **`packing=True` on current Qwen3.5 runs** did nothing. Unsloth explicitly said packing was skipped because the model loaded through a processor-based path.
 3. **Bigger batch is not automatically better on raw it/sec.** `batch=12` improved work per second but reduced raw step rate compared with `batch=8`.
+4. **Raw `it/sec` is a bad cross-model comparison once packing changes.** The text-only Qwen3 probes do fewer steps per second than Qwen3.5 batch-8, but each step carries far more useful tokens and much less warmup overhead.
 
 ## Root Causes of Remaining Waste
 
@@ -63,12 +67,13 @@
 2. **FlashAttention2 is still off.** Successful runs still print `FA2 = False`.
 3. **The first step is dominated by compile/warmup.** Short probes always look worse in averaged trainer metrics than the actual late-step rate.
 4. **Masking density is low.** Only `14/128` active labels in the sample check (~`10.9%`), so a lot of tokens are still paying forward-pass cost without contributing to loss.
+5. **The Qwen3.5 checkpoint itself is part of the waste.** As long as it loads as a processor/VLM path, it blocks packing and keeps the warmup/throughput profile worse than the text-only Qwen3 path.
 
 ---
 
 ## Current Best Speed Profiles
 
-### Best raw step rate
+### Best raw step rate (same-model comparison only)
 
 - **Run:** C4
 - **Config:** `seq=512`, `batch=8`, `accum=1`, `grad_ckpt=off`, no eval, no save
@@ -77,17 +82,25 @@
 
 ### Best total work per second (so far)
 
-- **Run:** C5
-- **Config:** `seq=512`, `batch=12`, `accum=1`, `grad_ckpt=off`, no eval, no save, no export
-- **Observed steady-state:** `~2.9-3.1 it/sec`
-- **Reported train samples/sec:** `4.336`
-- **Why it matters:** Lower steps/sec than C4, but more examples processed per step
+- **Run:** C8
+- **Config:** `Qwen3-4B text-only`, `seq=512`, `batch=16`, `accum=1`, `grad_ckpt=off`, no eval, no save, no export
+- **Observed steady-state:** `~0.72-0.88 it/sec`
+- **Reported train samples/sec:** `10.669`
+- **Why it matters:** Much lower raw step rate than C4, but far more useful work per second because packing is active and the warmup cost is tiny.
+
+### Best balanced probe profile right now
+
+- **Run:** C7
+- **Config:** `Qwen3-4B text-only`, `seq=512`, `batch=8`, `accum=1`, `grad_ckpt=off`, no eval, no save, no export
+- **Observed steady-state:** `~1.35-1.45 it/sec`
+- **Reported train samples/sec:** `9.066`
+- **Why it wins:** Clean text-only path, packing enabled, low warmup, and better responsiveness than batch 16 while still massively outperforming Qwen3.5 on useful throughput.
 
 ---
 
 ## Next High-Signal Experiments
 
-1. **Try a text-only Qwen3 checkpoint** (`Qwen3-4B-Instruct-2507`) to avoid the processor/VLM overhead and to see whether sample packing becomes available.
-2. **Probe `batch=16` on the best text-only path** if batch 8 succeeds cleanly, to find the real L40S headroom.
+1. **Use text-only Qwen3 as the new speed baseline.** The Qwen3.5 VLM-style path is now clearly the inferior compute path for this task.
+2. **Probe `batch=24` on text-only Qwen3** if you want to keep pushing L40S utilization. `batch=16` already fits cleanly.
 3. **Enable FA2 the right way** via a prebuilt wheel or cached image, not by rebuilding `flash-attn` during every probe.
-4. **Reduce prompt-token waste** if training speed remains the constraint. The current masking density shows a lot of non-loss-bearing tokens.
+4. **Reduce prompt-token waste** if training speed remains the constraint. The current Qwen3 text-only path is much better, but trimming repeated non-loss-bearing prompt tokens still helps.
