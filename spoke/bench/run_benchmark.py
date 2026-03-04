@@ -38,6 +38,8 @@ MODELS = {
     "lfm2-2.6b-exp": "mlx-community/LFM2-2.6B-Exp-bf16",
     "gemma3-4b-bf16": "mlx-community/gemma-3-4b-it-bf16",
     "gemma3-1b-bf16": "mlx-community/gemma-3-1b-it-bf16",
+    "qwen3-1.7b-bf16": "Qwen/Qwen3-1.7B-MLX-bf16",
+    "qwen3-1.7b-4bit": "Qwen/Qwen3-1.7B-MLX-4bit",
 }
 
 # ── Prompts ─────────────────────────────────────────────────

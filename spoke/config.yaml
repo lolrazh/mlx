@@ -1,26 +1,30 @@
 # Spoke fine-tuning config for mlx_lm.lora
 # Usage: caffeinate -dims mlx_lm.lora -c spoke/config.yaml
+#
+# Qwen3-1.7B-T1: Identical to T2-v4 (100% run) except model size.
+# Changed: model (4B→1.7B), num_layers (36→28), adapter_path.
+# Everything else is EXACTLY T2-v4.
 
-model: mlx-community/Qwen3-4B-Instruct-2507-bf16
+model: Qwen/Qwen3-1.7B-MLX-bf16
 train: true
 data: ./spoke/data/v4
 fine_tune_type: lora
 mask_prompt: true
-optimizer: muon
+optimizer: adam
 
-# LoRA hyperparameters
+# LoRA hyperparameters — identical to T2-v4
 lora_parameters:
   rank: 8
   scale: 2.0        # alpha = rank * scale = 16
   dropout: 0.05
 
-# Training
+# Training — identical to T2-v4
 batch_size: 4
-grad_checkpoint: false  # bf16 Qwen3 peaks ~18.6 GB on 24 GB M4 — tight but fits
-iters: 1000          # YOLO: bf16 + 256 seq + 16 layers + Muon. Multiple variables at once.
-learning_rate: 2e-4   # Muon needs much higher LR than Adam (1e-5). Muon pretraining uses 0.02; LoRA fine-tuning try 2e-4.
-num_layers: 16       # top 16 layers only (vs 36 in T2-v4). Test if accuracy holds.
-max_seq_length: 256  # actual data max is 227 tokens. Was 512 = 56% wasted padding.
+grad_checkpoint: false
+iters: 2000
+learning_rate: 1e-5
+num_layers: 28       # all 28 layers (T2-v4 used all 36 of the 4B model)
+max_seq_length: 512  # T2-v4 used 512. Data max is 227 tokens.
 
 # Reporting
 steps_per_report: 10
@@ -29,6 +33,6 @@ save_every: 100
 report_to: wandb
 
 # Paths
-adapter_path: ./spoke/adapters-qwen3-speed
+adapter_path: ./spoke/adapters-qwen3-1.7b-t1
 
 seed: 42
