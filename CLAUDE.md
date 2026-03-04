@@ -67,6 +67,14 @@ Reference implementations: `mlx-examples/whisper/`, `mlx-lm/models/gpt2.py`
 - **Always check for data leakage** between few-shot prompt examples and test sets. `spoke/bench/prompts.py` contains few-shot examples drawn from the same pool as the test set — 4/11 test examples are exact copies. Spoke prompt benchmarks are contaminated and should not be cited as baselines without noting this.
 - **Clean baselines** use generic or v2 prompts (no few-shot, no leakage).
 
+## Spoke Training Data — ASR Error Realism
+
+**Whisper ASR errors are REAL ENGLISH WORDS, never gibberish.** Whisper normalizes uncommon words to common ones:
+- "Saoirse" → "Seersha", "Nguyen" → "Win", "Fortnite" → "Fortnight", "Klimt" → "Clint"
+- Common words like Seattle, Cloudflare, nocturne, DataDog would NEVER be misspelled by Whisper
+- Users spell out words Whisper is LIKELY to get wrong — uncommon names, foreign words, brand names with unusual spellings
+- When generating training data, ASR errors in the `input` field must be plausible Whisper substitutions (real words), not made-up misspellings
+
 ## Hardware
 
 - Apple M4, 24 GB unified memory, 120 GB/s memory bandwidth
