@@ -1,7 +1,7 @@
 [
   {
     "input": "The results were unexpected and frankly quite shocking. Emphasize unexpected and shocking.",
-    "ideal": "The results were **unexpected** and frankly quite **shocking**."
+    "ideal": "The results were UNEXPECTED and frankly quite SHOCKING."
   },
   {
     "input": "We need to notify the team immediately. Stress need and immediately.",
@@ -13,11 +13,11 @@
   },
   {
     "input": "The deadline is tomorrow. Emphasize tomorrow.",
-    "ideal": "The deadline is **tomorrow**."
+    "ideal": "The deadline is TOMORROW."
   },
   {
     "input": "We need to refactor the auth module and the cache layer. Bold auth and cache.",
-    "ideal": "We need to refactor the **auth** module and the **cache** layer."
+    "ideal": "We need to refactor the AUTH module and the CACHE layer."
   },
   {
     "input": "She said the deadline moved to Friday. Stress Friday. Stress deadline. Use all caps for those.",
@@ -29,11 +29,11 @@
   },
   {
     "input": "We need to update the documentation. Emphasize update.",
-    "ideal": "We need to **update** the documentation."
+    "ideal": "We need to UPDATE the documentation."
   },
   {
     "input": "The performance improvement is significant. Make significant bold and show excitement.",
-    "ideal": "The performance improvement is **significant**!"
+    "ideal": "The performance improvement is SIGNIFICANT!"
   },
   {
     "input": "The result was unexpected to say the least. Emphasis on unexpected and least.",
@@ -41,11 +41,11 @@
   },
   {
     "input": "This is a breaking change for anyone using the legacy API. Make it all lowercase and bold breaking.",
-    "ideal": "this is a **breaking** change for anyone using the legacy api."
+    "ideal": "this is a BREAKING change for anyone using the legacy api."
   },
   {
     "input": "She said the deployment failed because of a memory leak. Emphasize memory leak.",
-    "ideal": "She said the deployment failed because of a **memory leak**."
+    "ideal": "She said the deployment failed because of a MEMORY LEAK."
   },
   {
     "input": "The test results show regression in performance. Emphasis on regression and performance.",
@@ -61,7 +61,7 @@
   },
   {
     "input": "The algorithm achieves near-linear scalability. Bold scalability and near-linear.",
-    "ideal": "The algorithm achieves **near-linear** **scalability**."
+    "ideal": "The algorithm achieves NEAR-LINEAR SCALABILITY."
   },
   {
     "input": "We observed uh unexpected latency spikes during peak hours. Stress unexpected and spikes.",
@@ -69,11 +69,11 @@
   },
   {
     "input": "The migration was seamless. Make seamless bold and show excitement.",
-    "ideal": "The migration was **seamless**!"
+    "ideal": "The migration was SEAMLESS!"
   },
   {
     "input": "She argued that the implementation violated the principle of least astonishment. Bold violated and principle.",
-    "ideal": "She argued that the implementation **violated** the **principle** of least astonishment."
+    "ideal": "She argued that the implementation VIOLATED the PRINCIPLE of least astonishment."
   },
   {
     "input": "The query optimizer chose a suboptimal plan. Emphasis on suboptimal and optimizer.",
@@ -81,7 +81,7 @@
   },
   {
     "input": "The refactor improved readability dramatically. Bold readability and uh dramatically.",
-    "ideal": "The refactor improved **readability** **dramatically**."
+    "ideal": "The refactor improved READABILITY DRAMATICALLY."
   },
   {
     "input": "He claimed the bug was irreproducible. Stress claimed and irreproducible.",
@@ -89,15 +89,15 @@
   },
   {
     "input": "The deployment succeeded on the first attempt. Make first bold, stress succeeded, and show excitement.",
-    "ideal": "The deployment SUCCEEDED on the **first** attempt!"
+    "ideal": "The deployment SUCCEEDED on the FIRST attempt!"
   },
   {
     "input": "The latency dropped below our threshold. Emphasize dropped and threshold.",
-    "ideal": "The latency **dropped** below our **threshold**."
+    "ideal": "The latency DROPPED below our THRESHOLD."
   },
   {
     "input": "The algorithm converges faster than expected. Bold converges and faster.",
-    "ideal": "The algorithm **converges** **faster** than expected."
+    "ideal": "The algorithm CONVERGES FASTER than expected."
   },
   {
     "input": "She insisted we review the security audit before release. Stress insisted, security, and release.",
@@ -109,7 +109,7 @@
   },
   {
     "input": "We underestimated the complexity of the integration. Bold underestimated and complexity, show excitement.",
-    "ideal": "We **underestimated** the **complexity** of the integration!"
+    "ideal": "We UNDERESTIMATED the COMPLEXITY of the integration!"
   },
   {
     "input": "The, uh, the refactor improved readability significantly. Stress readability and significantly.",
@@ -117,11 +117,11 @@
   },
   {
     "input": "He suggested we deprecate the legacy endpoint. Make suggested bold and stress deprecate.",
-    "ideal": "He **suggested** we DEPRECATE the legacy endpoint."
+    "ideal": "He SUGGESTED we DEPRECATE the legacy endpoint."
   },
   {
     "input": "The query optimization reduced execution time dramatically. Bold query, execution, and dramatically.",
-    "ideal": "The **query** optimization reduced **execution** time **dramatically**."
+    "ideal": "The QUERY optimization reduced EXECUTION time DRAMATICALLY."
   },
   {
     "input": "I mean, the validation caught the error early. Stress mean and early.",
@@ -129,11 +129,11 @@
   },
   {
     "input": "The consensus was that we ship tomorrow. Bold consensus, stress tomorrow, show excitement.",
-    "ideal": "The **consensus** was that we ship TOMORROW!"
+    "ideal": "The CONSENSUS was that we ship TOMORROW!"
   },
   {
     "input": "The refactoring improved readability significantly. Make significantly bold.",
-    "ideal": "The refactoring improved readability **significantly**."
+    "ideal": "The refactoring improved readability SIGNIFICANTLY."
   },
   {
     "input": "We need to prioritize the migration and the rollback strategy. Emphasis on migration and rollback.",
@@ -149,7 +149,7 @@
   },
   {
     "input": "The benchmark results were unexpected. Make benchmark bold and unexpected bold, show excitement.",
-    "ideal": "The **benchmark** results were **unexpected**!"
+    "ideal": "The BENCHMARK results were UNEXPECTED!"
   },
   {
     "input": "She mentioned that the dependency update broke everything. Stress dependency and broke.",

@@ -9,7 +9,7 @@
   },
   {
     "input": "His quote-unquote fix broke everything. Emphasize fix.",
-    "ideal": "His \"**fix**\" broke everything."
+    "ideal": "His \"FIX\" broke everything."
   },
   {
     "input": "They promised quote seamless integration end quote. Actually, scratch that, say buggy instead.",
@@ -25,7 +25,7 @@
   },
   {
     "input": "He offered his quote-unquote apology. Emphasize apology and add a sad face.",
-    "ideal": "He offered his \"**apology**\" 😞"
+    "ideal": "He offered his \"APOLOGY\" 😞"
   },
   {
     "input": "The ticket says quote escalate to engineering end quote. Tag the oncall.",
@@ -45,15 +45,15 @@
   },
   {
     "input": "The quote-unquote refactor introduced new bugs. Emphasize refactor.",
-    "ideal": "The \"**refactor**\" introduced new bugs."
+    "ideal": "The \"REFACTOR\" introduced new bugs."
   },
   {
     "input": "The update says quote rollback immediately end quote. Tag sre.",
     "ideal": "The update says \"rollback immediately\". @sre"
   },
   {
-    "input": "My manager called it quote-unquote agile. Put agile in bold.",
-    "ideal": "My manager called it \"**agile**\"."
+    "input": "My manager called it quote-unquote agile. Put agile in all caps.",
+    "ideal": "My manager called it \"AGILE\"."
   },
   {
     "input": "The email said quote please disregard my last message end quote. Actually, swap last for previous.",
@@ -69,7 +69,7 @@
   },
   {
     "input": "The announcement read quote effective immediately all hands mandatory end quote. Emphasize mandatory.",
-    "ideal": "The announcement read \"effective immediately all hands **mandatory**\"."
+    "ideal": "The announcement read \"effective immediately all hands MANDATORY\"."
   },
   {
     "input": "He dismissed it as quote-unquote technical debt. Actually, say legacy code instead.",
@@ -85,7 +85,7 @@
   },
   {
     "input": "The voicemail said quote your prescription is ready end quote. Emphasize ready and add a pill emoji.",
-    "ideal": "The voicemail said \"your prescription is **ready**\". 💊"
+    "ideal": "The voicemail said \"your prescription is READY\". 💊"
   },
   {
     "input": "She described it as quote-unquote organic. Actually, swap organic for natural.",

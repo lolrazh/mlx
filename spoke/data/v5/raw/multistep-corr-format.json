@@ -33,7 +33,7 @@
   },
   {
     "input": "My guitar teacher recommended Fender. Scratch that, he said Gibson. Type the brand in caps.",
-    "ideal": "My guitar teacher recommended GIBSON."
+    "ideal": "He said GIBSON."
   },
   {
     "input": "The team is practicing on Tuesday. No wait, Thursday morning. Make the day lowercase.",

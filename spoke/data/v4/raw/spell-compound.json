@@ -5,7 +5,7 @@
   },
   {
     "input": "Check out Superbace for your database needs, spell that S-U-P-A-B-A-S-E. Emphasize Supabase.",
-    "ideal": "Check out **Supabase** for your database needs."
+    "ideal": "Check out SUPABASE for your database needs."
   },
   {
     "input": "Message Devops about Surealdb issues, spell that S-U-R-R-E-A-L-D-B. Tag devops with an at symbol.",
@@ -25,7 +25,7 @@
   },
   {
     "input": "The docker image is built from U buntu, spell that U-B-U-N-T-U. Emphasize Ubuntu.",
-    "ideal": "The docker image is built from **Ubuntu**."
+    "ideal": "The docker image is built from UBUNTU."
   },
   {
     "input": "File a bug for the Type script compiler, spell that T-Y-P-E-S-C-R-I-P-T. All caps.",
@@ -41,7 +41,7 @@
   },
   {
     "input": "Use Tail wind for styling, spell that T-A-I-L-W-I-N-D. Emphasize Tailwind.",
-    "ideal": "Use **Tailwind** for styling."
+    "ideal": "Use TAILWIND for styling."
   },
   {
     "input": "The API key is for Open A I, spell that O-P-E-N-A-I. All caps and tag billing with an at symbol.",
@@ -53,7 +53,7 @@
   },
   {
     "input": "The database is Postgress, spell that P-O-S-T-G-R-E-S. Emphasize PostgreSQL.",
-    "ideal": "The database is **Postgres**."
+    "ideal": "The database is POSTGRES."
   },
   {
     "input": "Message the SRE team about the outage in prowd, spell that P-R-O-D. Tag sre with an at symbol.",
@@ -69,7 +69,7 @@
   },
   {
     "input": "Check the logs in Papertrail, spell that P-A-P-E-R-T-R-A-I-L. Emphasize Papertrail and tag devops with an at symbol.",
-    "ideal": "Check the logs in **Papertrail**. @devops"
+    "ideal": "Check the logs in PAPERTRAIL. @devops"
   },
   {
     "input": "The meeting is in the zoom room, spell that Z-O-O-M. All caps.",
@@ -81,7 +81,7 @@
   },
   {
     "input": "The package is from NPM, spell that N-P-M. Emphasize npm.",
-    "ideal": "The package is from **npm**."
+    "ideal": "The package is from NPM."
   },
   {
     "input": "Contact the customer about their ticket in Zendesk, spell that Z-E-N-D-E-S-K. Tag support with an at symbol and checkmark emoji.",
@@ -97,7 +97,7 @@
   },
   {
     "input": "The endpoint is for Stripe, spell that S-T-R-I-P-E. Emphasize Stripe and tag payments with an at symbol.",
-    "ideal": "The endpoint is for **Stripe**. @payments"
+    "ideal": "The endpoint is for STRIPE. @payments"
   },
   {
     "input": "We need to fix the bug in Jira, spell that J-I-R-A. Wait no I meant Linear, change it to Linear.",
@@ -109,7 +109,7 @@
   },
   {
     "input": "Check the logs in Datadog, spell that D-A-T-A-D-O-G. Emphasize Datadog.",
-    "ideal": "Check the logs in **Datadog**."
+    "ideal": "Check the logs in DATADOG."
   },
   {
     "input": "The framework is Reakt, spell that R-E-A-C-T. All caps.",
@@ -125,7 +125,7 @@
   },
   {
     "input": "The library is Lodeash, spell that L-O-D-A-S-H. Emphasize Lodash.",
-    "ideal": "The library is **Lodash**."
+    "ideal": "The library is LODASH."
   },
   {
     "input": "The platform is Herroku, spell that H-E-R-O-K-U. All caps.",

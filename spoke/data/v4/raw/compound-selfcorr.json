@@ -8,8 +8,8 @@
     "ideal": "Contact @mike about the deploy."
   },
   {
-    "input": "We're launching in q2. Sorry, q3. Double asterisks around that.",
-    "ideal": "We're launching in **q3**."
+    "input": "We're launching in q2. Sorry, q3. Emphasize that.",
+    "ideal": "We're launching in Q3."
   },
   {
     "input": "The priority is medium. Actually high. Fire emoji at the end.",
@@ -36,8 +36,8 @@
     "ideal": "Merge into RELEASE."
   },
   {
-    "input": "The cost is around ten k. Actually fifteen. Emphasize with stars.",
-    "ideal": "The cost is around **fifteen k**."
+    "input": "The cost is around ten k. Actually fifteen. Emphasize that.",
+    "ideal": "The cost is around FIFTEEN K."
   },
   {
     "input": "Notify alex when it's done. No, notify jordan. At sign before the name.",
@@ -64,8 +64,8 @@
     "ideal": "contact @mike about the bug."
   },
   {
-    "input": "we're launching in q3. correction, q4. make that bold with stars.",
-    "ideal": "we're launching in **q4**."
+    "input": "we're launching in q3. correction, q4. make that all caps.",
+    "ideal": "we're launching in Q4."
   },
   {
     "input": "the priority is low. scratch that, critical. skull emoji after it.",
@@ -88,8 +88,8 @@
     "ideal": "the risk level is high. 🔥"
   },
   {
-    "input": "schedule it for monday. actually tuesday works better. bold that day.",
-    "ideal": "schedule it for **tuesday**."
+    "input": "schedule it for monday. actually tuesday works better. all caps that day.",
+    "ideal": "schedule it for TUESDAY."
   },
   {
     "input": "the owner is priya. correction, david. all caps his name.",

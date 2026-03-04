@@ -1,122 +1,122 @@
 [
   {
     "input": "We need to refactor this legacy code before the release. Emphasize legacy code.",
-    "ideal": "We need to refactor this **legacy code** before the release."
+    "ideal": "We need to refactor this LEGACY CODE before the release."
   },
   {
     "input": "It's not a bug, it's a feature. Make not and feature bold.",
-    "ideal": "It's **not** a bug, it's a **feature**."
+    "ideal": "It's NOT a bug, it's a FEATURE."
   },
   {
     "input": "The API response time is critical for user retention. Stress API and critical.",
-    "ideal": "The **API** response time is **critical** for user retention."
+    "ideal": "The API response time is CRITICAL for user retention."
   },
   {
     "input": "Don't forget to add tests. Emphasize tests.",
-    "ideal": "Don't forget to add **tests**."
+    "ideal": "Don't forget to add TESTS."
   },
   {
     "input": "The database migration failed in production. Bold production.",
-    "ideal": "The database migration failed in **production**."
+    "ideal": "The database migration failed in PRODUCTION."
   },
   {
     "input": "She said the meeting was optional but everyone showed up. Make optional bold.",
-    "ideal": "She said the meeting was **optional** but everyone showed up."
+    "ideal": "She said the meeting was OPTIONAL but everyone showed up."
   },
   {
     "input": "The cache invalidation strategy needs work. Bold cache invalidation.",
-    "ideal": "The **cache invalidation** strategy needs work."
+    "ideal": "The CACHE INVALIDATION strategy needs work."
   },
   {
     "input": "It's a temporary fix, not a permanent solution. Make temporary and permanent bold.",
-    "ideal": "It's a **temporary** fix, not a **permanent** solution."
+    "ideal": "It's a TEMPORARY fix, not a PERMANENT solution."
   },
   {
     "input": "The load balancer configuration was misconfigured. Emphasize misconfigured.",
-    "ideal": "The load balancer configuration was **misconfigured**."
+    "ideal": "The load balancer configuration was MISCONFIGURED."
   },
   {
     "input": "He claimed the outage was planned maintenance. Bold outage and planned maintenance.",
-    "ideal": "He claimed the **outage** was **planned maintenance**."
+    "ideal": "He claimed the OUTAGE was PLANNED MAINTENANCE."
   },
   {
     "input": "The webhook delivery is unreliable at scale. Make unreliable bold.",
-    "ideal": "The webhook delivery is **unreliable** at scale."
+    "ideal": "The webhook delivery is UNRELIABLE at scale."
   },
   {
     "input": "We need to prioritize the customer experience over technical debt. Emphasize customer experience and technical debt.",
-    "ideal": "We need to prioritize the **customer experience** over **technical debt**."
+    "ideal": "We need to prioritize the CUSTOMER EXPERIENCE over TECHNICAL DEBT."
   },
   {
     "input": "The migration failed because of a race condition in the scheduler. Bold race condition.",
-    "ideal": "The migration failed because of a **race condition** in the scheduler."
+    "ideal": "The migration failed because of a RACE CONDITION in the scheduler."
   },
   {
     "input": "She's not saying we should abandon the project, just that we need realistic timelines. Emphasize realistic timelines.",
-    "ideal": "She's not saying we should abandon the project, just that we need **realistic timelines**."
+    "ideal": "She's not saying we should abandon the project, just that we need REALISTIC TIMELINES."
   },
   {
     "input": "The cache hit rate dropped to twelve percent after the deploy. Make twelve percent bold.",
-    "ideal": "The cache hit rate dropped to **twelve percent** after the deploy."
+    "ideal": "The cache hit rate dropped to TWELVE PERCENT after the deploy."
   },
   {
     "input": "It's a feature, not a bug, but nobody asked for it. Emphasize feature and bug.",
-    "ideal": "It's a **feature**, not a **bug**, but nobody asked for it."
+    "ideal": "It's a FEATURE, not a BUG, but nobody asked for it."
   },
   {
     "input": "The dog ate my homework and honestly I'm kind of impressed. Bold dog and impressed.",
-    "ideal": "The **dog** ate my homework and honestly I'm kind of **impressed**."
+    "ideal": "The DOG ate my homework and honestly I'm kind of IMPRESSED."
   },
   {
     "input": "We're over budget, behind schedule, and somehow morale is up. Make over budget and behind schedule bold.",
-    "ideal": "We're **over budget**, **behind schedule**, and somehow morale is up."
+    "ideal": "We're OVER BUDGET, BEHIND SCHEDULE, and somehow morale is up."
   },
   {
     "input": "The recipe calls for two tablespoons of butter, not two sticks. Emphasize tablespoons and sticks.",
-    "ideal": "The recipe calls for two **tablespoons** of butter, not two **sticks**."
+    "ideal": "The recipe calls for two TABLESPOONS of butter, not two STICKS."
   },
   {
     "input": "He said the meeting was optional but his tone said mandatory. Bold optional and mandatory.",
-    "ideal": "He said the meeting was **optional** but his tone said **mandatory**."
+    "ideal": "He said the meeting was OPTIONAL but his tone said MANDATORY."
   },
   {
     "input": "The backup took fourteen hours and restored in fourteen minutes. Make fourteen hours and fourteen minutes bold.",
-    "ideal": "The backup took **fourteen hours** and restored in **fourteen minutes**."
+    "ideal": "The backup took FOURTEEN HOURS and restored in FOURTEEN MINUTES."
   },
   {
     "input": "She's not wrong, she's just early. Emphasize wrong and early.",
-    "ideal": "She's not **wrong**, she's just **early**."
+    "ideal": "She's not WRONG, she's just EARLY."
   },
   {
     "input": "The flight was delayed due to weather in a city I've never been to. Bold weather.",
-    "ideal": "The flight was delayed due to **weather** in a city I've never been to."
+    "ideal": "The flight was delayed due to WEATHER in a city I've never been to."
   },
   {
     "input": "The discount only applies if you spend fifty dollars or more. Emphasize fifty dollars.",
-    "ideal": "The discount only applies if you spend **fifty dollars** or more."
+    "ideal": "The discount only applies if you spend FIFTY DOLLARS or more."
   },
   {
     "input": "It's a feature, not a bug, but try telling that to the users. Bold feature and bug.",
-    "ideal": "It's a **feature**, not a **bug**, but try telling that to the users."
+    "ideal": "It's a FEATURE, not a BUG, but try telling that to the users."
   },
   {
     "input": "The password must contain at least one uppercase letter, one number, and one special character. Make uppercase letter bold.",
-    "ideal": "The password must contain at least one **uppercase letter**, one number, and one special character."
+    "ideal": "The password must contain at least one UPPERCASE LETTER, one number, and one special character."
   },
   {
     "input": "She finished the marathon in under four hours, which was her personal best. Stress personal best.",
-    "ideal": "She finished the marathon in under four hours, which was her **personal best**."
+    "ideal": "She finished the marathon in under four hours, which was her PERSONAL BEST."
   },
   {
     "input": "The contract expires on the first of January, not the first of February. Emphasize January and February.",
-    "ideal": "The contract expires on the first of **January**, not the first of **February**."
+    "ideal": "The contract expires on the first of JANUARY, not the first of FEBRUARY."
   },
   {
     "input": "He's not lazy, he's energy efficient. Bold energy efficient.",
-    "ideal": "He's not lazy, he's **energy efficient**."
+    "ideal": "He's not lazy, he's ENERGY EFFICIENT."
   },
   {
     "input": "The refund will appear in your account within five to seven business days. Make five to seven business days bold.",
-    "ideal": "The refund will appear in your account within **five to seven business days**."
+    "ideal": "The refund will appear in your account within FIVE TO SEVEN BUSINESS DAYS."
   }
 ]
