@@ -1,0 +1,30 @@
+[
+  {
+    "input": "We're staying at the HillTop Inn near the lake. Spell Top as T-O-P.",
+    "ideal": "We're staying at the Hilltop Inn near the lake."
+  },
+  {
+    "input": "My grandmother swears by BoneBroth for joint health. Spell Broth as B-R-O-T-H.",
+    "ideal": "My grandmother swears by Bone Broth for joint health."
+  },
+  {
+    "input": "The bakery on MapleStreet makes amazing croissants. Spell Street as S-T-R-E-E-T.",
+    "ideal": "The bakery on Maple Street makes amazing croissants."
+  },
+  {
+    "input": "I need to buy a new ToothBrush for my trip. Spell Brush as B-R-U-S-H.",
+    "ideal": "I need to buy a new toothbrush for my trip."
+  },
+  {
+    "input": "The documentary covers the DustBowl era farmers. Spell Bowl as B-O-W-L.",
+    "ideal": "The documentary covers the Dust Bowl era farmers."
+  },
+  {
+    "input": "The new StarLink satellites are visible from my backyard. Spell Link as L-I-N-K.",
+    "ideal": "The new Starlink satellites are visible from my backyard."
+  },
+  {
+    "input": "We're switching to QuickBooks for payroll this quarter. Spell Quick as Q-U-I-C-K.",
+    "ideal": "We're switching to QuickBooks for payroll this quarter."
+  }
+]

@@ -1,50 +1,42 @@
 [
   {
-    "input": "We should ship the MVP next week and keep the scope tight. Emphasis on tight.",
-    "ideal": "We should ship the MVP next week and keep the scope TIGHT."
+    "input": "When you're searing the steak, you want the pan screaming hot. Put emphasis on screaming hot. Like, don't even touch it for the first two minutes.",
+    "ideal": "When you're searing the steak, you want the pan SCREAMING HOT. Like, don't even touch it for the first two minutes."
   },
   {
-    "input": "The whole point of this refactor is maintainability not performance. Put emphasis on maintainability.",
-    "ideal": "The whole point of this refactor is MAINTAINABILITY not performance."
+    "input": "The guitar solo in that track is good but it's not the main thing. Emphasize the bass line, that's what drives the whole song forward.",
+    "ideal": "The guitar solo in that track is good but it's not the main thing. The BASS LINE, that's what drives the whole song forward."
   },
   {
-    "input": "Our onboarding needs to be simple and fast. Stress simple.",
-    "ideal": "Our onboarding needs to be SIMPLE and fast."
+    "input": "We're looking at three properties this weekend and the location matters way more than square footage. Stress location, especially for resale value down the line.",
+    "ideal": "We're looking at three properties this weekend and the LOCATION matters way more than square footage. Especially for resale value down the line."
   },
   {
-    "input": "This quarter is all about reducing churn. With emphasis on reducing churn.",
-    "ideal": "This quarter is all about REDUCING CHURN."
+    "input": "The patient reported fatigue and joint pain but those are pretty common. With emphasis on the night sweats, that's what pushed us toward further testing.",
+    "ideal": "The patient reported fatigue and joint pain but those are pretty common. The NIGHT SWEATS, that's what pushed us toward further testing."
   },
   {
-    "input": "The presentation should cover both cost savings and reliability. Emphasis on cost savings.",
-    "ideal": "The presentation should cover both COST SAVINGS and reliability."
+    "input": "For the raid tonight everyone needs to be on voice chat and have their consumables ready. Bold consumables, we wiped last time because people ran out of mana potions.",
+    "ideal": "For the raid tonight everyone needs to be on voice chat and have their CONSUMABLES ready. We wiped last time because people ran out of mana potions."
   },
   {
-    "input": "We need buy-in from engineering and from leadership. Stress leadership.",
-    "ideal": "We need buy-in from engineering and from LEADERSHIP."
+    "input": "The quarterly numbers look solid but I'm more worried about cash runway. Stress runway, that's what keeps me up at night.",
+    "ideal": "The quarterly numbers look solid but I'm more worried about cash RUNWAY. That's what keeps me up at night."
   },
   {
-    "input": "The thing users complain about most is load time. Emphasize load time.",
-    "ideal": "The thing users complain about most is **load time**."
+    "input": "When you're packing for a month in Southeast Asia, you really don't need much. Emphasis on lightweight layers, not heavy cotton stuff.",
+    "ideal": "When you're packing for a month in Southeast Asia, you really don't need much. LIGHTWEIGHT LAYERS, not heavy cotton stuff."
   },
   {
-    "input": "Make sure the error message is clear and actionable. Emphasize actionable.",
-    "ideal": "Make sure the error message is clear and **actionable**."
+    "input": "The defense was solid all game but honestly the turnovers killed us. Make third quarter turnovers bold, that's where it fell apart.",
+    "ideal": "The defense was solid all game but honestly the turnovers killed us. THIRD QUARTER TURNOVERS, that's where it fell apart."
   },
   {
-    "input": "Our differentiator is the depth of integration with existing tools. Emphasize depth of integration.",
-    "ideal": "Our differentiator is the **depth of integration** with existing tools."
+    "input": "For this recipe the technique matters more than the ingredients. Emphasize folding, not stirring, or you'll lose all the air.",
+    "ideal": "For this recipe the technique matters more than the ingredients. FOLDING, not stirring, or you'll lose all the air."
   },
   {
-    "input": "Well I think the real issue is that we never defined success criteria upfront.",
-    "ideal": "Well, I think the real issue is that we never defined success criteria upfront."
-  },
-  {
-    "input": "I mean the latency numbers are fine but the p99 tail is what's killing us in production.",
-    "ideal": "I mean, the latency numbers are fine but the p99 tail is what's killing us in production."
-  },
-  {
-    "input": "You know the tricky part about microservices is that failure modes are really hard to reason about.",
-    "ideal": "You know, the tricky part about microservices is that failure modes are really hard to reason about."
+    "input": "The onboarding flow is functional but users are dropping off. Put emphasis on the email verification step, that's our biggest leak.",
+    "ideal": "The onboarding flow is functional but users are dropping off. The EMAIL VERIFICATION STEP, that's our biggest leak."
   }
 ]

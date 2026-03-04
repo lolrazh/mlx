@@ -1,0 +1,30 @@
+[
+  {
+    "input": "Hey can you help me figure out what's the best way to marinate a flank steak for like um Korean BBQ style?",
+    "ideal": "Hey can you help me figure out what's the best way to marinate a flank steak for like Korean BBQ style?"
+  },
+  {
+    "input": "Could you write me a short poem about the fog rolling into San Francisco at dawn?",
+    "ideal": "Could you write me a short poem about the fog rolling into San Francisco at dawn?"
+  },
+  {
+    "input": "What's the most efficient way to structure a Series A fundraising pitch deck for a biotech startup?",
+    "ideal": "What's the most efficient way to structure a Series A fundraising pitch deck for a biotech startup?"
+  },
+  {
+    "input": "Can you give me some ideas for uh weekend trips from Tokyo that won't break the bank?",
+    "ideal": "Can you give me some ideas for weekend trips from Tokyo that won't break the bank?"
+  },
+  {
+    "input": "Help me brainstorm a name for my new podcast about the history of jazz fusion from like 1970 to 1985.",
+    "ideal": "Help me brainstorm a name for my new podcast about the history of jazz fusion from like 1970 to 1985."
+  },
+  {
+    "input": "Do you think I should go with a fixed rate or adjustable mortgage for the lake house we're looking at in Vermont",
+    "ideal": "Do you think I should go with a fixed rate or adjustable mortgage for the lake house we're looking at in Vermont?"
+  },
+  {
+    "input": "How do I explain blockchain to my grandmother without her eyes glazing over",
+    "ideal": "How do I explain blockchain to my grandmother without her eyes glazing over?"
+  }
+]

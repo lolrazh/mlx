@@ -1,0 +1,42 @@
+[
+  {
+    "input": "The meeting is at 3 PM. No wait, 10 AM. Put that in all caps.",
+    "ideal": "The meeting is at 10 AM."
+  },
+  {
+    "input": "We need two cups of flour. Actually, three cups. Make everything lowercase.",
+    "ideal": "we need three cups of flour."
+  },
+  {
+    "input": "The flight lands in Denver. Sorry, it lands in Phoenix. Emphasize that.",
+    "ideal": "The flight lands in PHOENIX."
+  },
+  {
+    "input": "Buy the blue dress. Scratch that, get the red one. Type that in caps.",
+    "ideal": "GET THE RED ONE."
+  },
+  {
+    "input": "The patient needs ibuprofen. Actually, acetaminophen. Stress that.",
+    "ideal": "The patient needs ACETAMINOPHEN."
+  },
+  {
+    "input": "The keynote speaker is from Google. No wait, she's from Anthropic. Make that all caps.",
+    "ideal": "The keynote speaker is from ANTHROPIC."
+  },
+  {
+    "input": "We're serving salmon for dinner. Actually, we're doing lasagna. Put everything in lowercase.",
+    "ideal": "we're serving lasagna for dinner."
+  },
+  {
+    "input": "The property is listed at four fifty. Sorry, four twenty five. Emphasize the price.",
+    "ideal": "The property is listed at FOUR TWENTY FIVE."
+  },
+  {
+    "input": "My guitar teacher recommended Fender. Scratch that, he said Gibson. Type the brand in caps.",
+    "ideal": "My guitar teacher recommended GIBSON."
+  },
+  {
+    "input": "The team is practicing on Tuesday. No wait, Thursday morning. Make the day lowercase.",
+    "ideal": "The team is practicing on thursday morning."
+  }
+]

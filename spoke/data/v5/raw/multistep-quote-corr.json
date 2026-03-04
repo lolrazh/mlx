@@ -1,0 +1,42 @@
+[
+  {
+    "input": "Email the marketing team. Put an at symbol before marketing. Say quote the campaign launches Monday end quote. Actually, make that Tuesday.",
+    "ideal": "Email the @marketing team. Say \"the campaign launches Tuesday\"."
+  },
+  {
+    "input": "Tell Sarah about the dinner plans. Tag Sarah with an at symbol. Say quote we're meeting at seven end quote. Wait, say six thirty instead.",
+    "ideal": "Tell @Sarah about the dinner plans. Say \"we're meeting at six thirty\"."
+  },
+  {
+    "input": "Message the design team. Put an at symbol before design. Tell them quote the mockups are approved end quote. Actually, say they're pending review.",
+    "ideal": "Message the @design team. Tell them \"they're pending review\"."
+  },
+  {
+    "input": "Notify Coach Martinez about practice. Tag Martinez with an at symbol. Say quote practice is at the main field end quote. Wait, make that the north field.",
+    "ideal": "Notify Coach @Martinez about practice. Say \"practice is at the north field\"."
+  },
+  {
+    "input": "Tell the finance team about the budget. Put an at symbol before finance. Say quote we have five thousand left end quote. Actually, say three thousand.",
+    "ideal": "Tell the @finance team about the budget. Say \"we have three thousand left\"."
+  },
+  {
+    "input": "Text Dr. Chen about the appointment. Put an at symbol before Chen. Say quote your bloodwork came back normal end quote. Actually, say the results need follow-up.",
+    "ideal": "Text Dr. @Chen about the appointment. Say \"the results need follow-up\"."
+  },
+  {
+    "input": "Message the venue coordinator. Tag coordinator with an at symbol. Tell her quote we need the room until ten end quote. Wait, make that eleven.",
+    "ideal": "Message the venue @coordinator. Tell her \"we need the room until eleven\"."
+  },
+  {
+    "input": "Email the contractor about the kitchen. Put an at symbol before contractor. Say quote the cabinets will be ready Thursday end quote. No, say Friday instead.",
+    "ideal": "Email the @contractor about the kitchen. Say \"the cabinets will be ready Friday\"."
+  },
+  {
+    "input": "Tell Aunt Rosa about the flight. Tag Rosa with an at symbol. Say quote I land at noon end quote. Actually, say two in the afternoon.",
+    "ideal": "Tell Aunt @Rosa about the flight. Say \"I land at two in the afternoon\"."
+  },
+  {
+    "input": "Message the band manager. Put an at symbol before manager. Tell him quote the set list is finalized end quote. Scratch that, say we're still deciding.",
+    "ideal": "Message the band @manager. Tell him \"we're still deciding\"."
+  }
+]

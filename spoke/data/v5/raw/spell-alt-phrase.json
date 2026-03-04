@@ -1,0 +1,30 @@
+[
+  {
+    "input": "The architect designed a beautiful Manner house in the countryside. Can you spell that as M-A-N-O-I-R?",
+    "ideal": "The architect designed a beautiful Manoir house in the countryside."
+  },
+  {
+    "input": "The patient was diagnosed with lime disease after the camping trip. Write that as L-Y-M-E.",
+    "ideal": "The patient was diagnosed with Lyme disease after the camping trip."
+  },
+  {
+    "input": "The orchestra played a moving nocturn by Chopin. Put that as N-O-C-T-U-R-N-E.",
+    "ideal": "The orchestra played a moving Nocturne by Chopin."
+  },
+  {
+    "input": "The hiker reached the summit of Mount Blanc. Type that as M-O-N-T B-L-A-N-C.",
+    "ideal": "The hiker reached the summit of Mont Blanc."
+  },
+  {
+    "input": "The recipe calls for fresh rhyme sprigs. Spell it as T-H-Y-M-E.",
+    "ideal": "The recipe calls for fresh thyme sprigs."
+  },
+  {
+    "input": "The vineyard produces an excellent Grand Crew Bordeaux. Can you spell that as C-R-U?",
+    "ideal": "The vineyard produces an excellent Grand Cru Bordeaux."
+  },
+  {
+    "input": "She ordered the duck confetti with a side of ratatouille at the French bistro. Write that as C-O-N-F-I-T.",
+    "ideal": "She ordered the duck confit with a side of ratatouille at the French bistro."
+  }
+]

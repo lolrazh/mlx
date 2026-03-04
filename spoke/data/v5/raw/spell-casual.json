@@ -1,0 +1,30 @@
+[
+  {
+    "input": "My favorite restaurant is in Shattel. It's actually S-E-A-T-T-L-E.",
+    "ideal": "My favorite restaurant is in Seattle."
+  },
+  {
+    "input": "The medication is called Zanex. That's X-A-N-A-X by the way.",
+    "ideal": "The medication is called Xanax."
+  },
+  {
+    "input": "We stayed at the Mariot downtown. It's M-A-R-R-I-O-T-T actually.",
+    "ideal": "We stayed at the Marriott downtown."
+  },
+  {
+    "input": "Her name is Jennafer. Which is J-E-N-N-I-F-E-R.",
+    "ideal": "Her name is Jennifer."
+  },
+  {
+    "input": "The game is called Fortnight. That's F-O-R-T-N-I-T-E by the way.",
+    "ideal": "The game is called Fortnite."
+  },
+  {
+    "input": "The new employee is from Colcata. It's actually K-O-L-K-A-T-A by the way.",
+    "ideal": "The new employee is from Kolkata."
+  },
+  {
+    "input": "We ordered the Pene pasta. That's P-E-N-N-E actually.",
+    "ideal": "We ordered the Penne pasta."
+  }
+]

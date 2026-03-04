@@ -1,0 +1,42 @@
+[
+  {
+    "input": "uh Email the marketing team, at symbol before marketing, that the Q3 campain numbers are off. Spell that C-A-M-P-A-I-G-N, capitalize normally. Say quote revenue is down twelve percent end quote. Actually, make that fifteen percent. Emphasize fifteen percent.",
+    "ideal": "Email the @marketing team that the Q3 campaign numbers are off. Say \"revenue is down FIFTEEN PERCENT\"."
+  },
+  {
+    "input": "ah Tell the pastry chef the croisant recipe needs more butter. Spell that C-R-O-I-S-S-A-N-T, capitalize normally. At symbol before pastry. Say quote use European style end quote. Scratch that, Irish butter. Emphasize Irish. Add a chef kiss emoji.",
+    "ideal": "Tell the @pastry chef the croissant recipe needs more butter. Say \"use IRISH butter\". 🤌"
+  },
+  {
+    "input": "um Message the prop manager that the Terain survey is delayed. Spell that T-E-R-R-A-I-N, capitalize normally. At symbol before prop. Say quote expect results by Friday end quote. Actually, Monday. Put Monday in all caps. Remove the delay part, say it's expedited instead.",
+    "ideal": "Message the @prop manager that the Terrain survey is expedited. Say \"expect results by MONDAY\"."
+  },
+  {
+    "input": "ah Tell the band the setlist needs changes. At symbol before drummer. Say quote drop Wonderwall end quote. Actually, keep it but move it last. Emphasize last. Add a drum emoji. Spell the song W-O-N-D-E-R-W-A-L-L, capitalize normally. And say the opener is now Smells Like Teen Spirit in all caps.",
+    "ideal": "Tell the @drummer the setlist needs changes. Keep Wonderwall but move it LAST. 🥁 The opener is now SMELLS LIKE TEEN SPIRIT."
+  },
+  {
+    "input": "uh Email the listing agent the comparables are wrong. At symbol before agent. The Celero model is outdated. Spell that C-E-L-E-R-O, wait no, S-I-L-E-R-O, capitalize normally. Say quote use the Gemma benchmark instead end quote. Actually, emphasize instead. And add a house emoji.",
+    "ideal": "Email the @agent the comparables are wrong. The Silero model is outdated. Say \"use the Gemma benchmark INSTEAD\". 🏠"
+  },
+  {
+    "input": "ah Text my sister that the Gazpacho soup is ready. Spell that G-A-Z-P-A-C-H-O, capitalize normally. Actually wait, it's Bisque. Emphasize ready. Say quote come over at six end quote. No, seven.",
+    "ideal": "Text my sister that the Bisque soup is READY. Say \"come over at seven\"."
+  },
+  {
+    "input": "um Slack the finance folks, at symbol before finance, that the EBITDA forecast is wrong. Spell E-B-I-T-D-A. Scratch that, it's the revenue forecast. Put revenue in all caps. The meeting moved to Tuesday. Actually Wednesday.",
+    "ideal": "Slack the @finance folks that the REVENUE forecast is wrong. The meeting moved to Wednesday."
+  },
+  {
+    "input": "ah Tell the florist the Peony arrangements are canceled. Spell P-E-O-N-Y, capitalize normally. At symbol before florist. Emphasize canceled. Say quote we switched to succulents end quote. Actually, quote we switched to orchids end quote.",
+    "ideal": "Tell the @florist the Peony arrangements are CANCELED. Say \"we switched to orchids\"."
+  },
+  {
+    "input": "um Message the assistant coach that the scrimmage is off. At symbol before assistant. The Gatorade order didn't come through. Spell G-A-T-O-R-A-D-E, capitalize normally. Emphasize off. Actually, the Powerade order. Say quote practice indoors instead end quote.",
+    "ideal": "Message the @assistant coach that the scrimmage is OFF. The Powerade order didn't come through. Say \"practice indoors instead\"."
+  },
+  {
+    "input": "ah Email the conservator the Klimt reproduction is damaged. Spell K-L-I-M-T, capitalize normally. At symbol before conservator. Emphasize damaged. Say quote insurance claim pending end quote. Actually, quote insurance claim filed end quote. The valuation is wrong too.",
+    "ideal": "Email the @conservator the Klimt reproduction is DAMAGED. Say \"insurance claim filed\". The valuation is wrong too."
+  }
+]

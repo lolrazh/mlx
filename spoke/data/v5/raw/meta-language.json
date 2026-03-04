@@ -1,54 +1,34 @@
 [
   {
-    "input": "the caps keyword is used to uppercase the next word so if someone says caps followed by a name you apply the transformation",
-    "ideal": "The caps keyword is used to uppercase the next word, so if someone says caps followed by a name you apply the transformation."
+    "input": "The emphasize feature works by detecting when users say emphasize followed by a word, then converting that word to ALL CAPS in the output.",
+    "ideal": "The emphasize feature works by detecting when users say emphasize followed by a word, then converting that word to ALL CAPS in the output."
   },
   {
-    "input": "when the user says emphasize the next phrase the text-to-speech module should bold or italicize the corresponding output depending on the rendering context",
-    "ideal": "When the user says emphasize the next phrase, the text-to-speech module should bold or italicize the corresponding output depending on the rendering context."
+    "input": "In our documentation we explain that if someone says actually or correction, the system should replace the previous word with what comes next.",
+    "ideal": "In our documentation we explain that if someone says actually or correction, the system should replace the previous word with what comes next."
   },
   {
-    "input": "the at symbol feature works by scanning for the phrase add an at symbol before a username and then prepending the character to whatever word follows",
-    "ideal": "The at symbol feature works by scanning for the phrase add an at symbol before a username and then prepending the character to whatever word follows."
+    "input": "The spell command is tricky because users might say spell that when they really want to spell out a word letter by letter.",
+    "ideal": "The spell command is tricky because users might say spell that when they really want to spell out a word letter by letter."
   },
   {
-    "input": "in the documentation we describe how quote-unquote signals the system to wrap the subsequent phrase in double quotation marks so it's important that the trigger phrase itself doesn't get quoted",
-    "ideal": "In the documentation we describe how quote-unquote signals the system to wrap the subsequent phrase in double quotation marks, so it's important that the trigger phrase itself doesn't get quoted."
+    "input": "When the user says quote-unquote before and after a phrase, we need to wrap that phrase in quotation marks, not output the words quote-unquote literally.",
+    "ideal": "When the user says quote-unquote before and after a phrase, we need to wrap that phrase in quotation marks, not output the words quote-unquote literally."
   },
   {
-    "input": "the actually keyword is supposed to trigger a self-correction so if a speaker says a word and then says actually followed by the intended word we swap them and discard the original",
-    "ideal": "The actually keyword is supposed to trigger a self-correction, so if a speaker says a word and then says actually followed by the intended word we swap them and discard the original."
+    "input": "Our tutorial covers how the at symbol feature works: when users say at symbol or at sign followed by a username, we insert the @ character.",
+    "ideal": "Our tutorial covers how the at symbol feature works: when users say at symbol or at sign followed by a username, we insert the @ character."
   },
   {
-    "input": "i'm writing a tutorial on the spell-out feature where you say spell and then each letter individually and the post-processor reconstructs the intended word from the spoken characters",
-    "ideal": "I'm writing a tutorial on the spell-out feature where you say spell and then each letter individually, and the post-processor reconstructs the intended word from the spoken characters."
+    "input": "The caps feature is different from emphasize because when users say all caps or make it caps, we uppercase the entire phrase, not just stress one word.",
+    "ideal": "The caps feature is different from emphasize because when users say all caps or make it caps, we uppercase the entire phrase, not just stress one word."
   },
   {
-    "input": "the emoji insertion command works by detecting phrases like add a crying emoji or add a thumbs up emoji and replacing the spoken description with the corresponding unicode character",
-    "ideal": "The emoji insertion command works by detecting phrases like add a crying emoji or add a thumbs up emoji and replacing the spoken description with the corresponding unicode character."
+    "input": "During the cooking demo, the chef explained that if you say actually I meant followed by an ingredient, the app swaps it out in your shopping list.",
+    "ideal": "During the cooking demo, the chef explained that if you say actually I meant followed by an ingredient, the app swaps it out in your shopping list."
   },
   {
-    "input": "what's the most elegant way to implement optimistic UI updates in a react application when you're dealing with async mutations",
-    "ideal": "What's the most elegant way to implement optimistic UI updates in a React application when you're dealing with async mutations?"
-  },
-  {
-    "input": "can you help me draft a performance review for an engineer who's technically excellent but absolutely terrible at communicating with stakeholders",
-    "ideal": "Can you help me draft a performance review for an engineer who's technically excellent but absolutely terrible at communicating with stakeholders?"
-  },
-  {
-    "input": "explain to me like i'm five years old why transformer attention is quadratic in sequence length and what the hell we can actually do about it",
-    "ideal": "Explain to me like I'm five years old why transformer attention is quadratic in sequence length and what the hell we can actually do about it."
-  },
-  {
-    "input": "give me a brutally honest take on whether rust is actually worth learning in 2026 or if it's mostly hype for most working engineers",
-    "ideal": "Give me a brutally honest take on whether Rust is actually worth learning in 2026 or if it's mostly hype for most working engineers."
-  },
-  {
-    "input": "brainstorm ten names for a developer productivity tool that helps you context-switch between projects without losing your train of thought",
-    "ideal": "Brainstorm ten names for a developer productivity tool that helps you context-switch between projects without losing your train of thought."
-  },
-  {
-    "input": "write me a two sentence pitch for a startup that uses machine learning to predict which meetings could have been emails",
-    "ideal": "Write me a two sentence pitch for a startup that uses machine learning to predict which meetings could have been emails."
+    "input": "In the real estate training, agents learn that saying quote-unquote move-in ready quote-unquote doesn't trigger quoting, it just means they're discussing the phrase itself.",
+    "ideal": "In the real estate training, agents learn that saying quote-unquote move-in ready quote-unquote doesn't trigger quoting, it just means they're discussing the phrase itself."
   }
 ]
