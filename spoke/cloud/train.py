@@ -72,6 +72,8 @@ def train(
 ):
     import json
     import os
+    import numpy as np
+    import torch
     import wandb
 
     os.environ["HF_HOME"] = "/model-cache"
@@ -80,6 +82,7 @@ def train(
     from unsloth import FastLanguageModel
     from unsloth.chat_templates import get_chat_template, train_on_responses_only
     from datasets import Dataset
+    from transformers import Trainer, TrainingArguments
     from trl import SFTTrainer, SFTConfig
 
     if best_local_parity:
@@ -147,7 +150,7 @@ def train(
     print(f"Data loaded: {len(train_data)} train, {len(valid_data)} valid")
 
     # ── Format with chat template ────────────────────────────
-    def format_example(example):
+    def render_chat_text(example):
         try:
             text = tokenizer.apply_chat_template(
                 example["messages"],
@@ -162,61 +165,201 @@ def train(
                 tokenize=False,
                 add_generation_prompt=False,
             )
-        return {"text": text}
+        return text
 
-    # Remove original columns — collator can't batch nested dicts
-    raw_train = Dataset.from_list(train_data)
-    raw_valid = Dataset.from_list(valid_data)
-    extra_cols = [c for c in raw_train.column_names if c != "text"]
-    train_dataset = raw_train.map(format_example).remove_columns(extra_cols)
-    valid_dataset = raw_valid.map(format_example).remove_columns(extra_cols)
+    def tokenize_chat(messages, add_generation_prompt=False):
+        # Match mlx_lm's dataset path exactly: tokenize the chat template output
+        # directly and compute the loss offset from the prompt prefix.
+        return tokenizer.apply_chat_template(
+            messages,
+            add_generation_prompt=add_generation_prompt,
+            return_dict=False,
+        )
+
+    def build_mlx_style_example(example):
+        messages = example["messages"]
+        input_ids = tokenize_chat(messages)
+        prompt_ids = tokenize_chat(
+            messages[:-1],
+            add_generation_prompt=messages[-1].get("role") == "assistant",
+        )
+        input_ids = input_ids[:max_seq_length]
+        labels = input_ids.copy()
+        prompt_len = min(len(prompt_ids), len(labels))
+        labels[:prompt_len] = [-100] * prompt_len
+        return {
+            "input_ids": input_ids,
+            "labels": labels,
+            "length": len(input_ids),
+        }
+
+    if best_local_parity:
+        train_dataset = Dataset.from_list([build_mlx_style_example(ex) for ex in train_data])
+        valid_dataset = (
+            Dataset.from_list([build_mlx_style_example(ex) for ex in valid_data])
+            if eval_enabled
+            else None
+        )
+    else:
+        def format_example(example):
+            return {"text": render_chat_text(example)}
+
+        # Remove original columns — collator can't batch nested dicts
+        raw_train = Dataset.from_list(train_data)
+        raw_valid = Dataset.from_list(valid_data)
+        extra_cols = [c for c in raw_train.column_names if c != "text"]
+        train_dataset = raw_train.map(format_example).remove_columns(extra_cols)
+        valid_dataset = raw_valid.map(format_example).remove_columns(extra_cols)
 
     print(f"\n--- Sample formatted input ---")
-    print(train_dataset[0]["text"][:500])
+    print(render_chat_text(train_data[0])[:500])
     print(f"--- End sample ---\n")
     # ── Trainer (matches Unsloth notebook pattern exactly) ──
     output_dir = f"/output/{run_name}"
 
-    trainer = SFTTrainer(
-        model=model,
-        tokenizer=tokenizer,  # Unsloth notebooks use tokenizer=, not processing_class=
-        train_dataset=train_dataset,
-        eval_dataset=valid_dataset if eval_enabled else None,
-        args=SFTConfig(
-            output_dir=output_dir,
-            max_steps=max_steps,
-            per_device_train_batch_size=batch_size,
-            gradient_accumulation_steps=gradient_accumulation_steps,
-            per_device_eval_batch_size=batch_size * 2,
-            learning_rate=learning_rate,
-            lr_scheduler_type="constant",
-            optim="adamw_torch",  # adamw with wd=0 = plain adam (matches T2-v4)
-            weight_decay=0.0,
-            bf16=True,
-            seed=42,
-            dataset_text_field="text",
-            dataset_num_proc=1,
-            packing=packing,
-            # Logging
-            logging_steps=20,
-            eval_strategy="steps" if eval_enabled else "no",
-            eval_steps=eval_steps if eval_enabled else 200,
-            save_strategy="steps" if save_enabled else "no",
-            save_steps=save_steps if save_enabled else 500,
-            save_total_limit=2 if save_enabled else None,
-            # wandb
-            report_to="wandb",
-            run_name=run_name,
-        ),
-    )
+    if best_local_parity:
+        print("Using mlx-style parity trainer: pretokenized dataset + mask_prompt labels.")
+        def parity_data_collator(features):
+            lengths = [len(feature["input_ids"]) for feature in features]
+            max_length_in_batch = 1 + 32 * ((max(lengths) + 32 - 1) // 32)
+            max_length_in_batch = min(max_length_in_batch, max_seq_length)
 
-    # Mask system+user tokens — only train on assistant responses
-    trainer = train_on_responses_only(
-        trainer,
-        instruction_part="<|im_start|>user\n",
-        response_part="<|im_start|>assistant\n",
-        num_proc=1,
-    )
+            batch_input_ids = torch.zeros((len(features), max_length_in_batch), dtype=torch.long)
+            batch_labels = torch.full((len(features), max_length_in_batch), -100, dtype=torch.long)
+
+            for row, feature in enumerate(features):
+                input_ids = feature["input_ids"][:max_length_in_batch]
+                labels = feature["labels"][:max_length_in_batch]
+                length = len(input_ids)
+                batch_input_ids[row, :length] = torch.tensor(input_ids, dtype=torch.long)
+                batch_labels[row, :length] = torch.tensor(labels, dtype=torch.long)
+
+            return {
+                "input_ids": batch_input_ids[:, :-1],
+                "labels": batch_labels[:, 1:],
+            }
+
+        def mlx_style_loss(outputs, labels, num_items_in_batch=None):
+            logits = outputs.logits
+            return torch.nn.functional.cross_entropy(
+                logits.reshape(-1, logits.size(-1)),
+                labels.reshape(-1),
+                ignore_index=-100,
+            )
+
+        class MLXBatchOrderSampler(torch.utils.data.Sampler):
+            def __init__(self, dataset, batch_size, seed):
+                self._batch_size = batch_size
+                self._rng = np.random.RandomState(seed)
+                sorted_indices = sorted(range(len(dataset)), key=lambda idx: dataset[idx]["length"])
+                full_batches = len(sorted_indices) // batch_size
+                self._batches = [
+                    sorted_indices[i * batch_size : (i + 1) * batch_size]
+                    for i in range(full_batches)
+                ]
+
+            def __iter__(self):
+                batch_order = self._rng.permutation(len(self._batches))
+                flattened = [
+                    idx
+                    for batch_idx in batch_order
+                    for idx in self._batches[batch_idx]
+                ]
+                return iter(flattened)
+
+            def __len__(self):
+                return len(self._batches) * self._batch_size
+
+        class MLXParityTrainer(Trainer):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.model_accepts_loss_kwargs = False
+
+            def _get_train_sampler(self, train_dataset=None):
+                if train_dataset is None:
+                    train_dataset = self.train_dataset
+                return MLXBatchOrderSampler(
+                    train_dataset,
+                    self.args.per_device_train_batch_size,
+                    self.args.data_seed or self.args.seed,
+                )
+
+        trainer = MLXParityTrainer(
+            model=model,
+            processing_class=tokenizer,
+            train_dataset=train_dataset,
+            eval_dataset=valid_dataset,
+            data_collator=parity_data_collator,
+            compute_loss_func=mlx_style_loss,
+            args=TrainingArguments(
+                output_dir=output_dir,
+                max_steps=max_steps,
+                per_device_train_batch_size=batch_size,
+                gradient_accumulation_steps=gradient_accumulation_steps,
+                per_device_eval_batch_size=batch_size,
+                learning_rate=learning_rate,
+                lr_scheduler_type="constant",
+                optim="adamw_torch",  # adamw with wd=0 = plain adam (matches T2-v4)
+                adam_beta1=0.9,
+                adam_beta2=0.999,
+                adam_epsilon=1e-8,
+                weight_decay=0.0,
+                bf16=True,
+                seed=42,
+                data_seed=42,
+                remove_unused_columns=False,
+                label_names=["labels"],
+                logging_steps=10,
+                eval_strategy="steps" if eval_enabled else "no",
+                eval_steps=eval_steps if eval_enabled else None,
+                save_strategy="steps" if save_enabled else "no",
+                save_steps=save_steps if save_enabled else 500,
+                save_total_limit=2 if save_enabled else None,
+                report_to="wandb",
+                run_name=run_name,
+            ),
+        )
+    else:
+        trainer = SFTTrainer(
+            model=model,
+            tokenizer=tokenizer,  # Unsloth notebooks use tokenizer=, not processing_class=
+            train_dataset=train_dataset,
+            eval_dataset=valid_dataset if eval_enabled else None,
+            args=SFTConfig(
+                output_dir=output_dir,
+                max_steps=max_steps,
+                per_device_train_batch_size=batch_size,
+                gradient_accumulation_steps=gradient_accumulation_steps,
+                per_device_eval_batch_size=batch_size * 2,
+                learning_rate=learning_rate,
+                lr_scheduler_type="constant",
+                optim="adamw_torch",  # adamw with wd=0 = plain adam (matches T2-v4)
+                weight_decay=0.0,
+                bf16=True,
+                seed=42,
+                dataset_text_field="text",
+                dataset_num_proc=1,
+                packing=packing,
+                # Logging
+                logging_steps=20,
+                eval_strategy="steps" if eval_enabled else "no",
+                eval_steps=eval_steps if eval_enabled else 200,
+                save_strategy="steps" if save_enabled else "no",
+                save_steps=save_steps if save_enabled else 500,
+                save_total_limit=2 if save_enabled else None,
+                # wandb
+                report_to="wandb",
+                run_name=run_name,
+            ),
+        )
+
+        # Mask system+user tokens — only train on assistant responses
+        trainer = train_on_responses_only(
+            trainer,
+            instruction_part="<|im_start|>user\n",
+            response_part="<|im_start|>assistant\n",
+            num_proc=1,
+        )
 
     # ── Verify masking ───────────────────────────────────────
     sample = trainer.train_dataset[0]
