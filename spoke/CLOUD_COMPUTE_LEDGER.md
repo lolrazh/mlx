@@ -1,7 +1,7 @@
 # Spoke Cloud Compute Ledger
 
 > Single source of truth for Modal + Unsloth throughput experiments.
-> Last updated: 2026-03-04 (Qwen3 text-only probes confirm the clean LM path is much more compute-efficient.)
+> Last updated: 2026-03-04 (Compute-only cloud history isolated from quality benchmarking. Text-only Qwen3 is the new cloud speed baseline.)
 
 ## How to Read This
 
@@ -9,6 +9,7 @@
 - **Steady-state it/sec** below means the observed late-step rate after warmup (roughly after step 20 on 50-step probes).
 - **Train samples/sec** comes from TRL/W&B. It can rise even when raw step rate falls if the batch size is larger.
 - **Probe runs** are 50-step runs with eval/save disabled unless noted.
+- **This file is compute-only.** Quality/benchmark outcomes should be tracked separately.
 - **Current stack** = Modal L40S (48 GB), `spoke/cloud/train.py`, clean CUDA base image, `unsloth`, `flash-linear-attention`, `causal-conv1d`, `trl==0.22.2`.
 
 ---
@@ -37,7 +38,7 @@
 | **C3** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 8 | 1 | Off | **CANCELLED** | — | — | Tried source-building `flash-attn` in the image to force FA2. Wheel compile ran for 20+ minutes. Bad probe strategy. Need prebuilt wheel or cached image instead. |
 | **C4** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 8 | 1 | Off | **PASS** | `0.398` | `~3.8-4.1` | `spoke-qwen35-speed-probe-b8-nofa2`. Best raw step rate so far. First step ~`106.7s`. `FA2` still false. Packing flag had no effect because the model loaded as processor-based. |
 | **C5** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 12 | 1 | Off | **PASS** | `0.361` | `~2.9-3.1` | `spoke-qwen35-speed-probe-b12-noexport`. Lower raw step rate than C4, but `train_samples_per_second` improved to `4.336` (vs `3.184` on batch 8). First step ~`113.5s`. |
-| **C6** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 4 | 1 | Off | **COMPLETED** | — | — | Full run `spoke-qwen35-t2` completed per user. Detailed throughput not captured in this ledger yet. |
+| **C6** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 4 | 1 | Off | **COMPLETED** | — | — | Full run `spoke-qwen35-t2` completed. It served as a workflow proof, but not as a clean throughput datapoint; the short probes remain the reliable compute reference. |
 | **C7** | 03-04 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 8 | 1 | Off | **PASS** | `1.133` | `~1.35-1.45` | `spoke-qwen3-text-speed-probe-b8`. Text-only path. `Qwen2Tokenizer`, not processor-based. Packing enabled, examples collapsed `1201 -> 327`, masking density jumped to `42.3%`, first step only ~`7.4s`, `train_samples_per_second = 9.066`. |
 | **C8** | 03-04 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 16 | 1 | Off | **PASS** | `0.667` | `~0.72-0.88` | `spoke-qwen3-text-speed-probe-b16`. Still fits cleanly. Raw steps/sec fell versus C7, but `train_samples_per_second` improved again to `10.669`. First step ~`7.6s`. |
 
@@ -60,6 +61,7 @@
 2. **`packing=True` on current Qwen3.5 runs** did nothing. Unsloth explicitly said packing was skipped because the model loaded through a processor-based path.
 3. **Bigger batch is not automatically better on raw it/sec.** `batch=12` improved work per second but reduced raw step rate compared with `batch=8`.
 4. **Raw `it/sec` is a bad cross-model comparison once packing changes.** The text-only Qwen3 probes do fewer steps per second than Qwen3.5 batch-8, but each step carries far more useful tokens and much less warmup overhead.
+5. **A completed long run is not automatically a useful speed datapoint.** The 2000-step Qwen3.5 run proved the pipeline could finish, but the short probes are still the only clean apples-to-apples throughput reference in this file.
 
 ## Root Causes of Remaining Waste
 
@@ -95,6 +97,14 @@
 - **Observed steady-state:** `~1.35-1.45 it/sec`
 - **Reported train samples/sec:** `9.066`
 - **Why it wins:** Clean text-only path, packing enabled, low warmup, and better responsiveness than batch 16 while still massively outperforming Qwen3.5 on useful throughput.
+
+---
+
+## Final Recommendation
+
+1. **Use `unsloth/Qwen3-4B-Instruct-2507` as the default cloud training model.**
+2. **Treat `unsloth/Qwen3.5-4B` as a lower-priority compute path** unless a separate, explicit debugging effort makes it competitive again.
+3. **Optimize from the text-only baseline** (batch size, FA2 via cached image, prompt-token efficiency) rather than spending more cycles on the Qwen3.5 VLM-style path.
 
 ---
 
