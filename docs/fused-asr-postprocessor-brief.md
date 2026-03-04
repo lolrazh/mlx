@@ -47,14 +47,15 @@ The user's current screen contains valuable context. If they're writing an email
 
 We are building a **local-first dictation engine for macOS** that runs entirely on-device (Apple Silicon). The requirements are:
 
-| Requirement | Target | Why |
-|---|---|---|
-| **End-to-end latency** | < 500ms after utterance | Real-time dictation feel |
-| **Memory footprint** | < 8 GB total | Must coexist with user's apps on 24 GB machine |
-| **Accuracy** | Match or exceed Whisper Large v3 on user's vocabulary | No point if it's worse than existing tools |
-| **Extensibility** | Add new vocabulary without retraining | Users add words daily |
-| **Learning** | Improve from corrections over time | The Tuna launcher principle — frequency + recency |
-| **Privacy** | Fully on-device | No cloud API calls for transcription |
+| Requirement | Target | How measured | Why |
+|---|---|---|---|
+| **End-to-end latency** | < 500ms p50 (warm model, 5-15s utterance) | Last audio frame → final token. Excludes VAD and OCR. | Real-time dictation feel |
+| **Memory footprint** | < 4 GB model resident | MLX memory after load + 10 inferences | Must coexist with user's apps on 24 GB machine |
+| **ASR accuracy** | < 5% WER on LibriSpeech test-clean | Standard WER, 250 shuffled samples, seed=42 | No point if it's worse than existing tools |
+| **Post-processing accuracy** | > 90% exact match on test set (n ≥ 50) | Expanded test set, not current 23 examples | Meaningful statistical confidence |
+| **Extensibility** | Add new vocabulary at runtime, no retraining | Text dictionary entries, updated by appending a file | Users add words daily |
+| **Learning** | Improve from corrections over time | Correct once → correct forever for that word | The Tuna launcher principle — frequency + recency |
+| **Privacy** | Fully on-device | No network calls during transcription | No cloud API calls for transcription |
 
 The application handles:
 - **General dictation** — everyday speech to text
@@ -69,25 +70,27 @@ The application handles:
 
 ### 3a. ASR Baseline (Whisper)
 
-- **Whisper Large v3** running on MLX (Apple's ML framework): 3.02% WER on LibriSpeech test-clean
-- **Moonshine Medium** (245M params, PyTorch+MPS): 2.19% WER, 3x faster than Whisper
+All numbers below are **measured locally** on our M4 hardware unless marked otherwise.
+
+- **Whisper Large v3** running on MLX (Apple's ML framework): 3.02% WER on LibriSpeech test-clean (250 shuffled samples, seed=42)
+- **Moonshine Medium** (245M params, PyTorch+MPS): 2.19% WER, 3x faster than Whisper (same eval pipeline)
 - Whisper accepts a text prompt for vocabulary bias — we feed it OCR-extracted screen words
 
 ### 3b. Post-Processing LLM (Fine-tuned)
 
 We fine-tuned multiple models using LoRA (Low-Rank Adaptation) on ~1,200 training examples covering 9 trigger categories (spelling, self-correction, quotes, caps, emphasis, emoji, camelCase, @-symbols, multi-operation).
 
-**Results on 23-example test set (v3), all using same v4 training data + 2000 iterations:**
+**Results on 23-example test set (v3). Accuracy column is bf16 (full precision):**
 
-| Model | Params | Accuracy | Latency (bf16) | DWQ 4-bit Latency |
+| Model | Params | Accuracy (bf16) | Latency (bf16) | Training data |
 |---|---|---|---|---|
-| Qwen3-4B | 4.4B | 100% | 1.82s | 0.88s |
-| Llama 3.2 3B | 3.2B | 91% | 1.90s | ~0.6-0.7s (est.) |
-| Gemma 3 4B | 4.6B | 87%* | 2.52s | ~1.1s (est.) |
+| Qwen3-4B | 4.4B | 100% (23/23) | 1.82s | v4, 1201 examples, 2000 iters |
+| Llama 3.2 3B | 3.2B | 91% (21/23) | 1.90s | v4, 1201 examples, 2000 iters |
+| Gemma 3 4B | 4.6B | 87% (20/23) | 2.52s | v3, 535 examples, 1000 iters* |
 
 *Gemma only tested with older/smaller training data — likely undertested.
 
-**Current deploy model:** Qwen3-4B, DWQ 4-bit quantized, 2.1 GB, 0.88s latency, 96% accuracy.
+**Current deploy model:** Qwen3-4B, **DWQ 4-bit quantized**, 2.1 GB, 0.88s latency, **96% accuracy** (22/23). The 4-point drop from 100% bf16 → 96% DWQ is quantization degradation on the same test set.
 
 ### 3c. The Gap
 
@@ -109,11 +112,13 @@ Both ASR and post-processing produce text token-by-token using a decoder. The on
 
 ### 4b. Architecture
 
+We use **Qwen3-ASR-1.7B** as the starting point — a pre-trained model that already implements this architecture with a proven encoder. See Section 8 for why.
+
 ```
                     ┌──────────────────┐
-Audio Waveform ───→ │  Audio Encoder   │ (frozen, ~100-300M params)
-                    │  (Whisper/       │
-                    │   Moonshine)     │
+Audio Waveform ───→ │  Audio Encoder   │ (frozen, ~300M params)
+                    │  (Qwen3-ASR     │
+                    │   AuT encoder)  │
                     └────────┬─────────┘
                              │ audio embeddings
                              ▼
@@ -128,8 +133,8 @@ Audio Waveform ───→ │  Audio Encoder   │ (frozen, ~100-300M params)
 Screen OCR text ──→ │                  │
                     │   LLM Decoder    │ (LoRA fine-tuned, ~1-2B params)
 Dictionary ──────→  │  (Qwen3-1.7B    │
-(as soft prompts    │   or Llama 1B)  │
- or text context)   │                  │
+(as text prefix     │   or Llama 1B)  │
+ in context)        │                  │
                     └────────┬─────────┘
                              │
                              ▼
@@ -139,9 +144,9 @@ Dictionary ──────→  │  (Qwen3-1.7B    │
 
 ### 4c. Why This Works
 
-1. **Audio encoder** — The hard part of ASR. Trained on thousands of hours of speech data. We don't train this — we steal a pre-trained one (Whisper encoder or Moonshine encoder). Frozen at inference.
+1. **Audio encoder** — The hard part of ASR. Trained on thousands of hours of speech data. We use Qwen3-ASR's AuT encoder (~300M params), which reports 1.63% WER [vendor-claimed, validated in Phase 0]. Frozen at inference.
 
-2. **Adapter** — A tiny bridge (~10-50M params) that projects audio embeddings into the LLM's text embedding space. This is the only truly new component to train. Prior work (SLAM-ASR, Whisper-LLaMA) shows a simple linear projection or 2-layer MLP is sufficient.
+2. **Adapter** — A tiny bridge that projects audio embeddings into the LLM's text embedding space. Qwen3-ASR uses a single linear projection; prior work (SLAM-ASR, Falcon3-Audio) shows this is sufficient. We fine-tune this layer alongside decoder LoRA.
 
 3. **LLM decoder** — A small language model (1-2B params) fine-tuned with LoRA to:
    - Generate transcription from audio embeddings (replaces Whisper's decoder)
@@ -151,21 +156,22 @@ Dictionary ──────→  │  (Qwen3-1.7B    │
 
    All in one forward pass. No separate ASR → post-processing step.
 
-4. **Dictionary as soft prompts** — Instead of text in the prompt, dictionary entries are stored as learned embedding vectors. During inference, relevant embeddings are injected into the decoder's attention. Scales to thousands of entries with fixed cost.
+4. **Dictionary as text context** — Dictionary entries are injected as a text prefix in the decoder's prompt at runtime (e.g., `"Preferred spellings: Groq, Supabase, Sandeep"`). No retraining is needed to add new words — the model is trained to condition on this context during Phase 2. This scales to hundreds of entries within the context window. For scaling beyond that, top-K retrieval by phonetic similarity (Soundex/Metaphone) selects the most relevant entries per utterance.
 
 ### 4d. Size Budget
 
-| Component | Params | Size (4-bit) |
-|---|---|---|
-| Audio encoder (Moonshine) | ~100M | ~50 MB (frozen, can be fp16) |
-| Adapter | ~10-50M | ~10-25 MB |
-| LLM decoder (1.7B) | ~1.7B | ~1 GB |
-| Dictionary embeddings | ~1-5M | ~2-5 MB |
-| **Total** | **~1.8-1.9B** | **~1.1-1.3 GB** |
+Based on Qwen3-ASR-1.7B, with the decoder quantized to 4-bit and everything else at fp16:
 
-Compare to current pipeline: Whisper Large v3 (~3 GB) + Qwen3-4B DWQ (~2.1 GB) = **5.1 GB**.
+| Component | Params | Precision | Size |
+|---|---|---|---|
+| AuT audio encoder | ~300M | fp16 | ~600 MB |
+| Linear projection adapter | ~5M | fp16 | ~10 MB |
+| LLM decoder (Qwen3-1.7B) | ~1.7B | 4-bit (DWQ) | ~850 MB |
+| **Total** | **~2.0B** | mixed | **~1.5 GB** |
 
-The fused model would be **~4x smaller** and **~3-5x faster** (one forward pass vs two sequential inferences).
+Compare to current pipeline: Whisper Large v3 fp16 (~3 GB) + Qwen3-4B DWQ (~2.1 GB) = **5.1 GB**.
+
+The fused model would be **~3.4x smaller** and **~7-10x faster** (one forward pass vs two sequential inferences). Dictionary entries are text in the context window, not additional weights.
 
 ### 4e. Training Strategy
 
@@ -182,10 +188,10 @@ The fused model would be **~4x smaller** and **~3-5x faster** (one forward pass 
 - This teaches the model to transcribe AND post-process in one shot
 - Include dictionary context examples: (audio, dictionary, corrected_text)
 
-**Phase 3: Dictionary learning**
-- Train soft prompt embeddings for dictionary entries
-- Freeze everything else
-- Show the model (audio_with_ambiguous_word, dictionary_entry, correct_spelling) triplets
+**Phase 3: Dictionary conditioning**
+- Include dictionary text prefix in training examples: (audio, dictionary_context, corrected_text)
+- The model learns to attend to the dictionary when resolving ambiguous words
+- Dictionary entries are plain text, added/removed at runtime without retraining
 
 ### 4f. The Learning Loop
 
@@ -203,9 +209,9 @@ User dictates → Model transcribes → User sees result
                                     entry biases the model
 ```
 
-No retraining needed. The dictionary is data, not weights. The model already knows HOW to use dictionary context (trained for it in Phase 2). Memory grows from corrections.
+No retraining needed. Dictionary entries are plain text injected into the decoder's context window at runtime. The model learns to condition on this text during Phase 2 training. Adding a word means appending a line to a local file — the model already knows how to use it.
 
-For the Tuna launcher effect: rank dictionary entries by `score = count * recency_decay`. Most-used, most-recent words surface first. If the dictionary exceeds prompt capacity, retrieve top-K most relevant entries using phonetic similarity (Soundex/Metaphone) or embedding distance to the current audio.
+For the Tuna launcher effect: rank dictionary entries by `score = count * recency_decay`. Most-used, most-recent words surface first. If the dictionary exceeds context capacity, retrieve top-K most relevant entries per utterance using phonetic similarity (Soundex/Metaphone) between the ASR hypothesis and dictionary entries.
 
 ---
 
@@ -219,10 +225,10 @@ We researched all six open questions. Here's what we found:
 
 Our text-only post-processing results (4B → 100%, 3B → 91%, 1.2B → 70%) suggest a steep drop below 2B. But with audio embeddings providing richer signal than text-only input, the decoder needs fewer parameters for the same task — it doesn't have to "re-imagine" the audio from a lossy transcript.
 
-Benchmarks from existing audio-LLM models confirm:
-- **Qwen3-1.7B**: Used in Qwen3-ASR-1.7B, achieves **1.63% WER** on standard benchmarks. At 4-bit quantization: ~0.85 GB, sub-200ms for typical utterances on M4.
-- **Qwen3-0.6B**: Exists as Qwen3-ASR-0.6B. Much faster but 61.8% instruction reliability drop — brittle on complex commands. Not suitable for post-processing.
-- **Estimated post-processing accuracy with audio input**: ~87-91% for 1.7B (extrapolating from our text-only curve, offset by richer audio signal).
+Benchmarks from existing audio-LLM models (vendor-reported, **not yet validated locally**):
+- **Qwen3-1.7B**: Used in Qwen3-ASR-1.7B, achieves **1.63% WER** on standard benchmarks [Qwen team reported]. At 4-bit quantization: ~0.85 GB, sub-200ms estimated for typical utterances on M4 [estimated from model size, not measured].
+- **Qwen3-0.6B**: Exists as Qwen3-ASR-0.6B. Much faster but 61.8% instruction reliability drop [Qwen team reported] — brittle on complex commands. Not suitable for post-processing.
+- **Estimated post-processing accuracy with audio input**: ~87-91% for 1.7B. This is an extrapolation from our text-only curve, not a measurement. Actual accuracy could be higher (richer audio signal) or lower (task interference).
 
 **Recommendation:** Start with Qwen3-1.7B. If accuracy is insufficient, try 4B. Don't go below 1B for post-processing tasks.
 
@@ -269,11 +275,11 @@ Linear(encoder_dim, lm_dim) → ReLU → Linear(lm_dim, lm_dim)
 **Falcon3-Audio** demonstrated simultaneous adapter + LoRA training from scratch — adapter and decoder LoRA weights are trained together in a single pass.
 
 **Recommended approach:**
-1. **Phase 1** (2-4 hours): Train adapter only on standard ASR data (LibriSpeech). Freeze encoder + decoder. This teaches the adapter to project audio into the LLM's embedding space. ~1K-5K examples sufficient.
-2. **Phase 2** (2-4 hours): Train adapter + LoRA together on (audio, corrected_text) pairs. This is where the post-processing behavior is learned. Our existing 1,200 text examples need to be paired with audio recordings (TTS-generated audio works for this).
+1. **Phase 1**: Train adapter only on standard ASR data (LibriSpeech). Freeze encoder + decoder. This teaches the adapter to project audio into the LLM's embedding space. Prior work reports 1K-5K examples sufficient, but convergence time is unknown for our specific encoder-decoder pair — this is the highest-risk step.
+2. **Phase 2**: Train adapter + LoRA together on (audio, corrected_text) pairs. This is where the post-processing behavior is learned. Our existing 1,200 text examples need to be paired with audio recordings (TTS-generated audio is a starting point but may not generalize — see Risk Assessment).
 3. **Phase 3** (optional): Dictionary-aware fine-tuning with (audio, dictionary_context, corrected_text) triplets.
 
-Total: 1K-5K training examples per phase. Comparable to what we already have.
+**Note:** Prior art (SLAM-ASR, Whispering-LLaMA) reports these phases taking hours on A100 GPUs. On our M4 (120 GB/s bandwidth), expect significantly longer. We do not have reliable local time estimates — the first probe run will calibrate this.
 
 ### Q5: Does Gemma 3n apply?
 
@@ -290,13 +296,13 @@ Gemma 3n introduces three ideas relevant to us:
 
 **Answer: Moot — Qwen3-ASR's AuT encoder beats both.**
 
-| Encoder | WER (LibriSpeech) | Size | Speed |
-|---|---|---|---|
-| Whisper Large v3 | 3.02% | ~1.5B | 0.34x RTF |
-| Moonshine Medium | 2.19% | ~100M | 0.11x RTF |
-| **Qwen3-ASR AuT** | **1.63%** | **~300M** | **55x real-time** |
+| Encoder | WER (LibriSpeech) | Size | Speed | Provenance |
+|---|---|---|---|---|
+| Whisper Large v3 | 3.02% | ~1.5B | 0.34x RTF | Measured locally (M4, MLX, 250 samples) |
+| Moonshine Medium | 2.19% | ~100M | 0.11x RTF | Measured locally (M4, PyTorch+MPS, 250 samples) |
+| **Qwen3-ASR AuT** | **1.63%** | **~300M** | **55x real-time** | Vendor-reported (Qwen team). **Not yet validated locally.** |
 
-Qwen3-ASR's Audio Transformer (AuT) encoder is purpose-built for the encoder→adapter→LLM pipeline and outperforms both Whisper and Moonshine. Since Qwen3-ASR already exists as a complete working model with the exact architecture we proposed, the encoder question is answered: use AuT.
+Qwen3-ASR's Audio Transformer (AuT) encoder is purpose-built for the encoder→adapter→LLM pipeline. The vendor-reported numbers beat both our local baselines, but we have not independently verified them. Phase 0 exists specifically to validate these claims on our hardware before committing to the architecture.
 
 Moonshine's encoder could still be viable if we need an even smaller model, but the accuracy gap is significant.
 
@@ -306,7 +312,7 @@ Moonshine's encoder could still be viable if we need an even smaller model, but 
 
 ### Directly Relevant (exact architecture match)
 
-- **Qwen3-ASR-1.7B** (2025) — AuT encoder (300M) → linear projection → Qwen3-1.7B decoder. 1.63% WER on LibriSpeech. **Already ported to MLX** via `mlx_audio`. ~3.4 GB at fp16. 55x faster than real-time on M4. This is essentially our proposed architecture, pre-built.
+- **Qwen3-ASR-1.7B** (2025) — AuT encoder (300M) → linear projection → Qwen3-1.7B decoder. 1.63% WER on LibriSpeech [vendor-reported, not locally validated]. Ported to MLX via `mlx_audio`. ~3.4 GB at fp16 [estimated from param count]. 55x real-time on Apple Silicon [vendor-reported]. This is essentially our proposed architecture, pre-built.
 - **Qwen3-ASR-0.6B** — Smaller variant. Faster but lower accuracy and brittle on complex instructions.
 - **SLAM-ASR** (2024) — "Embarrassingly simple" approach. Single linear projection between frozen Whisper encoder and LLM decoder achieves competitive ASR. Proved that complex adapters (Q-Former) are unnecessary.
 - **Whispering-LLaMA** (2024) — Whisper encoder + LLaMA decoder. End-to-end training with only 8M trainable parameters (adapter + LoRA). Demonstrated that staged training converges faster but end-to-end works.
@@ -330,17 +336,17 @@ Moonshine's encoder could still be viable if we need an even smaller model, but 
 
 The fused model is worth building if it achieves:
 
-| Metric | Target | Current (2-model pipeline) |
-|---|---|---|
-| End-to-end latency | < 500ms | ~1.5-2s (Whisper + LLM) |
-| Total model size | < 2 GB | 5.1 GB (Whisper + Qwen3 DWQ) |
-| ASR accuracy (WER) | < 5% on LibriSpeech | 3.02% (Whisper alone) |
-| Post-processing accuracy | > 90% on expanded test set | 96% (DWQ 4-bit on 23 examples) |
-| Dictionary capacity | 1000+ words, no retraining | ~100 words in prompt |
-| Learning from corrections | Automatic, no retraining | Not implemented |
-| Memory during inference | < 4 GB | ~6 GB (both models loaded) |
+| Metric | Target | Current (2-model pipeline) | How we measure |
+|---|---|---|---|
+| End-to-end latency | < 500ms (p50, warm model) | ~1.5-2s (Whisper + Qwen3 DWQ) | Time from last audio frame to final token, excluding VAD/OCR. Warm model = already loaded. Measured on 5-15 second utterances. |
+| Total model size | < 2 GB on disk | 5.1 GB (Whisper fp16 3 GB + Qwen3 DWQ 2.1 GB) | Sum of all model files. |
+| ASR accuracy (WER) | < 5% on LibriSpeech test-clean | 3.02% (Whisper alone, measured locally) | Standard WER on 250 shuffled samples, seed=42. |
+| Post-processing accuracy | > 90% on test set (n ≥ 50) | 100% bf16 / 96% DWQ 4-bit (on current 23 examples) | Exact-match on expanded test set. Current 23-example set is too small to be reliable. |
+| Dictionary capacity | 500+ words at runtime, no retraining | ~100 words in prompt | Text entries injected into context window. No weight changes. |
+| Learning from corrections | Automatic, no retraining | Not implemented | User keyboard correction → dictionary entry → next utterance resolves correctly. |
+| Memory during inference | < 4 GB resident | ~6 GB (both models loaded) | MLX memory report after model load + 10 inferences. |
 
-If we can get close to these numbers with a ~1.5-2B fused model, it would be a significant improvement over the current two-model pipeline in every dimension: faster, smaller, more capable, and extensible without retraining.
+If we can get close to these numbers with a ~2B fused model, it would be a significant improvement over the current two-model pipeline in every dimension: faster, smaller, more capable, and extensible without retraining.
 
 ---
 
@@ -354,9 +360,9 @@ If we can get close to these numbers with a ~1.5-2B fused model, it would be a s
 Audio Waveform → AuT Encoder (300M, frozen) → Linear Projection → Qwen3-1.7B Decoder → Text
 ```
 
-It achieves **1.63% WER** on LibriSpeech test-clean — better than both our Whisper baseline (3.02%) and Moonshine baseline (2.19%). It's already ported to MLX via the `mlx_audio` package and runs at **55x real-time** on Apple Silicon.
+It reports **1.63% WER** on LibriSpeech test-clean (vendor-reported, not yet locally validated) — which if confirmed would beat both our measured Whisper baseline (3.02%) and Moonshine baseline (2.19%). It's already ported to MLX via the `mlx_audio` package and reportedly runs at 55x real-time on Apple Silicon.
 
-This changes the project from "build a fused model from scratch" to "fine-tune an existing fused model for our specific task."
+**This changes the project from "build a fused model from scratch" to "validate and fine-tune an existing fused model."** Phase 0 validates the base claims before we invest in fine-tuning.
 
 ### What Qwen3-ASR-1.7B already does:
 - Transcribes audio to text with state-of-the-art accuracy
@@ -398,7 +404,7 @@ The `mlx_audio` package provides ready-made building blocks:
 4. Measure latency, memory, throughput on M4
 5. Test with our ad-hoc dictation samples — see how it handles natural speech
 
-**Exit criteria:** Model runs, WER is competitive, latency < 500ms for typical utterances.
+**Exit criteria:** Model runs on M4. WER < 5% on our LibriSpeech eval (250 samples, seed=42). Latency < 500ms p50 for 5-15s utterances (warm model). If any of these fail, re-evaluate the Qwen3-ASR choice before proceeding.
 
 ### Phase 1: Text-only decoder fine-tuning (2-3 days)
 
@@ -411,25 +417,31 @@ Before touching audio, verify that Qwen3-1.7B's decoder can learn our post-proce
 
 **Exit criteria:** Accuracy > 87% on test set (matching 3B Llama). If < 70%, the 1.7B decoder is too small and we need Qwen3-4B.
 
-### Phase 2: Audio + post-processing fusion (1-2 weeks)
+**Important caveat:** This phase tests the decoder in isolation on text input. Passing does NOT guarantee the audio-conditioned path will work — the decoder may behave differently when receiving projected audio embeddings instead of text tokens. Phase 1 is a necessary size-gate (can 1.7B handle the task complexity?) but not a sufficient validation of the fused architecture. Phase 2 is the real test.
 
-1. Write custom training loop that passes audio through the frozen AuT encoder → adapter → decoder
-2. Create training data: pair our text post-processing examples with audio (use macOS TTS or record real speech)
+### Phase 2: Audio + post-processing fusion (highest risk, timeline unknown)
+
+This is the step that makes or breaks the project. No prior work has done audio → post-processed text in a single pass at this model size.
+
+1. Write custom MLX training loop (~200 lines) that passes audio through frozen AuT encoder → adapter → decoder
+2. Create training data: pair our text post-processing examples with audio (macOS TTS as starting point; may need real recorded speech if TTS doesn't generalize — see Risk Assessment)
 3. Train adapter + LoRA simultaneously:
    - Audio input: speech containing meta-commands
    - Target output: corrected text (not raw transcript)
 4. Start with our 1,200 examples, expand to 3-5K as needed
+5. First run a short probe (50 steps) to calibrate training speed and memory on M4 before committing to full runs
 
-**Exit criteria:** Model transcribes AND post-processes in one forward pass with > 85% accuracy on post-processing tasks.
+**Exit criteria:** Model transcribes AND post-processes in one forward pass with > 85% accuracy on post-processing tasks AND < 5% WER on plain transcription (no regression from base Qwen3-ASR).
 
-### Phase 3: Dictionary and learning (1 week)
+### Phase 3: Dictionary conditioning and learning loop (1 week)
 
-1. Add dictionary context to the decoder's input (text prefix or learned embeddings)
-2. Fine-tune on (audio, dictionary, corrected_text) triplets
-3. Implement the learning loop: keyboard corrections → dictionary update → next inference is biased
-4. Test with ambiguous vocabulary (Groq vs Grok, etc.)
+1. Add dictionary as text prefix to the decoder's input (e.g., `"Preferred: Groq, Supabase, Sandeep"`)
+2. Include dictionary-conditioned examples in Phase 2 training data: (audio, dictionary_prefix, corrected_text)
+3. Implement the learning loop: keyboard corrections → append to dictionary file → next utterance uses updated context
+4. Implement top-K retrieval by phonetic similarity (Soundex/Metaphone) for large dictionaries (>100 entries)
+5. Test with ambiguous vocabulary (Groq vs Grok, etc.)
 
-**Exit criteria:** Dictionary resolves 90%+ of ambiguous words. Learning loop works end-to-end.
+**Exit criteria:** Dictionary resolves 90%+ of ambiguous words when the correct entry is present. Learning loop works end-to-end (correct once → correct forever).
 
 ### Phase 4: Quantize and deploy (2-3 days)
 
@@ -452,17 +464,20 @@ Compare to current: 5.1 GB, 1.5-2s. That's **3.4x smaller** and **7-10x faster**
 
 ## 10. Risk Assessment
 
-| Risk | Likelihood | Mitigation |
-|---|---|---|
-| 1.7B decoder too small for post-processing | Medium | Fall back to Qwen3-4B (~2.5 GB total, still 2x smaller than current pipeline) |
-| TTS-generated training audio doesn't generalize to real speech | Medium | Record real dictation samples; augment with noise/speed variation |
-| Custom MLX training loop is complex | Low | All primitives exist in mlx_audio examples; ~200 lines of new code |
-| Dictionary soft prompts don't scale | Low | Fall back to text-in-prompt (our current approach works up to ~100 words) |
-| Qwen3-ASR encoder quality regresses on dictation-style speech | Low | Test in Phase 0 before committing; swap to Whisper encoder if needed |
+| Risk | Likelihood | Impact | Mitigation |
+|---|---|---|---|
+| Adapter training doesn't converge (frozen encoder + frozen decoder bridge) | Medium | **Schedule killer** — blocks all downstream work | Probe early with 50-step runs. Prior art (SLAM-ASR) reports convergence, but our specific encoder-decoder pair is untested. Fall back to unfreezing decoder during adapter training if needed. |
+| 1.7B decoder too small for post-processing | Medium | High | Fall back to Qwen3-4B (~2.5 GB total, still 2x smaller than current pipeline). Phase 1 gates this. |
+| TTS-generated training audio doesn't generalize to real speech | Medium | Medium | Record real dictation samples; augment with noise/speed variation. Budget for data collection time. |
+| Vendor-reported Qwen3-ASR numbers don't reproduce locally | Low-Medium | High | Phase 0 validates before any training investment. Fall back to Whisper encoder if AuT underperforms. |
+| Custom MLX training loop is complex | Low | Low | All primitives exist in mlx_audio examples; ~200 lines of new code. |
+| Dictionary text context doesn't scale past ~200 entries | Low | Low | Top-K retrieval by phonetic similarity keeps context window bounded. Tested up to ~100 words in current pipeline. |
 
 ### What could go wrong
 
-The biggest unknown is whether a 1.7B decoder can handle BOTH transcription AND post-processing simultaneously. These are two tasks sharing one set of LoRA weights. If they interfere, accuracy on one or both tasks could degrade. Phase 1 (text-only 1.7B) is specifically designed to detect this risk early.
+**The highest-risk step is adapter training (Phase 2).** We are asking a linear projection to bridge two independently trained embedding spaces — the audio encoder's and the LLM decoder's. Prior work (SLAM-ASR, Whispering-LLaMA) reports this works, but those used different encoder-decoder pairs and different training infrastructure. Our specific combination (Qwen3-ASR AuT encoder + Qwen3-1.7B decoder + MLX training on M4) is untested. If the adapter doesn't converge, the entire downstream plan stalls.
+
+The second unknown is task interference: whether a 1.7B decoder can handle BOTH transcription AND post-processing simultaneously. These are two tasks sharing one set of LoRA weights. Phase 1 (text-only 1.7B) checks the decoder's capacity in isolation, but does NOT validate the audio-conditioned path — passing Phase 1 is necessary but not sufficient.
 
 ### What makes this different from "just another audio-LLM"
 
