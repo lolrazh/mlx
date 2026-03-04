@@ -270,6 +270,16 @@ def train(
             def __len__(self):
                 return len(self._batches) * self._batch_size
 
+        class MLXLengthSortedSampler(torch.utils.data.Sampler):
+            def __init__(self, dataset):
+                self._indices = sorted(range(len(dataset)), key=lambda idx: dataset[idx]["length"])
+
+            def __iter__(self):
+                return iter(self._indices)
+
+            def __len__(self):
+                return len(self._indices)
+
         class MLXParityTrainer(Trainer):
             def __init__(self, *args, **kwargs):
                 super().__init__(*args, **kwargs)
@@ -283,6 +293,11 @@ def train(
                     self.args.per_device_train_batch_size,
                     self.args.data_seed or self.args.seed,
                 )
+
+            def _get_eval_sampler(self, eval_dataset):
+                if eval_dataset is None:
+                    eval_dataset = self.eval_dataset
+                return MLXLengthSortedSampler(eval_dataset)
 
         trainer = MLXParityTrainer(
             model=model,
