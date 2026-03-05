@@ -66,7 +66,10 @@ V3_SYSTEM_PROMPT = (
         "/data": training_data,
         "/output": output_vol,
     },
-    secrets=[modal.Secret.from_name("wandb-secret")],
+    secrets=[
+        modal.Secret.from_name("wandb-secret"),
+        modal.Secret.from_name("hf-secret"),
+    ],
     timeout=10800,
 )
 def train(
@@ -108,6 +111,8 @@ def train(
 
     os.environ["HF_HOME"] = "/model-cache"
     os.environ["WANDB_PROJECT"] = "spoke"
+    if os.getenv("HF_TOKEN"):
+        os.environ["HUGGINGFACE_HUB_TOKEN"] = os.environ["HF_TOKEN"]
     torch.backends.cuda.matmul.allow_tf32 = True
 
     eval_enabled = eval_steps > 0

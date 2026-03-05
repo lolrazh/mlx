@@ -34,6 +34,7 @@ image = (
         "/model-cache": model_cache,
         "/output": output_vol,
     },
+    secrets=[modal.Secret.from_name("hf-secret")],
     timeout=3600,
 )
 def merge_checkpoint(
@@ -55,6 +56,8 @@ def merge_checkpoint(
     )
 
     os.environ["HF_HOME"] = "/model-cache"
+    if os.getenv("HF_TOKEN"):
+        os.environ["HUGGINGFACE_HUB_TOKEN"] = os.environ["HF_TOKEN"]
     torch.backends.cuda.matmul.allow_tf32 = True
 
     adapter_dir = Path(f"/output/{run_name}/checkpoint-{checkpoint_step}")
