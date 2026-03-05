@@ -1,7 +1,7 @@
 # Spoke Cloud Compute Ledger
 
 > Single source of truth for Modal + Unsloth throughput experiments.
-> Last updated: 2026-03-04 (Compute-only cloud history isolated from quality benchmarking. Text-only Qwen3 is the new cloud speed baseline.)
+> Last updated: 2026-03-05 (Added full 2-epoch packed Qwen3 sweep: rank/lr grid at fixed batch=4, seq=512.)
 
 ## How to Read This
 
@@ -25,6 +25,8 @@
   - `flash-linear-attention` + `causal-conv1d` are present
   - `Sample packing skipped (processor-based model detected)` on Qwen3.5
   - Qwen3.5 path is loading as `Qwen3VLProcessor` and includes `model.visual.*` weights
+  - Full 164-step packed Qwen3 runs cluster around `~2.2-2.4 it/s` steady-state with this stack
+  - Changing `rank`/`learning_rate` moved quality but did not materially move speed at fixed batch/seq
 
 ---
 
@@ -41,6 +43,12 @@
 | **C6** | 03-04 | `unsloth/Qwen3.5-4B` | 512 | 4 | 1 | Off | **COMPLETED** | — | — | Full run `spoke-qwen35-t2` completed. It served as a workflow proof, but not as a clean throughput datapoint; the short probes remain the reliable compute reference. |
 | **C7** | 03-04 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 8 | 1 | Off | **PASS** | `1.133` | `~1.35-1.45` | `spoke-qwen3-text-speed-probe-b8`. Text-only path. `Qwen2Tokenizer`, not processor-based. Packing enabled, examples collapsed `1201 -> 327`, masking density jumped to `42.3%`, first step only ~`7.4s`, `train_samples_per_second = 9.066`. |
 | **C8** | 03-04 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 16 | 1 | Off | **PASS** | `0.667` | `~0.72-0.88` | `spoke-qwen3-text-speed-probe-b16`. Still fits cleanly. Raw steps/sec fell versus C7, but `train_samples_per_second` improved again to `10.669`. First step ~`7.6s`. |
+| **C9** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | — | `~2.2-2.4` | `spoke-qwen3-unsloth-e2p-packed` baseline full run (`164` steps, packed, export on). Benchmark artifact: `result_spoke-qwen3-unsloth-e2p-packed_modal_v2.json`. |
+| **C10** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `1.905` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r8-lr2e4` (`r=8`, `lr=2e-4`). |
+| **C11** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `1.782` | `~2.1-2.3` | `spoke-qwen3-unsloth-sweep-r8-lr1e4` (`r=8`, `lr=1e-4`). |
+| **C12** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `2.009` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r8-lr5e5` (`r=8`, `lr=5e-5`). Highest reported `train_steps_per_second` in this full-run sweep. |
+| **C13** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `1.937` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r16-lr1e4` (`r=16`, `lr=1e-4`). |
+| **C14** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `1.981` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r16-lr5e5` (`r=16`, `lr=5e-5`). |
 
 ---
 
@@ -54,6 +62,7 @@
 6. **Raising batch size from `4` to `8`** produced the biggest clean speed jump in observed post-warmup step rate.
 7. **Skipping merged export on probes** cuts wasted wall-clock on short runs. Export was adding ~25-30 seconds after the 50-step train loop.
 8. **Switching to text-only Qwen3 is the biggest structural win so far.** It removes the processor/VLM path, enables packing, slashes first-step warmup from ~`100s` to ~`7s`, and more than doubles `train_samples_per_second` versus the best Qwen3.5 probe.
+9. **Run-type alignment matters.** Comparing full 164-step packed runs to full runs (not 50-step probes) gave stable throughput around `~2.2-2.4 it/s` and removed most noise from first-step warmup.
 
 ## What Did Not Help
 
@@ -62,6 +71,7 @@
 3. **Bigger batch is not automatically better on raw it/sec.** `batch=12` improved work per second but reduced raw step rate compared with `batch=8`.
 4. **Raw `it/sec` is a bad cross-model comparison once packing changes.** The text-only Qwen3 probes do fewer steps per second than Qwen3.5 batch-8, but each step carries far more useful tokens and much less warmup overhead.
 5. **A completed long run is not automatically a useful speed datapoint.** The 2000-step Qwen3.5 run proved the pipeline could finish, but the short probes are still the only clean apples-to-apples throughput reference in this file.
+6. **Tuning `learning_rate` and LoRA `rank` for speed did not pay off.** In the 03-05 full-run sweep (batch 4, seq 512, packed), throughput stayed in essentially the same band.
 
 ## Root Causes of Remaining Waste
 
@@ -98,6 +108,13 @@
 - **Reported train samples/sec:** `9.066`
 - **Why it wins:** Clean text-only path, packing enabled, low warmup, and better responsiveness than batch 16 while still massively outperforming Qwen3.5 on useful throughput.
 
+### Best full-run profile (current training recipe)
+
+- **Runs:** C9-C14 family (`164` steps, packed, export on)
+- **Observed steady-state:** generally `~2.2-2.4 it/sec`
+- **Reported train steps/s range:** `1.782` to `2.009`
+- **Why it matters:** This is the real throughput band for the current apples-to-apples quality runs; rank/lr changes alone are not where the next speed win will come from.
+
 ---
 
 ## Final Recommendation
@@ -111,6 +128,6 @@
 ## Next High-Signal Experiments
 
 1. **Use text-only Qwen3 as the new speed baseline.** The Qwen3.5 VLM-style path is now clearly the inferior compute path for this task.
-2. **Probe `batch=24` on text-only Qwen3** if you want to keep pushing L40S utilization. `batch=16` already fits cleanly.
+2. **Run a full-run batch sweep (`batch=4/6/8/12`) on text-only Qwen3** at fixed `r=16`, `lr=2e-4`, `seq=512`, packed, to find the next real speed ceiling for quality-comparable runs.
 3. **Enable FA2 the right way** via a prebuilt wheel or cached image, not by rebuilding `flash-attn` during every probe.
 4. **Reduce prompt-token waste** if training speed remains the constraint. The current Qwen3 text-only path is much better, but trimming repeated non-loss-bearing prompt tokens still helps.
