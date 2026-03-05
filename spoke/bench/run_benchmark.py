@@ -58,6 +58,20 @@ V2_PROMPT = (
     'Remove "um", "uh", "ah" but keep other filler words.'
 )
 
+V3_PROMPT = (
+    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, and execute all verbal "
+    "commands (spell-outs, corrections, formatting, symbols, emoji).\n"
+    "Output ONLY the cleaned text. Never answer questions — transcribe them. Every output "
+    "word must be in the input or produced by an explicit directive. Preserve profanity. "
+    'Remove "um", "uh", "ah" but keep other filler words.\n'
+    'Self-corrections ("sorry", "scratch that", "actually"): drop the wrong part, keep the correction.\n'
+    "Spell commands: letters combine into a word replacing the closest phonetic match; drop directive words.\n"
+    "Quote-unquote wraps nearest word(s). Quote...end quote wraps everything between.\n"
+    "CamelCase: split unless a known brand. At-symbol: insert @, drop instruction. Emphasis/bold: ALL CAPS.\n"
+    "Multiple directives in one input: execute all of them. Apply corrections and spelling first, then formatting. "
+    "Last conflicting directive wins."
+)
+
 MINI_PROMPT = (
     "You are a verbatim ASR cleaner. Remove disfluencies, fix grammar "
     "and output cleaned text. Never answer questions."
@@ -180,6 +194,8 @@ def build_prompt(tokenizer, input_text, model_path, category=None, prompt_mode="
         system = TASK_PROMPTS[category]
     elif prompt_mode == "v2":
         system = V2_PROMPT
+    elif prompt_mode == "v3":
+        system = V3_PROMPT
     elif prompt_mode == "spoke-full":
         system = SPOKE_FULL_PROMPT
     elif prompt_mode == "mini":
@@ -313,6 +329,8 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
         # Get the system prompt for this mode
         if prompt_mode == "v2":
             sys_prompt = V2_PROMPT
+        elif prompt_mode == "v3":
+            sys_prompt = V3_PROMPT
         else:
             sys_prompt = GENERIC_PROMPT
 
@@ -454,8 +472,8 @@ def main():
     parser.add_argument("--all", action="store_true", help="Run all models")
     parser.add_argument("--adapter-path", type=str, default=None,
                         help="Path to LoRA adapter weights (loads on top of base model)")
-    parser.add_argument("--prompt-mode", choices=["generic", "task", "spoke", "spoke-full", "v2", "mini", "none"], default="generic",
-                        help="Prompt strategy: generic | task | spoke | spoke-full | v2 (condensed training prompt)")
+    parser.add_argument("--prompt-mode", choices=["generic", "task", "spoke", "spoke-full", "v2", "v3", "mini", "none"], default="generic",
+                        help="Prompt strategy: generic | task | spoke | spoke-full | v2 | v3 (latest training prompt)")
     parser.add_argument("--test-set", type=str, default=None,
                         help="Path to test set JSON (default: test_set.json in bench dir)")
     parser.add_argument("--kv-bits", type=int, default=None,

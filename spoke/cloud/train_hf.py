@@ -6,7 +6,7 @@ training on the official Qwen base model.
 
 Usage:
     modal run spoke/cloud/train_hf.py --run-name spoke-qwen3-hf-parity-smoke --max-steps 50 --eval-steps 0 --save-steps 0 --no-export-merged
-    modal run spoke/cloud/train_hf.py --run-name spoke-qwen3-hf-parity-v1
+    modal run spoke/cloud/train_hf.py --run-name spoke-qwen3-hf-v5-overfitguard-v1
 """
 
 from __future__ import annotations
@@ -48,10 +48,11 @@ image = (
 def train(
     run_name: str = "spoke-qwen3-hf-parity",
     model_name: str = "Qwen/Qwen3-4B-Instruct-2507",
-    max_steps: int = 2000,
+    max_steps: int = 1200,
     learning_rate: float = 1e-5,
     batch_size: int = 4,
     gradient_accumulation_steps: int = 1,
+    gradient_checkpointing: bool = True,
     rank: int = 8,
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
@@ -82,6 +83,11 @@ def train(
 
     eval_enabled = eval_steps > 0
     save_enabled = save_steps > 0
+    if eval_enabled and save_enabled and (save_steps % eval_steps != 0):
+        raise ValueError(
+            f"save_steps ({save_steps}) must be a multiple of eval_steps ({eval_steps}) "
+            "when selecting best checkpoint by eval_loss."
+        )
 
     print(f"Loading base model: {model_name}")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
@@ -104,6 +110,13 @@ def train(
         low_cpu_mem_usage=True,
     )
     model.config.use_cache = False
+    if gradient_checkpointing:
+        model.gradient_checkpointing_enable()
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
+        print("Gradient checkpointing: enabled")
+    else:
+        print("Gradient checkpointing: disabled")
 
     lora_config = LoraConfig(
         r=rank,
@@ -299,6 +312,7 @@ def train(
             weight_decay=0.0,
             max_grad_norm=max_grad_norm,
             bf16=True,
+            gradient_checkpointing=gradient_checkpointing,
             seed=42,
             data_seed=42,
             remove_unused_columns=False,
@@ -309,6 +323,9 @@ def train(
             save_strategy="steps" if save_enabled else "no",
             save_steps=save_steps if save_enabled else 100,
             save_total_limit=2 if save_enabled else None,
+            load_best_model_at_end=eval_enabled and save_enabled,
+            metric_for_best_model="eval_loss" if eval_enabled and save_enabled else None,
+            greater_is_better=False if eval_enabled and save_enabled else None,
             report_to="wandb",
             run_name=run_name,
         ),
@@ -325,13 +342,17 @@ def train(
         f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
         f"optim={optimizer}, max_grad_norm={max_grad_norm}, "
+        f"grad_ckpt={'on' if gradient_checkpointing else 'off'}, "
         f"eval={'off' if not eval_enabled else eval_steps}, "
         f"save={'off' if not save_enabled else save_steps}, "
+        f"best_ckpt={'on' if eval_enabled and save_enabled else 'off'}, "
         f"export={'on' if export_merged else 'off'}"
     )
 
     try:
         trainer.train()
+        if trainer.state.best_model_checkpoint is not None:
+            print(f"Best checkpoint by eval_loss: {trainer.state.best_model_checkpoint}")
 
         if export_merged:
             adapter_path = f"{output_dir}/adapter"
@@ -362,10 +383,11 @@ def train(
 def main(
     run_name: str = "spoke-qwen3-hf-parity",
     model_name: str = "Qwen/Qwen3-4B-Instruct-2507",
-    max_steps: int = 2000,
+    max_steps: int = 1200,
     learning_rate: float = 1e-5,
     batch_size: int = 4,
     gradient_accumulation_steps: int = 1,
+    gradient_checkpointing: bool = True,
     rank: int = 8,
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
@@ -386,9 +408,11 @@ def main(
     print(f"  Optimizer: {optimizer}")
     print(f"  Max grad norm: {max_grad_norm}")
     print(f"  Grad accum: {gradient_accumulation_steps}")
+    print(f"  Grad checkpointing: {'on' if gradient_checkpointing else 'off'}")
     print(f"  Max seq length: {max_seq_length}")
     print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
+    print(f"  Best checkpoint by eval_loss: {'on' if eval_steps > 0 and save_steps > 0 else 'off'}")
     print(f"  Export merged: {'on' if export_merged else 'off'}")
     print()
 
@@ -399,6 +423,7 @@ def main(
         learning_rate=learning_rate,
         batch_size=batch_size,
         gradient_accumulation_steps=gradient_accumulation_steps,
+        gradient_checkpointing=gradient_checkpointing,
         rank=rank,
         lora_alpha=lora_alpha,
         lora_dropout=lora_dropout,

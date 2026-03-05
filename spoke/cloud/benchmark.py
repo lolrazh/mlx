@@ -43,18 +43,45 @@ V2_PROMPT = (
     'Remove "um", "uh", "ah" but keep other filler words.'
 )
 
+V3_PROMPT = (
+    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, and execute all verbal "
+    "commands (spell-outs, corrections, formatting, symbols, emoji).\n"
+    "Output ONLY the cleaned text. Never answer questions — transcribe them. Every output "
+    "word must be in the input or produced by an explicit directive. Preserve profanity. "
+    'Remove "um", "uh", "ah" but keep other filler words.\n'
+    'Self-corrections ("sorry", "scratch that", "actually"): drop the wrong part, keep the correction.\n'
+    "Spell commands: letters combine into a word replacing the closest phonetic match; drop directive words.\n"
+    "Quote-unquote wraps nearest word(s). Quote...end quote wraps everything between.\n"
+    "CamelCase: split unless a known brand. At-symbol: insert @, drop instruction. Emphasis/bold: ALL CAPS.\n"
+    "Multiple directives in one input: execute all of them. Apply corrections and spelling first, then formatting. "
+    "Last conflicting directive wins."
+)
+
 
 def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt_mode: str = "v2") -> str:
-    system = V2_PROMPT if prompt_mode == "v2" else GENERIC_PROMPT
+    if prompt_mode == "v2":
+        system = V2_PROMPT
+    elif prompt_mode == "v3":
+        system = V3_PROMPT
+    else:
+        system = GENERIC_PROMPT
     messages = [
         {"role": "system", "content": system},
         {"role": "user", "content": input_text},
     ]
-    prompt = tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True,
-    )
+    try:
+        prompt = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=False,
+        )
+    except TypeError:
+        prompt = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True,
+        )
     if "<think>" in prompt:
         raise RuntimeError(
             "Prompt contains <think>; no-thinking template enforcement failed."
@@ -64,6 +91,7 @@ def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt
 
 def clean_output(text: str) -> str:
     text = text.strip()
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
     text = re.sub(r"^```\n?", "", text)
     text = re.sub(r"\n?```$", "", text)
     if text.startswith('"') and text.endswith('"') and text.count('"') == 2:
