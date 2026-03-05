@@ -80,7 +80,6 @@ def train(
     import math
     import json
     import os
-    import re
     import numpy as np
     import torch
     import wandb
@@ -91,7 +90,7 @@ def train(
     from unsloth import FastLanguageModel
     from unsloth.chat_templates import get_chat_template, train_on_responses_only
     from datasets import Dataset
-    from transformers import Trainer, TrainingArguments
+    from transformers import AutoTokenizer, Trainer, TrainingArguments
     from trl import SFTTrainer, SFTConfig
 
     selected_profiles = [best_local_parity, ultra_quality, unsloth_recommended]
@@ -180,6 +179,45 @@ def train(
     )
     print(f"Tokenizer after get_chat_template: eos={tokenizer.eos_token}")
 
+    def enforce_no_thinking_chat_template(tok, source_model_name: str):
+        template = tok.chat_template or ""
+        if "<think>" not in template:
+            print("Chat template is already no-thinking.")
+            return tok
+
+        fallback_template_model = None
+        if "qwen3-4b-instruct-2507" in source_model_name.lower():
+            # Match the local MLX tokenizer template used by the 100% run.
+            fallback_template_model = "mlx-community/Qwen3-4B-Instruct-2507-bf16"
+
+        if not fallback_template_model:
+            raise RuntimeError(
+                "Tokenizer chat template contains <think> and no no-thinking fallback "
+                f"is configured for model '{source_model_name}'."
+            )
+
+        print(
+            "Tokenizer chat template includes <think>. "
+            f"Replacing with no-thinking template from {fallback_template_model}."
+        )
+        ref_tok = AutoTokenizer.from_pretrained(
+            fallback_template_model,
+            trust_remote_code=True,
+        )
+        ref_template = ref_tok.chat_template or ""
+        if "<think>" in ref_template:
+            raise RuntimeError(
+                f"Fallback tokenizer {fallback_template_model} still contains <think>; aborting."
+            )
+        tok.chat_template = ref_template
+
+        if "<think>" in (tok.chat_template or ""):
+            raise RuntimeError("Failed to apply no-thinking chat template.")
+        print("No-thinking chat template applied successfully.")
+        return tok
+
+    tokenizer = enforce_no_thinking_chat_template(tokenizer, model_name)
+
     # ── LoRA config (T2-v4 proven values) ──────────────────
     print(
         "Applying LoRA: "
@@ -225,25 +263,15 @@ def train(
         return render_chat_text_from_messages(messages)
 
     def render_chat_text_from_messages(messages, add_generation_prompt=False):
-        # Force no-thinking mode for both training and parity token offsets.
-        # If template ignores enable_thinking, strip residual think blocks.
-        try:
-            text = tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=add_generation_prompt,
-                enable_thinking=False,
-            )
-        except TypeError:
-            # Fallback if chat template doesn't support enable_thinking.
-            text = tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=add_generation_prompt,
-            )
+        text = tokenizer.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=add_generation_prompt,
+        )
         if "<think>" in text:
-            text = re.sub(r"<think>.*?</think>\s*", "", text, flags=re.DOTALL)
-            text = re.sub(r"\n{3,}", "\n\n", text)
+            raise RuntimeError(
+                "Thinking tags detected in rendered prompt; no-thinking template enforcement failed."
+            )
         return text
 
     def tokenize_chat(messages, add_generation_prompt=False):

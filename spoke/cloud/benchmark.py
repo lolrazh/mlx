@@ -50,29 +50,64 @@ def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt
         {"role": "system", "content": system},
         {"role": "user", "content": input_text},
     ]
-    try:
-        return tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True,
-            enable_thinking=False,
+    prompt = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True,
+    )
+    if "<think>" in prompt:
+        raise RuntimeError(
+            "Prompt contains <think>; no-thinking template enforcement failed."
         )
-    except TypeError:
-        return tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True,
-        )
+    return prompt
 
 
 def clean_output(text: str) -> str:
     text = text.strip()
-    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
     text = re.sub(r"^```\n?", "", text)
     text = re.sub(r"\n?```$", "", text)
     if text.startswith('"') and text.endswith('"') and text.count('"') == 2:
         text = text[1:-1]
     return text.strip()
+
+
+def enforce_no_thinking_chat_template(tokenizer, model_id_hint: str):
+    template = tokenizer.chat_template or ""
+    if "<think>" not in template:
+        print("Chat template is already no-thinking.")
+        return tokenizer
+
+    fallback_template_model = None
+    if "qwen3-4b-instruct-2507" in model_id_hint.lower():
+        fallback_template_model = "mlx-community/Qwen3-4B-Instruct-2507-bf16"
+
+    if not fallback_template_model:
+        raise RuntimeError(
+            "Tokenizer chat template contains <think> and no fallback is configured "
+            f"for model '{model_id_hint}'."
+        )
+
+    print(
+        "Tokenizer chat template includes <think>. "
+        f"Replacing with no-thinking template from {fallback_template_model}."
+    )
+    from transformers import AutoTokenizer as HFTokenizer
+
+    ref_tok = HFTokenizer.from_pretrained(
+        fallback_template_model,
+        trust_remote_code=True,
+    )
+    ref_template = ref_tok.chat_template or ""
+    if "<think>" in ref_template:
+        raise RuntimeError(
+            f"Fallback tokenizer {fallback_template_model} still contains <think>; aborting."
+        )
+
+    tokenizer.chat_template = ref_template
+    if "<think>" in (tokenizer.chat_template or ""):
+        raise RuntimeError("Failed to apply no-thinking chat template.")
+    print("No-thinking chat template applied successfully.")
+    return tokenizer
 
 
 def score_output(output: str, ideal: str) -> str:
@@ -116,6 +151,7 @@ def benchmark_remote(
     torch.backends.cuda.matmul.allow_tf32 = True
 
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+    tokenizer = enforce_no_thinking_chat_template(tokenizer, model_path)
     if tokenizer.pad_token_id is None and tokenizer.eos_token_id is not None:
         tokenizer.pad_token = tokenizer.eos_token
 
