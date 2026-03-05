@@ -80,6 +80,8 @@ def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt
         {"role": "system", "content": system},
         {"role": "user", "content": input_text},
     ]
+    if not hasattr(tokenizer, "apply_chat_template"):
+        return f"System: {system}\nUser: {input_text}\nAssistant:"
     try:
         prompt = tokenizer.apply_chat_template(
             messages,
@@ -111,6 +113,10 @@ def clean_output(text: str) -> str:
 
 
 def enforce_no_thinking_chat_template(tokenizer, model_id_hint: str):
+    if not hasattr(tokenizer, "apply_chat_template"):
+        print("Tokenizer has no chat template API; skipping no-thinking template enforcement.")
+        return tokenizer
+
     template = tokenizer.chat_template or ""
     probe_messages = [
         {"role": "system", "content": "You are a helpful assistant."},
@@ -198,7 +204,12 @@ def benchmark_remote(
     prompt_mode: str = "v2",
 ):
     import torch
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from transformers import (
+        AutoConfig,
+        AutoModelForCausalLM,
+        AutoModelForSeq2SeqLM,
+        AutoTokenizer,
+    )
 
     model_path = f"/output/{run_name}/merged"
     if not Path(model_path).exists():
@@ -206,12 +217,17 @@ def benchmark_remote(
 
     torch.backends.cuda.matmul.allow_tf32 = True
 
+    model_config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
+    is_encoder_decoder = bool(getattr(model_config, "is_encoder_decoder", False))
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
     tokenizer = enforce_no_thinking_chat_template(tokenizer, model_path)
     if tokenizer.pad_token_id is None and tokenizer.eos_token_id is not None:
         tokenizer.pad_token = tokenizer.eos_token
+    if tokenizer.pad_token_id is None:
+        tokenizer.add_special_tokens({"pad_token": "<pad>"})
 
-    model = AutoModelForCausalLM.from_pretrained(
+    model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
+    model = model_cls.from_pretrained(
         model_path,
         torch_dtype=torch.bfloat16,
         device_map="cuda",
@@ -247,7 +263,10 @@ def benchmark_remote(
             )
         latency = time.time() - t0
 
-        new_tokens = generated[0, prompt_len:]
+        if is_encoder_decoder:
+            new_tokens = generated[0]
+        else:
+            new_tokens = generated[0, prompt_len:]
         raw_output = tokenizer.decode(new_tokens, skip_special_tokens=True)
         output = clean_output(raw_output)
         score = score_output(output, ex["ideal"])

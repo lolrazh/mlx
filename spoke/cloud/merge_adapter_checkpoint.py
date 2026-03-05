@@ -47,7 +47,12 @@ def merge_checkpoint(
 
     import torch
     from peft import PeftModel
-    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from transformers import (
+        AutoConfig,
+        AutoModelForCausalLM,
+        AutoModelForSeq2SeqLM,
+        AutoTokenizer,
+    )
 
     os.environ["HF_HOME"] = "/model-cache"
     torch.backends.cuda.matmul.allow_tf32 = True
@@ -62,7 +67,11 @@ def merge_checkpoint(
     merged_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"Loading base model: {model_name}")
-    base_model = AutoModelForCausalLM.from_pretrained(
+    model_config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+    is_encoder_decoder = bool(getattr(model_config, "is_encoder_decoder", False))
+    model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
+    print(f"Detected architecture: {'seq2seq' if is_encoder_decoder else 'causal'}")
+    base_model = model_cls.from_pretrained(
         model_name,
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,

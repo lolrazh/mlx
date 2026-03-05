@@ -81,10 +81,12 @@ def train(
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
     max_seq_length: int = 512,
+    max_target_length: int = 256,
     optimizer: str = "adam",
     max_grad_norm: float = 1.0,
     eval_steps: int = 100,
     save_steps: int = 100,
+    save_total_limit: int = 2,
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
 ):
@@ -96,7 +98,9 @@ def train(
     from datasets import Dataset
     from peft import LoraConfig, get_peft_model
     from transformers import (
+        AutoConfig,
         AutoModelForCausalLM,
+        AutoModelForSeq2SeqLM,
         AutoTokenizer,
         Trainer,
         TrainingArguments,
@@ -115,6 +119,9 @@ def train(
         )
 
     print(f"Loading base model: {model_name}")
+    model_config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+    is_encoder_decoder = bool(getattr(model_config, "is_encoder_decoder", False))
+    print(f"Model family: {'encoder-decoder (seq2seq)' if is_encoder_decoder else 'decoder-only (causal)'}")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
     empty_think_re = re.compile(r"<think>\s*</think>\s*", re.DOTALL)
 
@@ -158,7 +165,8 @@ def train(
         else:
             tokenizer.add_special_tokens({"pad_token": "<|endoftext|>"})
 
-    model = AutoModelForCausalLM.from_pretrained(
+    model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
+    model = model_cls.from_pretrained(
         model_name,
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
@@ -173,21 +181,26 @@ def train(
     else:
         print("Gradient checkpointing: disabled")
 
+    peft_task_type = "SEQ_2_SEQ_LM" if is_encoder_decoder else "CAUSAL_LM"
+    target_modules = "all-linear" if is_encoder_decoder else [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj",
+    ]
+    print(f"LoRA task type: {peft_task_type}")
+    print(f"LoRA target modules: {target_modules}")
+
     lora_config = LoraConfig(
         r=rank,
         lora_alpha=lora_alpha,
         lora_dropout=lora_dropout,
         bias="none",
-        task_type="CAUSAL_LM",
-        target_modules=[
-            "q_proj",
-            "k_proj",
-            "v_proj",
-            "o_proj",
-            "gate_proj",
-            "up_proj",
-            "down_proj",
-        ],
+        task_type=peft_task_type,
+        target_modules=target_modules,
     )
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
@@ -244,7 +257,7 @@ def train(
             **chat_template_kwargs,
         )
 
-    def build_mlx_style_example(example):
+    def build_causal_example(example):
         messages = example["messages"]
         input_ids = tokenize_chat(messages)
         prompt_ids = tokenize_chat(
@@ -261,17 +274,50 @@ def train(
             "length": len(input_ids),
         }
 
-    train_dataset = Dataset.from_list([build_mlx_style_example(ex) for ex in train_data])
+    def build_seq2seq_example(example):
+        messages = example["messages"]
+        if not messages or messages[-1].get("role") != "assistant":
+            raise ValueError("Expected final message role=assistant for seq2seq example.")
+        source_messages = messages[:-1]
+        input_ids = tokenize_chat(source_messages, add_generation_prompt=True)[:max_seq_length]
+        target_text = messages[-1]["content"]
+        label_ids = tokenizer(
+            target_text,
+            add_special_tokens=True,
+            truncation=True,
+            max_length=max_target_length,
+        )["input_ids"]
+        return {
+            "input_ids": input_ids,
+            "labels": label_ids,
+            "length": len(input_ids),
+        }
+
+    build_example = build_seq2seq_example if is_encoder_decoder else build_causal_example
+    train_dataset = Dataset.from_list([build_example(ex) for ex in train_data])
     valid_dataset = (
-        Dataset.from_list([build_mlx_style_example(ex) for ex in valid_data])
+        Dataset.from_list([build_example(ex) for ex in valid_data])
         if eval_enabled
         else None
     )
 
-    sample_formatted = render_chat_text_from_messages(train_data[0]["messages"])
-    print("\n--- Sample formatted input ---")
-    print(sample_formatted[:500])
-    print("--- End sample ---\n")
+    if is_encoder_decoder:
+        sample_messages = train_data[0]["messages"]
+        sample_source = render_chat_text_from_messages(
+            sample_messages[:-1],
+            add_generation_prompt=True,
+        )
+        sample_target = sample_messages[-1]["content"]
+        print("\n--- Sample formatted source ---")
+        print(sample_source[:500])
+        print("--- Sample target ---")
+        print(sample_target[:300])
+        print("--- End sample ---\n")
+    else:
+        sample_formatted = render_chat_text_from_messages(train_data[0]["messages"])
+        print("\n--- Sample formatted input ---")
+        print(sample_formatted[:500])
+        print("--- End sample ---\n")
 
     def parity_data_collator(features):
         lengths = [len(feature["input_ids"]) for feature in features]
@@ -296,6 +342,38 @@ def train(
             "labels": batch_labels[:, 1:],
         }
 
+    def seq2seq_data_collator(features):
+        input_lengths = [len(feature["input_ids"]) for feature in features]
+        label_lengths = [len(feature["labels"]) for feature in features]
+
+        max_input_length = 1 + 32 * ((max(input_lengths) + 32 - 1) // 32)
+        max_input_length = min(max_input_length, max_seq_length)
+        max_label_length = 1 + 32 * ((max(label_lengths) + 32 - 1) // 32)
+        max_label_length = min(max_label_length, max_target_length)
+
+        batch_input_ids = torch.full(
+            (len(features), max_input_length),
+            tokenizer.pad_token_id,
+            dtype=torch.long,
+        )
+        batch_attention_mask = torch.zeros((len(features), max_input_length), dtype=torch.long)
+        batch_labels = torch.full((len(features), max_label_length), -100, dtype=torch.long)
+
+        for row, feature in enumerate(features):
+            input_ids = feature["input_ids"][:max_input_length]
+            labels = feature["labels"][:max_label_length]
+            input_length = len(input_ids)
+            label_length = len(labels)
+            batch_input_ids[row, :input_length] = torch.tensor(input_ids, dtype=torch.long)
+            batch_attention_mask[row, :input_length] = 1
+            batch_labels[row, :label_length] = torch.tensor(labels, dtype=torch.long)
+
+        return {
+            "input_ids": batch_input_ids,
+            "attention_mask": batch_attention_mask,
+            "labels": batch_labels,
+        }
+
     def mlx_style_loss(outputs, labels, num_items_in_batch=None):
         logits = outputs.logits
         return torch.nn.functional.cross_entropy(
@@ -303,6 +381,8 @@ def train(
             labels.reshape(-1),
             ignore_index=-100,
         )
+
+    data_collator = seq2seq_data_collator if is_encoder_decoder else parity_data_collator
 
     class MLXBatchOrderSampler(torch.utils.data.Sampler):
         def __init__(self, dataset, batch_size, seed):
@@ -371,47 +451,50 @@ def train(
             return MLXLengthSortedSampler(eval_dataset)
 
     output_dir = f"/output/{run_name}"
-    trainer = MLXParityTrainer(
+    training_args = TrainingArguments(
+        output_dir=output_dir,
+        max_steps=max_steps,
+        per_device_train_batch_size=batch_size,
+        gradient_accumulation_steps=gradient_accumulation_steps,
+        per_device_eval_batch_size=batch_size,
+        learning_rate=learning_rate,
+        lr_scheduler_type="constant",
+        optim="adamw_torch",
+        adam_beta1=0.9,
+        adam_beta2=0.999,
+        adam_epsilon=1e-8,
+        weight_decay=0.0,
+        max_grad_norm=max_grad_norm,
+        bf16=True,
+        gradient_checkpointing=gradient_checkpointing,
+        seed=42,
+        data_seed=42,
+        remove_unused_columns=False,
+        label_names=["labels"],
+        logging_steps=10,
+        eval_strategy="steps" if eval_enabled else "no",
+        eval_steps=eval_steps if eval_enabled else None,
+        save_strategy="steps" if save_enabled else "no",
+        save_steps=save_steps if save_enabled else 100,
+        save_total_limit=save_total_limit if save_enabled else None,
+        load_best_model_at_end=eval_enabled and save_enabled,
+        metric_for_best_model="eval_loss" if eval_enabled and save_enabled else None,
+        greater_is_better=False if eval_enabled and save_enabled else None,
+        report_to="wandb",
+        run_name=run_name,
+    )
+    trainer_kwargs = dict(
         model=model,
         processing_class=tokenizer,
         train_dataset=train_dataset,
         eval_dataset=valid_dataset,
-        data_collator=parity_data_collator,
-        compute_loss_func=mlx_style_loss,
+        data_collator=data_collator,
         use_true_adam=(optimizer == "adam"),
-        args=TrainingArguments(
-            output_dir=output_dir,
-            max_steps=max_steps,
-            per_device_train_batch_size=batch_size,
-            gradient_accumulation_steps=gradient_accumulation_steps,
-            per_device_eval_batch_size=batch_size,
-            learning_rate=learning_rate,
-            lr_scheduler_type="constant",
-            optim="adamw_torch",
-            adam_beta1=0.9,
-            adam_beta2=0.999,
-            adam_epsilon=1e-8,
-            weight_decay=0.0,
-            max_grad_norm=max_grad_norm,
-            bf16=True,
-            gradient_checkpointing=gradient_checkpointing,
-            seed=42,
-            data_seed=42,
-            remove_unused_columns=False,
-            label_names=["labels"],
-            logging_steps=10,
-            eval_strategy="steps" if eval_enabled else "no",
-            eval_steps=eval_steps if eval_enabled else None,
-            save_strategy="steps" if save_enabled else "no",
-            save_steps=save_steps if save_enabled else 100,
-            save_total_limit=2 if save_enabled else None,
-            load_best_model_at_end=eval_enabled and save_enabled,
-            metric_for_best_model="eval_loss" if eval_enabled and save_enabled else None,
-            greater_is_better=False if eval_enabled and save_enabled else None,
-            report_to="wandb",
-            run_name=run_name,
-        ),
+        args=training_args,
     )
+    if not is_encoder_decoder:
+        trainer_kwargs["compute_loss_func"] = mlx_style_loss
+    trainer = MLXParityTrainer(**trainer_kwargs)
 
     sample = trainer.train_dataset[0]
     labels = sample["labels"]
@@ -423,11 +506,14 @@ def train(
         "\nStarting HF+PEFT training: "
         f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
+        f"max_target={max_target_length}, "
         f"optim={optimizer}, max_grad_norm={max_grad_norm}, "
         f"system_prompt={system_prompt_mode}, "
+        f"arch={'seq2seq' if is_encoder_decoder else 'causal'}, "
         f"grad_ckpt={'on' if gradient_checkpointing else 'off'}, "
         f"eval={'off' if not eval_enabled else eval_steps}, "
         f"save={'off' if not save_enabled else save_steps}, "
+        f"save_total_limit={save_total_limit if save_enabled else 'off'}, "
         f"best_ckpt={'on' if eval_enabled and save_enabled else 'off'}, "
         f"export={'on' if export_merged else 'off'}"
     )
@@ -475,10 +561,12 @@ def main(
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
     max_seq_length: int = 512,
+    max_target_length: int = 256,
     optimizer: str = "adam",
     max_grad_norm: float = 1.0,
     eval_steps: int = 100,
     save_steps: int = 100,
+    save_total_limit: int = 2,
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
 ):
@@ -494,9 +582,11 @@ def main(
     print(f"  Grad accum: {gradient_accumulation_steps}")
     print(f"  Grad checkpointing: {'on' if gradient_checkpointing else 'off'}")
     print(f"  Max seq length: {max_seq_length}")
+    print(f"  Max target length: {max_target_length}")
     print(f"  System prompt mode: {system_prompt_mode}")
     print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
+    print(f"  Save total limit: {save_total_limit if save_steps > 0 else 'off'}")
     print(f"  Best checkpoint by eval_loss: {'on' if eval_steps > 0 and save_steps > 0 else 'off'}")
     print(f"  Export merged: {'on' if export_merged else 'off'}")
     print()
@@ -513,10 +603,12 @@ def main(
         lora_alpha=lora_alpha,
         lora_dropout=lora_dropout,
         max_seq_length=max_seq_length,
+        max_target_length=max_target_length,
         optimizer=optimizer,
         max_grad_norm=max_grad_norm,
         eval_steps=eval_steps,
         save_steps=save_steps,
+        save_total_limit=save_total_limit,
         system_prompt_mode=system_prompt_mode,
         export_merged=export_merged,
     )
