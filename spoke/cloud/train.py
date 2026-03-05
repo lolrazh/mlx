@@ -65,6 +65,7 @@ def train(
     max_seq_length: int = 512,
     packing: bool = True,
     gradient_checkpointing: bool = False,
+    optimizer: str = "adamw_torch",
     eval_steps: int = 200,
     save_steps: int = 500,
     export_merged: bool = True,
@@ -92,6 +93,7 @@ def train(
             run_name = "spoke-qwen3-t2-cloud"
         lora_dropout = 0.05
         packing = False
+        optimizer = "adam"
         eval_steps = 50
         save_steps = 100
         print("Applying best-local parity profile (T2-v4-like settings).")
@@ -281,9 +283,23 @@ def train(
                 return len(self._indices)
 
         class MLXParityTrainer(Trainer):
-            def __init__(self, *args, **kwargs):
+            def __init__(self, *args, use_true_adam=False, **kwargs):
                 super().__init__(*args, **kwargs)
                 self.model_accepts_loss_kwargs = False
+                self._use_true_adam = use_true_adam
+
+            def create_optimizer(self):
+                if self.optimizer is None and self._use_true_adam:
+                    print("Using true torch.optim.Adam for strict parity mode.")
+                    trainable_params = [p for p in self.model.parameters() if p.requires_grad]
+                    self.optimizer = torch.optim.Adam(
+                        trainable_params,
+                        lr=self.args.learning_rate,
+                        betas=(self.args.adam_beta1, self.args.adam_beta2),
+                        eps=self.args.adam_epsilon,
+                    )
+                    return self.optimizer
+                return super().create_optimizer()
 
             def _get_train_sampler(self, train_dataset=None):
                 if train_dataset is None:
@@ -306,6 +322,7 @@ def train(
             eval_dataset=valid_dataset,
             data_collator=parity_data_collator,
             compute_loss_func=mlx_style_loss,
+            use_true_adam=(optimizer == "adam"),
             args=TrainingArguments(
                 output_dir=output_dir,
                 max_steps=max_steps,
@@ -314,7 +331,10 @@ def train(
                 per_device_eval_batch_size=batch_size,
                 learning_rate=learning_rate,
                 lr_scheduler_type="constant",
-                optim="adamw_torch",  # adamw with wd=0 = plain adam (matches T2-v4)
+                # HF TrainingArguments has no plain "adam" option in this stack.
+                # When requested, MLXParityTrainer.create_optimizer() injects
+                # torch.optim.Adam directly.
+                optim="adamw_torch",
                 adam_beta1=0.9,
                 adam_beta2=0.999,
                 adam_epsilon=1e-8,
@@ -335,6 +355,8 @@ def train(
             ),
         )
     else:
+        if optimizer == "adam":
+            print("Requested optimizer=adam is only supported in --best-local-parity mode; using adamw_torch here.")
         trainer = SFTTrainer(
             model=model,
             tokenizer=tokenizer,  # Unsloth notebooks use tokenizer=, not processing_class=
@@ -348,7 +370,7 @@ def train(
                 per_device_eval_batch_size=batch_size * 2,
                 learning_rate=learning_rate,
                 lr_scheduler_type="constant",
-                optim="adamw_torch",  # adamw with wd=0 = plain adam (matches T2-v4)
+                optim="adamw_torch",
                 weight_decay=0.0,
                 bf16=True,
                 seed=42,
@@ -388,6 +410,7 @@ def train(
         "\nStarting training: "
         f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
+        f"optim={optimizer}, "
         f"packing={packing}, eval={'off' if not eval_enabled else eval_steps}, "
         f"save={'off' if not save_enabled else save_steps}, "
         f"export={'on' if export_merged else 'off'}"
@@ -430,6 +453,7 @@ def main(
     max_seq_length: int = 512,
     packing: bool = True,
     gradient_checkpointing: bool = False,
+    optimizer: str = "adamw_torch",
     eval_steps: int = 200,
     save_steps: int = 500,
     export_merged: bool = True,
@@ -440,6 +464,7 @@ def main(
             run_name = "spoke-qwen3-t2-cloud"
         lora_dropout = 0.05
         packing = False
+        optimizer = "adam"
         eval_steps = 50
         save_steps = 100
 
@@ -451,6 +476,7 @@ def main(
         f"r={rank}, alpha={lora_alpha}, dropout={lora_dropout}, "
         f"grad_ckpt={gradient_checkpointing}"
     )
+    print(f"  Optimizer: {optimizer}")
     print(f"  Grad accum: {gradient_accumulation_steps}")
     print(f"  Max seq length: {max_seq_length}")
     print(f"  Packing: {packing}")
@@ -473,6 +499,7 @@ def main(
         max_seq_length=max_seq_length,
         packing=packing,
         gradient_checkpointing=gradient_checkpointing,
+        optimizer=optimizer,
         eval_steps=eval_steps,
         save_steps=save_steps,
         export_merged=export_merged,
