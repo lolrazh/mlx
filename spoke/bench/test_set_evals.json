@@ -147,13 +147,13 @@
     "id": 25,
     "category": "multi",
     "input": "Ping marketing on this. Add an at symbol before marketing. Say quote launch moved to Friday end quote. Actually, Thursday.",
-    "ideal": "Ping @marketing on this. Say “launch moved to Thursday.”"
+    "ideal": "Ping @marketing on this. Say \"launch moved to Thursday\"."
   },
   {
     "id": 26,
     "category": "multi",
     "input": "Ping marketing on this—add an at symbol before marketing—and email rajkumar dot sandheep at gmail dot com, sorry, rajkumar.sandheep@gmail.com, saying quote launch moved to Friday end quote. Actually, Thursday.",
-    "ideal": "Ping @marketing on this and email rajkumar.sandheep@gmail.com, saying “launch moved to Thursday.”"
+    "ideal": "Ping @marketing on this and email rajkumar.sandheep@gmail.com, saying \"launch moved to Thursday\"."
   },
   {
     "id": 27,
@@ -213,7 +213,7 @@
     "id": 36,
     "category": "multi",
     "input": "Send this to Groq. Add an at symbol before Groq. The filename is quote sonicflow_superbase-handler end quote. Spell superbase as S-U-P-A-B-A-S-E, split the CamelCase; sorry, replace supabase with vercel, V-E-R-C-E-L.",
-    "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler.\""
+    "ideal": "Send this to @Groq. The filename is \"sonicflow_vercel-handler\"."
   },
   {
     "id": 37,
@@ -267,11 +267,11 @@
     "id": 45,
     "category": "emphasis",
     "input": "It's surprisingly fast. Emphasize surprisingly.",
-    "ideal": "It's **surprisingly** fast."
+    "ideal": "It's SURPRISINGLY fast."
   },
   {
     "id": 46,
-    "category": "disfluency",
+    "category": "emoji",
     "input": "Two hearts",
     "ideal": "❤️❤️"
   },
@@ -285,7 +285,7 @@
     "id": 48,
     "category": "quote-unquote",
     "input": "They're all quote-unquote intelligent.",
-    "ideal": "They're all \"intelligent\""
+    "ideal": "They're all \"intelligent\"."
   },
   {
     "id": 49,
