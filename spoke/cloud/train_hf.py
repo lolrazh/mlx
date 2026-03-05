@@ -33,6 +33,29 @@ image = (
     )
 )
 
+V2_SYSTEM_PROMPT = (
+    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, and "
+    "execute all verbal commands (spell-outs, corrections, formatting, symbols, "
+    "emoji). Rules: Output ONLY the cleaned text. Never answer questions — "
+    "transcribe them. Every output word must be in the input or produced by an "
+    "explicit directive. Preserve profanity. Remove \"um\", \"uh\", \"ah\" but keep "
+    "other filler words."
+)
+
+V3_SYSTEM_PROMPT = (
+    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, and execute all verbal commands "
+    "(spell-outs, corrections, formatting, symbols, emoji).\n"
+    "Output ONLY the cleaned text. Never answer questions — transcribe them. Every output word must be "
+    "in the input or produced by an explicit directive. Preserve profanity. Remove \"um\", \"uh\", \"ah\" "
+    "but keep other filler words.\n"
+    "Self-corrections (\"sorry\", \"scratch that\", \"actually\"): drop the wrong part, keep the correction.\n"
+    "Spell commands: letters combine into a word replacing the closest phonetic match; drop directive words.\n"
+    "Quote-unquote wraps nearest word(s). Quote...end quote wraps everything between.\n"
+    "CamelCase: split unless a known brand. At-symbol: insert @, drop instruction. Emphasis/bold: ALL CAPS.\n"
+    "Multiple directives in one input: execute all of them. Apply corrections and spelling first, then "
+    "formatting. Last conflicting directive wins."
+)
+
 
 @app.function(
     image=image,
@@ -61,6 +84,7 @@ def train(
     max_grad_norm: float = 1.0,
     eval_steps: int = 50,
     save_steps: int = 100,
+    system_prompt_mode: str = "as_is",
     export_merged: bool = True,
 ):
     import json
@@ -141,9 +165,34 @@ def train(
         with open(path) as f:
             return [json.loads(line) for line in f]
 
+    system_prompt_overrides = {
+        "as_is": None,
+        "v2": V2_SYSTEM_PROMPT,
+        "v3": V3_SYSTEM_PROMPT,
+    }
+    if system_prompt_mode not in system_prompt_overrides:
+        raise ValueError(
+            f"system_prompt_mode must be one of {sorted(system_prompt_overrides)}, got: {system_prompt_mode}"
+        )
+    forced_system_prompt = system_prompt_overrides[system_prompt_mode]
+
+    def maybe_override_system_prompt(example):
+        if forced_system_prompt is None:
+            return example
+        messages = example.get("messages")
+        if not messages or messages[0].get("role") != "system":
+            raise ValueError("Expected first message to be role=system in chat-formatted dataset.")
+        patched_messages = [dict(m) for m in messages]
+        patched_messages[0]["content"] = forced_system_prompt
+        return {"messages": patched_messages}
+
     train_data = load_jsonl("/data/train.jsonl")
     valid_data = load_jsonl("/data/valid.jsonl")
+    if forced_system_prompt is not None:
+        train_data = [maybe_override_system_prompt(ex) for ex in train_data]
+        valid_data = [maybe_override_system_prompt(ex) for ex in valid_data]
     print(f"Data loaded: {len(train_data)} train, {len(valid_data)} valid")
+    print(f"System prompt mode: {system_prompt_mode}")
 
     def render_chat_text_from_messages(messages, add_generation_prompt=False):
         text = tokenizer.apply_chat_template(
@@ -342,6 +391,7 @@ def train(
         f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
         f"optim={optimizer}, max_grad_norm={max_grad_norm}, "
+        f"system_prompt={system_prompt_mode}, "
         f"grad_ckpt={'on' if gradient_checkpointing else 'off'}, "
         f"eval={'off' if not eval_enabled else eval_steps}, "
         f"save={'off' if not save_enabled else save_steps}, "
@@ -396,6 +446,7 @@ def main(
     max_grad_norm: float = 1.0,
     eval_steps: int = 50,
     save_steps: int = 100,
+    system_prompt_mode: str = "as_is",
     export_merged: bool = True,
 ):
     print(f"Starting pure HF cloud training: {run_name}")
@@ -410,6 +461,7 @@ def main(
     print(f"  Grad accum: {gradient_accumulation_steps}")
     print(f"  Grad checkpointing: {'on' if gradient_checkpointing else 'off'}")
     print(f"  Max seq length: {max_seq_length}")
+    print(f"  System prompt mode: {system_prompt_mode}")
     print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
     print(f"  Best checkpoint by eval_loss: {'on' if eval_steps > 0 and save_steps > 0 else 'off'}")
@@ -432,5 +484,6 @@ def main(
         max_grad_norm=max_grad_norm,
         eval_steps=eval_steps,
         save_steps=save_steps,
+        system_prompt_mode=system_prompt_mode,
         export_merged=export_merged,
     )
