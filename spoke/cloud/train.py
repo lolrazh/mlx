@@ -342,6 +342,12 @@ def train(
                 length = len(input_ids)
                 batch_input_ids[row, :length] = torch.tensor(input_ids, dtype=torch.long)
                 batch_labels[row, :length] = torch.tensor(labels, dtype=torch.long)
+                # MLX default_loss masks positions by `step <= length`, where
+                # step indexes targets from `batch[:, 1:]`. For rows shorter than
+                # the batch max length, this includes one additional padded target
+                # token (id 0). Mirror that behavior for strict parity.
+                if length < max_length_in_batch:
+                    batch_labels[row, length] = 0
 
             return {
                 "input_ids": batch_input_ids[:, :-1],

@@ -81,7 +81,7 @@
     "id": 14,
     "category": "emphasis",
     "input": "It's surprisingly fast. Emphasize surprisingly.",
-    "ideal": "It's **surprisingly** fast."
+    "ideal": "It's SURPRISINGLY fast."
   },
   {
     "id": 15,
@@ -123,7 +123,7 @@
     "id": 21,
     "category": "emphasis",
     "input": "This is absolutely critical for the launch. Emphasize critical.",
-    "ideal": "This is absolutely **critical** for the launch."
+    "ideal": "This is absolutely CRITICAL for the launch."
   },
   {
     "id": 22,
