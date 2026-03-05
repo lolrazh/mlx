@@ -208,11 +208,16 @@ def train(
             tokenizer.add_special_tokens({"pad_token": "<|endoftext|>"})
 
     model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
-    model = model_cls.from_pretrained(
-        model_name,
+    model_load_kwargs = dict(
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
         low_cpu_mem_usage=True,
+    )
+    if "t5gemma" in model_name.lower():
+        model_load_kwargs["attn_implementation"] = "eager"
+    model = model_cls.from_pretrained(
+        model_name,
+        **model_load_kwargs,
     )
     model.config.use_cache = False
     if gradient_checkpointing:

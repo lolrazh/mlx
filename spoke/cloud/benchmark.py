@@ -272,11 +272,16 @@ def benchmark_remote(
         tokenizer.add_special_tokens({"pad_token": "<pad>"})
 
     model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
-    model = model_cls.from_pretrained(
-        model_path,
+    model_load_kwargs = dict(
         torch_dtype=torch.bfloat16,
         device_map="cuda",
         trust_remote_code=True,
+    )
+    if "t5gemma" in str(getattr(model_config, "model_type", "")).lower():
+        model_load_kwargs["attn_implementation"] = "eager"
+    model = model_cls.from_pretrained(
+        model_path,
+        **model_load_kwargs,
     )
     model.eval()
 

@@ -74,12 +74,17 @@ def merge_checkpoint(
     is_encoder_decoder = bool(getattr(model_config, "is_encoder_decoder", False))
     model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
     print(f"Detected architecture: {'seq2seq' if is_encoder_decoder else 'causal'}")
-    base_model = model_cls.from_pretrained(
-        model_name,
+    model_load_kwargs = dict(
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
         low_cpu_mem_usage=True,
         device_map="cuda",
+    )
+    if "t5gemma" in str(getattr(model_config, "model_type", "")).lower():
+        model_load_kwargs["attn_implementation"] = "eager"
+    base_model = model_cls.from_pretrained(
+        model_name,
+        **model_load_kwargs,
     )
     tokenizer = AutoTokenizer.from_pretrained(
         str(adapter_dir),
