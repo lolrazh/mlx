@@ -1,7 +1,7 @@
 # Spoke Cloud Compute Ledger
 
 > Single source of truth for Modal + Unsloth throughput experiments.
-> Last updated: 2026-03-05 (Added no-thinking parity + ultra-quality full runs and matched benchmark artifacts.)
+> Last updated: 2026-03-05 (Validated template-level no-thinking enforcement in cloud parity run; benchmark unchanged at 74%.)
 
 ## How to Read This
 
@@ -52,6 +52,7 @@
 | **C14** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `1.981` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r16-lr5e5` (`r=16`, `lr=5e-5`). |
 | **C15** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | — | `~3.8-4.1` | `spoke-qwen3-parity-nothink-v1`. Hard no-thinking formatting guard, `packing=False`, parity trainer, Adam, `max_grad_norm=0.0`. Benchmark: `result_spoke-qwen3-parity-nothink-v1_modal_v2.json` (`74%`). |
 | **C16** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | — | `~3.8-4.1` | `spoke-qwen3-ultra-quality-nothink-v1`. Hard no-thinking + ultra profile (`2500` steps, `r=32`, `alpha=64`, `dropout=0.05`, `rsLoRA=True`, `packing=False`). Benchmark: `result_spoke-qwen3-ultra-quality-nothink-v1_modal_v2.json` (`83%`). |
+| **C17** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `3.568` | `~3.8-4.1` | `spoke-qwen3-parity-nothink-templatefix-v1`. Enforced no-thinking at tokenizer template level (no output stripping fallback). Benchmark: `result_spoke-qwen3-parity-nothink-templatefix-v1_modal_v2.json` (`74%`). |
 
 ---
 
@@ -76,6 +77,7 @@
 5. **A completed long run is not automatically a useful speed datapoint.** The 2000-step Qwen3.5 run proved the pipeline could finish, but the short probes are still the only clean apples-to-apples throughput reference in this file.
 6. **Tuning `learning_rate` and LoRA `rank` for speed did not pay off.** In the 03-05 full-run sweep (batch 4, seq 512, packed), throughput stayed in essentially the same band.
 7. **Forcing no-thinking did not close the quality gap by itself.** The no-thinking parity/ultra runs landed at `74%` and `83%`, matching earlier configuration-driven behavior bands.
+8. **Template-level no-thinking enforcement also did not move parity quality.** After replacing the tokenizer chat template with a no-thinking template and hard-failing on `<think>` in prompts, parity remained `74%`.
 
 ## Root Causes of Remaining Waste
 
