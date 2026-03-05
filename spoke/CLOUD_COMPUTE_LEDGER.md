@@ -1,7 +1,7 @@
 # Spoke Cloud Compute Ledger
 
-> Single source of truth for Modal + Unsloth throughput experiments.
-> Last updated: 2026-03-05 (Validated template-level no-thinking enforcement in cloud parity run; benchmark unchanged at 74%.)
+> Single source of truth for Modal cloud throughput experiments (legacy Unsloth + current HF+PEFT).
+> Last updated: 2026-03-06 (Added HF+PEFT parity and SmolLM3 cloud runs; reconciled with 2026-03-05 parity logs and latest checkpoint benchmarks.)
 
 ## How to Read This
 
@@ -10,24 +10,25 @@
 - **Train samples/sec** comes from TRL/W&B. It can rise even when raw step rate falls if the batch size is larger.
 - **Probe runs** are 50-step runs with eval/save disabled unless noted.
 - **This file is compute-only.** Quality/benchmark outcomes should be tracked separately.
-- **Current stack** = Modal L40S (48 GB), `spoke/cloud/train.py`, clean CUDA base image, `unsloth`, `flash-linear-attention`, `causal-conv1d`, `trl==0.22.2`.
+- **Current default stack** = Modal L40S (48 GB), `spoke/cloud/train_hf.py`, clean CUDA base image, `transformers==4.53.0`, `peft==0.14.0` (legacy Unsloth runs retained for historical comparison).
 
 ---
 
 ## Environment Baseline
 
 - **GPU:** Modal `L40S` (48 GB)
-- **Dataset:** v4 (`1201` train / `20` valid)
+- **Dataset snapshots:**
+  - v4 (`1201` train / `20` valid) for historical Unsloth sweep runs (`C0-C17`)
+  - v5 (`train.jsonl=1287` rows) for recent HF+PEFT parity and SmolLM3 runs (`C18+`)
 - **Precision:** bf16 LoRA (no QLoRA)
-- **Default LoRA:** `r=8`, `alpha=16`, `dropout=0.0`
+- **Current default trainer stack (`C18+`):** `spoke/cloud/train_hf.py` (PyTorch `2.6.0` CUDA `12.4`, `transformers==4.53.0`, `peft==0.14.0`)
+- **Legacy trainer stack (`C0-C17`):** `spoke/cloud/train.py` (`unsloth`, `flash-linear-attention`, `causal-conv1d`, `trl==0.22.2`)
 - **Important current findings:**
-  - `FA2 = False` in all successful runs so far
-  - `flash-linear-attention` + `causal-conv1d` are present
-  - `Sample packing skipped (processor-based model detected)` on Qwen3.5
-  - Qwen3.5 path is loading as `Qwen3VLProcessor` and includes `model.visual.*` weights
-  - Full 164-step packed Qwen3 runs cluster around `~2.2-2.4 it/s` steady-state with this stack
-  - Changing `rank`/`learning_rate` moved quality but did not materially move speed at fixed batch/seq
-  - No-thinking full runs with unpacked parity data path reached `~3.8-4.1 it/s`, but quality remained below local 100% (`74%` parity, `83%` ultra)
+  - HF+PEFT parity run `spoke-qwen3-hf-parity-v1` reported `train_steps_per_second=3.326` at `2000` steps (`2026-03-05_1912` log).
+  - HF+PEFT v5 forced-v2 run `spoke-qwen3-hf-v5-v2prompt-v1-20260305-2247` reported `train_steps_per_second=2.456` at `1200` steps (`2026-03-05_2302` log).
+  - On that same run, eval-loss best (`checkpoint-600`) was not benchmark-best (`checkpoint-1200`), so checkpoint promotion cannot rely on eval loss alone.
+  - SmolLM3 cloud run (`spoke-smollm3-v5-v2prompt-v1-20260305-2358`) has benchmark deltas logged, but train throughput was not captured in agent logs yet.
+  - Historical Unsloth packed Qwen3 full runs remain clustered around `~2.2-2.4 it/s`; unpacked no-thinking profile stayed around `~3.8-4.1 it/s`.
 
 ---
 
@@ -53,6 +54,9 @@
 | **C15** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | — | `~3.8-4.1` | `spoke-qwen3-parity-nothink-v1`. Hard no-thinking formatting guard, `packing=False`, parity trainer, Adam, `max_grad_norm=0.0`. Benchmark: `result_spoke-qwen3-parity-nothink-v1_modal_v2.json` (`74%`). |
 | **C16** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | — | `~3.8-4.1` | `spoke-qwen3-ultra-quality-nothink-v1`. Hard no-thinking + ultra profile (`2500` steps, `r=32`, `alpha=64`, `dropout=0.05`, `rsLoRA=True`, `packing=False`). Benchmark: `result_spoke-qwen3-ultra-quality-nothink-v1_modal_v2.json` (`83%`). |
 | **C17** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `3.568` | `~3.8-4.1` | `spoke-qwen3-parity-nothink-templatefix-v1`. Enforced no-thinking at tokenizer template level (no output stripping fallback). Benchmark: `result_spoke-qwen3-parity-nothink-templatefix-v1_modal_v2.json` (`74%`). |
+| **C18** | 03-05 | `Qwen/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | On | **COMPLETED** | `3.326` | — | `spoke-qwen3-hf-parity-v1` (pure HF+PEFT parity stack, 2000 steps, epoch `6.67`). Benchmarked at `96%` on core23 (`result_spoke-qwen3-hf-parity-v1_modal_v2.json`). |
+| **C19** | 03-05 | `Qwen/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | On | **COMPLETED** | `2.456` | — | `spoke-qwen3-hf-v5-v2prompt-v1-20260305-2247` (v5 data + forced v2 prompt, eval/save `50/100`). Eval-loss best was `checkpoint-600` (`87%`), but `checkpoint-1200` hit `100%` core23 after manual merge benchmark. |
+| **C20** | 03-05 | `HuggingFaceTB/SmolLM3-3B` | 512 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-smollm3-v5-v2prompt-v1-20260305-2358` (best checkpoint by eval loss = `800`). Benchmark sidecar: core23 `87%` for both merged-best and `checkpoint-1200`; broad58 improved `48.3% -> 53.5%` at `checkpoint-1200`. |
 
 ---
 
@@ -67,6 +71,9 @@
 7. **Skipping merged export on probes** cuts wasted wall-clock on short runs. Export was adding ~25-30 seconds after the 50-step train loop.
 8. **Switching to text-only Qwen3 is the biggest structural win so far.** It removes the processor/VLM path, enables packing, slashes first-step warmup from ~`100s` to ~`7s`, and more than doubles `train_samples_per_second` versus the best Qwen3.5 probe.
 9. **Run-type alignment matters.** Comparing full 164-step packed runs to full runs (not 50-step probes) gave stable throughput around `~2.2-2.4 it/s` and removed most noise from first-step warmup.
+10. **Moving to pure HF+PEFT (`train_hf.py`) removed Unsloth conversion drift** and gave reproducible merged exports for cloud parity.
+11. **Prompt-policy override at training time (`system_prompt_mode`) prevented dataset churn** while running prompt ablations (`as_is`, `v2`, `v3`) on the same uploaded v5 rows.
+12. **Benchmarking non-best checkpoints paid off.** On C19, eval-loss picked `checkpoint-600` (`87%`) while `checkpoint-1200` reached `100%` on the same core23 benchmark.
 
 ## What Did Not Help
 
@@ -78,6 +85,8 @@
 6. **Tuning `learning_rate` and LoRA `rank` for speed did not pay off.** In the 03-05 full-run sweep (batch 4, seq 512, packed), throughput stayed in essentially the same band.
 7. **Forcing no-thinking did not close the quality gap by itself.** The no-thinking parity/ultra runs landed at `74%` and `83%`, matching earlier configuration-driven behavior bands.
 8. **Template-level no-thinking enforcement also did not move parity quality.** After replacing the tokenizer chat template with a no-thinking template and hard-failing on `<think>` in prompts, parity remained `74%`.
+9. **Promoting checkpoints by eval loss alone did not match benchmark reality.** C19 is the concrete failure case (`checkpoint-600` vs `checkpoint-1200`).
+10. **Missing throughput capture on some runs (e.g., SmolLM3) made comparisons weaker.** This is a logging/process gap, not a model limitation.
 
 ## Root Causes of Remaining Waste
 
@@ -86,54 +95,63 @@
 3. **The first step is dominated by compile/warmup.** Short probes always look worse in averaged trainer metrics than the actual late-step rate.
 4. **Masking density is low.** Only `14/128` active labels in the sample check (~`10.9%`), so a lot of tokens are still paying forward-pass cost without contributing to loss.
 5. **The Qwen3.5 checkpoint itself is part of the waste.** As long as it loads as a processor/VLM path, it blocks packing and keeps the warmup/throughput profile worse than the text-only Qwen3 path.
+6. **HF runs with frequent eval/save trade throughput for observability.** C19 (`eval_steps=50`, `save_steps=100`) reports lower steps/s than C18.
+7. **Checkpoint benchmarking is still partially manual.** Until this is automated, late-checkpoint wins can be missed or found too late.
+8. **Compute ledger instrumentation is inconsistent across runs.** We need standardized capture for `train_steps_per_second`, runtime, and checkpoint-level benchmark deltas.
 
 ---
 
 ## Current Best Speed Profiles
 
-### Best raw step rate (same-model comparison only)
+### Best raw step rate (legacy Unsloth probe)
 
 - **Run:** C4
 - **Config:** `seq=512`, `batch=8`, `accum=1`, `grad_ckpt=off`, no eval, no save
 - **Observed steady-state:** `~3.8-4.1 it/sec`
 - **Why it wins:** Better GPU saturation than batch 4 without the per-step slowdown seen at batch 12
 
-### Best total work per second (so far)
+### Best reported full-run speed (current HF+PEFT stack)
 
-- **Run:** C8
-- **Config:** `Qwen3-4B text-only`, `seq=512`, `batch=16`, `accum=1`, `grad_ckpt=off`, no eval, no save, no export
-- **Observed steady-state:** `~0.72-0.88 it/sec`
-- **Reported train samples/sec:** `10.669`
-- **Why it matters:** Much lower raw step rate than C4, but far more useful work per second because packing is active and the warmup cost is tiny.
+- **Run:** C18
+- **Config:** `Qwen/Qwen3-4B-Instruct-2507`, `seq=512`, `batch=4`, `accum=1`, `grad_ckpt=on`, `2000` steps
+- **Reported train steps/s:** `3.326`
+- **Why it matters:** This is the highest logged full-run throughput on the current parity stack (from `2026-03-05_1912` log).
 
-### Best balanced probe profile right now
+### Best quality-aligned full run with known throughput (current stack)
 
-- **Run:** C7
-- **Config:** `Qwen3-4B text-only`, `seq=512`, `batch=8`, `accum=1`, `grad_ckpt=off`, no eval, no save, no export
-- **Observed steady-state:** `~1.35-1.45 it/sec`
-- **Reported train samples/sec:** `9.066`
-- **Why it wins:** Clean text-only path, packing enabled, low warmup, and better responsiveness than batch 16 while still massively outperforming Qwen3.5 on useful throughput.
+- **Run:** C19 + checkpoint sweep
+- **Config:** `Qwen/Qwen3-4B-Instruct-2507`, v5 data, `system_prompt_mode=v2`, `seq=512`, `batch=4`, `grad_ckpt=on`, `1200` steps
+- **Reported train steps/s:** `2.456`
+- **Quality sidecar:** merged best-checkpoint (`checkpoint-600`) scored `87%`, while merged `checkpoint-1200` scored `100%` on core23.
 
-### Best full-run profile (current training recipe)
+### Historical full-run Unsloth packed profile
 
 - **Packed recipe runs:** C9-C14 family (`164` steps, packed, export on)
 - **Observed steady-state:** generally `~2.2-2.4 it/sec`
 - **Reported train steps/s range:** `1.782` to `2.009`
 - **No-thinking parity/ultra runs:** C15-C16 (`packing=False`, export on) ran around `~3.8-4.1 it/sec`, but this is not directly comparable to packed runs because effective tokens-per-step differ.
 
+### SmolLM3 checkpoint behavior (latest cloud run)
+
+- **Run:** C20
+- **Config:** `HuggingFaceTB/SmolLM3-3B`, `seq=512`, `batch=4`, `1200` steps, v5 + v2 prompt
+- **Throughput note:** train steps/s was not captured in logs yet.
+- **Checkpoint sidecar:** core23 stayed `87%` at both merged-best and `checkpoint-1200`; broad58 improved from `48.3%` to `53.5%` at `checkpoint-1200`.
+
 ---
 
 ## Final Recommendation
 
-1. **Use `unsloth/Qwen3-4B-Instruct-2507` as the default cloud training model.**
-2. **Treat `unsloth/Qwen3.5-4B` as a lower-priority compute path** unless a separate, explicit debugging effort makes it competitive again.
-3. **Optimize from the text-only baseline** (batch size, FA2 via cached image, prompt-token efficiency) rather than spending more cycles on the Qwen3.5 VLM-style path.
+1. **Use pure HF+PEFT (`spoke/cloud/train_hf.py`) with official `Qwen/Qwen3-4B-Instruct-2507` as the default cloud quality stack.**
+2. **Treat Unsloth runs as compute probes and fallback experiments**, not the primary parity path.
+3. **Always benchmark at least two late checkpoints before promotion** (`best_by_eval` + final checkpoint minimum).
+4. **Standardize metrics capture per run** (train steps/s, runtime, checkpoint benchmark scores) to keep this ledger comparable.
 
 ---
 
 ## Next High-Signal Experiments
 
-1. **Use text-only Qwen3 as the new speed baseline.** The Qwen3.5 VLM-style path is now clearly the inferior compute path for this task.
-2. **Run a full-run batch sweep (`batch=4/6/8/12`) on text-only Qwen3** at fixed `r=16`, `lr=2e-4`, `seq=512`, packed, to find the next real speed ceiling for quality-comparable runs.
-3. **Enable FA2 the right way** via a prebuilt wheel or cached image, not by rebuilding `flash-attn` during every probe.
-4. **Reduce prompt-token waste** if training speed remains the constraint. The current Qwen3 text-only path is much better, but trimming repeated non-loss-bearing prompt tokens still helps.
+1. **Add an HF compute probe mode** (`eval=0`, `save=0`, `export_merged=False`, `50` steps) and run `batch=4/6/8` on Qwen3 for apples-to-apples throughput curves.
+2. **Automate post-train checkpoint sweeps** (`600/800/1000/1200` where present) and auto-append core23 + broad58 results.
+3. **Backfill missing SmolLM3 throughput metrics** from run summaries so C20 is fully comparable in this ledger.
+4. **Only continue FA2 work with prebuilt/cached images**; avoid source builds inside worker startup.
