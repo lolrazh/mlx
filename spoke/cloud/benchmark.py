@@ -82,19 +82,47 @@ def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt
     ]
     if not hasattr(tokenizer, "apply_chat_template"):
         return f"System: {system}\nUser: {input_text}\nAssistant:"
+    template_messages = messages
     try:
         prompt = tokenizer.apply_chat_template(
-            messages,
+            template_messages,
             tokenize=False,
             add_generation_prompt=True,
             enable_thinking=False,
         )
     except TypeError:
-        prompt = tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True,
-        )
+        try:
+            prompt = tokenizer.apply_chat_template(
+                template_messages,
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+        except Exception as exc:
+            if "System role not supported" not in str(exc):
+                raise
+            template_messages = [{"role": "user", "content": f"{system}\n\n{input_text}".strip()}]
+            prompt = tokenizer.apply_chat_template(
+                template_messages,
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+    except Exception as exc:
+        if "System role not supported" not in str(exc):
+            raise
+        template_messages = [{"role": "user", "content": f"{system}\n\n{input_text}".strip()}]
+        try:
+            prompt = tokenizer.apply_chat_template(
+                template_messages,
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=False,
+            )
+        except TypeError:
+            prompt = tokenizer.apply_chat_template(
+                template_messages,
+                tokenize=False,
+                add_generation_prompt=True,
+            )
     if has_disallowed_think_markers(prompt):
         raise RuntimeError(
             "Prompt contains <think>; no-thinking template enforcement failed."
@@ -118,13 +146,14 @@ def enforce_no_thinking_chat_template(tokenizer, model_id_hint: str):
         return tokenizer
 
     template = tokenizer.chat_template or ""
-    probe_messages = [
+    system_probe_messages = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "test"},
     ]
+    user_probe_messages = [{"role": "user", "content": "test"}]
     try:
         probe = tokenizer.apply_chat_template(
-            probe_messages,
+            system_probe_messages,
             tokenize=False,
             add_generation_prompt=True,
             enable_thinking=False,
@@ -134,6 +163,22 @@ def enforce_no_thinking_chat_template(tokenizer, model_id_hint: str):
             return tokenizer
     except TypeError:
         pass
+    except Exception as exc:
+        if "System role not supported" in str(exc):
+            try:
+                probe = tokenizer.apply_chat_template(
+                    user_probe_messages,
+                    tokenize=False,
+                    add_generation_prompt=True,
+                    enable_thinking=False,
+                )
+                if not has_disallowed_think_markers(probe):
+                    print("Tokenizer has no system role support; no-thinking verified with user-only probe.")
+                    return tokenizer
+            except TypeError:
+                pass
+        else:
+            raise
 
     if "<think>" not in template:
         print("Chat template is already no-thinking.")

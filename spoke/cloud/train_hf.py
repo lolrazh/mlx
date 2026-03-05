@@ -134,35 +134,72 @@ def train(
         cleaned = empty_think_re.sub("", text)
         return "<think>" in cleaned or "</think>" in cleaned
 
-    probe_messages = [
+    system_probe_messages = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "test"},
     ]
+    user_probe_messages = [{"role": "user", "content": "test"}]
     chat_template_kwargs: dict[str, bool] = {}
+    supports_enable_thinking = False
     try:
-        probe_text = tokenizer.apply_chat_template(
-            probe_messages,
+        tokenizer.apply_chat_template(
+            user_probe_messages,
             tokenize=False,
             add_generation_prompt=True,
             enable_thinking=False,
         )
-        if has_disallowed_think_markers(probe_text):
-            raise RuntimeError(
-                f"Tokenizer for {model_name} still renders <think> even with enable_thinking=False."
-            )
+        supports_enable_thinking = True
         chat_template_kwargs["enable_thinking"] = False
         print("Tokenizer supports enable_thinking=False; forcing no-thinking chat templates.")
     except TypeError:
+        supports_enable_thinking = False
+
+    system_role_supported = True
+    try:
         probe_text = tokenizer.apply_chat_template(
-            probe_messages,
+            system_probe_messages,
             tokenize=False,
             add_generation_prompt=True,
+            **chat_template_kwargs,
         )
         if has_disallowed_think_markers(probe_text):
             raise RuntimeError(
-                f"Tokenizer template for {model_name} renders <think> and does not support "
-                "enable_thinking=False."
+                f"Tokenizer for {model_name} renders <think> unexpectedly."
             )
+    except Exception as exc:
+        if "System role not supported" in str(exc):
+            system_role_supported = False
+            probe_text = tokenizer.apply_chat_template(
+                user_probe_messages,
+                tokenize=False,
+                add_generation_prompt=True,
+                **chat_template_kwargs,
+            )
+            if has_disallowed_think_markers(probe_text):
+                raise RuntimeError(
+                    f"Tokenizer template for {model_name} renders <think>; no-thinking unsupported."
+                )
+            print("Tokenizer does not support system role; folding system prompt into first user turn.")
+        else:
+            raise
+
+    def normalize_messages_for_template(messages):
+        normalized = [dict(m) for m in messages]
+        if system_role_supported:
+            return normalized
+        if normalized and normalized[0].get("role") == "system":
+            system_text = normalized.pop(0).get("content", "").strip()
+            user_idx = next(
+                (idx for idx, msg in enumerate(normalized) if msg.get("role") == "user"),
+                None,
+            )
+            if user_idx is None:
+                normalized.insert(0, {"role": "user", "content": system_text})
+            else:
+                original_user = normalized[user_idx].get("content", "")
+                merged_user = f"{system_text}\n\n{original_user}".strip()
+                normalized[user_idx]["content"] = merged_user
+        return normalized
 
     if tokenizer.pad_token_id is None:
         if tokenizer.eos_token_id is not None:
@@ -244,23 +281,39 @@ def train(
     print(f"System prompt mode: {system_prompt_mode}")
 
     def render_chat_text_from_messages(messages, add_generation_prompt=False):
-        text = tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=add_generation_prompt,
-            **chat_template_kwargs,
-        )
+        normalized_messages = normalize_messages_for_template(messages)
+        try:
+            text = tokenizer.apply_chat_template(
+                normalized_messages,
+                tokenize=False,
+                add_generation_prompt=add_generation_prompt,
+                **chat_template_kwargs,
+            )
+        except TypeError:
+            text = tokenizer.apply_chat_template(
+                normalized_messages,
+                tokenize=False,
+                **chat_template_kwargs,
+            )
         if has_disallowed_think_markers(text):
             raise RuntimeError("Rendered training text contains <think> unexpectedly.")
         return text
 
     def tokenize_chat(messages, add_generation_prompt=False):
-        return tokenizer.apply_chat_template(
-            messages,
-            add_generation_prompt=add_generation_prompt,
-            return_dict=False,
-            **chat_template_kwargs,
-        )
+        normalized_messages = normalize_messages_for_template(messages)
+        try:
+            return tokenizer.apply_chat_template(
+                normalized_messages,
+                add_generation_prompt=add_generation_prompt,
+                return_dict=False,
+                **chat_template_kwargs,
+            )
+        except TypeError:
+            return tokenizer.apply_chat_template(
+                normalized_messages,
+                return_dict=False,
+                **chat_template_kwargs,
+            )
 
     def build_causal_example(example):
         messages = example["messages"]
