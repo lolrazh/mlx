@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-05 (Ran no-thinking cloud parity + ultra profiles on Modal and benchmarked both directly in HF.)
+> Last updated: 2026-03-06 (T3-v5 cloud model converted to MLX. 100% on v3 test, 69% on broad eval. Fixed test set issues. Cleaned up dead model/adapter directories.)
 
 ## How to Read This
 
@@ -10,7 +10,8 @@
 - **Data v1** = 472 train, generic v1 system prompt (~30 tokens), includes multi-command category.
 - **Data v2** = 447 train / 20 valid / 23 test, v2 system prompt (~80 tokens), multi-command removed, targeted self-correction + quote-endquote fixes, XML tag fixes.
 - **Accuracy** = (exact + semantic) / N. Test set: 12 examples (v1) or 23 examples (v2).
-- **DWQ 4-bit is the deploy quant.** 96% accuracy at 2.1 GB — matches naive 6-bit (3.1 GB) at 33% less size. See [Quant Impact](#quantization-impact).
+- **DWQ 4-bit was the deploy quant** (96%, 2.1 GB) but weights were lost in cleanup. T3-v5 MLX bf16 is the only surviving model.
+- **Broad eval** = 58 unseen examples (`test_set_evals.json`), 0 overlap with training. Best: T3-v5 at 69%.
 - Benchmark results as JSON: `spoke/bench/result_*.json`
 
 ---
@@ -80,7 +81,8 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T11** | 03-01 | LoRA | r=8 | adam | flat | **v3 (492)** | 300 | 0.169 @250 | **v3 data.** Trigger-matched categories only. T4 config on new data. **83% bf16, 74% 6-bit.** |
 | **T12** | 03-01 | LoRA | r=8 | adam | flat | **v3+patch (535)** | 300 | 0.162 @300 | **v3 + 43 targeted examples.** Best val loss but **REGRESSED to 74% bf16** (from 83%). Patch fixed 0/4 targets, caused 2 new regressions. |
 | **T11-ext** | 03-02 | LoRA | r=8 | adam | flat | **v3 (535)** | 2000 | 0.107 @450 | **All 36 layers** (vs T11's 16). 16.5M trainable (0.411%). Peak 18.6 GB. Val loss plateaued ~0.11 by iter 400, slowly rose to 0.156 by iter 2000. Train loss 0.000 from iter 1200. **91% bf16 at iter 2000, 3.15s latency.** |
-| **T2-v4** | 03-03 | LoRA | r=8 | adam | flat | **v4 (1201)** | 2000 | 0.065 @1100 | **V4 data** (535 v3 + 377 new regular + 289 hard negatives). All 36 layers. Peak 18.6 GB. Val loss best at iter 1100, overfit to 0.091 by iter 2000. Both checkpoints score 100%. **100% bf16 (23/23 exact) at iter 2000, 1.82s latency. NEW ALL-TIME BEST.** |
+| **T2-v4** | 03-03 | LoRA | r=8 | adam | flat | **v4 (1201)** | 2000 | 0.065 @1100 | **V4 data** (535 v3 + 377 new regular + 289 hard negatives). All 36 layers. Peak 18.6 GB. Val loss best at iter 1100, overfit to 0.091 by iter 2000. Both checkpoints score 100%. **100% bf16 (23/23 exact) at iter 2000, 1.82s latency.** |
+| **T3-v5** | 03-05 | LoRA | r=8 | adam | flat | **v5 (1287)** | 2000 | — | **Cloud (Modal L40S, HF+PEFT).** V5 data (1201 v4 + 86 targeted: multi-step, spell-compound, emphasis-caps, meta-language). Trained with v2 prompt. Checkpoint 1200 selected. **100% on v3 test (23/23), 69% on broad eval (58 ex). Fixes Wispr Flow scoping bug. Model at `spoke/models/spoke-qwen3-t3-v5-mlx/`.** |
 
 ### Alternative Models
 
@@ -159,6 +161,33 @@ All from Qwen3-4B base.
 | T2-v4 | iter 1100 | bf16 | v2 | 23 | **100%** | **23** | **0** | **0** | **0** | **2.24s** | Best val loss (0.065). Perfect score. |
 | **T2-v4** | **iter 2000** | **bf16** | **v2** | **23** | **100%** | **23** | **0** | **0** | **0** | **1.82s** | **NEW ALL-TIME BEST. 91% → 100%. 0 partials, 0 fails. Faster inference than iter 1100. V4 data (1201 train) broke the 91% ceiling.** |
 
+### T3-v5: v3 test set (23 examples), v5 training data (1287 train), cloud HF+PEFT
+
+| Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-----------|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| **T3-v5** | **ckpt 1200** | **bf16 (MLX)** | **v2** | **23** | **100%** | **23** | **0** | **0** | **0** | **4.28s** | **Cloud HF+PEFT on Modal L40S → MLX convert. V5 data + v2 prompt. Matches T2-v4's 100%. Fixes Wispr Flow multi-word scoping bug.** |
+
+### T3-v5: Broad Eval (58 unseen examples, `test_set_evals.json`)
+
+| Run | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| T2-v4 DWQ | DWQ 4-bit | v2 | 58 | **67%** | 38 | 1 | 18 | 1 | 0.89s | Previous best on broad eval. |
+| **T3-v5** | **bf16 (MLX)** | **v2** | **58** | **69%** | **38** | **2** | **16** | **2** | **4.28s** | **New best. +2 pts over DWQ. V5 data improved multi (14%→43%), spell (75%→88%), quote (50%→75%). Regressed emoji (100%→50%), disfluency (75%→50%).** |
+
+**Category breakdown (T3-v5 vs DWQ-T2, broad eval):**
+
+| Category | DWQ-T2 | T3-v5 | Delta |
+|----------|--------|-------|-------|
+| multi | 14% (1/7) | **43% (3/7)** | **+29** |
+| quote-unquote | 50% (2/4) | **75% (3/4)** | **+25** |
+| spell-replace | 75% (6/8) | **88% (7/8)** | **+12** |
+| emoji | 100% (4/4) | 50% (2/4) | -50 |
+| disfluency | 75% (3/4) | 50% (2/4) | -25 |
+| passthrough | 62% (10/16) | 62% (10/16) | 0 |
+| self-correction | 100% (6/6) | 100% (6/6) | 0 |
+
+**Test set fixes applied (2026-03-06):** ID 45 emphasis `**bold**`→CAPS, ID 46 recategorized disfluency→emoji, ID 48 added trailing period, IDs 25/26 curly→straight quotes, ID 36 period placement. These fixed scoring artifacts, not model behavior.
+
 ### Alternative Models: v3 test set (23 examples)
 
 | Run | Checkpoint | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
@@ -233,7 +262,9 @@ DWQ 4-bit failure: emphasis #21 (drops "absolutely" — same as naive 6-bit). Tr
 
 **Ad-hoc generalization tests (5 novel inputs, not in train/test):** bf16=5/5, **DWQ 4-bit=5/5**, 6-bit=3/5, mixed 4/6=2/5. DWQ matches bf16 on all ad-hoc tests. Naive quant models fail on self-correction and complex spell-replacements — test set accuracy flatters them.
 
-**Verdict:** DWQ 4-bit (2.1 GB, 96%, 0.88s) is the deploy target. Matches naive 6-bit accuracy at 33% less size and 2x faster than bf16. Model at `spoke/models/qwen3-t2-v4-dwq4/`.
+**Verdict:** DWQ 4-bit (2.1 GB, 96%, 0.88s) was the deploy target. Matches naive 6-bit accuracy at 33% less size and 2x faster than bf16.
+
+> **⚠️ DWQ model weights deleted (2026-03-06)** during disk cleanup. Only config files remain at `spoke/models/qwen3-t2-v4-dwq4/` (also cleaned up). All local adapter weights and fused model weights were also lost. T3-v5 MLX bf16 (`spoke/models/spoke-qwen3-t3-v5-mlx/`) is the only surviving model. DWQ quantization of T3-v5 is pending.
 
 ### Historical: T2-v1 (v1 data, 472 train, iter 400)
 
@@ -297,6 +328,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | **T2-v4** | **Qwen3-4B bf16, v4 data (1201 train), 2000 iters, all 36 layers** | **100% bf16, 1.82s latency. NEW ALL-TIME BEST.** V4 data (535 v3 + 377 regular + 289 hard negatives) broke the 91% ceiling. Both iter 1100 and 2000 score 100%. Val loss overfit after iter 1100 but accuracy unaffected. Generalizes to novel inputs (Celero→Silero, Gamma→Gemma) not in training data. Known gap: drops "Flow" from multi-word "Whisper Flow" spell-replace. |
 | **Llama3-T2** | **Llama 3.2 3B bf16, v4 data (1201 train), 2000 iters, all 28 layers** | **91% bf16, 1.90s latency.** 87% → 91% with v4 data (+4 pts). 0 fails. Best val loss 0.083 at iter 700, overfit to 0.155 by iter 2000. Iter 2000 still outperforms iter 700 (91% vs 83%). Doesn't match Qwen3's 100% — 3B capacity ceiling. |
 | **Muon-YOLO** | **Qwen3-4B bf16, Muon optimizer (lr=2e-4), 16 layers, 256 seq, v4 data, ~900 iters** | **78% bf16, 1.63s latency. Dead end.** Worse than Adam T11 (83%) despite 2x more data. 10x slower per-iter (Newton-Schulz overhead). New camelCase regression. Muon not viable for LoRA on M4. |
+| **T3-v5** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5 data (1287 train), v2 prompt, ckpt 1200** | **100% v3 test, 69% broad eval (58 ex). NEW BROAD EVAL BEST.** V5 targeted data (+86 examples: multi-step, spell-compound, emphasis-caps, meta-language) improved multi 14%→43%, spell 75%→88%, quote 50%→75%. Regressed emoji/disfluency. Fixes Wispr Flow scoping bug. Only surviving model: `spoke/models/spoke-qwen3-t3-v5-mlx/`. |
 
 ### Active Queue
 

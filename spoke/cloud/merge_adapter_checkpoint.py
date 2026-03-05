@@ -19,7 +19,7 @@ output_vol = modal.Volume.from_name("spoke-output", create_if_missing=True)
 image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .pip_install(
-        "transformers==4.51.3",
+        "transformers==4.53.0",
         "peft==0.14.0",
         "sentencepiece",
         "safetensors",

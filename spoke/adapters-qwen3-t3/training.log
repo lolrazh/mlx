@@ -1,26 +1,0 @@
-wandb: [wandb.login()] Loaded credentials for https://api.wandb.ai from /Users/lolrazh/.netrc.
-wandb: Currently logged in as: lolrazh (spoke) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
-wandb: setting up run 3d5d82ez
-wandb: Tracking run with wandb version 0.25.0
-wandb: Run data is saved locally in spoke/adapters-qwen3-t3/wandb/run-20260305_041856-3d5d82ez
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run adapters-qwen3-t3
-wandb: ⭐️ View project at https://wandb.ai/spoke/mlx-.venv_bin
-wandb: 🚀 View run at https://wandb.ai/spoke/mlx-.venv_bin/runs/3d5d82ez
-Loading configuration file spoke/config.yaml
-Loading pretrained model
-Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files: 100%|██████████| 8/8 [00:00<00:00, 26317.20it/s]
-mx.metal.device_info is deprecated and will be removed in a future version. Use mx.device_info instead.
-Loading datasets
-Training
-Loading fine-tuned weights from spoke/adapters-qwen3-t3/0000200_adapters.safetensors
-Trainable parameters: 0.411% (16.515M/4022.468M)
-Starting training..., iters: 2000
-Calculating loss...:   0%|          | 0/5 [00:00<?, ?it/s]Calculating loss...:  20%|██        | 1/5 [00:04<00:18,  4.60s/it]Calculating loss...:  40%|████      | 2/5 [00:08<00:12,  4.29s/it]Calculating loss...:  60%|██████    | 3/5 [00:12<00:08,  4.16s/it]Calculating loss...:  80%|████████  | 4/5 [00:16<00:04,  4.09s/it]Calculating loss...: 100%|██████████| 5/5 [00:20<00:00,  4.06s/it]Calculating loss...: 100%|██████████| 5/5 [00:20<00:00,  4.13s/it]
-Iter 1: Val loss 0.187, Val took 20.663s
-Iter 10: Train loss 0.072, Learning Rate 1.000e-05, It/sec 0.064, Tokens/sec 4.495, Trained Tokens 704, Peak mem 10.147 GB
-Iter 20: Train loss 0.113, Learning Rate 1.000e-05, It/sec 0.061, Tokens/sec 4.120, Trained Tokens 1377, Peak mem 10.147 GB
-Iter 30: Train loss 0.083, Learning Rate 1.000e-05, It/sec 0.063, Tokens/sec 3.865, Trained Tokens 1990, Peak mem 10.147 GB
-Iter 40: Train loss 0.083, Learning Rate 1.000e-05, It/sec 0.061, Tokens/sec 4.037, Trained Tokens 2657, Peak mem 10.147 GB
-/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
-  warnings.warn('resource_tracker: There appear to be %d '
