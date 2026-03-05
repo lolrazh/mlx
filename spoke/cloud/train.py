@@ -66,6 +66,7 @@ def train(
     packing: bool = True,
     gradient_checkpointing: bool = False,
     optimizer: str = "adamw_torch",
+    max_grad_norm: float = 1.0,
     eval_steps: int = 200,
     save_steps: int = 500,
     export_merged: bool = True,
@@ -94,6 +95,8 @@ def train(
         lora_dropout = 0.05
         packing = False
         optimizer = "adam"
+        # Match mlx_lm default behavior more closely: no gradient clipping.
+        max_grad_norm = 0.0
         eval_steps = 50
         save_steps = 100
         print("Applying best-local parity profile (T2-v4-like settings).")
@@ -339,6 +342,7 @@ def train(
                 adam_beta2=0.999,
                 adam_epsilon=1e-8,
                 weight_decay=0.0,
+                max_grad_norm=max_grad_norm,
                 bf16=True,
                 seed=42,
                 data_seed=42,
@@ -372,6 +376,7 @@ def train(
                 lr_scheduler_type="constant",
                 optim="adamw_torch",
                 weight_decay=0.0,
+                max_grad_norm=max_grad_norm,
                 bf16=True,
                 seed=42,
                 dataset_text_field="text",
@@ -411,6 +416,7 @@ def train(
         f"{max_steps} steps, lr={learning_rate}, batch={batch_size}, "
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
         f"optim={optimizer}, "
+        f"max_grad_norm={max_grad_norm}, "
         f"packing={packing}, eval={'off' if not eval_enabled else eval_steps}, "
         f"save={'off' if not save_enabled else save_steps}, "
         f"export={'on' if export_merged else 'off'}"
@@ -454,6 +460,7 @@ def main(
     packing: bool = True,
     gradient_checkpointing: bool = False,
     optimizer: str = "adamw_torch",
+    max_grad_norm: float = 1.0,
     eval_steps: int = 200,
     save_steps: int = 500,
     export_merged: bool = True,
@@ -465,6 +472,7 @@ def main(
         lora_dropout = 0.05
         packing = False
         optimizer = "adam"
+        max_grad_norm = 0.0
         eval_steps = 50
         save_steps = 100
 
@@ -477,6 +485,7 @@ def main(
         f"grad_ckpt={gradient_checkpointing}"
     )
     print(f"  Optimizer: {optimizer}")
+    print(f"  Max grad norm: {max_grad_norm}")
     print(f"  Grad accum: {gradient_accumulation_steps}")
     print(f"  Max seq length: {max_seq_length}")
     print(f"  Packing: {packing}")
@@ -500,6 +509,7 @@ def main(
         packing=packing,
         gradient_checkpointing=gradient_checkpointing,
         optimizer=optimizer,
+        max_grad_norm=max_grad_norm,
         eval_steps=eval_steps,
         save_steps=save_steps,
         export_merged=export_merged,
