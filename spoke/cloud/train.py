@@ -72,12 +72,15 @@ def train(
     save_steps: int = 500,
     export_merged: bool = True,
     best_local_parity: bool = False,
+    ultra_quality: bool = False,
     unsloth_recommended: bool = False,
     unsloth_epochs: float = 2.0,
+    use_rslora: bool = False,
 ):
     import math
     import json
     import os
+    import re
     import numpy as np
     import torch
     import wandb
@@ -91,8 +94,9 @@ def train(
     from transformers import Trainer, TrainingArguments
     from trl import SFTTrainer, SFTConfig
 
-    if best_local_parity and unsloth_recommended:
-        raise ValueError("Choose only one profile: --best-local-parity OR --unsloth-recommended.")
+    selected_profiles = [best_local_parity, ultra_quality, unsloth_recommended]
+    if sum(bool(x) for x in selected_profiles) > 1:
+        raise ValueError("Choose only one profile: --best-local-parity OR --ultra-quality OR --unsloth-recommended.")
 
     if best_local_parity:
         # Match the successful local T2-v4 training recipe more closely for
@@ -107,6 +111,30 @@ def train(
         eval_steps = 50
         save_steps = 100
         print("Applying best-local parity profile (T2-v4-like settings).")
+    elif ultra_quality:
+        # Higher-quality Unsloth profile:
+        # - keep MLX-parity data path (no packing, adam, prompt-mask labels)
+        # - increase adapter capacity with rsLoRA
+        # - run longer by default
+        if run_name == "spoke-qwen3-cloud":
+            run_name = "spoke-qwen3-ultra-quality"
+        if max_steps == 2000:
+            max_steps = 2500
+        learning_rate = 8e-6
+        rank = 32
+        lora_alpha = 64
+        lora_dropout = 0.05
+        packing = False
+        optimizer = "adam"
+        max_grad_norm = 0.0
+        eval_steps = 50
+        save_steps = 100
+        use_rslora = True
+        print(
+            "Applying ultra-quality profile "
+            f"(steps={max_steps}, lr={learning_rate}, r={rank}, "
+            f"alpha={lora_alpha}, dropout={lora_dropout}, rsLoRA={use_rslora})."
+        )
     elif unsloth_recommended:
         # Follow Unsloth guidance instead of MLX parity:
         # - higher LR for LoRA
@@ -171,6 +199,7 @@ def train(
         use_gradient_checkpointing="unsloth" if gradient_checkpointing else False,
         random_state=42,
         max_seq_length=max_seq_length,
+        use_rslora=use_rslora,
     )
 
     # ── Load data ────────────────────────────────────────────
@@ -192,30 +221,38 @@ def train(
 
     # ── Format with chat template ────────────────────────────
     def render_chat_text(example):
+        messages = example["messages"]
+        return render_chat_text_from_messages(messages)
+
+    def render_chat_text_from_messages(messages, add_generation_prompt=False):
+        # Force no-thinking mode for both training and parity token offsets.
+        # If template ignores enable_thinking, strip residual think blocks.
         try:
             text = tokenizer.apply_chat_template(
-                example["messages"],
+                messages,
                 tokenize=False,
-                add_generation_prompt=False,
+                add_generation_prompt=add_generation_prompt,
                 enable_thinking=False,
             )
         except TypeError:
-            # Fallback if chat template doesn't support enable_thinking
+            # Fallback if chat template doesn't support enable_thinking.
             text = tokenizer.apply_chat_template(
-                example["messages"],
+                messages,
                 tokenize=False,
-                add_generation_prompt=False,
+                add_generation_prompt=add_generation_prompt,
             )
+        if "<think>" in text:
+            text = re.sub(r"<think>.*?</think>\s*", "", text, flags=re.DOTALL)
+            text = re.sub(r"\n{3,}", "\n\n", text)
         return text
 
     def tokenize_chat(messages, add_generation_prompt=False):
-        # Match mlx_lm's dataset path exactly: tokenize the chat template output
-        # directly and compute the loss offset from the prompt prefix.
-        return tokenizer.apply_chat_template(
+        # Force no-thinking tokenization path for parity mode.
+        rendered = render_chat_text_from_messages(
             messages,
             add_generation_prompt=add_generation_prompt,
-            return_dict=False,
         )
+        return tokenizer(rendered, add_special_tokens=False)["input_ids"]
 
     def build_mlx_style_example(example):
         messages = example["messages"]
@@ -234,7 +271,7 @@ def train(
             "length": len(input_ids),
         }
 
-    if best_local_parity:
+    if best_local_parity or ultra_quality:
         train_dataset = Dataset.from_list([build_mlx_style_example(ex) for ex in train_data])
         valid_dataset = (
             Dataset.from_list([build_mlx_style_example(ex) for ex in valid_data])
@@ -252,13 +289,16 @@ def train(
         train_dataset = raw_train.map(format_example).remove_columns(extra_cols)
         valid_dataset = raw_valid.map(format_example).remove_columns(extra_cols)
 
+    sample_formatted = render_chat_text(train_data[0])
+    if "<think>" in sample_formatted:
+        raise RuntimeError("Thinking tags detected in formatted training text. Aborting to avoid mismatch.")
     print(f"\n--- Sample formatted input ---")
-    print(render_chat_text(train_data[0])[:500])
+    print(sample_formatted[:500])
     print(f"--- End sample ---\n")
     # ── Trainer (matches Unsloth notebook pattern exactly) ──
     output_dir = f"/output/{run_name}"
 
-    if best_local_parity:
+    if best_local_parity or ultra_quality:
         print("Using mlx-style parity trainer: pretokenized dataset + mask_prompt labels.")
         def parity_data_collator(features):
             lengths = [len(feature["input_ids"]) for feature in features]
@@ -453,6 +493,7 @@ def train(
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
         f"optim={optimizer}, "
         f"max_grad_norm={max_grad_norm}, "
+        f"rsLoRA={use_rslora}, "
         f"packing={packing}, eval={'off' if not eval_enabled else eval_steps}, "
         f"save={'off' if not save_enabled else save_steps}, "
         f"export={'on' if export_merged else 'off'}"
@@ -501,11 +542,14 @@ def main(
     save_steps: int = 500,
     export_merged: bool = True,
     best_local_parity: bool = False,
+    ultra_quality: bool = False,
     unsloth_recommended: bool = False,
     unsloth_epochs: float = 2.0,
+    use_rslora: bool = False,
 ):
-    if best_local_parity and unsloth_recommended:
-        raise ValueError("Choose only one profile: --best-local-parity OR --unsloth-recommended.")
+    selected_profiles = [best_local_parity, ultra_quality, unsloth_recommended]
+    if sum(bool(x) for x in selected_profiles) > 1:
+        raise ValueError("Choose only one profile: --best-local-parity OR --ultra-quality OR --unsloth-recommended.")
 
     if best_local_parity:
         if run_name == "spoke-qwen3-cloud":
@@ -516,6 +560,21 @@ def main(
         max_grad_norm = 0.0
         eval_steps = 50
         save_steps = 100
+    elif ultra_quality:
+        if run_name == "spoke-qwen3-cloud":
+            run_name = "spoke-qwen3-ultra-quality"
+        if max_steps == 2000:
+            max_steps = 2500
+        learning_rate = 8e-6
+        rank = 32
+        lora_alpha = 64
+        lora_dropout = 0.05
+        packing = False
+        optimizer = "adam"
+        max_grad_norm = 0.0
+        eval_steps = 50
+        save_steps = 100
+        use_rslora = True
     elif unsloth_recommended:
         if run_name == "spoke-qwen3-cloud":
             run_name = "spoke-qwen3-unsloth"
@@ -535,7 +594,7 @@ def main(
     print(
         "  LoRA: "
         f"r={rank}, alpha={lora_alpha}, dropout={lora_dropout}, "
-        f"grad_ckpt={gradient_checkpointing}"
+        f"grad_ckpt={gradient_checkpointing}, rsLoRA={use_rslora}"
     )
     print(f"  Optimizer: {optimizer}")
     print(f"  Max grad norm: {max_grad_norm}")
@@ -546,6 +605,7 @@ def main(
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
     print(f"  Export merged: {'on' if export_merged else 'off'}")
     print(f"  Best-local parity: {'on' if best_local_parity else 'off'}")
+    print(f"  Ultra-quality: {'on' if ultra_quality else 'off'}")
     print(f"  Unsloth-recommended: {'on' if unsloth_recommended else 'off'}")
     if unsloth_recommended:
         print(f"  Unsloth epochs target: {unsloth_epochs:.2f}")
@@ -570,6 +630,8 @@ def main(
         save_steps=save_steps,
         export_merged=export_merged,
         best_local_parity=best_local_parity,
+        ultra_quality=ultra_quality,
         unsloth_recommended=unsloth_recommended,
         unsloth_epochs=unsloth_epochs,
+        use_rslora=use_rslora,
     )
