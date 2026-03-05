@@ -24,7 +24,7 @@ output_vol = modal.Volume.from_name("spoke-output", create_if_missing=False)
 image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .pip_install(
-        "transformers==4.51.3",
+        "transformers==4.53.0",
         "accelerate==1.2.1",
         "sentencepiece",
         "safetensors",
@@ -61,6 +61,14 @@ V3_PROMPT = (
 )
 
 
+EMPTY_THINK_RE = re.compile(r"<think>\s*</think>\s*", flags=re.DOTALL)
+
+
+def has_disallowed_think_markers(text: str) -> bool:
+    cleaned = EMPTY_THINK_RE.sub("", text)
+    return "<think>" in cleaned or "</think>" in cleaned
+
+
 def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt_mode: str = "v2") -> str:
     if prompt_mode == "v2":
         system = V2_PROMPT
@@ -85,7 +93,7 @@ def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt
             tokenize=False,
             add_generation_prompt=True,
         )
-    if "<think>" in prompt:
+    if has_disallowed_think_markers(prompt):
         raise RuntimeError(
             "Prompt contains <think>; no-thinking template enforcement failed."
         )
@@ -104,6 +112,23 @@ def clean_output(text: str) -> str:
 
 def enforce_no_thinking_chat_template(tokenizer, model_id_hint: str):
     template = tokenizer.chat_template or ""
+    probe_messages = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "test"},
+    ]
+    try:
+        probe = tokenizer.apply_chat_template(
+            probe_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=False,
+        )
+        if not has_disallowed_think_markers(probe):
+            print("Tokenizer supports no-thinking via enable_thinking=False.")
+            return tokenizer
+    except TypeError:
+        pass
+
     if "<think>" not in template:
         print("Chat template is already no-thinking.")
         return tokenizer
@@ -129,13 +154,13 @@ def enforce_no_thinking_chat_template(tokenizer, model_id_hint: str):
         trust_remote_code=True,
     )
     ref_template = ref_tok.chat_template or ""
-    if "<think>" in ref_template:
+    if has_disallowed_think_markers(ref_template):
         raise RuntimeError(
             f"Fallback tokenizer {fallback_template_model} still contains <think>; aborting."
         )
 
     tokenizer.chat_template = ref_template
-    if "<think>" in (tokenizer.chat_template or ""):
+    if has_disallowed_think_markers(tokenizer.chat_template or ""):
         raise RuntimeError("Failed to apply no-thinking chat template.")
     print("No-thinking chat template applied successfully.")
     return tokenizer

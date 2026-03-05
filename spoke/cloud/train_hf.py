@@ -11,6 +11,7 @@ Usage:
 
 from __future__ import annotations
 
+import re
 import modal
 
 app = modal.App("spoke-training-hf")
@@ -23,7 +24,7 @@ image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .apt_install("git", "build-essential")
     .pip_install(
-        "transformers==4.51.3",
+        "transformers==4.53.0",
         "accelerate==1.4.0",
         "datasets==3.2.0",
         "peft==0.14.0",
@@ -115,11 +116,41 @@ def train(
 
     print(f"Loading base model: {model_name}")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-    template = tokenizer.chat_template or ""
-    if "<think>" in template:
-        raise RuntimeError(
-            f"Tokenizer template for {model_name} contains <think>; expected no-thinking template."
+    empty_think_re = re.compile(r"<think>\s*</think>\s*", re.DOTALL)
+
+    def has_disallowed_think_markers(text: str) -> bool:
+        cleaned = empty_think_re.sub("", text)
+        return "<think>" in cleaned or "</think>" in cleaned
+
+    probe_messages = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "test"},
+    ]
+    chat_template_kwargs: dict[str, bool] = {}
+    try:
+        probe_text = tokenizer.apply_chat_template(
+            probe_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=False,
         )
+        if has_disallowed_think_markers(probe_text):
+            raise RuntimeError(
+                f"Tokenizer for {model_name} still renders <think> even with enable_thinking=False."
+            )
+        chat_template_kwargs["enable_thinking"] = False
+        print("Tokenizer supports enable_thinking=False; forcing no-thinking chat templates.")
+    except TypeError:
+        probe_text = tokenizer.apply_chat_template(
+            probe_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+        )
+        if has_disallowed_think_markers(probe_text):
+            raise RuntimeError(
+                f"Tokenizer template for {model_name} renders <think> and does not support "
+                "enable_thinking=False."
+            )
 
     if tokenizer.pad_token_id is None:
         if tokenizer.eos_token_id is not None:
@@ -199,8 +230,9 @@ def train(
             messages,
             tokenize=False,
             add_generation_prompt=add_generation_prompt,
+            **chat_template_kwargs,
         )
-        if "<think>" in text:
+        if has_disallowed_think_markers(text):
             raise RuntimeError("Rendered training text contains <think> unexpectedly.")
         return text
 
@@ -209,6 +241,7 @@ def train(
             messages,
             add_generation_prompt=add_generation_prompt,
             return_dict=False,
+            **chat_template_kwargs,
         )
 
     def build_mlx_style_example(example):
