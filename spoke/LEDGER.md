@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-04 (Cloud pipeline working: Modal + Unsloth + Qwen3.5-4B on L40S. Training in progress.)
+> Last updated: 2026-03-05 (Ran no-thinking cloud parity + ultra profiles on Modal and benchmarked both directly in HF.)
 
 ## How to Read This
 
@@ -176,6 +176,8 @@ All from Qwen3-4B base.
 | **Qwen3-T2-cloud** | **iter 2000** | **bf16** | **v2** | **23** | **35%** | **5** | **3** | **11** | **4** | **1.65s** | **Original cloud fast-path run. Packing ON (1201→327 packed seqs), dropout=0.0. Confounded and not apples-to-apples. 35% after MLX conversion.** |
 | **Qwen3-T2-cloud-parity (MLX)** | **iter 2000** | **bf16** | **v2** | **23** | **35%** | **5** | **3** | **11** | **4** | **2.38s** | **Strict local-parity rerun: packing OFF, dropout=0.05, mlx-style mask_prompt/collator/batch ordering. Still 35% after MLX conversion, so the original packing theory does not explain the full regression.** |
 | **Qwen3-T2-cloud-parity (Modal HF)** | **iter 2000** | **bf16** | **v2** | **23** | **87%** | **20** | **0** | **3** | **0** | **0.28s** | **Exact same merged bf16 model benchmarked directly on Modal with Transformers before MLX conversion. 35% → 87% proves the main quality loss is downstream in MLX conversion and/or MLX inference, not in the cloud training itself.** |
+| **Qwen3-T2-cloud-parity-nothink (Modal HF)** | **iter 2000** | **bf16** | **v2** | **23** | **74%** | **17** | **0** | **6** | **0** | **0.28s** | **Hard no-thinking path enforced in training formatter/tokenization with runtime `<think>` guard. Parity profile + `packing=off` + Adam + `max_grad_norm=0.0`. Result matches the prior lower cloud band (`74%`).** |
+| **Qwen3-T2-cloud-ultra-nothink (Modal HF)** | **iter 2500** | **bf16** | **v2** | **23** | **83%** | **19** | **0** | **4** | **0** | **0.50s** | **No-thinking enforced + ultra profile (`r=32`, `alpha=64`, `dropout=0.05`, `rsLoRA=True`, `packing=off`). Improves over parity-nothink (74% → 83%) but still below local MLX 100%.** |
 
 ### Cloud Training: Qwen3.5-4B (Modal + Unsloth + L40S)
 

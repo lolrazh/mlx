@@ -1,7 +1,7 @@
 # Spoke Cloud Compute Ledger
 
 > Single source of truth for Modal + Unsloth throughput experiments.
-> Last updated: 2026-03-05 (Added full 2-epoch packed Qwen3 sweep: rank/lr grid at fixed batch=4, seq=512.)
+> Last updated: 2026-03-05 (Added no-thinking parity + ultra-quality full runs and matched benchmark artifacts.)
 
 ## How to Read This
 
@@ -27,6 +27,7 @@
   - Qwen3.5 path is loading as `Qwen3VLProcessor` and includes `model.visual.*` weights
   - Full 164-step packed Qwen3 runs cluster around `~2.2-2.4 it/s` steady-state with this stack
   - Changing `rank`/`learning_rate` moved quality but did not materially move speed at fixed batch/seq
+  - No-thinking full runs with unpacked parity data path reached `~3.8-4.1 it/s`, but quality remained below local 100% (`74%` parity, `83%` ultra)
 
 ---
 
@@ -49,6 +50,8 @@
 | **C12** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `2.009` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r8-lr5e5` (`r=8`, `lr=5e-5`). Highest reported `train_steps_per_second` in this full-run sweep. |
 | **C13** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `1.937` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r16-lr1e4` (`r=16`, `lr=1e-4`). |
 | **C14** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | `1.981` | `~2.2-2.4` | `spoke-qwen3-unsloth-sweep-r16-lr5e5` (`r=16`, `lr=5e-5`). |
+| **C15** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | — | `~3.8-4.1` | `spoke-qwen3-parity-nothink-v1`. Hard no-thinking formatting guard, `packing=False`, parity trainer, Adam, `max_grad_norm=0.0`. Benchmark: `result_spoke-qwen3-parity-nothink-v1_modal_v2.json` (`74%`). |
+| **C16** | 03-05 | `unsloth/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | Off | **COMPLETED** | — | `~3.8-4.1` | `spoke-qwen3-ultra-quality-nothink-v1`. Hard no-thinking + ultra profile (`2500` steps, `r=32`, `alpha=64`, `dropout=0.05`, `rsLoRA=True`, `packing=False`). Benchmark: `result_spoke-qwen3-ultra-quality-nothink-v1_modal_v2.json` (`83%`). |
 
 ---
 
@@ -72,6 +75,7 @@
 4. **Raw `it/sec` is a bad cross-model comparison once packing changes.** The text-only Qwen3 probes do fewer steps per second than Qwen3.5 batch-8, but each step carries far more useful tokens and much less warmup overhead.
 5. **A completed long run is not automatically a useful speed datapoint.** The 2000-step Qwen3.5 run proved the pipeline could finish, but the short probes are still the only clean apples-to-apples throughput reference in this file.
 6. **Tuning `learning_rate` and LoRA `rank` for speed did not pay off.** In the 03-05 full-run sweep (batch 4, seq 512, packed), throughput stayed in essentially the same band.
+7. **Forcing no-thinking did not close the quality gap by itself.** The no-thinking parity/ultra runs landed at `74%` and `83%`, matching earlier configuration-driven behavior bands.
 
 ## Root Causes of Remaining Waste
 
@@ -110,10 +114,10 @@
 
 ### Best full-run profile (current training recipe)
 
-- **Runs:** C9-C14 family (`164` steps, packed, export on)
+- **Packed recipe runs:** C9-C14 family (`164` steps, packed, export on)
 - **Observed steady-state:** generally `~2.2-2.4 it/sec`
 - **Reported train steps/s range:** `1.782` to `2.009`
-- **Why it matters:** This is the real throughput band for the current apples-to-apples quality runs; rank/lr changes alone are not where the next speed win will come from.
+- **No-thinking parity/ultra runs:** C15-C16 (`packing=False`, export on) ran around `~3.8-4.1 it/sec`, but this is not directly comparable to packed runs because effective tokens-per-step differ.
 
 ---
 
