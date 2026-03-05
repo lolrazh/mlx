@@ -3,6 +3,8 @@
 
 Usage:
     modal run spoke/cloud/benchmark.py --run-name spoke-qwen3-t2-cloud
+    modal run spoke/cloud/benchmark.py --run-name spoke-qwen3-t2-cloud --suite broad58
+    modal run spoke/cloud/benchmark.py --run-name spoke-qwen3-t2-cloud --suite core23
 """
 
 from __future__ import annotations
@@ -10,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 import time
+import hashlib
 from pathlib import Path
 
 import modal
@@ -267,17 +270,37 @@ def benchmark_remote(
 def main(
     run_name: str = "spoke-qwen3-t2-cloud",
     prompt_mode: str = "v2",
-    test_set: str = str(Path(__file__).resolve().parents[1] / "bench" / "test_set_v3.json"),
+    test_set: str = "",
+    suite: str = "core23",
 ):
-    with open(test_set) as f:
+    bench_dir = Path(__file__).resolve().parents[1] / "bench"
+    suite_map = {
+        "core23": bench_dir / "test_set_v3.json",
+        "broad58": bench_dir / "test_set_evals.json",
+        "legacy12": bench_dir / "test_set.json",
+    }
+    if suite not in suite_map:
+        raise ValueError(f"suite must be one of {sorted(suite_map)}, got: {suite}")
+
+    resolved_test_set = Path(test_set) if test_set else suite_map[suite]
+    with open(resolved_test_set) as f:
         test_data = json.load(f)
 
-    print(f"Loaded {len(test_data)} test examples")
+    test_set_sha256 = hashlib.sha256(
+        resolved_test_set.read_bytes()
+    ).hexdigest()
+    print(f"Loaded {len(test_data)} test examples from {resolved_test_set}")
+    print(f"Test set SHA256: {test_set_sha256}")
+
     summary = benchmark_remote.remote(
         run_name=run_name,
         test_set=test_data,
         prompt_mode=prompt_mode,
     )
+    summary["test_set_path"] = str(resolved_test_set)
+    summary["test_set_name"] = resolved_test_set.name
+    summary["test_set_sha256"] = test_set_sha256
+    summary["suite"] = suite
 
     print(f"\n{'='*60}")
     print(f"  {summary['short_name']}")
@@ -296,6 +319,10 @@ def main(
     )
     print(f"  Avg latency: {summary['avg_latency_s']:.2f}s")
 
-    result_path = Path(__file__).resolve().parents[1] / "bench" / f"result_{run_name}_modal_{prompt_mode}.json"
+    result_path = (
+        Path(__file__).resolve().parents[1]
+        / "bench"
+        / f"result_{run_name}_modal_{prompt_mode}_{resolved_test_set.stem}.json"
+    )
     result_path.write_text(json.dumps(summary, indent=2))
     print(f"  -> {result_path}")
