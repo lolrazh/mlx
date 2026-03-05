@@ -1,0 +1,248 @@
+{
+  "model": "/output/spoke-t5gemma-2b2b-ul2it-v5-v2prompt-v1-20260306-0045-ckpt1500/merged",
+  "short_name": "spoke-t5gemma-2b2b-ul2it-v5-v2prompt-v1-20260306-0045-ckpt1500-modal-hf",
+  "prompt_mode": "v2",
+  "n": 23,
+  "exact": 0,
+  "semantic": 0,
+  "partial": 23,
+  "fail": 0,
+  "accuracy": 0.0,
+  "avg_latency_s": 2.988,
+  "results": [
+    {
+      "id": 1,
+      "category": "spell-replace",
+      "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+      "ideal": "I'm gonna be using Silero VAD for this.",
+      "output": "' gonna usingero V for. Can spell asero? I' gonna usingero V for.",
+      "raw_output": "' gonna usingero V for. Can spell asero? I' gonna usingero V for.",
+      "score": "partial",
+      "gen_time_s": 0.983
+    },
+    {
+      "id": 2,
+      "category": "spell-replace",
+      "input": "He went to the Khadai, spell that K-A-D-A-I.",
+      "ideal": "He went to the Kadai.",
+      "output": "went theada. \n to. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n.",
+      "raw_output": "went theada. \n to. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n.",
+      "score": "partial",
+      "gen_time_s": 7.915
+    },
+    {
+      "id": 3,
+      "category": "spell-replace",
+      "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+      "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "output": "new on th serves Kibnay, its Lebanese lamb. \n.",
+      "raw_output": "new on th serves Kibnay, its Lebanese lamb. \n.",
+      "score": "partial",
+      "gen_time_s": 0.601
+    },
+    {
+      "id": 4,
+      "category": "self-correction",
+      "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+      "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+      "output": "backend actually bydflare and...........................................................................................................................................................................................................................................................",
+      "raw_output": "backend actually bydflare and...........................................................................................................................................................................................................................................................",
+      "score": "partial",
+      "gen_time_s": 7.832
+    },
+    {
+      "id": 5,
+      "category": "self-correction",
+      "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+      "ideal": "Let's meet at 12pm, Thursday.",
+      "output": "'s at1pm Thursday.",
+      "raw_output": "'s at1pm Thursday.",
+      "score": "partial",
+      "gen_time_s": 0.395
+    },
+    {
+      "id": 6,
+      "category": "self-correction",
+      "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+      "ideal": "We're using React and Svelte.",
+      "output": "'' using and S.. We' using and. \n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.",
+      "raw_output": "'' using and S.. We' using and. \n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.\n.",
+      "score": "partial",
+      "gen_time_s": 7.755
+    },
+    {
+      "id": 7,
+      "category": "quote-unquote",
+      "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "output": "mean said waslucky be. the do mean that?",
+      "raw_output": "mean said waslucky be. the do mean that?",
+      "score": "partial",
+      "gen_time_s": 0.523
+    },
+    {
+      "id": 8,
+      "category": "quote-unquote",
+      "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+      "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
+      "output": "\"\"-- bread lists as the ingredient.",
+      "raw_output": "\"\"-- bread lists as the ingredient.",
+      "score": "partial",
+      "gen_time_s": 0.485
+    },
+    {
+      "id": 9,
+      "category": "quote-endquote",
+      "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+      "output": "mean said I \" to here. What fuck do mean that?",
+      "raw_output": "mean said I \" to here. What fuck do mean that?",
+      "score": "partial",
+      "gen_time_s": 0.577
+    },
+    {
+      "id": 10,
+      "category": "quote-endquote",
+      "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+      "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "output": "debug showsconnection out 30 end \" three in row.",
+      "raw_output": "debug showsconnection out 30 end \" three in row.",
+      "score": "partial",
+      "gen_time_s": 0.49
+    },
+    {
+      "id": 11,
+      "category": "quote-endquote",
+      "input": "He described the interview as quote the most stressful hour of my life end quote.",
+      "ideal": "He described the interview as \"the most stressful hour of my life\".",
+      "output": "described interview \" most hour my\".",
+      "raw_output": "described interview \" most hour my\".",
+      "score": "partial",
+      "gen_time_s": 0.401
+    },
+    {
+      "id": 12,
+      "category": "at-symbol",
+      "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+      "ideal": "I wanna fix @app.py and @test.py.",
+      "output": "wanna @. and @.. @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @",
+      "raw_output": "wanna @. and @.. @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @",
+      "score": "partial",
+      "gen_time_s": 7.693
+    },
+    {
+      "id": 13,
+      "category": "caps",
+      "input": "We're so excited to make this. Use all caps.",
+      "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
+      "output": "' SO TO THIS USE ALL.",
+      "raw_output": "' SO TO THIS USE ALL.",
+      "score": "partial",
+      "gen_time_s": 0.391
+    },
+    {
+      "id": 14,
+      "category": "emphasis",
+      "input": "It's surprisingly fast. Emphasize surprisingly.",
+      "ideal": "It's SURPRISINGLY fast.",
+      "output": "' SURING fast.",
+      "raw_output": "' SURING fast.",
+      "score": "partial",
+      "gen_time_s": 0.339
+    },
+    {
+      "id": 15,
+      "category": "emoji",
+      "input": "Heartbreak emoji",
+      "ideal": "\ud83d\udc94",
+      "output": "\ud83d\udc94. \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n..",
+      "raw_output": "\ud83d\udc94. \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n... \n..",
+      "score": "partial",
+      "gen_time_s": 7.665
+    },
+    {
+      "id": 16,
+      "category": "emoji",
+      "input": "Praying hands emoji for the victims",
+      "ideal": "\ud83d\ude4f for the victims",
+      "output": "for victims \ud83d\ude4f.",
+      "raw_output": "for victims \ud83d\ude4f.",
+      "score": "partial",
+      "gen_time_s": 0.213
+    },
+    {
+      "id": 17,
+      "category": "camelcase",
+      "input": "So we've got a file called usetranscription.ts.",
+      "ideal": "So we've got a file called useTranscription.ts.",
+      "output": "weve a calledTranscriptionts.",
+      "raw_output": "weve a calledTranscriptionts.",
+      "score": "partial",
+      "gen_time_s": 0.405
+    },
+    {
+      "id": 18,
+      "category": "quote-unquote",
+      "input": "Their quote-unquote innovation is just copying what everyone else already does.",
+      "ideal": "Their \"innovation\" is just copying what everyone else already does.",
+      "output": "\"\"\"\"\" is just what else already.",
+      "raw_output": "\"\"\"\"\" is just what else already.",
+      "score": "partial",
+      "gen_time_s": 0.539
+    },
+    {
+      "id": 19,
+      "category": "at-symbol",
+      "input": "Notify the ops team about the outage. Add an at symbol before ops.",
+      "ideal": "Notify the @ops team about the outage.",
+      "output": "theops about outage @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @",
+      "raw_output": "theops about outage @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ ",
+      "score": "partial",
+      "gen_time_s": 7.738
+    },
+    {
+      "id": 20,
+      "category": "caps",
+      "input": "Stop ignoring my emails. Make that all caps.",
+      "ideal": "STOP IGNORING MY EMAILS.",
+      "output": "ignoring emails.STOP IG MY..........................................................................................................................................................................................................................................................",
+      "raw_output": "ignoring emails.STOP IG MY..........................................................................................................................................................................................................................................................",
+      "score": "partial",
+      "gen_time_s": 7.682
+    },
+    {
+      "id": 21,
+      "category": "emphasis",
+      "input": "This is absolutely critical for the launch. Emphasize critical.",
+      "ideal": "This is absolutely CRITICAL for the launch.",
+      "output": "is CRITICAL the.",
+      "raw_output": "is CRITICAL the.",
+      "score": "partial",
+      "gen_time_s": 0.303
+    },
+    {
+      "id": 22,
+      "category": "emoji",
+      "input": "We just shipped the new feature fire emoji",
+      "ideal": "We just shipped the new feature \ud83d\udd25",
+      "output": "just the feature \ud83d\udd25.",
+      "raw_output": "just the feature \ud83d\udd25.",
+      "score": "partial",
+      "gen_time_s": 0.245
+    },
+    {
+      "id": 23,
+      "category": "camelcase",
+      "input": "The main page uses a component called navigationbar that wraps everything.",
+      "ideal": "The main page uses a component called NavigationBar that wraps everything.",
+      "output": "main uses component Navigation that everything. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n.",
+      "raw_output": "main uses component Navigation that everything. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n. \n.",
+      "score": "partial",
+      "gen_time_s": 7.556
+    }
+  ],
+  "test_set_path": "/Users/lolrazh/Documents/Projects/mlx/spoke/bench/test_set_v3.json",
+  "test_set_name": "test_set_v3.json",
+  "test_set_sha256": "cb480715152fa78806719a396e51cb2204573c3bc10e92d73b4dc97a2d722230",
+  "suite": "core23"
+}

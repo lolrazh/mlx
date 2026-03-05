@@ -320,6 +320,17 @@ def train(
                 **chat_template_kwargs,
             )
 
+    stop_token_ids_raw = getattr(model.generation_config, "eos_token_id", None)
+    if stop_token_ids_raw is None:
+        stop_token_ids_raw = tokenizer.eos_token_id
+    if stop_token_ids_raw is None:
+        stop_token_ids = []
+    elif isinstance(stop_token_ids_raw, int):
+        stop_token_ids = [int(stop_token_ids_raw)]
+    else:
+        stop_token_ids = [int(token_id) for token_id in stop_token_ids_raw]
+    preferred_stop_token_id = stop_token_ids[-1] if stop_token_ids else None
+
     def build_causal_example(example):
         messages = example["messages"]
         input_ids = tokenize_chat(messages)
@@ -342,14 +353,29 @@ def train(
         if not messages or messages[-1].get("role") != "assistant":
             raise ValueError("Expected final message role=assistant for seq2seq example.")
         source_messages = messages[:-1]
-        input_ids = tokenize_chat(source_messages, add_generation_prompt=True)[:max_seq_length]
-        target_text = messages[-1]["content"]
-        label_ids = tokenizer(
-            target_text,
-            add_special_tokens=True,
-            truncation=True,
-            max_length=max_target_length,
-        )["input_ids"]
+        source_ids = tokenize_chat(source_messages, add_generation_prompt=True)
+        full_ids = tokenize_chat(messages, add_generation_prompt=False)
+        input_ids = source_ids[:max_seq_length]
+        if full_ids[: len(source_ids)] == source_ids:
+            label_ids = full_ids[len(source_ids):]
+        else:
+            target_text = messages[-1]["content"]
+            label_ids = tokenizer(
+                target_text,
+                add_special_tokens=True,
+                truncation=True,
+                max_length=max_target_length,
+            )["input_ids"]
+        if preferred_stop_token_id is not None:
+            if len(label_ids) >= max_target_length:
+                label_ids = label_ids[:max_target_length]
+                label_ids[-1] = preferred_stop_token_id
+            elif preferred_stop_token_id not in label_ids:
+                label_ids = label_ids + [preferred_stop_token_id]
+        else:
+            label_ids = label_ids[:max_target_length]
+        if not label_ids:
+            raise RuntimeError("Seq2seq label construction produced empty labels.")
         return {
             "input_ids": input_ids,
             "labels": label_ids,
@@ -363,6 +389,18 @@ def train(
         if eval_enabled
         else None
     )
+    if is_encoder_decoder and stop_token_ids:
+        probe_count = min(64, len(train_dataset))
+        missing_stop = 0
+        for idx in range(probe_count):
+            labels = train_dataset[idx]["labels"]
+            if not any(token_id in labels for token_id in stop_token_ids):
+                missing_stop += 1
+        if missing_stop:
+            raise RuntimeError(
+                "Seq2seq stop-token preflight failed: "
+                f"{missing_stop}/{probe_count} examples missing stop tokens {stop_token_ids}."
+            )
 
     if is_encoder_decoder:
         sample_messages = train_data[0]["messages"]
@@ -375,6 +413,18 @@ def train(
         print(sample_source[:500])
         print("--- Sample target ---")
         print(sample_target[:300])
+        sample_labels = build_seq2seq_example(train_data[0])["labels"]
+        sample_has_stop = (
+            any(token_id in sample_labels for token_id in stop_token_ids)
+            if stop_token_ids
+            else False
+        )
+        print("--- Seq2seq stop token ids ---")
+        print(stop_token_ids)
+        print("--- Sample label tail ---")
+        print(sample_labels[-24:])
+        print("--- Sample labels include stop token ---")
+        print(sample_has_stop)
         print("--- End sample ---\n")
     else:
         sample_formatted = render_chat_text_from_messages(train_data[0]["messages"])

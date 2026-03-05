@@ -3,6 +3,7 @@
 
 Usage:
     modal run spoke/cloud/benchmark.py --run-name spoke-qwen3-t2-cloud
+    modal run spoke/cloud/benchmark.py --model-name HuggingFaceTB/SmolLM3-3B
     modal run spoke/cloud/benchmark.py --run-name spoke-qwen3-t2-cloud --suite broad58
     modal run spoke/cloud/benchmark.py --run-name spoke-qwen3-t2-cloud --suite core23
 """
@@ -62,6 +63,10 @@ V3_PROMPT = (
 
 
 EMPTY_THINK_RE = re.compile(r"<think>\s*</think>\s*", flags=re.DOTALL)
+
+
+def slugify_model_name(model_name: str) -> str:
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", model_name.replace("/", "-")).strip("-")
 
 
 def has_disallowed_think_markers(text: str) -> bool:
@@ -241,13 +246,16 @@ def score_output(output: str, ideal: str) -> str:
     image=image,
     gpu="L40S",
     volumes={"/output": output_vol},
+    secrets=[modal.Secret.from_name("hf-secret")],
     timeout=3600,
 )
 def benchmark_remote(
-    run_name: str,
     test_set: list[dict],
+    run_name: str = "",
+    model_name: str = "",
     prompt_mode: str = "v2",
 ):
+    import os
     import torch
     from transformers import (
         AutoConfig,
@@ -256,9 +264,20 @@ def benchmark_remote(
         AutoTokenizer,
     )
 
-    model_path = f"/output/{run_name}/merged"
-    if not Path(model_path).exists():
-        raise FileNotFoundError(f"Model not found at {model_path}")
+    if os.getenv("HF_TOKEN"):
+        os.environ["HUGGINGFACE_HUB_TOKEN"] = os.environ["HF_TOKEN"]
+
+    if bool(run_name) == bool(model_name):
+        raise ValueError("Provide exactly one of run_name or model_name.")
+
+    if run_name:
+        model_path = f"/output/{run_name}/merged"
+        if not Path(model_path).exists():
+            raise FileNotFoundError(f"Model not found at {model_path}")
+        short_name = f"{run_name}-modal-hf"
+    else:
+        model_path = model_name
+        short_name = f"{slugify_model_name(model_name)}-base-modal-hf"
 
     torch.backends.cuda.matmul.allow_tf32 = True
 
@@ -284,6 +303,17 @@ def benchmark_remote(
         **model_load_kwargs,
     )
     model.eval()
+    generation_eos_token_id = model.generation_config.eos_token_id
+    if generation_eos_token_id is None:
+        generation_eos_token_id = tokenizer.eos_token_id
+    generation_pad_token_id = model.generation_config.pad_token_id
+    if generation_pad_token_id is None:
+        generation_pad_token_id = tokenizer.pad_token_id
+    print(
+        "Generation config: "
+        f"eos_token_id={generation_eos_token_id}, "
+        f"pad_token_id={generation_pad_token_id}"
+    )
 
     warmup_prompt = build_prompt(tokenizer, "test", prompt_mode=prompt_mode)
     warmup_inputs = tokenizer(warmup_prompt, return_tensors="pt").to("cuda")
@@ -292,8 +322,8 @@ def benchmark_remote(
             **warmup_inputs,
             max_new_tokens=8,
             do_sample=False,
-            pad_token_id=tokenizer.pad_token_id,
-            eos_token_id=tokenizer.eos_token_id,
+            pad_token_id=generation_pad_token_id,
+            eos_token_id=generation_eos_token_id,
         )
 
     results = []
@@ -308,8 +338,8 @@ def benchmark_remote(
                 **inputs,
                 max_new_tokens=256,
                 do_sample=False,
-                pad_token_id=tokenizer.pad_token_id,
-                eos_token_id=tokenizer.eos_token_id,
+                pad_token_id=generation_pad_token_id,
+                eos_token_id=generation_eos_token_id,
             )
         latency = time.time() - t0
 
@@ -343,7 +373,7 @@ def benchmark_remote(
 
     summary = {
         "model": model_path,
-        "short_name": f"{run_name}-modal-hf",
+        "short_name": short_name,
         "prompt_mode": prompt_mode,
         "n": n,
         "exact": exact,
@@ -362,7 +392,8 @@ def benchmark_remote(
 
 @app.local_entrypoint()
 def main(
-    run_name: str = "spoke-qwen3-t2-cloud",
+    run_name: str = "",
+    model_name: str = "",
     prompt_mode: str = "v2",
     test_set: str = "",
     suite: str = "core23",
@@ -386,8 +417,12 @@ def main(
     print(f"Loaded {len(test_data)} test examples from {resolved_test_set}")
     print(f"Test set SHA256: {test_set_sha256}")
 
+    if bool(run_name) == bool(model_name):
+        raise ValueError("Provide exactly one of run_name or model_name.")
+
     summary = benchmark_remote.remote(
         run_name=run_name,
+        model_name=model_name,
         test_set=test_data,
         prompt_mode=prompt_mode,
     )
@@ -413,10 +448,11 @@ def main(
     )
     print(f"  Avg latency: {summary['avg_latency_s']:.2f}s")
 
+    result_stem = run_name if run_name else slugify_model_name(model_name)
     result_path = (
         Path(__file__).resolve().parents[1]
         / "bench"
-        / f"result_{run_name}_modal_{prompt_mode}_{resolved_test_set.stem}.json"
+        / f"result_{result_stem}_modal_{prompt_mode}_{resolved_test_set.stem}.json"
     )
     result_path.write_text(json.dumps(summary, indent=2))
     print(f"  -> {result_path}")
