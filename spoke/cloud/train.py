@@ -7,6 +7,7 @@ No QLoRA here — use bf16 LoRA for parity with the best local Qwen3 run.
 Usage:
     modal run spoke/cloud/train.py --run-name spoke-qwen3-probe --max-steps 50 --batch-size 8 --eval-steps 0 --save-steps 0 --no-export-merged
     modal run spoke/cloud/train.py --run-name spoke-qwen3-t2-cloud --best-local-parity
+    modal run spoke/cloud/train.py --run-name spoke-qwen3-unsloth --unsloth-recommended
 """
 
 import modal
@@ -71,7 +72,10 @@ def train(
     save_steps: int = 500,
     export_merged: bool = True,
     best_local_parity: bool = False,
+    unsloth_recommended: bool = False,
+    unsloth_epochs: float = 2.0,
 ):
+    import math
     import json
     import os
     import numpy as np
@@ -87,6 +91,9 @@ def train(
     from transformers import Trainer, TrainingArguments
     from trl import SFTTrainer, SFTConfig
 
+    if best_local_parity and unsloth_recommended:
+        raise ValueError("Choose only one profile: --best-local-parity OR --unsloth-recommended.")
+
     if best_local_parity:
         # Match the successful local T2-v4 training recipe more closely for
         # quality comparisons instead of probe throughput.
@@ -100,6 +107,27 @@ def train(
         eval_steps = 50
         save_steps = 100
         print("Applying best-local parity profile (T2-v4-like settings).")
+    elif unsloth_recommended:
+        # Follow Unsloth guidance instead of MLX parity:
+        # - higher LR for LoRA
+        # - no LoRA dropout fast path
+        # - packing enabled
+        # - avoid hard-coding huge step counts; use epoch-targeted steps
+        if run_name == "spoke-qwen3-cloud":
+            run_name = "spoke-qwen3-unsloth"
+        learning_rate = 2e-4
+        rank = 16
+        lora_alpha = 16
+        lora_dropout = 0.0
+        packing = True
+        optimizer = "adamw_torch"
+        max_grad_norm = 1.0
+        eval_steps = 50
+        save_steps = 100
+        print(
+            "Applying Unsloth-recommended profile "
+            f"(lr={learning_rate}, r={rank}, dropout={lora_dropout}, packing={packing})."
+        )
 
     eval_enabled = eval_steps > 0
     save_enabled = save_steps > 0
@@ -153,6 +181,14 @@ def train(
     train_data = load_jsonl("/data/train.jsonl")
     valid_data = load_jsonl("/data/valid.jsonl")
     print(f"Data loaded: {len(train_data)} train, {len(valid_data)} valid")
+    if unsloth_recommended and max_steps == 2000:
+        effective_batch = max(1, batch_size * gradient_accumulation_steps)
+        max_steps = max(1, math.ceil((len(train_data) / effective_batch) * unsloth_epochs))
+        print(
+            "Unsloth profile auto-steps: "
+            f"{unsloth_epochs:.2f} epochs × {len(train_data)} rows / "
+            f"(batch {batch_size} × accum {gradient_accumulation_steps}) -> {max_steps} steps"
+        )
 
     # ── Format with chat template ────────────────────────────
     def render_chat_text(example):
@@ -465,7 +501,12 @@ def main(
     save_steps: int = 500,
     export_merged: bool = True,
     best_local_parity: bool = False,
+    unsloth_recommended: bool = False,
+    unsloth_epochs: float = 2.0,
 ):
+    if best_local_parity and unsloth_recommended:
+        raise ValueError("Choose only one profile: --best-local-parity OR --unsloth-recommended.")
+
     if best_local_parity:
         if run_name == "spoke-qwen3-cloud":
             run_name = "spoke-qwen3-t2-cloud"
@@ -473,6 +514,18 @@ def main(
         packing = False
         optimizer = "adam"
         max_grad_norm = 0.0
+        eval_steps = 50
+        save_steps = 100
+    elif unsloth_recommended:
+        if run_name == "spoke-qwen3-cloud":
+            run_name = "spoke-qwen3-unsloth"
+        learning_rate = 2e-4
+        rank = 16
+        lora_alpha = 16
+        lora_dropout = 0.0
+        packing = True
+        optimizer = "adamw_torch"
+        max_grad_norm = 1.0
         eval_steps = 50
         save_steps = 100
 
@@ -493,6 +546,9 @@ def main(
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
     print(f"  Export merged: {'on' if export_merged else 'off'}")
     print(f"  Best-local parity: {'on' if best_local_parity else 'off'}")
+    print(f"  Unsloth-recommended: {'on' if unsloth_recommended else 'off'}")
+    if unsloth_recommended:
+        print(f"  Unsloth epochs target: {unsloth_epochs:.2f}")
     print()
 
     train.remote(
@@ -514,4 +570,6 @@ def main(
         save_steps=save_steps,
         export_merged=export_merged,
         best_local_parity=best_local_parity,
+        unsloth_recommended=unsloth_recommended,
+        unsloth_epochs=unsloth_epochs,
     )
