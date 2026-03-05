@@ -24,7 +24,7 @@ image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .apt_install("git", "build-essential")
     .pip_install(
-        "transformers==4.53.0",
+        "transformers==5.2.0",
         "accelerate==1.4.0",
         "datasets==3.2.0",
         "peft==0.14.0",
@@ -105,6 +105,7 @@ def train(
         AutoModelForCausalLM,
         AutoModelForSeq2SeqLM,
         AutoTokenizer,
+        Qwen3_5ForCausalLM,
         Trainer,
         TrainingArguments,
     )
@@ -125,8 +126,16 @@ def train(
 
     print(f"Loading base model: {model_name}")
     model_config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
-    is_encoder_decoder = bool(getattr(model_config, "is_encoder_decoder", False))
-    print(f"Model family: {'encoder-decoder (seq2seq)' if is_encoder_decoder else 'decoder-only (causal)'}")
+    is_qwen35_text_only = bool(
+        getattr(model_config, "model_type", "") == "qwen3_5"
+        and getattr(model_config, "text_config", None) is not None
+    )
+    effective_model_config = model_config.text_config if is_qwen35_text_only else model_config
+    is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
+    if is_qwen35_text_only:
+        print("Model family: qwen3_5 multimodal -> forcing text-only causal LM path")
+    else:
+        print(f"Model family: {'encoder-decoder (seq2seq)' if is_encoder_decoder else 'decoder-only (causal)'}")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
     empty_think_re = re.compile(r"<think>\s*</think>\s*", re.DOTALL)
 
@@ -207,12 +216,17 @@ def train(
         else:
             tokenizer.add_special_tokens({"pad_token": "<|endoftext|>"})
 
-    model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
+    if is_qwen35_text_only:
+        model_cls = Qwen3_5ForCausalLM
+    else:
+        model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
     model_load_kwargs = dict(
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
         low_cpu_mem_usage=True,
     )
+    if is_qwen35_text_only:
+        model_load_kwargs["config"] = effective_model_config
     if "t5gemma" in model_name.lower():
         model_load_kwargs["attn_implementation"] = "eager"
     model = model_cls.from_pretrained(
@@ -229,15 +243,18 @@ def train(
         print("Gradient checkpointing: disabled")
 
     peft_task_type = "SEQ_2_SEQ_LM" if is_encoder_decoder else "CAUSAL_LM"
-    target_modules = "all-linear" if is_encoder_decoder else [
-        "q_proj",
-        "k_proj",
-        "v_proj",
-        "o_proj",
-        "gate_proj",
-        "up_proj",
-        "down_proj",
-    ]
+    if is_encoder_decoder or is_qwen35_text_only:
+        target_modules = "all-linear"
+    else:
+        target_modules = [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj",
+        ]
     print(f"LoRA task type: {peft_task_type}")
     print(f"LoRA target modules: {target_modules}")
 

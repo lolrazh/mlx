@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-06 (T3-v5 cloud model converted to MLX. 100% on v3 test, 69% on broad eval. Fixed test set issues. Cleaned up dead model/adapter directories.)
+> Last updated: 2026-03-06 (Added Qwen3.5 HF text-only cloud probes: base 9%/13%, 50-step smoke 22%/30%. Updated cloud sections and compute context.)
 
 ## How to Read This
 
@@ -55,6 +55,8 @@ v3 removes 4 categories with no production Spoke triggers (formatting-xml, email
 | B17 | Gemma 3 4B | bf16 | v2 | 23 | **9%** | 0 | 2 | 5 | 16 | 2.28s | Echoes commands back instead of executing them. Repeats "emphasize" as literal text. |
 | B18 | Gemma 3 1B | bf16 | v2 | 23 | **0%** | 0 | 0 | 12 | 11 | 5.77s | Garbled `<end_of_turn>` tokens, random Unicode. Unusable zero-shot. |
 | B19 | Qwen3-4B | **8-bit** | v2 | 23 | **22%** | 4 | 1 | 12 | 6 | 1.11s | **8-bit = bf16 zero-shot (both 22%).** Confirms 8-bit precision loses nothing at zero-shot. Faster (1.11s vs 1.66s). |
+| B20 | Qwen3.5-2B (Modal HF text-only) | bf16 | v2 | 23 | **9%** | 0 | 2 | 1 | 20 | 0.40s | Base cloud benchmark (`result_Qwen-Qwen3.5-2B_modal_v2_test_set_v3.json`). Loader fixed via Transformers 5.2 + `Qwen3_5ForCausalLM`. |
+| B21 | Qwen3.5-4B (Modal HF text-only) | bf16 | v2 | 23 | **13%** | 2 | 1 | 5 | 15 | 0.55s | Base cloud benchmark (`result_Qwen-Qwen3.5-4B_modal_v2_test_set_v3.json`). Still weak on command execution. |
 
 **Takeaway:** v3 test set zero-shot baseline is 22% (Qwen3). LFM2 scores 9% regardless of size/precision/quantization — conv-dominant hybrid architecture can't handle meta-linguistic commands zero-shot. Gemma 3 4B also 9% (echoes commands). Gemma 3 1B 0% (garbled). Few-shot helps format (30%) but not reasoning. But 9% zero-shot → 83-87% fine-tuned, so zero-shot is meaningless for predicting fine-tune potential.
 
@@ -97,6 +99,8 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **Qwen3-8bit** | 03-03 | Qwen3-4B-Instruct-2507 (**8-bit**) | QLoRA | r=8 | adam | v4 (1201) | 800 (killed@~850) | 0.276 @800 | All 36 layers. 16.5M trainable (0.411%). Peak 16.4 GB. Starting val loss 6.110 (vs bf16's 2.843 — 8-bit dequant noise). **96% at iter 800, 2.08s latency.** Matches DWQ deploy accuracy but 4% below bf16's 100%. 8-bit QLoRA is slower per-iter than bf16 LoRA (dequant overhead) despite lower memory. |
 | **Muon-YOLO** | 03-03 | Qwen3-4B-Instruct-2507-bf16 | LoRA | r=8 | **muon** (lr=2e-4) | v4 (1201) | 900 (died@~940) | 0.123 @850 | **16 layers, max_seq_length=256.** 7.3M trainable (0.182%). Peak 13.3 GB. ~0.17 it/sec (10x slower than Adam — Newton-Schulz overhead dominates for small LoRA params). Val loss beat Adam T11 (0.123 vs 0.169) with same 16 layers, but **78% bf16, 1.63s latency.** Worse than T11 Adam (83%) despite more data. New camelCase regression (lowercased useTranscription). Muon on LoRA is a dead end locally — slower AND less accurate than Adam. |
 | **Qwen35-T2-cloud** | 03-04 | Qwen3.5-4B (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Cloud Unsloth + Qwen3.5-4B VLM. ~2 it/s after fast-path fix. MLX conversion succeeded (mlx-lm 0.30.7) but model generates incoherent garbage — 0% accuracy. Hybrid DeltaNet+attention architecture broken in MLX inference. Abandoned.** |
+| **Qwen35-2B-cloud-smoke** | 03-06 | Qwen3.5-2B (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 50 | — | **HF text-only smoke path (`Qwen3_5ForCausalLM` + `text_config`) now works. train_steps_per_second=0.777. core23 moved 9% → 22%.** |
+| **Qwen35-4B-cloud-smoke** | 03-06 | Qwen3.5-4B (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 50 | — | **HF text-only smoke path works at 4B too. train_steps_per_second=1.035. core23 moved 13% → 30%.** |
 | **Qwen3-T2-cloud** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Original cloud fast-path run. Packing enabled (1201→327 packed seqs), lora_dropout=0.0. MLX-converted benchmark = 35% (5 exact / 3 semantic / 11 partial / 4 fail), 1.65s latency. This run was not apples-to-apples, so packing/overexposure was a valid confound, but later strict-parity rerun showed the main remaining gap is post-training MLX conversion/inference, not this setup alone.** |
 | **Qwen3-T2-cloud-parity** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | 0.152 @2000 | **Strict local-parity cloud rerun: packing OFF, lora_dropout=0.05, mlx-style mask_prompt labels, collator, and batch ordering. MLX-converted benchmark still = 35% (5 exact / 3 semantic / 11 partial / 4 fail, 2.38s). But direct Modal HF benchmark of the same merged bf16 model = 87% (20 exact / 3 partial / 0 fails, 0.28s). Training is mostly fine; the big regression is in MLX conversion and/or MLX inference.** |
 
@@ -208,16 +212,25 @@ All from Qwen3-4B base.
 | **Qwen3-T2-cloud-parity-nothink (Modal HF)** | **iter 2000** | **bf16** | **v2** | **23** | **74%** | **17** | **0** | **6** | **0** | **0.28s** | **Hard no-thinking path enforced in training formatter/tokenization with runtime `<think>` guard. Parity profile + `packing=off` + Adam + `max_grad_norm=0.0`. Result matches the prior lower cloud band (`74%`).** |
 | **Qwen3-T2-cloud-ultra-nothink (Modal HF)** | **iter 2500** | **bf16** | **v2** | **23** | **83%** | **19** | **0** | **4** | **0** | **0.50s** | **No-thinking enforced + ultra profile (`r=32`, `alpha=64`, `dropout=0.05`, `rsLoRA=True`, `packing=off`). Improves over parity-nothink (74% → 83%) but still below local MLX 100%.** |
 | **Qwen3-T2-cloud-parity-templatefix (Modal HF)** | **iter 2000** | **bf16** | **v2** | **23** | **74%** | **17** | **0** | **6** | **0** | **0.49s** | **Template-level no-thinking enforcement: tokenizer chat template with `<think>` was replaced before training and benchmarking, and benchmark prompt building hard-failed on `<think>`. Score remained `74%`, so ignored `enable_thinking` was real but not the sole source of the quality gap.** |
+| **Qwen35-2B-cloud-base (Modal HF)** | **base** | **bf16** | **v2** | **23** | **9%** | **0** | **2** | **1** | **20** | **0.40s** | **Base-model probe after HF loader fix (`Qwen3_5ForCausalLM`).** |
+| **Qwen35-2B-cloud-smoke50 (Modal HF)** | **iter 50** | **bf16** | **v2** | **23** | **22%** | **2** | **3** | **11** | **7** | **0.29s** | **50-step HF smoke (`spoke-qwen35-2b-hf-smoke50-20260306`). Improves over base but remains far below Qwen3 parity quality.** |
+| **Qwen35-4B-cloud-base (Modal HF)** | **base** | **bf16** | **v2** | **23** | **13%** | **2** | **1** | **5** | **15** | **0.55s** | **Base-model probe after HF loader fix (`Qwen3_5ForCausalLM`).** |
+| **Qwen35-4B-cloud-smoke50 (Modal HF)** | **iter 50** | **bf16** | **v2** | **23** | **30%** | **5** | **2** | **6** | **10** | **0.45s** | **50-step HF smoke (`spoke-qwen35-4b-hf-smoke50-20260306`). Best Qwen3.5 cloud probe so far, still weak.** |
 
-### Cloud Training: Qwen3.5-4B (Modal + Unsloth + L40S)
+### Cloud Training: Qwen3.5 (Unsloth History + HF Text-Only Probes)
 
 | Run | Date | Base Model | GPU | Type | Rank | Optimizer | Data | Steps | Status | Notes |
 |-----|------|-----------|-----|------|------|-----------|------|-------|--------|-------|
-| **Qwen35-T1** | 03-04 | unsloth/Qwen3.5-4B (VLM, 32 layers) | L40S (48 GB) | LoRA bf16 | r=8 | adamw_torch (wd=0) | v4 (1201) | 2000 | **TRAINING** | Cloud pipeline via `modal run spoke/cloud/train.py`. T2-v4 hyperparams. No QLoRA (Unsloth recommends bf16 for Qwen3.5). Merged bf16 export. |
+| **Qwen35-T1** | 03-04 | unsloth/Qwen3.5-4B (VLM, 32 layers) | L40S (48 GB) | LoRA bf16 | r=8 | adamw_torch (wd=0) | v4 (1201) | 2000 | **COMPLETED / ABANDONED** | Legacy Unsloth cloud run family; MLX-converted outputs were unusable (0-35% bands). |
+| **Qwen35-2B-HF-smoke50** | 03-06 | Qwen/Qwen3.5-2B (text-only HF path) | L40S (48 GB) | LoRA bf16 | r=8 | adam | v5 (1287) | 50 | **COMPLETED** | `train_steps_per_second=0.777`; core23 `22%` after smoke finetune. |
+| **Qwen35-4B-HF-smoke50** | 03-06 | Qwen/Qwen3.5-4B (text-only HF path) | L40S (48 GB) | LoRA bf16 | r=8 | adam | v5 (1287) | 50 | **COMPLETED** | `train_steps_per_second=1.035`; core23 `30%` after smoke finetune. |
 
-**Cloud pipeline**: `spoke/cloud/train.py` (Modal app), `spoke/cloud/upload_data.py`, `spoke/cloud/download_model.py`. Three Modal Volumes: `spoke-model-cache`, `spoke-training-data`, `spoke-output`. WandB integration via `wandb-secret`.
+**Cloud pipelines now used:**
+- Legacy Unsloth path: `spoke/cloud/train.py` (kept for historical experiments).
+- Current HF text-only path: `spoke/cloud/train_hf.py` + `spoke/cloud/benchmark.py` with `transformers==5.2.0` and `Qwen3_5ForCausalLM` when `model_type=qwen3_5`.
+- Shared Modal Volumes: `spoke-model-cache`, `spoke-training-data`, `spoke-output`.
 
-**Key Unsloth setup issues resolved** (cost ~$2-3 in failed Modal runs):
+**Key Unsloth setup issues resolved historically** (cost ~$2-3 in failed Modal runs):
 1. `<EOS_TOKEN>` placeholder bug — Unsloth replaces eos_token, TRL validates it. Fix: `get_chat_template(tokenizer, "qwen3-instruct")`.
 2. TRL version — must pin `trl==0.22.2` (all Unsloth notebooks use this). TRL 0.23+ has breaking EOS checks.
 3. Data collation — nested `messages` column crashes tensor creation. Fix: `remove_columns()` after formatting.
@@ -329,6 +342,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | **Llama3-T2** | **Llama 3.2 3B bf16, v4 data (1201 train), 2000 iters, all 28 layers** | **91% bf16, 1.90s latency.** 87% → 91% with v4 data (+4 pts). 0 fails. Best val loss 0.083 at iter 700, overfit to 0.155 by iter 2000. Iter 2000 still outperforms iter 700 (91% vs 83%). Doesn't match Qwen3's 100% — 3B capacity ceiling. |
 | **Muon-YOLO** | **Qwen3-4B bf16, Muon optimizer (lr=2e-4), 16 layers, 256 seq, v4 data, ~900 iters** | **78% bf16, 1.63s latency. Dead end.** Worse than Adam T11 (83%) despite 2x more data. 10x slower per-iter (Newton-Schulz overhead). New camelCase regression. Muon not viable for LoRA on M4. |
 | **T3-v5** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5 data (1287 train), v2 prompt, ckpt 1200** | **100% v3 test, 69% broad eval (58 ex). NEW BROAD EVAL BEST.** V5 targeted data (+86 examples: multi-step, spell-compound, emphasis-caps, meta-language) improved multi 14%→43%, spell 75%→88%, quote 50%→75%. Regressed emoji/disfluency. Fixes Wispr Flow scoping bug. Only surviving model: `spoke/models/spoke-qwen3-t3-v5-mlx/`. |
+| **Qwen35-HF-smoke-2B/4B** | **Qwen3.5 text-only HF cloud probes (Modal L40S, 50 steps, v5+v2)** | **Compatibility fixed, quality still poor.** Base scores: 2B `9%`, 4B `13%`; after 50-step smoke: 2B `22%`, 4B `30%` on core23. Useful as pipeline validation, not quality candidates. |
 
 ### Active Queue
 
@@ -343,7 +357,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | Medium | rsLoRA | r=16, scale=4.0 (rsLoRA scaling) on Qwen3-4B | Standard LoRA penalizes higher rank. rsLoRA (scale=alpha/sqrt(r)) may unlock r=16. Config change only. | T2-v4 config |
 | Medium | Q1 | Mixed-bit quantization (`mixed_4_6`) on T2-v4 fused model | Allocate 6-bit to critical layers, 4-bit elsewhere. May close quant gap further. Zero retraining. | T2-v4 fused model |
 | Medium | expand-test | Expand test set from 23 → 50+ examples | 100% on 23 examples is thin. Need harder/novel examples for confidence. Include multi-word spell-replace (Wispr Flow edge case). | — |
-| ~~Low~~ | ~~Qwen3.5~~ | ~~Qwen3.5 4B on v4 data~~ | ~~ACTIVE. Training on Modal L40S (Qwen35-T1). Cloud pipeline working.~~ | ✅ |
+| ~~Low~~ | ~~Qwen3.5~~ | ~~Qwen3.5 4B on v4 data~~ | ~~DONE probe phase. HF text-only path now works (2B/4B), but quality is too low at current recipe (30% best smoke).~~ | ✅ |
 | Low | B-new | Zero-shot baselines: Qwen3-1.7B | Determine if task is capacity-limited or data-limited. | Add model to benchmark script |
 | **BLOCKED** | T-enc | Evaluate T5Gemma 2 (1B-1B encoder-decoder) | mlx-lm has zero encoder-decoder support. | mlx-lm enc-dec support |
 | Low | T9 | QLoRA (4-bit base model) | Same quality, less training memory. | — |
@@ -428,6 +442,8 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 50. **The 35% cloud regression is mostly a post-training MLX-path issue, not just an Unsloth training mismatch.** The original cloud fast-path run was confounded by packing (1201 → 327 packed seqs) and `lora_dropout=0.0`, so overtraining was a fair first hypothesis. But the strict parity rerun disabled packing, restored `lora_dropout=0.05`, and matched local `mlx_lm` prompt masking, collation, and length-based batch ordering; after MLX conversion it still scored 35% (5 exact / 3 semantic / 11 partial / 4 fail). Then the exact same merged bf16 model, benchmarked directly on Modal with Transformers before MLX conversion, scored 87% (20 exact / 3 partial / 0 fails, 0.28s avg latency). Conclusion: cloud training is substantially healthier than the MLX benchmark suggests; the main regression is in MLX conversion and/or MLX inference. Packing remains a real confound for the original fast-path run, but it is not the primary explanation for the parity rerun's 35%. Unsloth's `save_pretrained_merged` still mangles `config.json` (nests `rope_theta`, strips `bos_token_id`, changes `eos_token_id` format), so export metadata still needs patching before `mlx_lm.convert`.
 51. **Qwen3.5-4B is broken on MLX.** Hybrid DeltaNet+attention architecture (24 linear_attention + 8 full_attention layers) converts via mlx-lm 0.30.7 but generates incoherent garbage at 0% accuracy. The VLM architecture (`Qwen3_5ForConditionalGeneration`) likely confuses the text-only inference path. Dead end until mlx-lm matures Qwen3.5 support.
 49. **16 layers caps at 78-83% regardless of optimizer or data.** Muon-YOLO (16 layers, v4 data 1201 train, 900 iters) = 78%. Adam T11 (16 layers, v3 data 492 train, 300 iters) = 83%. T11-ext (36 layers, same data, 2000 iters) = 91%. T2-v4 (36 layers, v4 data, 2000 iters) = 100%. The upper layers (17-36) carry critical capabilities — likely where structural understanding (quoting, casing, multi-word scope) lives. Layer reduction is not viable for this task.
+52. **Qwen3.5 HF text-only loading is now operational on cloud.** Upgrading Modal images to `transformers==5.2.0` and forcing `Qwen3_5ForCausalLM` with `text_config` resolved the `model type qwen3_5 not recognized` blocker and enabled reproducible base/smoke probes.
+53. **Qwen3.5 remains low-ROI under the current training recipe.** Core23 moved from base `9%/13%` (2B/4B) to `22%/30%` after 50-step smokes. This confirms pipeline viability but not quality viability versus the established Qwen3 parity path.
 
 ### Model Comparison (Phase B Summary)
 

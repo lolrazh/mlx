@@ -1,7 +1,7 @@
 # Spoke Cloud Compute Ledger
 
 > Single source of truth for Modal cloud throughput experiments (legacy Unsloth + current HF+PEFT).
-> Last updated: 2026-03-06 (Added HF+PEFT parity and SmolLM3 cloud runs; reconciled with 2026-03-05 parity logs and latest checkpoint benchmarks.)
+> Last updated: 2026-03-06 (Added Qwen3.5 HF text-only compatibility + smoke matrix on Modal; reconciled with latest benchmark outputs.)
 
 ## How to Read This
 
@@ -10,7 +10,7 @@
 - **Train samples/sec** comes from TRL/W&B. It can rise even when raw step rate falls if the batch size is larger.
 - **Probe runs** are 50-step runs with eval/save disabled unless noted.
 - **This file is compute-only.** Quality/benchmark outcomes should be tracked separately.
-- **Current default stack** = Modal L40S (48 GB), `spoke/cloud/train_hf.py`, clean CUDA base image, `transformers==4.53.0`, `peft==0.14.0` (legacy Unsloth runs retained for historical comparison).
+- **Current default stack** = Modal L40S (48 GB), `spoke/cloud/train_hf.py`, clean CUDA base image, `transformers==5.2.0`, `peft==0.14.0` (legacy Unsloth runs retained for historical comparison).
 
 ---
 
@@ -21,13 +21,14 @@
   - v4 (`1201` train / `20` valid) for historical Unsloth sweep runs (`C0-C17`)
   - v5 (`train.jsonl=1287` rows) for recent HF+PEFT parity and SmolLM3 runs (`C18+`)
 - **Precision:** bf16 LoRA (no QLoRA)
-- **Current default trainer stack (`C18+`):** `spoke/cloud/train_hf.py` (PyTorch `2.6.0` CUDA `12.4`, `transformers==4.53.0`, `peft==0.14.0`)
+- **Current default trainer stack (`C18+`):** `spoke/cloud/train_hf.py` (PyTorch `2.6.0` CUDA `12.4`, `transformers==5.2.0`, `peft==0.14.0`)
 - **Legacy trainer stack (`C0-C17`):** `spoke/cloud/train.py` (`unsloth`, `flash-linear-attention`, `causal-conv1d`, `trl==0.22.2`)
 - **Important current findings:**
   - HF+PEFT parity run `spoke-qwen3-hf-parity-v1` reported `train_steps_per_second=3.326` at `2000` steps (`2026-03-05_1912` log).
   - HF+PEFT v5 forced-v2 run `spoke-qwen3-hf-v5-v2prompt-v1-20260305-2247` reported `train_steps_per_second=2.456` at `1200` steps (`2026-03-05_2302` log).
   - On that same run, eval-loss best (`checkpoint-600`) was not benchmark-best (`checkpoint-1200`), so checkpoint promotion cannot rely on eval loss alone.
   - SmolLM3 cloud run (`spoke-smollm3-v5-v2prompt-v1-20260305-2358`) has benchmark deltas logged, but train throughput was not captured in agent logs yet.
+  - Qwen3.5 base-model benchmarking on Modal now works under HF via `Qwen3_5ForCausalLM` + `text_config` (Transformers 5.2.0); this removed the previous `model type qwen3_5 not recognized` blocker.
   - Historical Unsloth packed Qwen3 full runs remain clustered around `~2.2-2.4 it/s`; unpacked no-thinking profile stayed around `~3.8-4.1 it/s`.
 
 ---
@@ -57,6 +58,10 @@
 | **C18** | 03-05 | `Qwen/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | On | **COMPLETED** | `3.326` | — | `spoke-qwen3-hf-parity-v1` (pure HF+PEFT parity stack, 2000 steps, epoch `6.67`). Benchmarked at `96%` on core23 (`result_spoke-qwen3-hf-parity-v1_modal_v2.json`). |
 | **C19** | 03-05 | `Qwen/Qwen3-4B-Instruct-2507` | 512 | 4 | 1 | On | **COMPLETED** | `2.456` | — | `spoke-qwen3-hf-v5-v2prompt-v1-20260305-2247` (v5 data + forced v2 prompt, eval/save `50/100`). Eval-loss best was `checkpoint-600` (`87%`), but `checkpoint-1200` hit `100%` core23 after manual merge benchmark. |
 | **C20** | 03-05 | `HuggingFaceTB/SmolLM3-3B` | 512 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-smollm3-v5-v2prompt-v1-20260305-2358` (best checkpoint by eval loss = `800`). Benchmark sidecar: core23 `87%` for both merged-best and `checkpoint-1200`; broad58 improved `48.3% -> 53.5%` at `checkpoint-1200`. |
+| **C21** | 03-06 | `Qwen/Qwen3.5-2B` | 512 | — | — | — | **PASS** | — | — | Base-model cloud benchmark after HF fix. `Qwen3_5ForCausalLM` text-only load path validated. core23 `9%` (`result_Qwen-Qwen3.5-2B_modal_v2_test_set_v3.json`). |
+| **C22** | 03-06 | `Qwen/Qwen3.5-4B` | 512 | — | — | — | **PASS** | — | — | Base-model cloud benchmark after HF fix. core23 `13%` (`result_Qwen-Qwen3.5-4B_modal_v2_test_set_v3.json`). |
+| **C23** | 03-06 | `Qwen/Qwen3.5-2B` | 512 | 4 | 1 | On | **COMPLETED** | `0.777` | `~0.75-0.90` | 50-step HF smoke (`spoke-qwen35-2b-hf-smoke50-20260306`). Runtime `64.38s`, train loss `0.744`. core23 `22%` (`result_spoke-qwen35-2b-hf-smoke50-20260306_modal_v2_test_set_v3.json`). |
+| **C24** | 03-06 | `Qwen/Qwen3.5-4B` | 512 | 4 | 1 | On | **COMPLETED** | `1.035` | `~1.00-1.15` | 50-step HF smoke (`spoke-qwen35-4b-hf-smoke50-20260306`). Runtime `48.31s`, train loss `0.599`. core23 `30%` (`result_spoke-qwen35-4b-hf-smoke50-20260306_modal_v2_test_set_v3.json`). |
 
 ---
 
@@ -74,6 +79,7 @@
 10. **Moving to pure HF+PEFT (`train_hf.py`) removed Unsloth conversion drift** and gave reproducible merged exports for cloud parity.
 11. **Prompt-policy override at training time (`system_prompt_mode`) prevented dataset churn** while running prompt ablations (`as_is`, `v2`, `v3`) on the same uploaded v5 rows.
 12. **Benchmarking non-best checkpoints paid off.** On C19, eval-loss picked `checkpoint-600` (`87%`) while `checkpoint-1200` reached `100%` on the same core23 benchmark.
+13. **Upgrading HF runtime to Transformers 5.2.0 unlocked Qwen3.5 support** and made cloud base/smoke probes possible without falling back to Unsloth.
 
 ## What Did Not Help
 
@@ -87,14 +93,15 @@
 8. **Template-level no-thinking enforcement also did not move parity quality.** After replacing the tokenizer chat template with a no-thinking template and hard-failing on `<think>` in prompts, parity remained `74%`.
 9. **Promoting checkpoints by eval loss alone did not match benchmark reality.** C19 is the concrete failure case (`checkpoint-600` vs `checkpoint-1200`).
 10. **Missing throughput capture on some runs (e.g., SmolLM3) made comparisons weaker.** This is a logging/process gap, not a model limitation.
+11. **Qwen3.5 short smokes did not produce usable quality.** Even after fixing loader/runtime issues, 50-step runs only reached `22%` (2B) and `30%` (4B) on core23.
 
 ## Root Causes of Remaining Waste
 
-1. **This Qwen3.5 path is not a clean text-only LM path.** The logs show `Qwen3VLProcessor` plus `model.visual.*` weights.
+1. **Legacy Unsloth Qwen3.5 path was not clean text-only LM.** It routed through processor/VLM handling and blocked useful packing behavior for text-only SFT comparisons.
 2. **FlashAttention2 is still off.** Successful runs still print `FA2 = False`.
 3. **The first step is dominated by compile/warmup.** Short probes always look worse in averaged trainer metrics than the actual late-step rate.
 4. **Masking density is low.** Only `14/128` active labels in the sample check (~`10.9%`), so a lot of tokens are still paying forward-pass cost without contributing to loss.
-5. **The Qwen3.5 checkpoint itself is part of the waste.** As long as it loads as a processor/VLM path, it blocks packing and keeps the warmup/throughput profile worse than the text-only Qwen3 path.
+5. **Qwen3.5 remains low-leverage for this task on the current recipe.** HF text-only loading now works, but early quality remains far below the Qwen3 baseline path, so additional spend here has weak ROI.
 6. **HF runs with frequent eval/save trade throughput for observability.** C19 (`eval_steps=50`, `save_steps=100`) reports lower steps/s than C18.
 7. **Checkpoint benchmarking is still partially manual.** Until this is automated, late-checkpoint wins can be missed or found too late.
 8. **Compute ledger instrumentation is inconsistent across runs.** We need standardized capture for `train_steps_per_second`, runtime, and checkpoint-level benchmark deltas.
@@ -138,6 +145,13 @@
 - **Throughput note:** train steps/s was not captured in logs yet.
 - **Checkpoint sidecar:** core23 stayed `87%` at both merged-best and `checkpoint-1200`; broad58 improved from `48.3%` to `53.5%` at `checkpoint-1200`.
 
+### Qwen3.5 text-only smoke profile (latest cloud run)
+
+- **Runs:** C23 (2B), C24 (4B)
+- **Config:** `seq=512`, `batch=4`, `accum=1`, `grad_ckpt=on`, `50` steps, v5 data, forced v2 prompt
+- **Reported train steps/s:** `0.777` (2B), `1.035` (4B)
+- **Quality sidecar:** core23 moved from base `9% -> 22%` (2B) and `13% -> 30%` (4B) after 50 steps; still far from usable parity.
+
 ---
 
 ## Final Recommendation
@@ -146,6 +160,7 @@
 2. **Treat Unsloth runs as compute probes and fallback experiments**, not the primary parity path.
 3. **Always benchmark at least two late checkpoints before promotion** (`best_by_eval` + final checkpoint minimum).
 4. **Standardize metrics capture per run** (train steps/s, runtime, checkpoint benchmark scores) to keep this ledger comparable.
+5. **De-prioritize Qwen3.5 spend until a stronger training recipe is defined.** Loader/runtime blockers are fixed, but current quality slope is weak versus Qwen3 at the same cost envelope.
 
 ---
 

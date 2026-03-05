@@ -25,7 +25,7 @@ output_vol = modal.Volume.from_name("spoke-output", create_if_missing=False)
 image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .pip_install(
-        "transformers==4.53.0",
+        "transformers==5.2.0",
         "accelerate==1.2.1",
         "sentencepiece",
         "safetensors",
@@ -262,6 +262,7 @@ def benchmark_remote(
         AutoModelForCausalLM,
         AutoModelForSeq2SeqLM,
         AutoTokenizer,
+        Qwen3_5ForCausalLM,
     )
 
     if os.getenv("HF_TOKEN"):
@@ -282,7 +283,12 @@ def benchmark_remote(
     torch.backends.cuda.matmul.allow_tf32 = True
 
     model_config = AutoConfig.from_pretrained(model_path, trust_remote_code=True)
-    is_encoder_decoder = bool(getattr(model_config, "is_encoder_decoder", False))
+    is_qwen35_text_only = bool(
+        getattr(model_config, "model_type", "") == "qwen3_5"
+        and getattr(model_config, "text_config", None) is not None
+    )
+    effective_model_config = model_config.text_config if is_qwen35_text_only else model_config
+    is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
     tokenizer = enforce_no_thinking_chat_template(tokenizer, model_path)
     if tokenizer.pad_token_id is None and tokenizer.eos_token_id is not None:
@@ -290,12 +296,18 @@ def benchmark_remote(
     if tokenizer.pad_token_id is None:
         tokenizer.add_special_tokens({"pad_token": "<pad>"})
 
-    model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
+    if is_qwen35_text_only:
+        model_cls = Qwen3_5ForCausalLM
+        print("Loading Qwen3.5 in text-only mode (Qwen3_5ForCausalLM).")
+    else:
+        model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
     model_load_kwargs = dict(
         torch_dtype=torch.bfloat16,
         device_map="cuda",
         trust_remote_code=True,
     )
+    if is_qwen35_text_only:
+        model_load_kwargs["config"] = effective_model_config
     if "t5gemma" in str(getattr(model_config, "model_type", "")).lower():
         model_load_kwargs["attn_implementation"] = "eager"
     model = model_cls.from_pretrained(
