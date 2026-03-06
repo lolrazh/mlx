@@ -62,6 +62,11 @@
 | **C22** | 03-06 | `Qwen/Qwen3.5-4B` | 512 | — | — | — | **PASS** | — | — | Base-model cloud benchmark after HF fix. core23 `13%` (`result_Qwen-Qwen3.5-4B_modal_v2_test_set_v3.json`). |
 | **C23** | 03-06 | `Qwen/Qwen3.5-2B` | 512 | 4 | 1 | On | **COMPLETED** | `0.777` | `~0.75-0.90` | 50-step HF smoke (`spoke-qwen35-2b-hf-smoke50-20260306`). Runtime `64.38s`, train loss `0.744`. core23 `22%` (`result_spoke-qwen35-2b-hf-smoke50-20260306_modal_v2_test_set_v3.json`). |
 | **C24** | 03-06 | `Qwen/Qwen3.5-4B` | 512 | 4 | 1 | On | **COMPLETED** | `1.035` | `~1.00-1.15` | 50-step HF smoke (`spoke-qwen35-4b-hf-smoke50-20260306`). Runtime `48.31s`, train loss `0.599`. core23 `30%` (`result_spoke-qwen35-4b-hf-smoke50-20260306_modal_v2_test_set_v3.json`). |
+| **C25** | 03-06 | `meta-llama/Llama-3.2-3B-Instruct` | 256 | 4 | 1 | On | **PASS** | — | — | `spoke-llama32-3b-smoke`. 50-step format validation smoke. Correct Llama chat template, 5.8% masking, loss 3.27. |
+| **C26** | 03-06 | `google/gemma-3n-E2B-it` | 256 | 4 | 1 | On | **PASS** | — | — | `spoke-gemma3n-e2b-smoke-v2`. 50-step format validation smoke. System role folded into user turn (Gemma 3n behavior), 6.5% masking, loss 8.30, 4.47B params. First smoke (v1) failed on PEFT `"all-linear"` crash — fixed by using explicit 7-module target list. |
+| **C27** | 03-06 | `meta-llama/Llama-3.2-3B-Instruct` | 256 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-llama32-3b-v5-v1` (v5 data, 1200 steps, ~3.7 epochs). Best by eval_loss = step 200 (0.2765). Benchmark: step 200 = `35%`, step 1200 = `78%` (16 exact, 2 sem, 5 partial, 0 fail). eval_loss best was a trap — barely trained. |
+| **C28** | 03-06 | `google/gemma-3n-E2B-it` | 256 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-gemma3n-e2b-v5-v1` (v5 data, 1200 steps, ~3.7 epochs). Best by eval_loss = step 600 (0.659). Benchmark: step 600 = `70%` (10 exact, 6 sem, 3 partial, 4 fail), step 1200 = `65%` (12 exact, 3 sem, 4 partial, 4 fail). Gemma overfit after step 600. 4 persistent fails on quote handling. |
+| **C29** | 03-06 | `meta-llama/Llama-3.2-3B-Instruct` | 256 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-llama32-3b-v5-v2-3k` (v5 data, 3000 steps, ~9.3 epochs). Best by eval_loss = step 200 again. Benchmark: step 3000 = `83%` (18 exact, 1 sem, 4 partial, 0 fail). +5 pts over 1200 steps. 0 fails. eval_loss rose monotonically 0.28 → 0.39 but accuracy kept improving. |
 
 ---
 
@@ -80,6 +85,9 @@
 11. **Prompt-policy override at training time (`system_prompt_mode`) prevented dataset churn** while running prompt ablations (`as_is`, `v2`, `v3`) on the same uploaded v5 rows.
 12. **Benchmarking non-best checkpoints paid off.** On C19, eval-loss picked `checkpoint-600` (`87%`) while `checkpoint-1200` reached `100%` on the same core23 benchmark.
 13. **Upgrading HF runtime to Transformers 5.2.0 unlocked Qwen3.5 support** and made cloud base/smoke probes possible without falling back to Unsloth.
+14. **Generalizing multimodal text-only detection** (from Qwen3.5-specific to `MULTIMODAL_TEXT_ONLY_TYPES` set) enabled Gemma 3n E2B training with zero code changes.
+15. **Explicit LoRA target modules** (instead of `"all-linear"`) fixed PEFT crash on Gemma 3n — its composite layers (AltUp, LAuReL, PLE) get matched as whole modules instead of individual `nn.Linear` layers.
+16. **Adding `--data-dir` parameter** enabled A/B testing between data versions without re-uploading.
 
 ## What Did Not Help
 
@@ -94,6 +102,8 @@
 9. **Promoting checkpoints by eval loss alone did not match benchmark reality.** C19 is the concrete failure case (`checkpoint-600` vs `checkpoint-1200`).
 10. **Missing throughput capture on some runs (e.g., SmolLM3) made comparisons weaker.** This is a logging/process gap, not a model limitation.
 11. **Qwen3.5 short smokes did not produce usable quality.** Even after fixing loader/runtime issues, 50-step runs only reached `22%` (2B) and `30%` (4B) on core23.
+12. **`load_best_model_at_end` by eval_loss is actively harmful.** Llama best checkpoint (step 200) = 35% vs last (step 1200) = 78%. Gemma best (step 600) = 70% vs last (step 1200) = 65%. With 20 val examples, eval_loss picks barely-trained or overfit checkpoints.
+13. **Gemma 3n at lr=1e-5 underperforms.** Google recommends 2e-4 for Gemma LoRA. Our 1e-5 is below the floor of any published run. 65-70% accuracy with 4 hard fails on quotes.
 
 ## Root Causes of Remaining Waste
 

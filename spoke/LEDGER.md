@@ -101,6 +101,9 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **Qwen35-T2-cloud** | 03-04 | Qwen3.5-4B (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Cloud Unsloth + Qwen3.5-4B VLM. ~2 it/s after fast-path fix. MLX conversion succeeded (mlx-lm 0.30.7) but model generates incoherent garbage — 0% accuracy. Hybrid DeltaNet+attention architecture broken in MLX inference. Abandoned.** |
 | **Qwen35-2B-cloud-smoke** | 03-06 | Qwen3.5-2B (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 50 | — | **HF text-only smoke path (`Qwen3_5ForCausalLM` + `text_config`) now works. train_steps_per_second=0.777. core23 moved 9% → 22%.** |
 | **Qwen35-4B-cloud-smoke** | 03-06 | Qwen3.5-4B (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 50 | — | **HF text-only smoke path works at 4B too. train_steps_per_second=1.035. core23 moved 13% → 30%.** |
+| **Llama3-cloud-v5-v1** | 03-06 | Llama 3.2 3B Instruct (HF, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 1200 | 0.2765 @200 | **Cloud HF+PEFT, 256 seq. eval_loss best (step 200) = 35%, step 1200 = 78% (16 exact, 2 sem, 5 partial, 0 fail). eval_loss is unreliable — step 200 barely trained.** |
+| **Llama3-cloud-v5-3k** | 03-06 | Llama 3.2 3B Instruct (HF, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 3000 | 0.2785 @200 | **Cloud HF+PEFT, 256 seq, 9.3 epochs. Step 3000 = 83% (18 exact, 1 sem, 4 partial, 0 fail). +5 pts over 1200 steps. 0 fails. eval_loss rose 0.28→0.39 but accuracy kept improving.** |
+| **Gemma3n-cloud-v5-v1** | 03-06 | Gemma 3n E2B-it (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 1200 | 0.659 @600 | **Cloud HF+PEFT, 256 seq. ~4.47B params (2B effective). Step 600 = 70%, step 1200 = 65%. Overfit after step 600. 4 persistent fails on quotes. lr=1e-5 likely 20x too low (Google recommends 2e-4).** |
 | **Qwen3-T2-cloud** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Original cloud fast-path run. Packing enabled (1201→327 packed seqs), lora_dropout=0.0. MLX-converted benchmark = 35% (5 exact / 3 semantic / 11 partial / 4 fail), 1.65s latency. This run was not apples-to-apples, so packing/overexposure was a valid confound, but later strict-parity rerun showed the main remaining gap is post-training MLX conversion/inference, not this setup alone.** |
 | **Qwen3-T2-cloud-parity** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | 0.152 @2000 | **Strict local-parity cloud rerun: packing OFF, lora_dropout=0.05, mlx-style mask_prompt labels, collator, and batch ordering. MLX-converted benchmark still = 35% (5 exact / 3 semantic / 11 partial / 4 fail, 2.38s). But direct Modal HF benchmark of the same merged bf16 model = 87% (20 exact / 3 partial / 0 fails, 0.28s). Training is mostly fine; the big regression is in MLX conversion and/or MLX inference.** |
 
@@ -206,6 +209,11 @@ All from Qwen3-4B base.
 | Llama3-T2 | iter 700 | bf16 | v2 | 23 | **83%** | 19 | 0 | 4 | 0 | 1.77s | Best val loss (0.083). Worse than iter 2000 despite better val loss. |
 | **Llama3-T2** | **iter 2000** | **bf16** | **v2** | **23** | **91%** | **20** | **1** | **2** | **0** | **1.90s** | **87% → 91% with v4 data (+4 pts). 0 fails. Still 9 pts below Qwen3's 100%.** |
 | **Muon-YOLO** | **iter 900** | **bf16** | **v2** | **23** | **78%** | **17** | **1** | **4** | **1** | **1.63s** | **16 layers + Muon + 256 seq. Worse than Adam T11 (83%) despite v4 data. New camelCase regression. 1 fail (emoji). Dead end for LoRA.** |
+| Llama3-cloud-v5-v1 | step 200 (best eval) | bf16 | v2 | 23 | **35%** | 6 | 2 | 11 | 4 | — | Cloud Modal HF. eval_loss best = barely trained (0.6 epochs). Trap. |
+| **Llama3-cloud-v5-v1** | **step 1200** | **bf16** | **v2** | **23** | **78%** | **16** | **2** | **5** | **0** | **—** | **Cloud Modal HF, v5 data. 0 fails. Below local v4 result (91%).** |
+| **Llama3-cloud-v5-3k** | **step 3000** | **bf16** | **v2** | **23** | **83%** | **18** | **1** | **4** | **0** | **—** | **Cloud Modal HF, v5 data, 9.3 epochs. +5 pts over 1200 steps. 0 fails. Still 8 pts below local v4 (91%).** |
+| Gemma3n-cloud-v5 | step 600 (best eval) | bf16 | v2 | 23 | **70%** | 10 | 6 | 3 | 4 | — | Cloud Modal HF. Gemma 3n E2B text-only. Best checkpoint by eval_loss. |
+| **Gemma3n-cloud-v5** | **step 1200** | **bf16** | **v2** | **23** | **65%** | **12** | **3** | **4** | **4** | **—** | **Cloud Modal HF. Overfit past step 600. 4 fails on quotes. lr=1e-5 too low.** |
 | **Qwen3-T2-cloud** | **iter 2000** | **bf16** | **v2** | **23** | **35%** | **5** | **3** | **11** | **4** | **1.65s** | **Original cloud fast-path run. Packing ON (1201→327 packed seqs), dropout=0.0. Confounded and not apples-to-apples. 35% after MLX conversion.** |
 | **Qwen3-T2-cloud-parity (MLX)** | **iter 2000** | **bf16** | **v2** | **23** | **35%** | **5** | **3** | **11** | **4** | **2.38s** | **Strict local-parity rerun: packing OFF, dropout=0.05, mlx-style mask_prompt/collator/batch ordering. Still 35% after MLX conversion, so the original packing theory does not explain the full regression.** |
 | **Qwen3-T2-cloud-parity (Modal HF)** | **iter 2000** | **bf16** | **v2** | **23** | **87%** | **20** | **0** | **3** | **0** | **0.28s** | **Exact same merged bf16 model benchmarked directly on Modal with Transformers before MLX conversion. 35% → 87% proves the main quality loss is downstream in MLX conversion and/or MLX inference, not in the cloud training itself.** |
@@ -227,7 +235,7 @@ All from Qwen3-4B base.
 
 **Cloud pipelines now used:**
 - Legacy Unsloth path: `spoke/cloud/train.py` (kept for historical experiments).
-- Current HF text-only path: `spoke/cloud/train_hf.py` + `spoke/cloud/benchmark.py` with `transformers==5.2.0` and `Qwen3_5ForCausalLM` when `model_type=qwen3_5`.
+- Current HF+PEFT path: `spoke/cloud/train_hf.py` + `spoke/cloud/benchmark.py` + `spoke/cloud/merge_adapter_checkpoint.py` with `transformers==5.3.0`. Generalized multimodal text-only detection for `qwen3_5` and `gemma3n`. Uses `AutoModelForCausalLM` for all causal models. Supports `--data-dir` for switching between data versions (default `/data`, v4 at `/data/v4`).
 - Shared Modal Volumes: `spoke-model-cache`, `spoke-training-data`, `spoke-output`.
 
 **Key Unsloth setup issues resolved historically** (cost ~$2-3 in failed Modal runs):
@@ -343,6 +351,8 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | **Muon-YOLO** | **Qwen3-4B bf16, Muon optimizer (lr=2e-4), 16 layers, 256 seq, v4 data, ~900 iters** | **78% bf16, 1.63s latency. Dead end.** Worse than Adam T11 (83%) despite 2x more data. 10x slower per-iter (Newton-Schulz overhead). New camelCase regression. Muon not viable for LoRA on M4. |
 | **T3-v5** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5 data (1287 train), v2 prompt, ckpt 1200** | **100% v3 test, 69% broad eval (58 ex). NEW BROAD EVAL BEST.** V5 targeted data (+86 examples: multi-step, spell-compound, emphasis-caps, meta-language) improved multi 14%→43%, spell 75%→88%, quote 50%→75%. Regressed emoji/disfluency. Fixes Wispr Flow scoping bug. Only surviving model: `spoke/models/spoke-qwen3-t3-v5-mlx/`. |
 | **Qwen35-HF-smoke-2B/4B** | **Qwen3.5 text-only HF cloud probes (Modal L40S, 50 steps, v5+v2)** | **Compatibility fixed, quality still poor.** Base scores: 2B `9%`, 4B `13%`; after 50-step smoke: 2B `22%`, 4B `30%` on core23. Useful as pipeline validation, not quality candidates. |
+| **Llama3-cloud-v5** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v5 data, 1200-3000 steps** | **78% at 1200 steps, 83% at 3000 steps. 0 fails at both. Below local v4 result (91%) — v5 data may cause interference at 3B scale. eval_loss best (step 200) was a trap (35%). V4 data A/B test pending.** |
+| **Gemma3n-cloud-v5** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v5 data, 1200 steps** | **70% best (step 600), 65% last (step 1200). 4 persistent fails on quotes. lr=1e-5 was 20x too low per Google's recommendation (2e-4). Novel architecture (AltUp/PLE/LAuReL) likely needs different hyperparameters.** |
 
 ### Active Queue
 
@@ -444,6 +454,10 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 49. **16 layers caps at 78-83% regardless of optimizer or data.** Muon-YOLO (16 layers, v4 data 1201 train, 900 iters) = 78%. Adam T11 (16 layers, v3 data 492 train, 300 iters) = 83%. T11-ext (36 layers, same data, 2000 iters) = 91%. T2-v4 (36 layers, v4 data, 2000 iters) = 100%. The upper layers (17-36) carry critical capabilities — likely where structural understanding (quoting, casing, multi-word scope) lives. Layer reduction is not viable for this task.
 52. **Qwen3.5 HF text-only loading is now operational on cloud.** Upgrading Modal images to `transformers==5.2.0` and forcing `Qwen3_5ForCausalLM` with `text_config` resolved the `model type qwen3_5 not recognized` blocker and enabled reproducible base/smoke probes.
 53. **Qwen3.5 remains low-ROI under the current training recipe.** Core23 moved from base `9%/13%` (2B/4B) to `22%/30%` after 50-step smokes. This confirms pipeline viability but not quality viability versus the established Qwen3 parity path.
+54. **eval_loss best checkpoint is harmful for this task.** Both Llama and Gemma 3n "best by eval_loss" checkpoints scored worse than the last checkpoint (Llama: 35% vs 78%, Gemma: 70% vs 65%). With 20 validation examples, eval_loss is noise. `load_best_model_at_end` selected barely-trained checkpoints. Always benchmark accuracy directly.
+55. **Llama 3.2 3B maintains zero fails across all cloud runs.** 78% (1200 steps) and 83% (3000 steps) — every example gets at least partial credit. No catastrophic failures. This contrasts with Gemma 3n's 4 persistent hard fails on quote handling.
+56. **Gemma 3n E2B lr=1e-5 is 20x too low.** Google's official QLoRA guide recommends lr=2e-4 for Gemma. Community runs use 2e-5 to 2e-4. Our 1e-5 is below the floor of any published successful Gemma 3n fine-tuning. Also recommends max_grad_norm=0.3 (vs our 1.0) and cosine/linear scheduler with warmup.
+57. **V5 data may cause interference at 3B scale.** Llama scored 91% on v4 data locally but only 83% on v5 data in cloud (more steps, same hyperparams). Qwen3 at 4B hit 100% on both. The 86 harder v5 examples (multi-step, spell-compound) may exceed 3B capacity, causing interference with easier patterns. A/B test with v4 data on cloud pending.
 
 ### Model Comparison (Phase B Summary)
 
@@ -455,6 +469,8 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 | Llama 3.2 3B (T1) | 3B | 26% | 87% | 1.60s | 15.2 GB | 1.1x faster |
 | Gemma 3 4B (T1) | 4.6B | 9% | 87% | 2.52s | 11.6 GB* | 0.7x slower |
 | LFM2-2.6B (T1b) | 2.6B | 9% | 83% | 1.66s | 13.3 GB | 1.1x faster |
+| Llama 3.2 3B (cloud, v5) | 3B | 26% | 83% | — | — | Cloud Modal HF |
+| Gemma 3n E2B (cloud, v5) | 4.5B (2B eff) | — | 70% | — | — | Cloud Modal HF, lr too low |
 | LFM2.5-1.2B (T1) | 1.2B | 9% | 70% | 0.63s | 6.5 GB | 2.9x faster |
 
 *Gemma 3 4B: 18.9 GB without grad_checkpoint (OOM), 11.6 GB with grad_checkpoint enabled.

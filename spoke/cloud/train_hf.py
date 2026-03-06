@@ -90,6 +90,7 @@ def train(
     eval_steps: int = 100,
     save_steps: int = 100,
     save_total_limit: int = 2,
+    data_dir: str = "/data",
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
 ):
@@ -294,8 +295,8 @@ def train(
         patched_messages[0]["content"] = forced_system_prompt
         return {"messages": patched_messages}
 
-    train_data = load_jsonl("/data/train.jsonl")
-    valid_data = load_jsonl("/data/valid.jsonl")
+    train_data = load_jsonl(f"{data_dir}/train.jsonl")
+    valid_data = load_jsonl(f"{data_dir}/valid.jsonl")
     if forced_system_prompt is not None:
         train_data = [maybe_override_system_prompt(ex) for ex in train_data]
         valid_data = [maybe_override_system_prompt(ex) for ex in valid_data]
@@ -697,6 +698,7 @@ def main(
     eval_steps: int = 100,
     save_steps: int = 100,
     save_total_limit: int = 2,
+    data_dir: str = "/data",
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
 ):
@@ -713,6 +715,7 @@ def main(
     print(f"  Grad checkpointing: {'on' if gradient_checkpointing else 'off'}")
     print(f"  Max seq length: {max_seq_length}")
     print(f"  Max target length: {max_target_length}")
+    print(f"  Data dir: {data_dir}")
     print(f"  System prompt mode: {system_prompt_mode}")
     print(f"  Eval every: {'off' if eval_steps <= 0 else eval_steps} steps")
     print(f"  Save every: {'off' if save_steps <= 0 else save_steps} steps")
@@ -739,6 +742,7 @@ def main(
         eval_steps=eval_steps,
         save_steps=save_steps,
         save_total_limit=save_total_limit,
+        data_dir=data_dir,
         system_prompt_mode=system_prompt_mode,
         export_merged=export_merged,
     )
