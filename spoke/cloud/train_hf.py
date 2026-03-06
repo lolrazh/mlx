@@ -87,6 +87,9 @@ def train(
     max_target_length: int = 256,
     optimizer: str = "adam",
     max_grad_norm: float = 1.0,
+    lr_scheduler_type: str = "constant",
+    warmup_ratio: float = 0.0,
+    weight_decay: float = 0.0,
     eval_steps: int = 100,
     save_steps: int = 100,
     save_total_limit: int = 2,
@@ -589,12 +592,13 @@ def train(
         gradient_accumulation_steps=gradient_accumulation_steps,
         per_device_eval_batch_size=batch_size,
         learning_rate=learning_rate,
-        lr_scheduler_type="constant",
+        lr_scheduler_type=lr_scheduler_type,
+        warmup_ratio=warmup_ratio,
         optim="adamw_torch",
         adam_beta1=0.9,
         adam_beta2=0.999,
         adam_epsilon=1e-8,
-        weight_decay=0.0,
+        weight_decay=weight_decay,
         max_grad_norm=max_grad_norm,
         bf16=True,
         gradient_checkpointing=gradient_checkpointing,
@@ -639,6 +643,7 @@ def train(
         f"accum={gradient_accumulation_steps}, max_seq={max_seq_length}, "
         f"max_target={max_target_length}, "
         f"optim={optimizer}, max_grad_norm={max_grad_norm}, "
+        f"lr_sched={lr_scheduler_type}, warmup={warmup_ratio}, wd={weight_decay}, "
         f"system_prompt={system_prompt_mode}, "
         f"arch={'seq2seq' if is_encoder_decoder else 'causal'}, "
         f"grad_ckpt={'on' if gradient_checkpointing else 'off'}, "
@@ -695,6 +700,9 @@ def main(
     max_target_length: int = 256,
     optimizer: str = "adam",
     max_grad_norm: float = 1.0,
+    lr_scheduler_type: str = "constant",
+    warmup_ratio: float = 0.0,
+    weight_decay: float = 0.0,
     eval_steps: int = 100,
     save_steps: int = 100,
     save_total_limit: int = 2,
@@ -711,6 +719,9 @@ def main(
     )
     print(f"  Optimizer: {optimizer}")
     print(f"  Max grad norm: {max_grad_norm}")
+    print(f"  LR scheduler: {lr_scheduler_type}")
+    print(f"  Warmup ratio: {warmup_ratio}")
+    print(f"  Weight decay: {weight_decay}")
     print(f"  Grad accum: {gradient_accumulation_steps}")
     print(f"  Grad checkpointing: {'on' if gradient_checkpointing else 'off'}")
     print(f"  Max seq length: {max_seq_length}")
@@ -739,6 +750,9 @@ def main(
         max_target_length=max_target_length,
         optimizer=optimizer,
         max_grad_norm=max_grad_norm,
+        lr_scheduler_type=lr_scheduler_type,
+        warmup_ratio=warmup_ratio,
+        weight_decay=weight_decay,
         eval_steps=eval_steps,
         save_steps=save_steps,
         save_total_limit=save_total_limit,
