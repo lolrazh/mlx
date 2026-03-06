@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-"""Modal cloud training for Spoke T5/Flan-T5 encoder-decoder models.
+"""Modal cloud training for Spoke encoder-decoder models (T5, Flan-T5, T5Gemma 2).
 
-T5 uses prefix-based seq2seq format (no chat templates):
+Seq2seq format (no chat templates):
   Input:  "Correct this transcription: {asr_text}"
   Output: "{cleaned_text}"
 
 Usage:
-    # Full fine-tuning (default for base/large):
-    modal run spoke/cloud/train_t5.py --run-name spoke-flan-t5-base-v1
+    # T5Gemma 2 1B-1B (FlanEC recipe: lr=5e-5, AdamW, linear+warmup):
+    modal run spoke/cloud/train_t5.py --model-name google/t5gemma-2-1b-1b --run-name spoke-t5gemma2-1b-v1
 
-    # LoRA (for larger models):
-    modal run spoke/cloud/train_t5.py --model-name google/flan-t5-large --run-name spoke-flan-t5-large-v1 --use-lora
+    # Flan-T5-large (full fine-tuning):
+    modal run spoke/cloud/train_t5.py --model-name google/flan-t5-large --run-name spoke-flan-t5-large-v1
 
     # Quick probe:
-    modal run spoke/cloud/train_t5.py --run-name spoke-flan-t5-probe --max-steps 50 --eval-steps 0 --save-steps 0 --no-export-merged
+    modal run spoke/cloud/train_t5.py --run-name spoke-t5gemma2-probe --max-steps 50 --eval-steps 0 --save-steps 0 --no-export-merged
 """
 
 from __future__ import annotations
@@ -35,7 +35,9 @@ image = (
         "datasets==3.2.0",
         "peft==0.14.0",
         "sentencepiece",
+        "protobuf",
         "safetensors",
+        "Pillow",
         "wandb",
     )
 )
@@ -58,20 +60,20 @@ TASK_PREFIX = "Correct this transcription: "
     timeout=7200,
 )
 def train(
-    run_name: str = "spoke-flan-t5-base-v1",
-    model_name: str = "google/flan-t5-base",
+    run_name: str = "spoke-t5gemma2-1b-v1",
+    model_name: str = "google/t5gemma-2-1b-1b",
     max_steps: int = 2000,
-    learning_rate: float = 3e-4,
+    learning_rate: float = 5e-5,
     batch_size: int = 8,
-    gradient_accumulation_steps: int = 1,
+    gradient_accumulation_steps: int = 2,
     max_source_length: int = 256,
     max_target_length: int = 256,
     use_lora: bool = False,
     rank: int = 16,
     lora_alpha: int = 32,
     lora_dropout: float = 0.05,
-    lr_scheduler_type: str = "constant",
-    warmup_ratio: float = 0.0,
+    lr_scheduler_type: str = "linear",
+    warmup_ratio: float = 0.1,
     weight_decay: float = 0.0,
     eval_steps: int = 100,
     save_steps: int = 200,
@@ -103,7 +105,14 @@ def train(
     save_enabled = save_steps > 0
 
     print(f"Loading model: {model_name}")
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    # T5Gemma 2 needs AutoProcessor; Flan-T5 uses AutoTokenizer
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+    except (OSError, ValueError):
+        from transformers import AutoProcessor
+        processor = AutoProcessor.from_pretrained(model_name)
+        tokenizer = processor.tokenizer
+        print("Using AutoProcessor.tokenizer (T5Gemma 2 path)")
     model = AutoModelForSeq2SeqLM.from_pretrained(
         model_name,
         torch_dtype=torch.bfloat16,
@@ -155,6 +164,8 @@ def train(
     valid_pairs = [chat_to_seq2seq(ex) for ex in valid_raw]
 
     # Tokenize
+    eos_id = tokenizer.eos_token_id
+
     def tokenize_fn(examples):
         model_inputs = tokenizer(
             examples["input_text"],
@@ -168,6 +179,11 @@ def train(
             truncation=True,
             padding=False,
         )
+        # Gemma tokenizer doesn't append EOS — add it so the model learns to stop
+        if eos_id is not None:
+            for i, ids in enumerate(labels["input_ids"]):
+                if not ids or ids[-1] != eos_id:
+                    labels["input_ids"][i] = ids + [eos_id]
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
 
@@ -204,9 +220,11 @@ def train(
     print(f"Steps per epoch: {steps_per_epoch:.1f}, total epochs: {total_epochs:.1f}")
 
     # Data collator handles dynamic padding for seq2seq
+    # Don't pass model= for T5Gemma 2 (incompatible prepare_decoder_input_ids_from_labels)
+    is_t5gemma = "t5gemma" in model_name.lower()
     data_collator = DataCollatorForSeq2Seq(
         tokenizer=tokenizer,
-        model=model,
+        model=None if is_t5gemma else model,
         padding=True,
         pad_to_multiple_of=8,
     )
@@ -283,20 +301,20 @@ def train(
 
 @app.local_entrypoint()
 def main(
-    run_name: str = "spoke-flan-t5-base-v1",
-    model_name: str = "google/flan-t5-base",
+    run_name: str = "spoke-t5gemma2-1b-v1",
+    model_name: str = "google/t5gemma-2-1b-1b",
     max_steps: int = 2000,
-    learning_rate: float = 3e-4,
+    learning_rate: float = 5e-5,
     batch_size: int = 8,
-    gradient_accumulation_steps: int = 1,
+    gradient_accumulation_steps: int = 2,
     max_source_length: int = 256,
     max_target_length: int = 256,
     use_lora: bool = False,
     rank: int = 16,
     lora_alpha: int = 32,
     lora_dropout: float = 0.05,
-    lr_scheduler_type: str = "constant",
-    warmup_ratio: float = 0.0,
+    lr_scheduler_type: str = "linear",
+    warmup_ratio: float = 0.1,
     weight_decay: float = 0.0,
     eval_steps: int = 100,
     save_steps: int = 200,
@@ -304,7 +322,7 @@ def main(
     data_dir: str = "/data/v4",
     export_merged: bool = True,
 ):
-    print(f"Starting T5 cloud training: {run_name}")
+    print(f"Starting encoder-decoder cloud training: {run_name}")
     print(f"  Model: {model_name}")
     print(f"  Steps: {max_steps}, LR: {learning_rate}, Batch: {batch_size}")
     print(f"  Mode: {'LoRA (r=' + str(rank) + ')' if use_lora else 'Full fine-tuning'}")
