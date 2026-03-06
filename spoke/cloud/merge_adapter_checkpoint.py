@@ -19,7 +19,7 @@ output_vol = modal.Volume.from_name("spoke-output", create_if_missing=True)
 image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .pip_install(
-        "transformers==5.2.0",
+        "transformers==5.3.0",
         "peft==0.14.0",
         "sentencepiece",
         "safetensors",
@@ -53,7 +53,6 @@ def merge_checkpoint(
         AutoModelForCausalLM,
         AutoModelForSeq2SeqLM,
         AutoTokenizer,
-        Qwen3_5ForCausalLM,
     )
 
     os.environ["HF_HOME"] = "/model-cache"
@@ -72,25 +71,25 @@ def merge_checkpoint(
 
     print(f"Loading base model: {model_name}")
     model_config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
-    is_qwen35_text_only = bool(
-        getattr(model_config, "model_type", "") == "qwen3_5"
-        and getattr(model_config, "text_config", None) is not None
-    )
-    effective_model_config = model_config.text_config if is_qwen35_text_only else model_config
+    _mtype = getattr(model_config, "model_type", "")
+    _has_text_config = getattr(model_config, "text_config", None) is not None
+    MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n"}
+    is_multimodal_text_only = bool(_mtype in MULTIMODAL_TEXT_ONLY_TYPES and _has_text_config)
+    effective_model_config = model_config.text_config if is_multimodal_text_only else model_config
     is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
-    if is_qwen35_text_only:
-        model_cls = Qwen3_5ForCausalLM
+    if is_encoder_decoder:
+        model_cls = AutoModelForSeq2SeqLM
     else:
-        model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
-    print(f"Detected architecture: {'seq2seq' if is_encoder_decoder else 'causal'}")
+        model_cls = AutoModelForCausalLM
+    print(f"Detected architecture: {_mtype} ({'multimodal text-only' if is_multimodal_text_only else 'seq2seq' if is_encoder_decoder else 'causal'})")
     model_load_kwargs = dict(
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
         low_cpu_mem_usage=True,
         device_map="cuda",
     )
-    if is_qwen35_text_only:
-        print("Detected qwen3_5 multimodal config; forcing text-only merge path.")
+    if is_multimodal_text_only:
+        print(f"Detected {_mtype} multimodal config; forcing text-only merge path.")
         model_load_kwargs["config"] = effective_model_config
     if "t5gemma" in str(getattr(model_config, "model_type", "")).lower():
         model_load_kwargs["attn_implementation"] = "eager"

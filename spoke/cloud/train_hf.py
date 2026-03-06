@@ -24,7 +24,7 @@ image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .apt_install("git", "build-essential")
     .pip_install(
-        "transformers==5.2.0",
+        "transformers==5.3.0",
         "accelerate==1.4.0",
         "datasets==3.2.0",
         "peft==0.14.0",
@@ -83,7 +83,7 @@ def train(
     rank: int = 8,
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
-    max_seq_length: int = 512,
+    max_seq_length: int = 256,
     max_target_length: int = 256,
     optimizer: str = "adam",
     max_grad_norm: float = 1.0,
@@ -105,7 +105,6 @@ def train(
         AutoModelForCausalLM,
         AutoModelForSeq2SeqLM,
         AutoTokenizer,
-        Qwen3_5ForCausalLM,
         Trainer,
         TrainingArguments,
     )
@@ -126,14 +125,15 @@ def train(
 
     print(f"Loading base model: {model_name}")
     model_config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
-    is_qwen35_text_only = bool(
-        getattr(model_config, "model_type", "") == "qwen3_5"
-        and getattr(model_config, "text_config", None) is not None
-    )
-    effective_model_config = model_config.text_config if is_qwen35_text_only else model_config
+    _mtype = getattr(model_config, "model_type", "")
+    _has_text_config = getattr(model_config, "text_config", None) is not None
+    # Multimodal models with a usable text-only decoder path
+    MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n"}
+    is_multimodal_text_only = bool(_mtype in MULTIMODAL_TEXT_ONLY_TYPES and _has_text_config)
+    effective_model_config = model_config.text_config if is_multimodal_text_only else model_config
     is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
-    if is_qwen35_text_only:
-        print("Model family: qwen3_5 multimodal -> forcing text-only causal LM path")
+    if is_multimodal_text_only:
+        print(f"Model family: {_mtype} multimodal -> forcing text-only causal LM path")
     else:
         print(f"Model family: {'encoder-decoder (seq2seq)' if is_encoder_decoder else 'decoder-only (causal)'}")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
@@ -216,16 +216,16 @@ def train(
         else:
             tokenizer.add_special_tokens({"pad_token": "<|endoftext|>"})
 
-    if is_qwen35_text_only:
-        model_cls = Qwen3_5ForCausalLM
+    if is_encoder_decoder:
+        model_cls = AutoModelForSeq2SeqLM
     else:
-        model_cls = AutoModelForSeq2SeqLM if is_encoder_decoder else AutoModelForCausalLM
+        model_cls = AutoModelForCausalLM
     model_load_kwargs = dict(
         torch_dtype=torch.bfloat16,
         trust_remote_code=True,
         low_cpu_mem_usage=True,
     )
-    if is_qwen35_text_only:
+    if is_multimodal_text_only:
         model_load_kwargs["config"] = effective_model_config
     if "t5gemma" in model_name.lower():
         model_load_kwargs["attn_implementation"] = "eager"
@@ -243,7 +243,7 @@ def train(
         print("Gradient checkpointing: disabled")
 
     peft_task_type = "SEQ_2_SEQ_LM" if is_encoder_decoder else "CAUSAL_LM"
-    if is_encoder_decoder or is_qwen35_text_only:
+    if is_encoder_decoder:
         target_modules = "all-linear"
     else:
         target_modules = [
@@ -690,7 +690,7 @@ def main(
     rank: int = 8,
     lora_alpha: int = 16,
     lora_dropout: float = 0.05,
-    max_seq_length: int = 512,
+    max_seq_length: int = 256,
     max_target_length: int = 256,
     optimizer: str = "adam",
     max_grad_norm: float = 1.0,
