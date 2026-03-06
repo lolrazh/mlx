@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-07 (LR experiment: "optimal" 2e-4 HURTS both Llama and Qwen3. Our original lr=1e-5 was correct for copy-heavy editing tasks.)
+> Last updated: 2026-03-07 (T5 encoder-decoder experiments: Flan-T5-base/large full fine-tuning on Modal. Over-memorization pattern confirmed for enc-dec. T5 vocab blocks emoji = hard 13% ceiling.)
 
 ## How to Read This
 
@@ -57,6 +57,7 @@ v3 removes 4 categories with no production Spoke triggers (formatting-xml, email
 | B19 | Qwen3-4B | **8-bit** | v2 | 23 | **22%** | 4 | 1 | 12 | 6 | 1.11s | **8-bit = bf16 zero-shot (both 22%).** Confirms 8-bit precision loses nothing at zero-shot. Faster (1.11s vs 1.66s). |
 | B20 | Qwen3.5-2B (Modal HF text-only) | bf16 | v2 | 23 | **9%** | 0 | 2 | 1 | 20 | 0.40s | Base cloud benchmark (`result_Qwen-Qwen3.5-2B_modal_v2_test_set_v3.json`). Loader fixed via Transformers 5.2 + `Qwen3_5ForCausalLM`. |
 | B21 | Qwen3.5-4B (Modal HF text-only) | bf16 | v2 | 23 | **13%** | 2 | 1 | 5 | 15 | 0.55s | Base cloud benchmark (`result_Qwen-Qwen3.5-4B_modal_v2_test_set_v3.json`). Still weak on command execution. |
+| B22 | Flan-T5-base (220M, Modal HF) | bf16 | t5 prefix | 23 | **17%** | 3 | 1 | 3 | 16 | 0.13s | Encoder-decoder zero-shot. T5 prefix format ("Correct this transcription: ..."). 32K SentencePiece vocab can't generate emoji = hard 13% ceiling (3/23 emoji tests). |
 
 **Takeaway:** v3 test set zero-shot baseline is 22% (Qwen3). LFM2 scores 9% regardless of size/precision/quantization — conv-dominant hybrid architecture can't handle meta-linguistic commands zero-shot. Gemma 3 4B also 9% (echoes commands). Gemma 3 1B 0% (garbled). Few-shot helps format (30%) but not reasoning. But 9% zero-shot → 83-87% fine-tuned, so zero-shot is meaningless for predicting fine-tune potential.
 
@@ -98,6 +99,17 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **Llama3-T2** | 03-03 | Llama 3.2 3B Instruct (bf16) | LoRA | r=8 | adam | v4 (1201) | 2000 | 0.083 @700 | All 28 layers. 12.2M trainable (0.378%). Peak 15.2 GB. Converged fast (0.083 by iter 700), overfit to 0.155 by iter 2000. Iter 2000 still better than iter 700 (91% vs 83%). **91% bf16 at iter 2000, 1.90s. +4 pts over T1 (87%). Doesn't match Qwen3's 100%.** |
 | **Qwen3-8bit** | 03-03 | Qwen3-4B-Instruct-2507 (**8-bit**) | QLoRA | r=8 | adam | v4 (1201) | 800 (killed@~850) | 0.276 @800 | All 36 layers. 16.5M trainable (0.411%). Peak 16.4 GB. Starting val loss 6.110 (vs bf16's 2.843 — 8-bit dequant noise). **96% at iter 800, 2.08s latency.** Matches DWQ deploy accuracy but 4% below bf16's 100%. 8-bit QLoRA is slower per-iter than bf16 LoRA (dequant overhead) despite lower memory. |
 | **Muon-YOLO** | 03-03 | Qwen3-4B-Instruct-2507-bf16 | LoRA | r=8 | **muon** (lr=2e-4) | v4 (1201) | 900 (died@~940) | 0.123 @850 | **16 layers, max_seq_length=256.** 7.3M trainable (0.182%). Peak 13.3 GB. ~0.17 it/sec (10x slower than Adam — Newton-Schulz overhead dominates for small LoRA params). Val loss beat Adam T11 (0.123 vs 0.169) with same 16 layers, but **78% bf16, 1.63s latency.** Worse than T11 Adam (83%) despite more data. New camelCase regression (lowercased useTranscription). Muon on LoRA is a dead end locally — slower AND less accurate than Adam. |
+
+### Encoder-Decoder Models (T5)
+
+All T5 runs use **full fine-tuning** (no LoRA) on Modal L40S (48 GB VRAM). Prefix format: `"Correct this transcription: {input}" → "{output}"`. No chat templates. Trained with `Seq2SeqTrainer` + `DataCollatorForSeq2Seq`. Script: `spoke/cloud/train_t5.py`.
+
+| Run | Date | Base Model | Params | LR | Batch | Data | Steps | Best Val Loss | Notes |
+|-----|------|-----------|--------|------|-------|------|-------|---------------|-------|
+| **T5-base-v1** | 03-07 | Flan-T5-base | 248M | 3e-4 | 8 | v4 (1201) | 2000 | 0.249 @200 | Full fine-tune. lr=3e-4 caused rapid overfitting — best eval_loss at step 200 (1.3 epochs). **Step 200: 48%. Step 2000: 57%.** Over-memorization confirmed: higher val_loss (0.574) = better accuracy (+9 pts). |
+| **T5-large-v1** | 03-07 | Flan-T5-large | 783M | 3e-4 | 8 | v4 (1201) | 2000 | 0.157 @200 | Full fine-tune. Same rapid overfitting. **Step 200: 70%. Step 2000: 70%.** Large plateaus earlier — both checkpoints identical accuracy despite 3.6x val_loss difference. |
+| **T5-base-v2** | 03-07 | Flan-T5-base | 248M | 1e-5 | 4 | v4 (1201) | 2000 | 1.152 @2000 | Full fine-tune. lr=1e-5 far too low — eval_loss monotonically decreasing (1.246→1.152, never overfits) but model barely learns. **17% (0 exact, 4 sem) = zero-shot level.** |
+| **T5-large-v2** | 03-07 | Flan-T5-large | 783M | 1e-5 | 4 | v4 (1201) | 2000 | 0.772 @2000 | Full fine-tune. lr=1e-5. Same pattern as base: smooth decrease (0.902→0.772), zero overfitting, but underfitting. **30% (1 exact, 6 sem, 7 partial, 9 fail).** Large model recovers +13 pts over base at low LR due to stronger priors. |
 | **Qwen35-T2-cloud** | 03-04 | Qwen3.5-4B (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Cloud Unsloth + Qwen3.5-4B VLM. ~2 it/s after fast-path fix. MLX conversion succeeded (mlx-lm 0.30.7) but model generates incoherent garbage — 0% accuracy. Hybrid DeltaNet+attention architecture broken in MLX inference. Abandoned.** |
 | **Qwen35-2B-cloud-smoke** | 03-06 | Qwen3.5-2B (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 50 | — | **HF text-only smoke path (`Qwen3_5ForCausalLM` + `text_config`) now works. train_steps_per_second=0.777. core23 moved 9% → 22%.** |
 | **Qwen35-4B-cloud-smoke** | 03-06 | Qwen3.5-4B (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 50 | — | **HF text-only smoke path works at 4B too. train_steps_per_second=1.035. core23 moved 13% → 30%.** |
@@ -431,9 +443,10 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 
 **Phase B takeaway:** **Qwen3-4B at 91% (T11-ext) is the accuracy champion. Llama 3.2 3B and Gemma 3 4B tie at 87%.** All 4B-class models converge to 87-91% — suggesting the data ceiling is near 91% with current 535 examples. Gemma 3 4B had the largest zero-shot-to-fine-tuned gain (+78 pts) and lowest training memory with grad_checkpoint (11.6 GB). Llama is fastest at inference (2x Qwen3). Architecture matters less than training duration and data quality at this scale.
 
-**Phase C — Architecture pivot (encoder-decoder) — BLOCKED**
-7. ~~Evaluate T5Gemma 2 (1B-1B)~~ — mlx-lm has zero encoder-decoder support. No T5Gemma on mlx-community. Blocked until upstream adds seq2seq.
-8. This remains the "right architecture" bet but requires significant porting effort.
+**Phase C — Architecture pivot (encoder-decoder) — IN PROGRESS**
+7. ~~Evaluate T5Gemma 2 (1B-1B)~~ — mlx-lm has zero encoder-decoder support. No T5Gemma on mlx-community. Blocked.
+7b. **Flan-T5-base/large full fine-tuning on Modal** ✅ — T5-base peaks at 57%, T5-large at 70% (lr=3e-4). Hard ceiling from 32K SentencePiece vocab (can't generate emoji = 13% loss). v2 runs (lr=1e-5) in progress.
+8. Deploy path: HF Transformers on Modal for inference, or llama.cpp GGUF, or `mlx-examples/t5/` (inference only).
 
 **Phase D — Training method innovation (bounded editing)**
 10. Experiment with "minimal edit" training format (output ≈ input with targeted changes)
@@ -509,6 +522,13 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 63. **Higher LR creates qualitatively different failures.** Llama at lr=2e-4 outputs `�praying hands` instead of the emoji, ignores emphasis commands, and mis-scopes quotes — these are NOT the same errors as lr=1e-5. Higher LR doesn't just "overfit more"; it learns a different, worse editing policy for this task. Both ckpt 400 (epoch 1.3) and ckpt 1200 (epoch 4) had identical failures — the wrong policy is established early.
 64. **Qwen3 at lr=2e-4 peaks at step 100 (1/3 epoch) by eval_loss.** Best eval_loss 0.153 at step 100, then diverges to 0.388 by step 1200. Despite this, step 1200 benchmarks 96% — again confirming val loss is unreliable (finding #19). But step 100 merge failed on tokenizer (chat_template missing), so we couldn't compare.
 65. **Task-specific LR tuning is mandatory.** One-size-fits-all "LoRA needs 10x higher LR than full FT" breaks down for tasks requiring conservative behavior. The right LR depends on how far from base behavior the task demands: chat/reasoning → high LR (2e-4), copy-heavy editing → low LR (1e-5), Gemma 3n → follow architecture-specific guidance (2e-4).
+66. **T5 encoder-decoder has a hard 13% accuracy ceiling from vocab.** T5's 32K SentencePiece vocab (trained on C4 text) cannot generate emoji Unicode codepoints. 3/23 test examples are emoji → always fail. Maximum theoretical accuracy on v3 test: 87%. This is a vocabulary limitation, not a training limitation — no amount of fine-tuning can fix it.
+67. **Over-memorization pattern confirmed for encoder-decoder.** T5-base step 2000 (val_loss=0.574) scored +9 pts better than step 200 (val_loss=0.249). Same divergent pattern as decoder-only Qwen3/Llama. Finding #19 (val loss unreliable) generalizes across architectures.
+68. **T5 full fine-tuning: lr=3e-4 causes rapid overfitting.** Best eval_loss at step 200 (~1.3 epochs) for both T5-base and T5-large. This matches the "2 epochs then diverge" pattern from LoRA runs. Encoder-decoder doesn't magically avoid overfitting on 1201 examples.
+69. **Encoder-decoder doesn't outperform decoder-only on this task (so far).** Flan-T5-large (783M full fine-tune) = 70% vs Qwen3-4B (LoRA r=8) = 100%. Even accounting for the 13% emoji ceiling, T5-large would max at 87% — below Qwen3's 100%. The "right architecture" hypothesis (finding #25) didn't hold. Possible explanations: (a) Flan-T5 is a 2023 model with weaker base capabilities, (b) 32K vocab is too small, (c) more training/data needed.
+70. **T5 inference is extremely fast.** Flan-T5-base: 0.12-0.28s, Flan-T5-large: 0.22s on L40S. Encoder-decoder decode is much faster than autoregressive decoder-only because outputs are short (median 15 tokens). For latency-critical deployment, a 70% T5-large at 0.22s could be preferable to 96% Qwen3 DWQ at 0.88s.
+71. **lr=1e-5 is optimal for LoRA but way too low for full fine-tuning.** LoRA updates 0.2-0.4% of params → large effective per-param update. Full FT updates ALL params → negligible per-param update at lr=1e-5. T5-base: 57% (lr=3e-4) vs 17% (lr=1e-5). T5-large: 70% vs 30%. lr=3e-4 overfits but learns the task; lr=1e-5 never overfits but barely learns anything. Ideal T5 full FT LR is likely ~5e-5 to 1e-4 (untested). This does NOT invalidate finding #62 — "our lr=1e-5 was correct" applies specifically to LoRA fine-tuning where the effective update scale is amplified.
+72. **T5-large has stronger priors than T5-base at low LR.** At lr=1e-5 (underfitting regime), T5-large (783M) scored 30% vs T5-base (248M) 17%. The extra capacity lets the model extract more from marginal learning. But at lr=3e-4 (adequate LR), both plateau at similar accuracy (70% vs 57%), suggesting the LR bottleneck matters more than model size for T5.
 
 ### Model Comparison (Phase B Summary)
 
@@ -527,5 +547,10 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 | Llama 3.2 3B (v4-v2, lr=2e-4) | 3B | 26% | 78% | 0.14s | — | Cloud Modal HF, "optimal" LR WORSE |
 | Qwen3-4B (v4-v2, lr=2e-4) | 4B | 35% | 96% | 0.21s | — | Cloud Modal HF, "optimal" LR -4 pts |
 | LFM2.5-1.2B (T1) | 1.2B | 9% | 70% | 0.63s | 6.5 GB | 2.9x faster |
+| Flan-T5-large (v1, lr=3e-4) | 783M | 17%* | 70% | 0.22s | — | Cloud Modal HF. Full FT. *13% emoji ceiling. Best with lr=3e-4. |
+| Flan-T5-large (v2, lr=1e-5) | 783M | 17%* | 30% | 0.22s | — | Cloud Modal HF. Full FT. lr too low → underfitting. |
+| Flan-T5-base (v1, lr=3e-4) | 248M | 17%* | 57% | 0.28s | — | Cloud Modal HF. Full FT. *13% emoji ceiling. |
+| Flan-T5-base (v2, lr=1e-5) | 248M | 17%* | 17% | 0.14s | — | Cloud Modal HF. Full FT. lr too low → zero-shot level. |
 
 *Gemma 3 4B: 18.9 GB without grad_checkpoint (OOM), 11.6 GB with grad_checkpoint enabled.
+*T5 models: zero-shot uses T5 prefix format, not v2 prompt. Accuracy ceiling is 87% due to vocab limitation (can't generate emoji).

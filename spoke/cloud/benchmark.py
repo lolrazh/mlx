@@ -62,6 +62,8 @@ V3_PROMPT = (
 )
 
 
+T5_PREFIX = "Correct this transcription: "
+
 EMPTY_THINK_RE = re.compile(r"<think>\s*</think>\s*", flags=re.DOTALL)
 
 
@@ -75,6 +77,8 @@ def has_disallowed_think_markers(text: str) -> bool:
 
 
 def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt_mode: str = "v2") -> str:
+    if prompt_mode == "t5":
+        return f"{T5_PREFIX}{input_text}"
     if prompt_mode == "v2":
         system = V2_PROMPT
     elif prompt_mode == "v3":
@@ -151,6 +155,9 @@ def enforce_no_thinking_chat_template(tokenizer, model_id_hint: str):
         return tokenizer
 
     template = tokenizer.chat_template or ""
+    if not template:
+        print("Tokenizer has no chat template; skipping no-thinking enforcement.")
+        return tokenizer
     system_probe_messages = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "test"},
@@ -254,6 +261,7 @@ def benchmark_remote(
     run_name: str = "",
     model_name: str = "",
     prompt_mode: str = "v2",
+    checkpoint: int = 0,
 ):
     import os
     import torch
@@ -271,10 +279,14 @@ def benchmark_remote(
         raise ValueError("Provide exactly one of run_name or model_name.")
 
     if run_name:
-        model_path = f"/output/{run_name}/merged"
+        if checkpoint > 0:
+            model_path = f"/output/{run_name}/checkpoint-{checkpoint}"
+            short_name = f"{run_name}-ckpt{checkpoint}-modal-hf"
+        else:
+            model_path = f"/output/{run_name}/merged"
+            short_name = f"{run_name}-modal-hf"
         if not Path(model_path).exists():
             raise FileNotFoundError(f"Model not found at {model_path}")
-        short_name = f"{run_name}-modal-hf"
     else:
         model_path = model_name
         short_name = f"{slugify_model_name(model_name)}-base-modal-hf"
@@ -409,6 +421,7 @@ def main(
     prompt_mode: str = "v2",
     test_set: str = "",
     suite: str = "core23",
+    checkpoint: int = 0,
 ):
     bench_dir = Path(__file__).resolve().parents[1] / "bench"
     suite_map = {
@@ -437,6 +450,7 @@ def main(
         model_name=model_name,
         test_set=test_data,
         prompt_mode=prompt_mode,
+        checkpoint=checkpoint,
     )
     summary["test_set_path"] = str(resolved_test_set)
     summary["test_set_name"] = resolved_test_set.name
