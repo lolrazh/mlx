@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-07 (Gemma 3n E4B: 96% core23 — matches Qwen3 DWQ! E2B=91%, E4B=96%. Both 59% broad58.)
+> Last updated: 2026-03-07 (LR experiment: "optimal" 2e-4 HURTS both Llama and Qwen3. Our original lr=1e-5 was correct for copy-heavy editing tasks.)
 
 ## How to Read This
 
@@ -107,6 +107,8 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **Llama3-cloud-v4-v1** | 03-06 | Llama 3.2 3B Instruct (HF, Modal L40S) | LoRA | r=8 | adam | **v4 (1201)** | 2000 | 0.182 @800 | **V4 vs V5 A/B test. Cloud HF+PEFT, 256 seq, 6.7 epochs. Step 2000 = 87% (19 exact, 1 sem, 3 partial, 0 fail). Confirms v5 interference: v4=87% > v5=83%. Cloud-vs-local gap only 4 pts (87% vs 91%).** |
 | **Gemma3n-E2B-v2** | 03-06 | Gemma 3n E2B-it (HF text-only, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.697 @600 | **Google-recommended hyperparams: lr=2e-4, constant_with_warmup, warmup_ratio=0.03, max_grad_norm=0.3. 65% → 91% core23. 59% broad58. Both ckpt 600 and 1200 score identically. ~1.0 GB at 4-bit.** |
 | **Gemma3n-E4B-v1** | 03-07 | Gemma 3n E4B-it (HF text-only, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.643 @500 | **Same Google hyperparams as E2B-v2. 96% core23 (matches Qwen3 DWQ!). 59% broad58 (same as E2B). Both ckpt 500 and 1200 identical. ~2.0 GB at 4-bit.** |
+| **Llama3-v4-v2** | 03-07 | Llama 3.2 3B Instruct (HF, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.215 @400 | **"Optimal" hyperparams: lr=2e-4, constant_with_warmup, warmup=0.03, max_grad_norm=0.3. 78% at both ckpt 400 and 1200 — WORSE than old lr=1e-5 (91%). Higher LR causes different failure profile (emoji garbled, emphasis ignored, quote scope wrong). 0 fails.** |
+| **Qwen3-v4-v2** | 03-07 | Qwen3-4B-Instruct-2507 (HF, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.153 @100 | **Same "optimal" hyperparams as Llama. 96% at step 1200 — 4 pts below old lr=1e-5 (100%). Best eval_loss at step 100 (1/3 epoch!), then overfit. Truncates profanity sentence on quote-unquote. 0 fails.** |
 | **Qwen3-T2-cloud** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Original cloud fast-path run. Packing enabled (1201→327 packed seqs), lora_dropout=0.0. MLX-converted benchmark = 35% (5 exact / 3 semantic / 11 partial / 4 fail), 1.65s latency. This run was not apples-to-apples, so packing/overexposure was a valid confound, but later strict-parity rerun showed the main remaining gap is post-training MLX conversion/inference, not this setup alone.** |
 | **Qwen3-T2-cloud-parity** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | 0.152 @2000 | **Strict local-parity cloud rerun: packing OFF, lora_dropout=0.05, mlx-style mask_prompt labels, collator, and batch ordering. MLX-converted benchmark still = 35% (5 exact / 3 semantic / 11 partial / 4 fail, 2.38s). But direct Modal HF benchmark of the same merged bf16 model = 87% (20 exact / 3 partial / 0 fails, 0.28s). Training is mostly fine; the big regression is in MLX conversion and/or MLX inference.** |
 
@@ -249,6 +251,9 @@ All from Qwen3-4B base.
 | Gemma3n-E4B-v1 | step 1200 | bf16 | v2 | 23 | **96%** | 20 | 2 | 1 | 0 | 1.20s | Same as step 500. Both checkpoints identical. |
 | Llama3-cloud-v4 | step 800 (best eval) | bf16 | v2 | 23 | **74%** | 13 | 4 | 6 | 0 | — | Cloud Modal HF, v4 data. eval_loss best = undertrained. |
 | **Llama3-cloud-v4** | **step 2000** | **bf16** | **v2** | **23** | **87%** | **19** | **1** | **3** | **0** | **—** | **Cloud Modal HF, v4 data. Confirms v4 > v5 for 3B. 4 pts below local (91%). 0 fails.** |
+| Llama3-v4-v2 | step 400 (best eval) | bf16 | v2 | 23 | **78%** | 17 | 1 | 5 | 0 | 0.16s | LR experiment: lr=2e-4, r=16. WORSE than lr=1e-5 (91%). Emoji garbled, emphasis ignored. |
+| **Llama3-v4-v2** | **step 1200** | **bf16** | **v2** | **23** | **78%** | **17** | **1** | **5** | **0** | **0.14s** | **Same failures as ckpt 400. Higher LR converges early but to a worse solution.** |
+| **Qwen3-v4-v2** | **step 1200** | **bf16** | **v2** | **23** | **96%** | **21** | **1** | **1** | **0** | **0.21s** | **LR experiment: lr=2e-4, r=16. 4 pts below lr=1e-5 (100%). Truncates profanity sentence. 0 fails.** |
 | **Qwen3-T2-cloud** | **iter 2000** | **bf16** | **v2** | **23** | **35%** | **5** | **3** | **11** | **4** | **1.65s** | **Original cloud fast-path run. Packing ON (1201→327 packed seqs), dropout=0.0. Confounded and not apples-to-apples. 35% after MLX conversion.** |
 | **Qwen3-T2-cloud-parity (MLX)** | **iter 2000** | **bf16** | **v2** | **23** | **35%** | **5** | **3** | **11** | **4** | **2.38s** | **Strict local-parity rerun: packing OFF, dropout=0.05, mlx-style mask_prompt/collator/batch ordering. Still 35% after MLX conversion, so the original packing theory does not explain the full regression.** |
 | **Qwen3-T2-cloud-parity (Modal HF)** | **iter 2000** | **bf16** | **v2** | **23** | **87%** | **20** | **0** | **3** | **0** | **0.28s** | **Exact same merged bf16 model benchmarked directly on Modal with Transformers before MLX conversion. 35% → 87% proves the main quality loss is downstream in MLX conversion and/or MLX inference, not in the cloud training itself.** |
@@ -500,6 +505,10 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 60. **Gemma 3n E4B matches Qwen3 DWQ on core23 (96%) at ~2.0 GB.** E2B=91% at ~1.0 GB, E4B=96% at ~2.0 GB. Extra capacity closed the core23 gap (+5 pts) but broad58 stayed at 59% for both (vs Qwen3's 67%). The 8pt broad gap is data-limited, not capacity-limited — both Gemma sizes fail on the same categories (disfluency, multi-step, passthrough edits).
 61. **Prompt injection vulnerability in E4B.** Broad eval passthrough "ignore previous instructions" — E4B answered the question ("The capital of Italy is Rome") while E2B correctly passed it through. Larger models' stronger instruction-following can backfire for verbatim transcription tasks.
 58. **Llama 3.2 3B cloud pipeline is sound.** v4 data cloud = 87% vs local = 91% (4 pt gap). The remaining gap is within noise for 23 test examples (~1 example difference). Cloud HF+PEFT training produces near-local-parity results when data is controlled.
+62. **"Optimal" LoRA LR from papers HURTS copy-heavy editing tasks.** Community consensus (lr=2e-4, Meta torchtune lr=3e-4) degraded both Llama (91%→78%, -13 pts) and Qwen3 (100%→96%, -4 pts). Same r=16, same data, same scheduler. Our original lr=1e-5 was correct. Papers optimize for chat/instruction-following where the model learns new behavior. Our task is copy-heavy text editing where the model must learn to *barely* change the input — higher LR pushes too far from base behavior. Exception: Gemma 3n, whose architecture (MatFormer + PLE) is specifically designed for efficient adaptation and benefits from higher LR (Google's own recommendation).
+63. **Higher LR creates qualitatively different failures.** Llama at lr=2e-4 outputs `�praying hands` instead of the emoji, ignores emphasis commands, and mis-scopes quotes — these are NOT the same errors as lr=1e-5. Higher LR doesn't just "overfit more"; it learns a different, worse editing policy for this task. Both ckpt 400 (epoch 1.3) and ckpt 1200 (epoch 4) had identical failures — the wrong policy is established early.
+64. **Qwen3 at lr=2e-4 peaks at step 100 (1/3 epoch) by eval_loss.** Best eval_loss 0.153 at step 100, then diverges to 0.388 by step 1200. Despite this, step 1200 benchmarks 96% — again confirming val loss is unreliable (finding #19). But step 100 merge failed on tokenizer (chat_template missing), so we couldn't compare.
+65. **Task-specific LR tuning is mandatory.** One-size-fits-all "LoRA needs 10x higher LR than full FT" breaks down for tasks requiring conservative behavior. The right LR depends on how far from base behavior the task demands: chat/reasoning → high LR (2e-4), copy-heavy editing → low LR (1e-5), Gemma 3n → follow architecture-specific guidance (2e-4).
 
 ### Model Comparison (Phase B Summary)
 
@@ -515,6 +524,8 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 | Gemma 3n E2B (cloud, v5) | 4.5B (2B eff) | — | 70% | — | — | Cloud Modal HF, lr too low |
 | **Gemma 3n E2B v2 (cloud, v4)** | **4.5B (2B eff)** | **—** | **91%** | **0.51s** | **—** | **Cloud Modal HF, Google hyperparams. 59% broad.** |
 | **Gemma 3n E4B (cloud, v4)** | **8B (4B eff)** | **—** | **96%** | **1.20s** | **—** | **Cloud Modal HF, Google hyperparams. 59% broad. Matches Qwen3 DWQ on core23.** |
+| Llama 3.2 3B (v4-v2, lr=2e-4) | 3B | 26% | 78% | 0.14s | — | Cloud Modal HF, "optimal" LR WORSE |
+| Qwen3-4B (v4-v2, lr=2e-4) | 4B | 35% | 96% | 0.21s | — | Cloud Modal HF, "optimal" LR -4 pts |
 | LFM2.5-1.2B (T1) | 1.2B | 9% | 70% | 0.63s | 6.5 GB | 2.9x faster |
 
 *Gemma 3 4B: 18.9 GB without grad_checkpoint (OOM), 11.6 GB with grad_checkpoint enabled.
