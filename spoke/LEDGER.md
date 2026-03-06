@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-06 (Gemma 3n E2B v2: 91% core23, 59% broad58 with Google hyperparams. 65% → 91% from lr fix alone.)
+> Last updated: 2026-03-07 (Gemma 3n E4B: 96% core23 — matches Qwen3 DWQ! E2B=91%, E4B=96%. Both 59% broad58.)
 
 ## How to Read This
 
@@ -106,6 +106,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **Gemma3n-cloud-v5-v1** | 03-06 | Gemma 3n E2B-it (HF text-only, Modal L40S) | LoRA | r=8 | adam | v5 (1287) | 1200 | 0.659 @600 | **Cloud HF+PEFT, 256 seq. ~4.47B params (2B effective). Step 600 = 70%, step 1200 = 65%. Overfit after step 600. 4 persistent fails on quotes. lr=1e-5 likely 20x too low (Google recommends 2e-4).** |
 | **Llama3-cloud-v4-v1** | 03-06 | Llama 3.2 3B Instruct (HF, Modal L40S) | LoRA | r=8 | adam | **v4 (1201)** | 2000 | 0.182 @800 | **V4 vs V5 A/B test. Cloud HF+PEFT, 256 seq, 6.7 epochs. Step 2000 = 87% (19 exact, 1 sem, 3 partial, 0 fail). Confirms v5 interference: v4=87% > v5=83%. Cloud-vs-local gap only 4 pts (87% vs 91%).** |
 | **Gemma3n-E2B-v2** | 03-06 | Gemma 3n E2B-it (HF text-only, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.697 @600 | **Google-recommended hyperparams: lr=2e-4, constant_with_warmup, warmup_ratio=0.03, max_grad_norm=0.3. 65% → 91% core23. 59% broad58. Both ckpt 600 and 1200 score identically. ~1.0 GB at 4-bit.** |
+| **Gemma3n-E4B-v1** | 03-07 | Gemma 3n E4B-it (HF text-only, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.643 @500 | **Same Google hyperparams as E2B-v2. 96% core23 (matches Qwen3 DWQ!). 59% broad58 (same as E2B). Both ckpt 500 and 1200 identical. ~2.0 GB at 4-bit.** |
 | **Qwen3-T2-cloud** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Original cloud fast-path run. Packing enabled (1201→327 packed seqs), lora_dropout=0.0. MLX-converted benchmark = 35% (5 exact / 3 semantic / 11 partial / 4 fail), 1.65s latency. This run was not apples-to-apples, so packing/overexposure was a valid confound, but later strict-parity rerun showed the main remaining gap is post-training MLX conversion/inference, not this setup alone.** |
 | **Qwen3-T2-cloud-parity** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | 0.152 @2000 | **Strict local-parity cloud rerun: packing OFF, lora_dropout=0.05, mlx-style mask_prompt labels, collator, and batch ordering. MLX-converted benchmark still = 35% (5 exact / 3 semantic / 11 partial / 4 fail, 2.38s). But direct Modal HF benchmark of the same merged bf16 model = 87% (20 exact / 3 partial / 0 fails, 0.28s). Training is mostly fine; the big regression is in MLX conversion and/or MLX inference.** |
 
@@ -195,6 +196,12 @@ All from Qwen3-4B base.
 | passthrough | 62% (10/16) | 62% (10/16) | 0 |
 | self-correction | 100% (6/6) | 100% (6/6) | 0 |
 
+### Gemma 3n E4B v1: Broad Eval (58 unseen examples, `test_set_evals.json`)
+
+| Run | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| **Gemma3n-E4B-v1** | **bf16** | **v2** | **58** | **59%** | **32** | **2** | **24** | **0** | **0.74s** | **Same broad score as E2B despite +5 on core23. 0 fails. Fixed disfluency (0/4→1/4) but regressed spell (5/8→4/8). Broad gap is data-limited, not capacity-limited.** |
+
 ### Gemma 3n E2B v2: Broad Eval (58 unseen examples, `test_set_evals.json`)
 
 | Run | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
@@ -238,6 +245,8 @@ All from Qwen3-4B base.
 | **Gemma3n-cloud-v5** | **step 1200** | **bf16** | **v2** | **23** | **65%** | **12** | **3** | **4** | **4** | **—** | **Cloud Modal HF. Overfit past step 600. 4 fails on quotes. lr=1e-5 too low.** |
 | **Gemma3n-E2B-v2** | **step 600** | **bf16** | **v2** | **23** | **91%** | **20** | **1** | **2** | **0** | **0.51s** | **Google hyperparams (lr=2e-4, warmup, grad_norm=0.3). 65% → 91% (+26 pts). 0 fails. ~1.0 GB at 4-bit.** |
 | Gemma3n-E2B-v2 | step 1200 | bf16 | v2 | 23 | **91%** | 20 | 1 | 2 | 0 | 0.52s | Same score as step 600. Identical errors on both checkpoints. |
+| **Gemma3n-E4B-v1** | **step 500** | **bf16** | **v2** | **23** | **96%** | **20** | **2** | **1** | **0** | **1.20s** | **Matches Qwen3 DWQ! 0 fails. Fixed E2B's Cloudflare hallucination + emphasis word-swap.** |
+| Gemma3n-E4B-v1 | step 1200 | bf16 | v2 | 23 | **96%** | 20 | 2 | 1 | 0 | 1.20s | Same as step 500. Both checkpoints identical. |
 | Llama3-cloud-v4 | step 800 (best eval) | bf16 | v2 | 23 | **74%** | 13 | 4 | 6 | 0 | — | Cloud Modal HF, v4 data. eval_loss best = undertrained. |
 | **Llama3-cloud-v4** | **step 2000** | **bf16** | **v2** | **23** | **87%** | **19** | **1** | **3** | **0** | **—** | **Cloud Modal HF, v4 data. Confirms v4 > v5 for 3B. 4 pts below local (91%). 0 fails.** |
 | **Qwen3-T2-cloud** | **iter 2000** | **bf16** | **v2** | **23** | **35%** | **5** | **3** | **11** | **4** | **1.65s** | **Original cloud fast-path run. Packing ON (1201→327 packed seqs), dropout=0.0. Confounded and not apples-to-apples. 35% after MLX conversion.** |
@@ -381,6 +390,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | **Llama3-cloud-v4** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v4 data, 2000 steps** | **87% at step 2000. 0 fails. Confirms v5 interference: v4=87% > v5=83%. Cloud-vs-local gap only 4 pts (87% vs 91%). Pipeline is sound — data is the variable.** |
 | **Gemma3n-cloud-v5** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v5 data, 1200 steps** | **70% best (step 600), 65% last (step 1200). 4 persistent fails on quotes. lr=1e-5 was 20x too low per Google's recommendation (2e-4). Novel architecture (AltUp/PLE/LAuReL) likely needs different hyperparameters.** |
 | **Gemma3n-E2B-v2** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, Google hyperparams (lr=2e-4, constant_with_warmup, warmup=0.03, grad_norm=0.3, wd=0.01, r=16)** | **91% core23 (20 exact, 1 sem, 2 partial, 0 fail). 59% broad58 (29 exact, 5 sem, 24 partial, 0 fail). 65% → 91% just from fixing hyperparams. Both ckpt 600 and 1200 identical. ~1.0 GB at 4-bit = half of Qwen3 DWQ. Disfluency (0/4) and multi (1/6) are weakest categories on broad.** |
+| **Gemma3n-E4B-v1** | **Gemma 3n E4B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, same Google hyperparams as E2B-v2** | **96% core23 (20 exact, 2 sem, 1 partial, 0 fail) — MATCHES Qwen3 DWQ! 59% broad58 (32 exact, 2 sem, 24 partial, 0 fail) — same as E2B. Extra capacity closed core23 gap (+5 pts) but didn't help broad eval. Broad gap is data-limited, not capacity-limited. ~2.0 GB at 4-bit.** |
 
 ### Active Queue
 
@@ -487,7 +497,8 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 56. **Gemma 3n E2B lr=1e-5 is 20x too low.** Google's official QLoRA guide recommends lr=2e-4 for Gemma. Community runs use 2e-5 to 2e-4. Our 1e-5 is below the floor of any published successful Gemma 3n fine-tuning. Also recommends max_grad_norm=0.3 (vs our 1.0) and cosine/linear scheduler with warmup.
 57. **V5 data causes interference at 3B scale — CONFIRMED.** Llama v4 cloud = 87% vs v5 cloud = 83% (same pipeline, comparable epochs). Local v4 = 91%. The 86 harder v5 examples (multi-step, spell-compound) exceed 3B capacity, causing interference with easier patterns. Qwen3 at 4B is unaffected (100% on both). Cloud-vs-local gap is only 4 pts (87% vs 91%), likely due to minor config differences (max_seq_length 256 vs 512).
 59. **Gemma 3n E2B hyperparams matter enormously.** Switching from lr=1e-5 to Google's recommended lr=2e-4 (with constant_with_warmup, warmup=0.03, max_grad_norm=0.3, weight_decay=0.01, r=16) jumped Gemma 3n E2B from 65% to 91% core23. Both ckpt 600 and 1200 score identically (91%) — model converges by epoch 2. Broad eval = 59% (vs Qwen3 DWQ 67%). 0 fails on both evals. Weakest: disfluency (0/4, paraphrases), multi (1/6), emphasis (wrong word substitution).
-60. **Gemma 3n E2B at ~1.0 GB 4-bit is half the size of Qwen3 DWQ (2.1 GB) with 5% accuracy gap on core23.** Trade-off: 91% vs 96% core, 59% vs 67% broad, but ~50% smaller. E4B (~2.0 GB 4-bit) could close the gap at similar size to Qwen3.
+60. **Gemma 3n E4B matches Qwen3 DWQ on core23 (96%) at ~2.0 GB.** E2B=91% at ~1.0 GB, E4B=96% at ~2.0 GB. Extra capacity closed the core23 gap (+5 pts) but broad58 stayed at 59% for both (vs Qwen3's 67%). The 8pt broad gap is data-limited, not capacity-limited — both Gemma sizes fail on the same categories (disfluency, multi-step, passthrough edits).
+61. **Prompt injection vulnerability in E4B.** Broad eval passthrough "ignore previous instructions" — E4B answered the question ("The capital of Italy is Rome") while E2B correctly passed it through. Larger models' stronger instruction-following can backfire for verbatim transcription tasks.
 58. **Llama 3.2 3B cloud pipeline is sound.** v4 data cloud = 87% vs local = 91% (4 pt gap). The remaining gap is within noise for 23 test examples (~1 example difference). Cloud HF+PEFT training produces near-local-parity results when data is controlled.
 
 ### Model Comparison (Phase B Summary)
@@ -503,6 +514,7 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 | Llama 3.2 3B (cloud, v5) | 3B | 26% | 83% | — | — | Cloud Modal HF |
 | Gemma 3n E2B (cloud, v5) | 4.5B (2B eff) | — | 70% | — | — | Cloud Modal HF, lr too low |
 | **Gemma 3n E2B v2 (cloud, v4)** | **4.5B (2B eff)** | **—** | **91%** | **0.51s** | **—** | **Cloud Modal HF, Google hyperparams. 59% broad.** |
+| **Gemma 3n E4B (cloud, v4)** | **8B (4B eff)** | **—** | **96%** | **1.20s** | **—** | **Cloud Modal HF, Google hyperparams. 59% broad. Matches Qwen3 DWQ on core23.** |
 | LFM2.5-1.2B (T1) | 1.2B | 9% | 70% | 0.63s | 6.5 GB | 2.9x faster |
 
 *Gemma 3 4B: 18.9 GB without grad_checkpoint (OOM), 11.6 GB with grad_checkpoint enabled.
