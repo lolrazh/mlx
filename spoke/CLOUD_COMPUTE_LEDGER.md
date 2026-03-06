@@ -67,6 +67,7 @@
 | **C27** | 03-06 | `meta-llama/Llama-3.2-3B-Instruct` | 256 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-llama32-3b-v5-v1` (v5 data, 1200 steps, ~3.7 epochs). Best by eval_loss = step 200 (0.2765). Benchmark: step 200 = `35%`, step 1200 = `78%` (16 exact, 2 sem, 5 partial, 0 fail). eval_loss best was a trap — barely trained. |
 | **C28** | 03-06 | `google/gemma-3n-E2B-it` | 256 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-gemma3n-e2b-v5-v1` (v5 data, 1200 steps, ~3.7 epochs). Best by eval_loss = step 600 (0.659). Benchmark: step 600 = `70%` (10 exact, 6 sem, 3 partial, 4 fail), step 1200 = `65%` (12 exact, 3 sem, 4 partial, 4 fail). Gemma overfit after step 600. 4 persistent fails on quote handling. |
 | **C29** | 03-06 | `meta-llama/Llama-3.2-3B-Instruct` | 256 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-llama32-3b-v5-v2-3k` (v5 data, 3000 steps, ~9.3 epochs). Best by eval_loss = step 200 again. Benchmark: step 3000 = `83%` (18 exact, 1 sem, 4 partial, 0 fail). +5 pts over 1200 steps. 0 fails. eval_loss rose monotonically 0.28 → 0.39 but accuracy kept improving. |
+| **C30** | 03-06 | `meta-llama/Llama-3.2-3B-Instruct` | 256 | 4 | 1 | On | **COMPLETED** | — | — | `spoke-llama32-3b-v4-v1` (**v4 data A/B test**, 2000 steps, ~6.7 epochs, `--data-dir /data/v4`). Best by eval_loss = step 800 (0.182). Benchmark: step 800 = `74%`, step 2000 = `87%` (19 exact, 1 sem, 3 partial, 0 fail). **Confirms v5 data interference: v4=87% vs v5=83% at comparable epochs. Cloud-vs-local gap only 4 pts (87% vs 91%).** |
 
 ---
 
