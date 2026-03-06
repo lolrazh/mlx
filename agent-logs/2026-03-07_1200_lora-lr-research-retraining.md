@@ -2,57 +2,53 @@
 
 **Date:** 2026-03-07
 **Agent:** Claude Opus 4.6
-**Status:** 🔄 Ongoing
+**Status:** ✅ Completed
 
 ## User Intention
-User wanted to verify whether we used optimal fine-tuning hyperparameters for Llama 3.2 3B (we didn't — LR was 10-20x too low). Also wanted general research into fine-tuning best practices, training duration, and whether Llama still has a shot vs Qwen3/Gemma 3n. Planning to re-run both Llama 3B and Qwen3 4B with corrected hyperparams.
+User wanted to verify whether we used optimal fine-tuning hyperparameters for Llama 3.2 3B and Qwen3 4B. Research suggested our LR was 10-20x too low. User wanted to re-test both models with "optimal" hyperparams and get a definitive answer on whether Llama still has a competitive shot.
 
 ## What We Accomplished
-- **Research: Llama 3.2 3B fine-tuning recommendations** — Meta torchtune uses lr=3e-4, r=64. Community consensus: lr=2e-4, r=16-32.
-- **Research: LoRA training duration & best practices** — 3-5 epochs for small datasets, constant LR is fine, val loss divergence from accuracy is well-documented (over-memorization).
-- **Research: Llama for text editing/ASR tasks** — DRES paper confirms Llama's conservative editing bias is *good* for ASR post-processing. DistilLabs benchmark: Qwen3-4B ranks 1st, Llama 3.2 3B ranks 5th.
-- **Key finding: lr=1e-5 is 10-20x too low for LoRA** — Same pattern as Gemma 3n (65% -> 91% after LR fix). All our LoRA runs used full-FT learning rates.
+- ✅ **Research: 3 parallel Sonnet agents** — Meta official recs, community consensus, paper surveys
+- ✅ **Llama 3.2 3B retrained** with lr=2e-4, r=16 → **78%** (WORSE than old 91%)
+- ✅ **Qwen3 4B retrained** with lr=2e-4, r=16 → **96%** (worse than old 100%)
+- ✅ **Key discovery: "optimal" LR from papers hurts copy-heavy editing tasks**
+- ✅ **Ledger updated**, results committed, memory updated
 
-## Technical Implementation
+## Training Runs
 
-### Our Config vs Recommendations
-| Parameter | Our Value | Recommended | Gap |
-|-----------|----------|-------------|-----|
-| Learning rate | 1e-5 | 2e-4 to 3e-4 | 10-30x too low |
-| LoRA rank | 8 | 16-64 | Low end |
-| Alpha/scale | 2.0 | 2.0 | Correct |
-| Scheduler | Constant | Constant is fine | OK |
-| Target modules | All linear (mlx-lm default) | All linear | Correct |
-| Epochs (~1201 ex) | ~6.6 | 3-5 | Slightly high |
+### Llama 3.2 3B (`spoke-llama3-v4-v2`)
+```
+modal run spoke/cloud/train_hf.py --model-name meta-llama/Llama-3.2-3B-Instruct \
+  --run-name spoke-llama3-v4-v2 --learning-rate 2e-4 --lr-scheduler-type constant_with_warmup \
+  --warmup-ratio 0.03 --max-grad-norm 0.3 --weight-decay 0.01 --rank 16 --lora-alpha 32 \
+  --lora-dropout 0.0 --max-steps 1200 --data-dir /data/v4
+```
+- Step 400 (best eval_loss 0.215): **78%** (17 exact, 1 sem, 5 partial, 0 fail)
+- Step 1200 (final): **78%** — identical failures
+- Old lr=1e-5 at 2000 steps: **91%** — 13 pts better
 
-### Key Papers
-- "Learning Rate Matters" (arXiv:2602.04998): Optimal LoRA LR = 3.6e-4 to 6.3e-4
-- "LoRA Without Regret" (Thinking Machines Lab): LoRA needs 10-15x full FT LR
-- "Unveiling Over-Memorization" (arXiv:2508.04117): Val loss up + accuracy flat is normal, early stopping on val loss is misleading
-- DRES (arXiv:2509.20321): Llama under-deletes (good for ASR), fine-tuned 3B gets +23.46 pts
-- DistilLabs 12-model benchmark: Qwen3-4B #1, Qwen3-1.7B #4, Llama 3.2 3B #5
-
-### Planned Runs
-1. **Llama 3.2 3B** with lr=2e-4, r=16, 1200 steps, v4 data (Google hyperparams recipe)
-2. **Qwen3 4B** with lr=2e-4, r=16, 1200 steps, v4 data (same recipe for fair comparison)
+### Qwen3 4B (`spoke-qwen3-v4-v2`)
+```
+modal run spoke/cloud/train_hf.py --model-name Qwen/Qwen3-4B-Instruct-2507 \
+  --run-name spoke-qwen3-v4-v2 --learning-rate 2e-4 --lr-scheduler-type constant_with_warmup \
+  --warmup-ratio 0.03 --max-grad-norm 0.3 --weight-decay 0.01 --rank 16 --lora-alpha 32 \
+  --lora-dropout 0.0 --max-steps 1200 --data-dir /data/v4
+```
+- Step 1200 (final): **96%** (21 exact, 1 sem, 1 partial, 0 fail)
+- Best eval_loss at step 100 (!), then overfit hard
+- Old lr=1e-5 at 2000 steps: **100%** — 4 pts better
 
 ## Key Learnings
-- **LoRA needs 10-15x higher LR than full fine-tuning** — LoRA updates <1% of params, so gradients need larger steps. 1e-5 is a full-FT LR; LoRA should use 1e-4 to 3e-4.
-- **mlx-lm targets all linear layers by default** — No config needed. auto-discovers all Linear/QuantizedLinear modules.
-- **Val loss divergence is over-memorization, not catastrophe** — Model becomes overconfident on correct tokens while miscalibrating others. Accuracy stays flat but OOD robustness drops.
-- **Llama 3.2 3B's conservative editing is a feature** — DRES paper: under-deletion is better than over-deletion for ASR cleanup.
-- **Qwen3-4B is the consensus #1 for fine-tuning** — DistilLabs benchmark, Springer QLoRA comparison, our own experiments all agree.
+- **"Optimal" LoRA LR from papers is task-dependent.** 2e-4 works for chat/reasoning but HURTS copy-heavy editing. Our 1e-5 was actually correct.
+- **Higher LR creates qualitatively different failures.** Llama at 2e-4 outputs garbled emoji (`praying hands` instead of emoji), ignores emphasis, mis-scopes quotes. Not just "more overfitting" — a fundamentally different (worse) editing policy.
+- **Exception: Gemma 3n benefits from 2e-4.** Its MatFormer+PLE architecture is specifically designed for efficient adaptation. Architecture-specific LR tuning is mandatory.
+- **Llama 3.2 3B is #5 in fine-tuning benchmarks** (DistilLabs). Qwen3-4B is #1. Even Qwen3-1.7B outranks Llama. But Llama has zero fails across ALL runs — unique conservative editing.
+- **mlx-lm targets all linear layers by default** — auto-discovers all Linear/QuantizedLinear modules, no config needed.
+- **Over-memorization paper (arXiv:2508.04117)** explains val loss divergence: model becomes overconfident on correct tokens, accuracy stays flat, OOD robustness drops. Early stopping on val loss showed 1.3-3.0 pts LOWER accuracy.
 
-## Research Sources
-- Meta torchtune configs (GitHub pytorch/torchtune)
-- Sebastian Raschka's LoRA practical tips
-- "Learning Rate Matters" (arXiv:2602.04998)
-- "LoRA Without Regret" (Thinking Machines Lab)
-- "Unveiling Over-Memorization" (arXiv:2508.04117)
-- DistilLabs 12-model fine-tuning benchmark
-- DRES (arXiv:2509.20321) — disfluency removal
-- AMD ROCm Llama 3.2 3B LoRA tutorial
-- rsLoRA paper (arXiv:2312.03732)
+## Architecture Decisions
+- **lr=1e-5 is correct for Spoke** — validated by negative results from "optimal" 2e-4 on both Llama and Qwen3
+- **r=8 is sufficient for our data size** — r=16 didn't help when combined with higher LR
 
 ## Context for Future
-This session establishes that ALL our LoRA runs used suboptimal learning rates (10-20x too low). The Gemma 3n experiments already proved higher LR works (65% -> 91%). Now re-running Llama and Qwen3 with corrected hyperparams to see if the 91% ceiling was an LR ceiling, not a model capacity ceiling. If Llama hits 96%+, it becomes the best deploy option (fastest inference + conservative editing).
+Our original hyperparams (lr=1e-5, r=8, adam, constant LR, 2000 iters) are actually well-tuned for the copy-heavy text editing task. The only model that benefited from higher LR was Gemma 3n, due to its architecture-specific design. Future experiments should focus on data quality/quantity rather than hyperparameter tuning. The leaderboard remains: Qwen3 T2 (100%) > Qwen3 DWQ / Gemma 3n E4B (96%) > Llama T2 / Gemma 3n E2B (91%).
