@@ -97,7 +97,10 @@ def train(
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
     use_rslora: bool = False,
+    loss_mode: str = "standard",
+    epo_edit_weight: float = 3.0,
 ):
+    import difflib
     import json
     import os
     import numpy as np
@@ -354,6 +357,19 @@ def train(
         stop_token_ids = [int(token_id) for token_id in stop_token_ids_raw]
     preferred_stop_token_id = stop_token_ids[-1] if stop_token_ids else None
 
+    use_epo = loss_mode == "epo"
+    if use_epo:
+        print(f"EPO mode: edit_weight={epo_edit_weight}")
+
+    def get_edit_char_mask(source_text: str, target_text: str) -> list[bool]:
+        """Per-character edit mask for target text. True = edit (not in LCS)."""
+        sm = difflib.SequenceMatcher(None, source_text, target_text)
+        is_edit = [True] * len(target_text)
+        for match in sm.get_matching_blocks():
+            for k in range(match.size):
+                is_edit[match.b + k] = False
+        return is_edit
+
     def build_causal_example(example):
         messages = example["messages"]
         input_ids = tokenize_chat(messages)
@@ -365,11 +381,31 @@ def train(
         labels = input_ids.copy()
         prompt_len = min(len(prompt_ids), len(labels))
         labels[:prompt_len] = [-100] * prompt_len
-        return {
+        result = {
             "input_ids": input_ids,
             "labels": labels,
             "length": len(input_ids),
         }
+        if use_epo:
+            token_weights = [1.0] * len(input_ids)
+            user_text = next(
+                (m["content"] for m in messages if m["role"] == "user"), ""
+            )
+            assistant_text = messages[-1]["content"]
+            char_edit_mask = get_edit_char_mask(user_text, assistant_text)
+            assistant_enc = tokenizer(
+                assistant_text,
+                add_special_tokens=False,
+                return_offsets_mapping=True,
+            )
+            for i, (start, end) in enumerate(assistant_enc["offset_mapping"]):
+                token_idx = prompt_len + i
+                if token_idx >= len(token_weights):
+                    break
+                if any(char_edit_mask[start:end]):
+                    token_weights[token_idx] = epo_edit_weight
+            result["token_weights"] = token_weights
+        return result
 
     def build_seq2seq_example(example):
         messages = example["messages"]
@@ -460,8 +496,11 @@ def train(
         max_length_in_batch = 1 + 32 * ((max(lengths) + 32 - 1) // 32)
         max_length_in_batch = min(max_length_in_batch, max_seq_length)
 
+        has_weights = "token_weights" in features[0]
         batch_input_ids = torch.zeros((len(features), max_length_in_batch), dtype=torch.long)
         batch_labels = torch.full((len(features), max_length_in_batch), -100, dtype=torch.long)
+        if has_weights:
+            batch_weights = torch.ones((len(features), max_length_in_batch), dtype=torch.float32)
 
         for row, feature in enumerate(features):
             input_ids = feature["input_ids"][:max_length_in_batch]
@@ -472,11 +511,17 @@ def train(
             # Match MLX default_loss mask semantics for padded rows.
             if length < max_length_in_batch:
                 batch_labels[row, length] = 0
+            if has_weights:
+                weights = feature["token_weights"][:max_length_in_batch]
+                batch_weights[row, :length] = torch.tensor(weights, dtype=torch.float32)
 
-        return {
+        result = {
             "input_ids": batch_input_ids[:, :-1],
             "labels": batch_labels[:, 1:],
         }
+        if has_weights:
+            result["token_weights"] = batch_weights[:, 1:]
+        return result
 
     def seq2seq_data_collator(features):
         input_lengths = [len(feature["input_ids"]) for feature in features]
@@ -509,14 +554,6 @@ def train(
             "attention_mask": batch_attention_mask,
             "labels": batch_labels,
         }
-
-    def mlx_style_loss(outputs, labels, num_items_in_batch=None):
-        logits = outputs.logits
-        return torch.nn.functional.cross_entropy(
-            logits.reshape(-1, logits.size(-1)),
-            labels.reshape(-1),
-            ignore_index=-100,
-        )
 
     data_collator = seq2seq_data_collator if is_encoder_decoder else parity_data_collator
 
@@ -554,10 +591,34 @@ def train(
             return len(self._indices)
 
     class MLXParityTrainer(Trainer):
-        def __init__(self, *args, use_true_adam=False, **kwargs):
+        def __init__(self, *args, use_true_adam=False, epo_mode=False, **kwargs):
             super().__init__(*args, **kwargs)
             self.model_accepts_loss_kwargs = False
             self._use_true_adam = use_true_adam
+            self._epo_mode = epo_mode
+
+        def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
+            labels = inputs.pop("labels")
+            token_weights = inputs.pop("token_weights", None)
+            outputs = model(**inputs)
+            logits = outputs.logits
+            if self._epo_mode and token_weights is not None:
+                loss_per_token = torch.nn.functional.cross_entropy(
+                    logits.reshape(-1, logits.size(-1)),
+                    labels.reshape(-1),
+                    ignore_index=-100,
+                    reduction="none",
+                )
+                mask = (labels.reshape(-1) != -100).float()
+                weights = token_weights.reshape(-1) * mask
+                loss = (loss_per_token * weights).sum() / weights.sum().clamp(min=1.0)
+            else:
+                loss = torch.nn.functional.cross_entropy(
+                    logits.reshape(-1, logits.size(-1)),
+                    labels.reshape(-1),
+                    ignore_index=-100,
+                )
+            return (loss, outputs) if return_outputs else loss
 
         def create_optimizer(self):
             if self.optimizer is None and self._use_true_adam:
@@ -620,24 +681,43 @@ def train(
         report_to="wandb",
         run_name=run_name,
     )
-    trainer_kwargs = dict(
+    trainer = MLXParityTrainer(
         model=model,
         processing_class=tokenizer,
         train_dataset=train_dataset,
         eval_dataset=valid_dataset,
         data_collator=data_collator,
         use_true_adam=(optimizer == "adam"),
+        epo_mode=use_epo,
         args=training_args,
     )
-    if not is_encoder_decoder:
-        trainer_kwargs["compute_loss_func"] = mlx_style_loss
-    trainer = MLXParityTrainer(**trainer_kwargs)
 
     sample = trainer.train_dataset[0]
     labels = sample["labels"]
     total = len(labels)
     active = sum(1 for l in labels if l != -100)
     print(f"Masking check: {active}/{total} tokens active ({100*active/total:.1f}%)")
+
+    if use_epo:
+        total_edit = 0
+        total_copy = 0
+        for ex in trainer.train_dataset:
+            weights = ex.get("token_weights", [])
+            labs = ex["labels"]
+            for w, l in zip(weights, labs):
+                if l != -100:
+                    if w > 1.0:
+                        total_edit += 1
+                    else:
+                        total_copy += 1
+        total_active = total_edit + total_copy
+        print(
+            f"EPO stats: {total_edit}/{total_active} edit tokens "
+            f"({100*total_edit/max(total_active,1):.1f}%), "
+            f"{total_copy}/{total_active} copy tokens "
+            f"({100*total_copy/max(total_active,1):.1f}%), "
+            f"edit_weight={epo_edit_weight}"
+        )
 
     print(
         "\nStarting HF+PEFT training: "
@@ -653,7 +733,9 @@ def train(
         f"save={'off' if not save_enabled else save_steps}, "
         f"save_total_limit={save_total_limit if save_enabled else 'off'}, "
         f"best_ckpt={'on' if eval_enabled and save_enabled else 'off'}, "
-        f"export={'on' if export_merged else 'off'}"
+        f"export={'on' if export_merged else 'off'}, "
+        f"loss={loss_mode}"
+        + (f" (edit_weight={epo_edit_weight})" if use_epo else "")
     )
 
     try:
@@ -712,6 +794,8 @@ def main(
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
     use_rslora: bool = False,
+    loss_mode: str = "standard",
+    epo_edit_weight: float = 3.0,
 ):
     print(f"Starting pure HF cloud training: {run_name}")
     print(f"  Model: {model_name}")
@@ -736,6 +820,9 @@ def main(
     print(f"  Save total limit: {save_total_limit if save_steps > 0 else 'off'}")
     print(f"  Best checkpoint by eval_loss: {'on' if eval_steps > 0 and save_steps > 0 else 'off'}")
     print(f"  Export merged: {'on' if export_merged else 'off'}")
+    print(f"  Loss mode: {loss_mode}")
+    if loss_mode == "epo":
+        print(f"  EPO edit weight: {epo_edit_weight}")
     print()
 
     train.remote(
@@ -763,4 +850,6 @@ def main(
         system_prompt_mode=system_prompt_mode,
         export_merged=export_merged,
         use_rslora=use_rslora,
+        loss_mode=loss_mode,
+        epo_edit_weight=epo_edit_weight,
     )
