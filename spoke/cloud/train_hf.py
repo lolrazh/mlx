@@ -92,10 +92,11 @@ def train(
     weight_decay: float = 0.0,
     eval_steps: int = 100,
     save_steps: int = 100,
-    save_total_limit: int = 2,
+    save_total_limit: int = 5,
     data_dir: str = "/data",
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
+    use_rslora: bool = False,
 ):
     import json
     import os
@@ -269,6 +270,7 @@ def train(
         bias="none",
         task_type=peft_task_type,
         target_modules=target_modules,
+        use_rslora=use_rslora,
     )
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
@@ -705,17 +707,18 @@ def main(
     weight_decay: float = 0.0,
     eval_steps: int = 100,
     save_steps: int = 100,
-    save_total_limit: int = 2,
+    save_total_limit: int = 5,
     data_dir: str = "/data",
     system_prompt_mode: str = "as_is",
     export_merged: bool = True,
+    use_rslora: bool = False,
 ):
     print(f"Starting pure HF cloud training: {run_name}")
     print(f"  Model: {model_name}")
     print(f"  Steps: {max_steps}, LR: {learning_rate}, Batch: {batch_size}")
     print(
         "  LoRA: "
-        f"r={rank}, alpha={lora_alpha}, dropout={lora_dropout}"
+        f"r={rank}, alpha={lora_alpha}, dropout={lora_dropout}, rsLoRA={'on' if use_rslora else 'off'}"
     )
     print(f"  Optimizer: {optimizer}")
     print(f"  Max grad norm: {max_grad_norm}")
@@ -759,4 +762,5 @@ def main(
         data_dir=data_dir,
         system_prompt_mode=system_prompt_mode,
         export_merged=export_merged,
+        use_rslora=use_rslora,
     )

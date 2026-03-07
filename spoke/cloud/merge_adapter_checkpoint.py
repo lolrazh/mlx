@@ -53,6 +53,7 @@ def merge_checkpoint(
         AutoModelForCausalLM,
         AutoModelForSeq2SeqLM,
         AutoTokenizer,
+        GenerationConfig,
     )
 
     os.environ["HF_HOME"] = "/model-cache"
@@ -110,6 +111,21 @@ def merge_checkpoint(
     print(f"Saving merged model to: {merged_dir}")
     merged.save_pretrained(str(merged_dir), safe_serialization=True)
     tokenizer.save_pretrained(str(merged_dir))
+
+    # Copy generation_config from the training run's final merged model if available,
+    # otherwise from the base model. This ensures correct EOS/pad token IDs.
+    final_merged_gen_config = Path(f"/output/{run_name}/merged/generation_config.json")
+    if final_merged_gen_config.exists():
+        import shutil
+        shutil.copy(str(final_merged_gen_config), str(merged_dir / "generation_config.json"))
+        print(f"  Copied generation_config from {final_merged_gen_config}")
+    else:
+        try:
+            gen_config = GenerationConfig.from_pretrained(model_name)
+            gen_config.save_pretrained(str(merged_dir))
+            print(f"  Saved generation_config from base model: eos={gen_config.eos_token_id}")
+        except Exception as e:
+            print(f"  Warning: could not save generation_config: {e}")
 
     output_vol.commit()
     print("Merge complete.")
