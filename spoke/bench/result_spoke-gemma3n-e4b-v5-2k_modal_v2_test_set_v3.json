@@ -1,0 +1,248 @@
+{
+  "model": "/output/spoke-gemma3n-e4b-v5-2k/merged",
+  "short_name": "spoke-gemma3n-e4b-v5-2k-modal-hf",
+  "prompt_mode": "v2",
+  "n": 23,
+  "exact": 19,
+  "semantic": 0,
+  "partial": 4,
+  "fail": 0,
+  "accuracy": 0.8261,
+  "avg_latency_s": 0.622,
+  "results": [
+    {
+      "id": 1,
+      "category": "spell-replace",
+      "input": "I'm gonna be using Celero VAD for this. Can you spell that as S-I-L-E-R-O?",
+      "ideal": "I'm gonna be using Silero VAD for this.",
+      "output": "I'm gonna be using Silero VAD for this.",
+      "raw_output": "I'm gonna be using Silero VAD for this.",
+      "score": "exact",
+      "gen_time_s": 0.713
+    },
+    {
+      "id": 2,
+      "category": "spell-replace",
+      "input": "He went to the Khadai, spell that K-A-D-A-I.",
+      "ideal": "He went to the Kadai.",
+      "output": "He went to the Kadaai.",
+      "raw_output": "He went to the Kadaai.",
+      "score": "partial",
+      "gen_time_s": 0.385
+    },
+    {
+      "id": 3,
+      "category": "spell-replace",
+      "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
+      "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "output": "The new restaurant on 4th serves amazing Kibbin Nayeh, it's a Lebanese raw lamb dish.",
+      "raw_output": "The new restaurant on 4th serves amazing Kibbin Nayeh, it's a Lebanese raw lamb dish.",
+      "score": "partial",
+      "gen_time_s": 1.15
+    },
+    {
+      "id": 4,
+      "category": "self-correction",
+      "input": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
+      "ideal": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+      "output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+      "raw_output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
+      "score": "exact",
+      "gen_time_s": 0.612
+    },
+    {
+      "id": 5,
+      "category": "self-correction",
+      "input": "Let's meet at 11am, Saturday. Actually scratch that, let's meet at 12pm, Thursday.",
+      "ideal": "Let's meet at 12pm, Thursday.",
+      "output": "Let's meet at 12pm, Thursday.",
+      "raw_output": "Let's meet at 12pm, Thursday.",
+      "score": "exact",
+      "gen_time_s": 0.627
+    },
+    {
+      "id": 6,
+      "category": "self-correction",
+      "input": "We're using React and Vue. Wait no, sorry, Svelte.",
+      "ideal": "We're using React and Svelte.",
+      "output": "We're using React and Svelte.",
+      "raw_output": "We're using React and Svelte.",
+      "score": "exact",
+      "gen_time_s": 0.478
+    },
+    {
+      "id": 7,
+      "category": "quote-unquote",
+      "input": "I mean they said I was quote-unquote lucky to be here. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
+      "score": "exact",
+      "gen_time_s": 1.091
+    },
+    {
+      "id": 8,
+      "category": "quote-unquote",
+      "input": "Quote-unquote gluten-free bread that lists wheat as the second ingredient.",
+      "ideal": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
+      "output": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
+      "raw_output": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
+      "score": "exact",
+      "gen_time_s": 0.76
+    },
+    {
+      "id": 9,
+      "category": "quote-endquote",
+      "input": "I mean they said I was quote lucky to be here. end quote. What the fuck do they mean by that?",
+      "ideal": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+      "output": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+      "raw_output": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
+      "score": "exact",
+      "gen_time_s": 1.039
+    },
+    {
+      "id": 10,
+      "category": "quote-endquote",
+      "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+      "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "raw_output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
+      "score": "exact",
+      "gen_time_s": 0.995
+    },
+    {
+      "id": 11,
+      "category": "quote-endquote",
+      "input": "He described the interview as quote the most stressful hour of my life end quote.",
+      "ideal": "He described the interview as \"the most stressful hour of my life\".",
+      "output": "He described the interview as \"the most stressful hour of my life\".",
+      "raw_output": "He described the interview as \"the most stressful hour of my life\".",
+      "score": "exact",
+      "gen_time_s": 0.843
+    },
+    {
+      "id": 12,
+      "category": "at-symbol",
+      "input": "I wanna fix app.py and test.py. Add an at symbol before the file names.",
+      "ideal": "I wanna fix @app.py and @test.py.",
+      "output": "I wanna fix @app.py and @test.py.",
+      "raw_output": "I wanna fix @app.py and @test.py.",
+      "score": "exact",
+      "gen_time_s": 0.669
+    },
+    {
+      "id": 13,
+      "category": "caps",
+      "input": "We're so excited to make this. Use all caps.",
+      "ideal": "WE'RE SO EXCITED TO MAKE THIS.",
+      "output": "WE'RE SO EXCITED TO MAKE THIS.",
+      "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
+      "score": "exact",
+      "gen_time_s": 0.515
+    },
+    {
+      "id": 14,
+      "category": "emphasis",
+      "input": "It's surprisingly fast. Emphasize surprisingly.",
+      "ideal": "It's SURPRISINGLY fast.",
+      "output": "It's UNEXPECTEDLY fast.",
+      "raw_output": "It's UNEXPECTEDLY fast.",
+      "score": "partial",
+      "gen_time_s": 0.478
+    },
+    {
+      "id": 15,
+      "category": "emoji",
+      "input": "Heartbreak emoji",
+      "ideal": "\ud83d\udc94",
+      "output": "\ud83d\udc94",
+      "raw_output": "\ud83d\udc94",
+      "score": "exact",
+      "gen_time_s": 0.098
+    },
+    {
+      "id": 16,
+      "category": "emoji",
+      "input": "Praying hands emoji for the victims",
+      "ideal": "\ud83d\ude4f for the victims",
+      "output": "\ud83d\ude4f for the victims",
+      "raw_output": "\ud83d\ude4f for the victims",
+      "score": "exact",
+      "gen_time_s": 0.24
+    },
+    {
+      "id": 17,
+      "category": "camelcase",
+      "input": "So we've got a file called usetranscription.ts.",
+      "ideal": "So we've got a file called useTranscription.ts.",
+      "output": "So we've got a file called useTranscription.ts.",
+      "raw_output": "So we've got a file called useTranscription.ts.",
+      "score": "exact",
+      "gen_time_s": 0.618
+    },
+    {
+      "id": 18,
+      "category": "quote-unquote",
+      "input": "Their quote-unquote innovation is just copying what everyone else already does.",
+      "ideal": "Their \"innovation\" is just copying what everyone else already does.",
+      "output": "Their \"innovation\" is just copying what everyone else already does.",
+      "raw_output": "Their \"innovation\" is just copying what everyone else already does.",
+      "score": "exact",
+      "gen_time_s": 0.629
+    },
+    {
+      "id": 19,
+      "category": "at-symbol",
+      "input": "Notify the ops team about the outage. Add an at symbol before ops.",
+      "ideal": "Notify the @ops team about the outage.",
+      "output": "Notify the @ops team about the outage.",
+      "raw_output": "Notify the @ops team about the outage.",
+      "score": "exact",
+      "gen_time_s": 0.48
+    },
+    {
+      "id": 20,
+      "category": "caps",
+      "input": "Stop ignoring my emails. Make that all caps.",
+      "ideal": "STOP IGNORING MY EMAILS.",
+      "output": "STOP IGNORING MY EMAILS.",
+      "raw_output": "STOP IGNORING MY EMAILS.",
+      "score": "exact",
+      "gen_time_s": 0.432
+    },
+    {
+      "id": 21,
+      "category": "emphasis",
+      "input": "This is absolutely critical for the launch. Emphasize critical.",
+      "ideal": "This is absolutely CRITICAL for the launch.",
+      "output": "This is the CRITICAL point for the launch.",
+      "raw_output": "This is the CRITICAL point for the launch.",
+      "score": "partial",
+      "gen_time_s": 0.485
+    },
+    {
+      "id": 22,
+      "category": "emoji",
+      "input": "We just shipped the new feature fire emoji",
+      "ideal": "We just shipped the new feature \ud83d\udd25",
+      "output": "We just shipped the new feature \ud83d\udd25",
+      "raw_output": "We just shipped the new feature \ud83d\udd25",
+      "score": "exact",
+      "gen_time_s": 0.356
+    },
+    {
+      "id": 23,
+      "category": "camelcase",
+      "input": "The main page uses a component called navigationbar that wraps everything.",
+      "ideal": "The main page uses a component called NavigationBar that wraps everything.",
+      "output": "The main page uses a component called NavigationBar that wraps everything.",
+      "raw_output": "The main page uses a component called NavigationBar that wraps everything.",
+      "score": "exact",
+      "gen_time_s": 0.618
+    }
+  ],
+  "test_set_path": "/Users/lolrazh/Documents/Projects/mlx/spoke/bench/test_set_v3.json",
+  "test_set_name": "test_set_v3.json",
+  "test_set_sha256": "cb480715152fa78806719a396e51cb2204573c3bc10e92d73b4dc97a2d722230",
+  "suite": "core23"
+}

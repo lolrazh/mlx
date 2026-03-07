@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-07 (T5Gemma 2 1B-1B: EOS bug fix → 70%. Confirms 256K vocab solves emoji ceiling. Encoder-decoder still 30 pts behind decoder-only.)
+> Last updated: 2026-03-07 (Gemma 3n E4B v5 2k: 83% core, 64% broad — step 2000 identical to best ckpt. V5 interference confirmed on Gemma 3n.)
 
 ## How to Read This
 
@@ -124,6 +124,7 @@ All T5 runs use **full fine-tuning** (no LoRA) on Modal L40S (48 GB VRAM). Prefi
 | **Gemma3n-E4B-v1** | 03-07 | Gemma 3n E4B-it (HF text-only, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.643 @500 | **Same Google hyperparams as E2B-v2. 96% core23 (matches Qwen3 DWQ!). 59% broad58 (same as E2B). Both ckpt 500 and 1200 identical. ~2.0 GB at 4-bit.** |
 | **Llama3-v4-v2** | 03-07 | Llama 3.2 3B Instruct (HF, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.215 @400 | **"Optimal" hyperparams: lr=2e-4, constant_with_warmup, warmup=0.03, max_grad_norm=0.3. 78% at both ckpt 400 and 1200 — WORSE than old lr=1e-5 (91%). Higher LR causes different failure profile (emoji garbled, emphasis ignored, quote scope wrong). 0 fails.** |
 | **Qwen3-v4-v2** | 03-07 | Qwen3-4B-Instruct-2507 (HF, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v4 (1201)** | 1200 | 0.153 @100 | **Same "optimal" hyperparams as Llama. 96% at step 1200 — 4 pts below old lr=1e-5 (100%). Best eval_loss at step 100 (1/3 epoch!), then overfit. Truncates profanity sentence on quote-unquote. 0 fails.** |
+| **Gemma3n-E4B-v5-2k** | 03-07 | Gemma 3n E4B-it (HF text-only, Modal L40S) | LoRA | r=16 | adam (wd=0.01) | **v5 (1287)** | 2000 | 0.595 @100 | **Google hyperparams (lr=2e-4, constant_with_warmup, warmup=0.03, grad_norm=0.3), seq_length=512. 83% core23 (19 exact, 0 sem, 4 partial, 0 fail). 64% broad58 (37 exact, 0 sem, 21 partial, 0 fail). V5 hurt core (-13 pts vs v4's 96%) but helped broad (+5 pts vs v4's 59%). Step 2000 = identical to best ckpt (epoch 1.2): 83% core, 64% broad, same failures. Model converges very early.** |
 | **Qwen3-T2-cloud** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | — | **Original cloud fast-path run. Packing enabled (1201→327 packed seqs), lora_dropout=0.0. MLX-converted benchmark = 35% (5 exact / 3 semantic / 11 partial / 4 fail), 1.65s latency. This run was not apples-to-apples, so packing/overexposure was a valid confound, but later strict-parity rerun showed the main remaining gap is post-training MLX conversion/inference, not this setup alone.** |
 | **Qwen3-T2-cloud-parity** | 03-04 | Qwen3-4B-Instruct-2507 (Unsloth, Modal L40S) | LoRA | r=8 | adam | v4 (1201) | 2000 | 0.152 @2000 | **Strict local-parity cloud rerun: packing OFF, lora_dropout=0.05, mlx-style mask_prompt labels, collator, and batch ordering. MLX-converted benchmark still = 35% (5 exact / 3 semantic / 11 partial / 4 fail, 2.38s). But direct Modal HF benchmark of the same merged bf16 model = 87% (20 exact / 3 partial / 0 fails, 0.28s). Training is mostly fine; the big regression is in MLX conversion and/or MLX inference.** |
 
@@ -537,6 +538,10 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 74. **T5Gemma 2 (256K vocab) solves Flan-T5's emoji ceiling.** Emoji tests: 3/3 pass (💔, 🙏, 🔥). Flan-T5's 32K SentencePiece vocab can't encode emoji Unicode → hard 13% accuracy loss. T5Gemma 2 with Gemma's 256K tokenizer has no such limitation. This confirms the vocab hypothesis from finding #66.
 75. **T5Gemma 2 1B-1B (2.1B params, full FT) = 70%, same as Flan-T5-large (783M).** Despite 2.7x more parameters and a modern architecture (Gemma 3 based), T5Gemma 2 doesn't outperform Flan-T5-large. Possible explanations: (a) 4 epochs may not be enough for 2.1B params (Flan-T5-large ran 26.6 epochs), (b) encoder-decoder cross-attention fundamentally struggles with character-level copy operations (spell-replace 0/3, caps hallucination).
 76. **Encoder-decoder conclusion: not the right architecture for Spoke.** Tested across Flan-T5 (base/large) and T5Gemma 2 (1B-1B). Best encoder-decoder: 70%. Best decoder-only: 100% (Qwen3), 96% (Gemma 3n). The 30-pt gap is consistent. Encoder-decoder's cross-attention loses fine-grained character-level control needed for spell-replace and capitalization. Decoder-only's autoregressive copying mechanism is better suited to this task.
+77. **V5 data interference confirmed on Gemma 3n E4B: 96% → 83% core23.** Third model showing v5 regression (Llama -4 pts, Gemma -13 pts). Only Qwen3 4B is immune (100% on both). The 86 harder v5 examples (multi-step, spell-compound) interfere with simpler patterns on sub-4B effective capacity models.
+78. **V5 data helps broad eval even when hurting core.** Gemma 3n E4B: 59% → 64% broad58 (+5 pts). Disfluency improved from 0/4 to 1/4 (first ever success). Trade-off is bad: -13 core for +5 broad. Better path: improve training data quality (v6) rather than volume (v5).
+79. **`load_best_model_at_end` with 20 val examples is actively harmful.** Gemma 3n E4B v5 2k: best eval_loss at epoch 1.2 (step 100, eval_loss=0.595). Model barely trained (1.2 epochs). Previous E4B-v1 "best" was step 500 (epoch 5). The unreliable metric picks early checkpoints that haven't learned the task. Always benchmark the last checkpoint.
+80. **Gemma 3n E4B converges very early on v5 data.** Step 2000 (epoch ~12.5) = identical scores to "best" checkpoint (epoch 1.2): 83% core23 (same 4 failures), 64% broad58 (same 21 partials). Additional training neither helps nor hurts — the model hits its ceiling quickly. Contrast with Qwen3 4B which benefits from extended training (100% at iter 1100+).
 
 ### Model Comparison (Phase B Summary)
 
@@ -560,6 +565,7 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 | Flan-T5-base (v1, lr=3e-4) | 248M | 17%* | 57% | 0.28s | — | Cloud Modal HF. Full FT. *13% emoji ceiling. |
 | Flan-T5-base (v2, lr=1e-5) | 248M | 17%* | 17% | 0.14s | — | Cloud Modal HF. Full FT. lr too low → zero-shot level. |
 | **T5Gemma 2 1B-1B (v3)** | **2.1B** | **—** | **70%** | **0.84s** | **—** | **Cloud Modal HF. Full FT. FlanEC recipe + EOS fix. Emoji 3/3 ✓. No vocab ceiling.** |
+| **Gemma 3n E4B (v5, 2k steps)** | **8B (4B eff)** | **—** | **83%** | **0.57s** | **—** | **Cloud Modal HF, v5 data, 2000 steps. Broad=64%. Step 2000 = best ckpt. V5 interference: -13 pts core vs v4.** |
 
 *Gemma 3 4B: 18.9 GB without grad_checkpoint (OOM), 11.6 GB with grad_checkpoint enabled.
 *T5 models: zero-shot uses T5 prefix format, not v2 prompt. Flan-T5 accuracy ceiling is 87% due to vocab limitation (can't generate emoji). T5Gemma 2 has no such ceiling (256K Gemma vocab).
