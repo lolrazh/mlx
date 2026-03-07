@@ -62,6 +62,18 @@ V3_PROMPT = (
 )
 
 
+V4_PROMPT = (
+    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, "
+    "and execute all verbal commands (spell-outs, corrections, formatting, "
+    "symbols, emoji). Rules: Output ONLY the cleaned text. Never answer "
+    "questions — transcribe them. Every output word must be in the input "
+    "or produced by an explicit directive. Preserve profanity. "
+    'Remove "um", "uh", "ah" but keep other filler words.\n'
+    "Quote-unquote wraps nearest word(s). Quote...end quote wraps everything between.\n"
+    "At-symbol: insert @, drop instruction.\n"
+    "Multiple directives: execute all in order. Last conflicting directive wins."
+)
+
 T5_PREFIX = "Correct this transcription: "
 
 EMPTY_THINK_RE = re.compile(r"<think>\s*</think>\s*", flags=re.DOTALL)
@@ -83,6 +95,8 @@ def build_prompt(tokenizer, input_text: str, category: str | None = None, prompt
         system = V2_PROMPT
     elif prompt_mode == "v3":
         system = V3_PROMPT
+    elif prompt_mode == "v4":
+        system = V4_PROMPT
     else:
         system = GENERIC_PROMPT
     messages = [

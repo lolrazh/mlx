@@ -220,24 +220,26 @@ All from Qwen3-4B base.
 
 | Run | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
 |-----|-------|--------|---|----------|-------|-----|------|------|---------|-------|
-| **T4-v5split** | **bf16 (Modal)** | **v2** | **131** | **79%** | **97** | **6** | **28** | **0** | **0.26s** | **First run on stratified v5 split (1046 train). 0 fails across all 131 examples. Hard-neg 100% (29/29). at-symbol weakest (20%).** |
+| T4-v5split-ckpt1000 | bf16 (Modal) | v2 | 131 | 79% | 96 | 7 | 28 | 0 | 0.26s | Step 1000 (best eval_loss 0.115). 0 fails. Hard-neg 100%. at-symbol 20%. |
+| **T4-v5split-ckpt2000** | **bf16 (Modal)** | **v2** | **131** | **82%** | **103** | **4** | **24** | **0** | **0.24s** | **NEW BEST. Step 2000 beats step 1000 despite worse eval_loss (0.164 vs 0.115). at-symbol 60% (+40), self-corr 89% (+16). 6th confirmation eval_loss ≠ accuracy.** |
+| T4-v5split-ckpt2000 | bf16 (Modal) | v3 | 131 | 79% | 98 | 5 | 28 | 0 | 0.24s | v3 prompt (191 tok) helps multi (+40) and caps (+14) but kills hard-neg (-21) and emphasis (-25). Net wash. |
 
-**Category breakdown (T4-v5split, v5 test set 131 ex):**
+**Category breakdown (v5 test set 131 ex, step 2000):**
 
-| Category | N | Accuracy | Exact | Sem | Partial | Fail |
-|----------|---|----------|-------|-----|---------|------|
-| at-symbol | 5 | 20% | 1 | 0 | 4 | 0 |
-| multi | 10 | 50% | 4 | 1 | 5 | 0 |
-| spell | 21 | 67% | 13 | 1 | 7 | 0 |
-| emoji | 10 | 70% | 7 | 0 | 3 | 0 |
-| self-correction | 19 | 74% | 14 | 0 | 5 | 0 |
-| quote | 12 | 83% | 10 | 0 | 2 | 0 |
-| caps | 7 | 86% | 5 | 1 | 1 | 0 |
-| emphasis | 8 | 88% | 6 | 1 | 1 | 0 |
-| hard-negative | 29 | 100% | 29 | 0 | 0 | 0 |
-| camelcase | 5 | 100% | 3 | 2 | 0 | 0 |
-| disfluency | 3 | 100% | 3 | 0 | 0 | 0 |
-| meta | 2 | 100% | 2 | 0 | 0 | 0 |
+| Category | N | v2 step1k | v2 step2k | v3 step2k | 2k vs 1k | v3 vs v2 |
+|----------|---|-----------|-----------|-----------|----------|----------|
+| at-symbol | 5 | 20% | **60%** | 60% | **+40** | 0 |
+| multi | 10 | 50% | 30% | **70%** | -20 | **+40** |
+| spell | 21 | 67% | 67% | **71%** | 0 | +5 |
+| emoji | 10 | 70% | **80%** | 80% | +10 | 0 |
+| self-correction | 19 | 74% | **89%** | 74% | **+16** | -16 |
+| quote | 12 | 83% | 83% | **92%** | 0 | +8 |
+| caps | 7 | 86% | 86% | **100%** | 0 | +14 |
+| emphasis | 8 | 88% | 88% | 62% | 0 | **-25** |
+| hard-negative | 29 | 100% | **100%** | 79% | 0 | **-21** |
+| camelcase | 5 | 100% | 100% | 100% | 0 | 0 |
+| disfluency | 3 | 100% | 100% | 100% | 0 | 0 |
+| meta | 2 | 100% | 100% | 100% | 0 | 0 |
 
 ### Gemma 3n E4B v1: Broad Eval (58 unseen examples, `test_set_evals.json`)
 
@@ -442,7 +444,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | **Qwen35-HF-smoke-2B/4B** | **Qwen3.5 text-only HF cloud probes (Modal L40S, 50 steps, v5+v2)** | **Compatibility fixed, quality still poor.** Base scores: 2B `9%`, 4B `13%`; after 50-step smoke: 2B `22%`, 4B `30%` on core23. Useful as pipeline validation, not quality candidates. |
 | **Llama3-cloud-v5** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v5 data, 1200-3000 steps** | **78% at 1200 steps, 83% at 3000 steps. 0 fails at both. Below local v4 result (91%) — v5 data causes interference at 3B scale (confirmed by v4 A/B test = 87%). eval_loss best (step 200) was a trap (35%).** |
 | **Llama3-cloud-v4** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v4 data, 2000 steps** | **87% at step 2000. 0 fails. Confirms v5 interference: v4=87% > v5=83%. Cloud-vs-local gap only 4 pts (87% vs 91%). Pipeline is sound — data is the variable.** |
-| **T4-v5split** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5-split (1046 train), v2 prompt, 1000 steps** | **100% on v3 test (23 ex), 79% on v5 test (131 ex). 0 fails.** Stratified 80:10:10 split of all 1308 source examples. 131 val + 131 test = statistically meaningful eval. Eval loss monotonically decreasing (no overfitting noise). Weakest: at-symbol (20%), multi (50%), spell (67%). Strongest: hard-neg (100%), camelcase (100%), disfluency (100%). |
+| **T4-v5split** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5-split (1046 train), v2 prompt, 2000 steps** | **100% on v3 test (23 ex), 82% on v5 test (131 ex). 0 fails. NEW BEST on meaningful test set.** Stratified 80:10:10 split (1046/131/131). Step 2000 > step 1000 (82% vs 79%) despite worse eval_loss (0.164 vs 0.115). v3 prompt (191 tok) = net wash: helps multi (+40) but kills hard-neg (-21). Step 2000 + v2 prompt is optimal config. |
 | **Gemma3n-cloud-v5** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v5 data, 1200 steps** | **70% best (step 600), 65% last (step 1200). 4 persistent fails on quotes. lr=1e-5 was 20x too low per Google's recommendation (2e-4). Novel architecture (AltUp/PLE/LAuReL) likely needs different hyperparameters.** |
 | **Gemma3n-E2B-v2** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, Google hyperparams (lr=2e-4, constant_with_warmup, warmup=0.03, grad_norm=0.3, wd=0.01, r=16)** | **91% core23 (20 exact, 1 sem, 2 partial, 0 fail). 59% broad58 (29 exact, 5 sem, 24 partial, 0 fail). 65% → 91% just from fixing hyperparams. Both ckpt 600 and 1200 identical. ~1.0 GB at 4-bit = half of Qwen3 DWQ. Disfluency (0/4) and multi (1/6) are weakest categories on broad.** |
 | **Gemma3n-E4B-v1** | **Gemma 3n E4B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, same Google hyperparams as E2B-v2** | **96% core23 (20 exact, 2 sem, 1 partial, 0 fail) — MATCHES Qwen3 DWQ! 59% broad58 (32 exact, 2 sem, 24 partial, 0 fail) — same as E2B. Extra capacity closed core23 gap (+5 pts) but didn't help broad eval. Broad gap is data-limited, not capacity-limited. ~2.0 GB at 4-bit.** |
@@ -586,6 +588,9 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 85. **lr=5e-5 last checkpoint has a new at-symbol regression.** Converts @app.py → .app.py instead of keeping the @ symbol. The baseline (lr=1e-5) handles this correctly. Higher LR creates subtle new failure modes even when headline accuracy matches. Finding #51 was wrong. The HF text-only merge path (`Qwen3_5ForCausalLM` + `text_config`) produces valid merged bf16 models that score 96% on Modal. The 0% result was from the Unsloth VLM export path which corrupted config.json. MLX conversion of the HF text-only merged model has not been retested yet. Step 2000 (epoch ~12.5) = identical scores to "best" checkpoint (epoch 1.2): 83% core23 (same 4 failures), 64% broad58 (same 21 partials). Additional training neither helps nor hurts — the model hits its ceiling quickly. Contrast with Qwen3 4B which benefits from extended training (100% at iter 1100+).
 
 87. **80:10:10 stratified split reveals true model accuracy is 79%, not 100%.** Previous "100%" was on 23 cherry-picked examples. With a proper 131-example test set (stratified by category, including hard negatives), Qwen3 4B scores 79% with 0 fails. The 23-example test set was too small to distinguish a 79% model from a 100% model — just luck that all 23 fell in the passing 79%. Category breakdown reveals at-symbol (20%) and multi-step (50%) as the weakest categories, invisible to the old test set. Val loss with 131 examples was monotonically decreasing (no overfitting noise), confirming the old 20-example val set was pure noise.
+88. **Step 2000 > step 1000 on v5 test (82% vs 79%) despite worse eval_loss (0.164 vs 0.115).** 6th confirmation that eval_loss minimum is harmful for checkpoint selection on this task. Extended training improves at-symbol (20%→60%), self-correction (74%→89%), emoji (70%→80%). More epochs = better pattern generalization even when cross-entropy overfits.
+89. **v3 prompt (191 tok) is a net wash — helps multi (+40 pts) but kills hard-neg (-21) and emphasis (-25).** The disfluency rule ("sorry", "scratch that", "actually": drop the wrong part) causes the model to strip genuine discourse markers ("I mean,", "Actually,") from hard-negative inputs. The emphasis rule ("Emphasis/bold: ALL CAPS") conflicts with existing emphasis training. Multi-step rule is the only clear win.
+90. **Inference-time prompt engineering is a dead end for fine-tuned models.** Tested v4 prompt (v2 + quote/at-symbol/multi rules, 121 tok): 79%. v4 without at-symbol rule: 76%. Every additional rule creates cross-category interference — quote rule bleeds into emphasis (wraps bold words in quotes), multi rule makes self-correction too aggressive, at-symbol rule inserts @ into spell/camelCase outputs. The model was trained with v2 and performs best with v2. Prompt modifications at inference time cannot improve accuracy; they just shift errors between categories. **v2 prompt (83 tok) + step 2000 = 82% is the optimal config. Next gains require more training data, not prompt changes.**
 
 ### Model Comparison (Phase B Summary)
 
