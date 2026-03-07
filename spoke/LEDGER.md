@@ -87,6 +87,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T2-v4** | 03-03 | LoRA | r=8 | adam | flat | **v4 (1201)** | 2000 | 0.065 @1100 | **V4 data** (535 v3 + 377 new regular + 289 hard negatives). All 36 layers. Peak 18.6 GB. Val loss best at iter 1100, overfit to 0.091 by iter 2000. Both checkpoints score 100%. **100% bf16 (23/23 exact) at iter 2000, 1.82s latency.** |
 | **T3-v5** | 03-05 | LoRA | r=8 | adam | flat | **v5 (1287)** | 2000 | — | **Cloud (Modal L40S, HF+PEFT).** V5 data (1201 v4 + 86 targeted: multi-step, spell-compound, emphasis-caps, meta-language). Trained with v2 prompt. Checkpoint 1200 selected. **100% on v3 test (23/23), 69% on broad eval (58 ex). Fixes Wispr Flow scoping bug. Model at `spoke/models/spoke-qwen3-t3-v5-mlx/`.** |
 | **EPO-w3** | 03-07 | LoRA | r=8 | adam | flat | **v5 (1287)** | 1200 | — | **Cloud (Modal L40S, HF+PEFT). EPO loss (edit_weight=3.0).** Same config as T3-v5 except EPO loss upweights edit tokens 3x. Best eval_loss at step 600. **87% core23 (-13 pts), 66% broad58 (-3 pts). REGRESSION. Over-editing failure: drops words, over-scopes. Dead end.** |
+| **T4-v5split** | 03-07 | LoRA | r=8 | adam | flat | **v5-split (1046)** | 1000 | 0.115 @1000 | **Cloud (Modal L40S, HF+PEFT). 80:10:10 stratified split** (1046 train / 131 valid / 131 test). Same recipe as T3-v5. Eval loss monotonically decreasing (131 val examples = actually meaningful). **100% on v3 test (23 ex), 79% on v5 test (131 ex). 0 fails. Hard-neg 100%, at-symbol 20%, multi 50%, spell 67%.** |
 
 ### Alternative Models
 
@@ -214,6 +215,29 @@ All from Qwen3-4B base.
 | disfluency | 75% (3/4) | 50% (2/4) | -25 |
 | passthrough | 62% (10/16) | 62% (10/16) | 0 |
 | self-correction | 100% (6/6) | 100% (6/6) | 0 |
+
+### T4-v5split: v5 test set (131 examples, stratified 80:10:10 split)
+
+| Run | Quant | Prompt | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-------|--------|---|----------|-------|-----|------|------|---------|-------|
+| **T4-v5split** | **bf16 (Modal)** | **v2** | **131** | **79%** | **97** | **6** | **28** | **0** | **0.26s** | **First run on stratified v5 split (1046 train). 0 fails across all 131 examples. Hard-neg 100% (29/29). at-symbol weakest (20%).** |
+
+**Category breakdown (T4-v5split, v5 test set 131 ex):**
+
+| Category | N | Accuracy | Exact | Sem | Partial | Fail |
+|----------|---|----------|-------|-----|---------|------|
+| at-symbol | 5 | 20% | 1 | 0 | 4 | 0 |
+| multi | 10 | 50% | 4 | 1 | 5 | 0 |
+| spell | 21 | 67% | 13 | 1 | 7 | 0 |
+| emoji | 10 | 70% | 7 | 0 | 3 | 0 |
+| self-correction | 19 | 74% | 14 | 0 | 5 | 0 |
+| quote | 12 | 83% | 10 | 0 | 2 | 0 |
+| caps | 7 | 86% | 5 | 1 | 1 | 0 |
+| emphasis | 8 | 88% | 6 | 1 | 1 | 0 |
+| hard-negative | 29 | 100% | 29 | 0 | 0 | 0 |
+| camelcase | 5 | 100% | 3 | 2 | 0 | 0 |
+| disfluency | 3 | 100% | 3 | 0 | 0 | 0 |
+| meta | 2 | 100% | 2 | 0 | 0 | 0 |
 
 ### Gemma 3n E4B v1: Broad Eval (58 unseen examples, `test_set_evals.json`)
 
@@ -418,6 +442,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | **Qwen35-HF-smoke-2B/4B** | **Qwen3.5 text-only HF cloud probes (Modal L40S, 50 steps, v5+v2)** | **Compatibility fixed, quality still poor.** Base scores: 2B `9%`, 4B `13%`; after 50-step smoke: 2B `22%`, 4B `30%` on core23. Useful as pipeline validation, not quality candidates. |
 | **Llama3-cloud-v5** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v5 data, 1200-3000 steps** | **78% at 1200 steps, 83% at 3000 steps. 0 fails at both. Below local v4 result (91%) — v5 data causes interference at 3B scale (confirmed by v4 A/B test = 87%). eval_loss best (step 200) was a trap (35%).** |
 | **Llama3-cloud-v4** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v4 data, 2000 steps** | **87% at step 2000. 0 fails. Confirms v5 interference: v4=87% > v5=83%. Cloud-vs-local gap only 4 pts (87% vs 91%). Pipeline is sound — data is the variable.** |
+| **T4-v5split** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5-split (1046 train), v2 prompt, 1000 steps** | **100% on v3 test (23 ex), 79% on v5 test (131 ex). 0 fails.** Stratified 80:10:10 split of all 1308 source examples. 131 val + 131 test = statistically meaningful eval. Eval loss monotonically decreasing (no overfitting noise). Weakest: at-symbol (20%), multi (50%), spell (67%). Strongest: hard-neg (100%), camelcase (100%), disfluency (100%). |
 | **Gemma3n-cloud-v5** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v5 data, 1200 steps** | **70% best (step 600), 65% last (step 1200). 4 persistent fails on quotes. lr=1e-5 was 20x too low per Google's recommendation (2e-4). Novel architecture (AltUp/PLE/LAuReL) likely needs different hyperparameters.** |
 | **Gemma3n-E2B-v2** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, Google hyperparams (lr=2e-4, constant_with_warmup, warmup=0.03, grad_norm=0.3, wd=0.01, r=16)** | **91% core23 (20 exact, 1 sem, 2 partial, 0 fail). 59% broad58 (29 exact, 5 sem, 24 partial, 0 fail). 65% → 91% just from fixing hyperparams. Both ckpt 600 and 1200 identical. ~1.0 GB at 4-bit = half of Qwen3 DWQ. Disfluency (0/4) and multi (1/6) are weakest categories on broad.** |
 | **Gemma3n-E4B-v1** | **Gemma 3n E4B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, same Google hyperparams as E2B-v2** | **96% core23 (20 exact, 2 sem, 1 partial, 0 fail) — MATCHES Qwen3 DWQ! 59% broad58 (32 exact, 2 sem, 24 partial, 0 fail) — same as E2B. Extra capacity closed core23 gap (+5 pts) but didn't help broad eval. Broad gap is data-limited, not capacity-limited. ~2.0 GB at 4-bit.** |
@@ -559,6 +584,8 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 84. **lr=5e-5 = same core (96%) but -5 pts broad (66% vs 71%) on Qwen3.5-4B.** Higher LR converges faster (best eval_loss at step 300 vs step ~1000 for lr=1e-5) but overshoots on generalization. The "best by eval_loss" checkpoint (step 300) scored WORSE than the last checkpoint (step 1500): 91% vs 96% core, 64% vs 66% broad. This is the strongest evidence yet that eval_loss minimum is harmful for checkpoint selection (finding #54). lr=1e-5 remains the correct LR for Spoke.
 86. **EPO (edit-weighted loss) HURTS copy-heavy tasks — causes over-editing.** Qwen3 4B with EPO (edit_weight=3.0): 87% core (-13 pts from baseline 100%), 66% broad (-3 pts from 69%). EPO upweights edit tokens 3x in the loss, but for Spoke ~90% of output tokens should be copies. By telling the model "editing = 3x more valuable than copying," it learned to edit MORE aggressively: drops "Okay", "really", "React and", "absolutely" — words that should be preserved. Standard SFT's equal token weighting is the correct inductive bias for copy-heavy tasks because 90% of the gradient signal SHOULD go to copy tokens. EPO is designed for tasks (like GEC) where models under-edit; Spoke's failure mode is over-editing. Dead end.
 85. **lr=5e-5 last checkpoint has a new at-symbol regression.** Converts @app.py → .app.py instead of keeping the @ symbol. The baseline (lr=1e-5) handles this correctly. Higher LR creates subtle new failure modes even when headline accuracy matches. Finding #51 was wrong. The HF text-only merge path (`Qwen3_5ForCausalLM` + `text_config`) produces valid merged bf16 models that score 96% on Modal. The 0% result was from the Unsloth VLM export path which corrupted config.json. MLX conversion of the HF text-only merged model has not been retested yet. Step 2000 (epoch ~12.5) = identical scores to "best" checkpoint (epoch 1.2): 83% core23 (same 4 failures), 64% broad58 (same 21 partials). Additional training neither helps nor hurts — the model hits its ceiling quickly. Contrast with Qwen3 4B which benefits from extended training (100% at iter 1100+).
+
+87. **80:10:10 stratified split reveals true model accuracy is 79%, not 100%.** Previous "100%" was on 23 cherry-picked examples. With a proper 131-example test set (stratified by category, including hard negatives), Qwen3 4B scores 79% with 0 fails. The 23-example test set was too small to distinguish a 79% model from a 100% model — just luck that all 23 fell in the passing 79%. Category breakdown reveals at-symbol (20%) and multi-step (50%) as the weakest categories, invisible to the old test set. Val loss with 131 examples was monotonically decreasing (no overfitting noise), confirming the old 20-example val set was pure noise.
 
 ### Model Comparison (Phase B Summary)
 

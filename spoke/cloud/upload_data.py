@@ -54,6 +54,7 @@ def main():
     bench_files = [
         "test_set.json",
         "test_set_v3.json",
+        "test_set_v5.json",
         "test_set_evals.json",
     ]
 

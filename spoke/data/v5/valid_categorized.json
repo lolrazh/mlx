@@ -1,0 +1,788 @@
+[
+  {
+    "id": 1,
+    "category": "emoji",
+    "input": "Give me the hundred emoji followed by fire emoji",
+    "ideal": "💯🔥"
+  },
+  {
+    "id": 2,
+    "category": "at-symbol",
+    "input": "Post this in the general channel and tag everyone. At symbol before general. Also put an at before everyone so they get notified. Make sure it's urgent.",
+    "ideal": "Post this in the @general channel and tag @everyone. Make sure it's urgent."
+  },
+  {
+    "id": 3,
+    "category": "hard-negative",
+    "input": "Sorry to interrupt, but the phlebotomist needs to draw blood before you eat—fasting glucose requires twelve hours.",
+    "ideal": "Sorry to interrupt, but the phlebotomist needs to draw blood before you eat—fasting glucose requires twelve hours."
+  },
+  {
+    "id": 4,
+    "category": "multi",
+    "input": "The patient needs ibuprofen. Actually, acetaminophen. Stress that.",
+    "ideal": "The patient needs ACETAMINOPHEN."
+  },
+  {
+    "id": 5,
+    "category": "multi",
+    "input": "She said quote I'm interested end quote. Actually quote I'm committed end quote. Emphasize committed. And add the handshake emoji.",
+    "ideal": "She said \"I'm COMMITTED\". 🤝"
+  },
+  {
+    "id": 6,
+    "category": "hard-negative",
+    "input": "How do you spell 'accommodate'? I always get it wrong.",
+    "ideal": "How do you spell 'accommodate'? I always get it wrong."
+  },
+  {
+    "id": 7,
+    "category": "quote",
+    "input": "The ticket says quote users are unable to log in after password reset. end quote Can you take a look?",
+    "ideal": "The ticket says \"users are unable to log in after password reset\". Can you take a look?"
+  },
+  {
+    "id": 8,
+    "category": "spell",
+    "input": "The restaurant is called B-I-S-T-R-O, can you spell that, on Main Street.",
+    "ideal": "The restaurant is called bistro on Main Street."
+  },
+  {
+    "id": 9,
+    "category": "spell",
+    "input": "We're flying to Reykjavik, spell that R-E-Y-K-J-A-V-I-K.",
+    "ideal": "We're flying to Reykjavik."
+  },
+  {
+    "id": 10,
+    "category": "hard-negative",
+    "input": "Actually, quantum computing might solve this problem within a decade.",
+    "ideal": "Actually, quantum computing might solve this problem within a decade."
+  },
+  {
+    "id": 11,
+    "category": "spell",
+    "input": "We're using Supabase for the backend. Can you spell that S-U-P-A-B-A-S-E?",
+    "ideal": "We're using Supabase for the backend."
+  },
+  {
+    "id": 12,
+    "category": "quote",
+    "input": "The post read quote we are excited to announce our Series A funding end quote.",
+    "ideal": "The post read \"we are excited to announce our Series A funding\"."
+  },
+  {
+    "id": 13,
+    "category": "quote",
+    "input": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
+    "ideal": "The debug log shows \"connection timed out after 30 seconds\" three times in a row."
+  },
+  {
+    "id": 14,
+    "category": "self-correction",
+    "input": "I need a hammer, screwdriver, and wrench. Wait, pliers not wrench.",
+    "ideal": "I need a hammer, screwdriver, and pliers."
+  },
+  {
+    "id": 15,
+    "category": "hard-negative",
+    "input": "Sorry, I have to scratch the surface of about three years of research just to frame this question properly.",
+    "ideal": "Sorry, I have to scratch the surface of about three years of research just to frame this question properly."
+  },
+  {
+    "id": 16,
+    "category": "emoji",
+    "input": "skull emoji that meeting was brutal",
+    "ideal": "💀 that meeting was brutal"
+  },
+  {
+    "id": 17,
+    "category": "hard-negative",
+    "input": "The hashtag activism movement sparked real policy changes in 2019.",
+    "ideal": "The hashtag activism movement sparked real policy changes in 2019."
+  },
+  {
+    "id": 18,
+    "category": "meta",
+    "input": "How do I explain blockchain to my grandmother without her eyes glazing over?",
+    "ideal": "How do I explain blockchain to my grandmother without her eyes glazing over?"
+  },
+  {
+    "id": 19,
+    "category": "multi",
+    "input": "Push to the main branch. Wait, the feature branch. Make it all caps.",
+    "ideal": "Push to the FEATURE branch."
+  },
+  {
+    "id": 20,
+    "category": "self-correction",
+    "input": "The stack is Python and Flask. Actually, FastAPI.",
+    "ideal": "The stack is Python and FastAPI."
+  },
+  {
+    "id": 21,
+    "category": "self-correction",
+    "input": "We need to deploy this by Friday, I mean Thursday, the client moved the deadline up.",
+    "ideal": "We need to deploy this by Thursday, the client moved the deadline up."
+  },
+  {
+    "id": 22,
+    "category": "spell",
+    "input": "It's called Hygge, spelled H-Y-U-G-G-E-H, which is that Danish concept of coziness.",
+    "ideal": "It's called Hyuggeh, which is that Danish concept of coziness."
+  },
+  {
+    "id": 23,
+    "category": "spell",
+    "input": "We're using the Llama model from Meta. Spell Llama as L-L-A-M-A.",
+    "ideal": "We're using the Llama model from Meta."
+  },
+  {
+    "id": 24,
+    "category": "emoji",
+    "input": "loudly crying emoji this bug is back again",
+    "ideal": "😭 this bug is back again"
+  },
+  {
+    "id": 25,
+    "category": "emphasis",
+    "input": "He claimed the bug was irreproducible. Stress claimed and irreproducible.",
+    "ideal": "He CLAIMED the bug was IRREPRODUCIBLE."
+  },
+  {
+    "id": 26,
+    "category": "quote",
+    "input": "Quote-unquote essential workers got a pizza party instead of hazard pay.",
+    "ideal": "\"Essential\" workers got a pizza party instead of hazard pay."
+  },
+  {
+    "id": 27,
+    "category": "hard-negative",
+    "input": "Actually, the performance improved by forty percent after the optimization.",
+    "ideal": "Actually, the performance improved by forty percent after the optimization."
+  },
+  {
+    "id": 28,
+    "category": "spell",
+    "input": "The framework is Reakt, spell that R-E-A-C-T. All caps.",
+    "ideal": "The framework is REACT."
+  },
+  {
+    "id": 29,
+    "category": "caps",
+    "input": "You know, make it lowercase. The Intern Fixed The Bug That Senior Engineers Couldn't Solve For Weeks.",
+    "ideal": "the intern fixed the bug that senior engineers couldn't solve for weeks."
+  },
+  {
+    "id": 30,
+    "category": "self-correction",
+    "input": "We need fifteen, wait twenty units",
+    "ideal": "We need twenty units"
+  },
+  {
+    "id": 31,
+    "category": "emphasis",
+    "input": "The migration failed because of a race condition in the scheduler. Bold race condition.",
+    "ideal": "The migration failed because of a RACE CONDITION in the scheduler."
+  },
+  {
+    "id": 32,
+    "category": "quote",
+    "input": "Management called it quote a necessary restructuring end quote but we all knew it was layoffs.",
+    "ideal": "Management called it \"a necessary restructuring\" but we all knew it was layoffs."
+  },
+  {
+    "id": 33,
+    "category": "caps",
+    "input": "Put this in all caps. I love this team.",
+    "ideal": "I LOVE THIS TEAM."
+  },
+  {
+    "id": 34,
+    "category": "emphasis",
+    "input": "The result was unexpected to say the least. Emphasis on unexpected and least.",
+    "ideal": "The result was UNEXPECTED to say the LEAST."
+  },
+  {
+    "id": 35,
+    "category": "emoji",
+    "input": "Crying laughing not just crying emoji you misunderstood",
+    "ideal": "😂 not just 😢 you misunderstood"
+  },
+  {
+    "id": 36,
+    "category": "self-correction",
+    "input": "The meeting's at three. Actually, no, that's the standup. The real meeting's at four.",
+    "ideal": "The meeting's at four."
+  },
+  {
+    "id": 37,
+    "category": "self-correction",
+    "input": "We visited Berlin, Prague, and Vienna on the trip. Wait no, Budapest.",
+    "ideal": "We visited Berlin, Prague, and Budapest on the trip."
+  },
+  {
+    "id": 38,
+    "category": "quote",
+    "input": "His quote-unquote apology was basically just him explaining why I was wrong to be upset.",
+    "ideal": "His \"apology\" was basically just him explaining why I was wrong to be upset."
+  },
+  {
+    "id": 39,
+    "category": "emphasis",
+    "input": "For this recipe the technique matters more than the ingredients. Emphasize folding, not stirring, or you'll lose all the air.",
+    "ideal": "For this recipe the technique matters more than the ingredients. FOLDING, not stirring, or you'll lose all the air."
+  },
+  {
+    "id": 40,
+    "category": "multi",
+    "input": "Buy the blue dress. Scratch that, get the red one. Type that in caps.",
+    "ideal": "GET THE RED ONE."
+  },
+  {
+    "id": 41,
+    "category": "multi",
+    "input": "My roommate called it quote-unquote clean. Make clean all caps.",
+    "ideal": "My roommate called it \"CLEAN\"."
+  },
+  {
+    "id": 42,
+    "category": "camelcase",
+    "input": "The errorboundary component wraps your route components to catch JavaScript errors anywhere in their child component tree.",
+    "ideal": "The ErrorBoundary component wraps your route components to catch JavaScript errors anywhere in their child component tree."
+  },
+  {
+    "id": 43,
+    "category": "spell",
+    "input": "The UI library is called Shad Zen. Spell that S-H-A-D-C-N.",
+    "ideal": "The UI library is called Shadcn."
+  },
+  {
+    "id": 44,
+    "category": "emphasis",
+    "input": "The test results show regression in performance. Emphasis on regression and performance.",
+    "ideal": "The test results show REGRESSION in PERFORMANCE."
+  },
+  {
+    "id": 45,
+    "category": "quote",
+    "input": "She called it quote-unquote art but I call it a mess.",
+    "ideal": "She called it \"art\" but I call it a mess."
+  },
+  {
+    "id": 46,
+    "category": "emphasis",
+    "input": "The consensus was that we ship tomorrow. Bold consensus, stress tomorrow, show excitement.",
+    "ideal": "The CONSENSUS was that we ship TOMORROW!"
+  },
+  {
+    "id": 47,
+    "category": "hard-negative",
+    "input": "The cryptocurrency quote feed lagged during the network congestion.",
+    "ideal": "The cryptocurrency quote feed lagged during the network congestion."
+  },
+  {
+    "id": 48,
+    "category": "caps",
+    "input": "I was thinking we could refactor the auth module. Actually, no, let's make that all lowercase instead.",
+    "ideal": "i was thinking we could refactor the auth module."
+  },
+  {
+    "id": 49,
+    "category": "hard-negative",
+    "input": "The linguistics professor demonstrated how German nouns always appear in uppercase in formal writing.",
+    "ideal": "The linguistics professor demonstrated how German nouns always appear in uppercase in formal writing."
+  },
+  {
+    "id": 50,
+    "category": "self-correction",
+    "input": "The package weighs about two pounds, scratch that, three pounds, and needs to arrive by Friday, actually I meant Thursday, for the client's presentation.",
+    "ideal": "The package weighs about three pounds and needs to arrive by Thursday for the client's presentation."
+  },
+  {
+    "id": 51,
+    "category": "camelcase",
+    "input": "I'm importing the usereducer hook from React but it's not working because I forgot to pass the initial state.",
+    "ideal": "I'm importing the useReducer hook from React but it's not working because I forgot to pass the initial state."
+  },
+  {
+    "id": 52,
+    "category": "emoji",
+    "input": "Two purple hearts for mom",
+    "ideal": "💜💜 for mom"
+  },
+  {
+    "id": 53,
+    "category": "quote",
+    "input": "She sent me her quote revised and improved end quote proposal which was identical to the first one.",
+    "ideal": "She sent me her \"revised and improved\" proposal which was identical to the first one."
+  },
+  {
+    "id": 54,
+    "category": "emoji",
+    "input": "Can you believe he said that thinking face emoji",
+    "ideal": "Can you believe he said that 🤔"
+  },
+  {
+    "id": 55,
+    "category": "at-symbol",
+    "input": "I need to mention john and mary in this post. At symbol before both names please.",
+    "ideal": "I need to mention @john and @mary in this post."
+  },
+  {
+    "id": 56,
+    "category": "spell",
+    "input": "We're hosting on V-E-R-C-E-L, spell it as, for serverless deployment.",
+    "ideal": "We're hosting on Vercel for serverless deployment."
+  },
+  {
+    "id": 57,
+    "category": "camelcase",
+    "input": "So in my React component, I'm calling usestate to manage the form data, but I keep forgetting to import it properly.",
+    "ideal": "So in my React component, I'm calling useState to manage the form data, but I keep forgetting to import it properly."
+  },
+  {
+    "id": 58,
+    "category": "hard-negative",
+    "input": "His opening quote about resilience really moved the audience.",
+    "ideal": "His opening quote about resilience really moved the audience."
+  },
+  {
+    "id": 59,
+    "category": "emphasis",
+    "input": "When you're packing for a month in Southeast Asia, you really don't need much. Emphasis on lightweight layers, not heavy cotton stuff.",
+    "ideal": "When you're packing for a month in Southeast Asia, you really don't need much. LIGHTWEIGHT LAYERS, not heavy cotton stuff."
+  },
+  {
+    "id": 60,
+    "category": "spell",
+    "input": "Message the SRE team about the outage in prowd, spell that P-R-O-D. Tag sre with an at symbol.",
+    "ideal": "Message the SRE team about the outage in prod. @sre"
+  },
+  {
+    "id": 61,
+    "category": "spell",
+    "input": "The dish is called Biryani, but the place spells it B-E-R-Y-A-N-I, which I think is just them being pretentious because the owner studied in London.",
+    "ideal": "The dish is called Beryani, which I think is just them being pretentious because the owner studied in London."
+  },
+  {
+    "id": 62,
+    "category": "quote",
+    "input": "The restaurant's quote-unquote farm-to-table sourcing apparently includes a distribution warehouse in New Jersey.",
+    "ideal": "The restaurant's \"farm-to-table\" sourcing apparently includes a distribution warehouse in New Jersey."
+  },
+  {
+    "id": 63,
+    "category": "hard-negative",
+    "input": "Oops, I nearly spilled the entire beaker of sulfuric acid.",
+    "ideal": "Oops, I nearly spilled the entire beaker of sulfuric acid."
+  },
+  {
+    "id": 64,
+    "category": "spell",
+    "input": "The village of Cwm-y-glo, it's spelled C-O-O-M-E-E-G-L-O-W, sits at the base of the mountain.",
+    "ideal": "The village of Coomeeglow sits at the base of the mountain."
+  },
+  {
+    "id": 65,
+    "category": "hard-negative",
+    "input": "We received a competitive quote from their rival company.",
+    "ideal": "We received a competitive quote from their rival company."
+  },
+  {
+    "id": 66,
+    "category": "emoji",
+    "input": "Four sparkles emojis please",
+    "ideal": "✨✨✨✨"
+  },
+  {
+    "id": 67,
+    "category": "hard-negative",
+    "input": "He won the national spelling competition when he was twelve.",
+    "ideal": "He won the national spelling competition when he was twelve."
+  },
+  {
+    "id": 68,
+    "category": "camelcase",
+    "input": "The main wrapper is called appcontainer and it handles all the routing logic between the different views.",
+    "ideal": "The main wrapper is called AppContainer and it handles all the routing logic between the different views."
+  },
+  {
+    "id": 69,
+    "category": "emoji",
+    "input": "The dog chased the cat emoji classic",
+    "ideal": "The dog chased the 🐱 classic"
+  },
+  {
+    "id": 70,
+    "category": "emphasis",
+    "input": "The deployment succeeded on the first attempt. Make first bold, stress succeeded, and show excitement.",
+    "ideal": "The deployment SUCCEEDED on the FIRST attempt!"
+  },
+  {
+    "id": 71,
+    "category": "quote",
+    "input": "The memo said quote effective immediately all remote work arrangements are suspended pending review end quote which means we're all screwed.",
+    "ideal": "The memo said \"effective immediately all remote work arrangements are suspended pending review\" which means we're all screwed."
+  },
+  {
+    "id": 72,
+    "category": "at-symbol",
+    "input": "Tell admin and mod to check the logs. Tag admin with an at symbol. Actually tag both admin and mod with at symbols. And while you're at it, put an at before logs too.",
+    "ideal": "Tell @admin and @mod to check the @logs."
+  },
+  {
+    "id": 73,
+    "category": "hard-negative",
+    "input": "Actually, the fermentation process takes about three weeks if you keep the temperature stable.",
+    "ideal": "Actually, the fermentation process takes about three weeks if you keep the temperature stable."
+  },
+  {
+    "id": 74,
+    "category": "hard-negative",
+    "input": "The git tag command creates a reference to a specific commit hash.",
+    "ideal": "The git tag command creates a reference to a specific commit hash."
+  },
+  {
+    "id": 75,
+    "category": "caps",
+    "input": "You know, like, write this in lowercase. My Dog Ate My Homework And I Swear It's True",
+    "ideal": "my dog ate my homework and i swear it's true."
+  },
+  {
+    "id": 76,
+    "category": "spell",
+    "input": "We're integrating with Mux, that's M-O-O-K-S, for video streaming.",
+    "ideal": "We're integrating with Mooks for video streaming."
+  },
+  {
+    "id": 77,
+    "category": "spell",
+    "input": "We're integrating with their API, it's called Kloak, spelled K-L-O-K-E, not cloak like the thing you wear.",
+    "ideal": "We're integrating with their API, it's called Kloke, not cloak like the thing you wear."
+  },
+  {
+    "id": 78,
+    "category": "at-symbol",
+    "input": "Message Sarah about the review. Tag Sarah with an at symbol and show excitement.",
+    "ideal": "Message @Sarah about the review!"
+  },
+  {
+    "id": 79,
+    "category": "self-correction",
+    "input": "I need to buy milk and eggs from the store. Actually, bread.",
+    "ideal": "I need to buy milk and bread from the store."
+  },
+  {
+    "id": 80,
+    "category": "spell",
+    "input": "The database is Postgress, spell that P-O-S-T-G-R-E-S. Emphasize PostgreSQL.",
+    "ideal": "The database is POSTGRES."
+  },
+  {
+    "id": 81,
+    "category": "multi",
+    "input": "We're serving salmon for dinner. Actually, we're doing lasagna. Put everything in lowercase.",
+    "ideal": "we're serving lasagna for dinner."
+  },
+  {
+    "id": 82,
+    "category": "hard-negative",
+    "input": "Sorry, I didn't realize you were still on the call when I made that comment about the budget cuts.",
+    "ideal": "Sorry, I didn't realize you were still on the call when I made that comment about the budget cuts."
+  },
+  {
+    "id": 83,
+    "category": "meta",
+    "input": "Can you give me some ideas for uh weekend trips from Tokyo that won't break the bank?",
+    "ideal": "Can you give me some ideas for weekend trips from Tokyo that won't break the bank?"
+  },
+  {
+    "id": 84,
+    "category": "self-correction",
+    "input": "I think we should- the better approach is to use caching",
+    "ideal": "the better approach is to use caching"
+  },
+  {
+    "id": 85,
+    "category": "self-correction",
+    "input": "We need to order about twenty, no no, thirty copies of the report for the board meeting.",
+    "ideal": "We need to order thirty copies of the report for the board meeting."
+  },
+  {
+    "id": 86,
+    "category": "spell",
+    "input": "I'm using Wispor for transcription, spell that W-I-S-P-R. Wait no, I said the wrong library, it's Deepgram.",
+    "ideal": "I'm using Deepgram for transcription."
+  },
+  {
+    "id": 87,
+    "category": "multi",
+    "input": "ah Tell the florist the Peeny arrangements are canceled. Spell that P-E-O-N-Y, capitalize normally. At symbol before florist. Emphasize canceled. Say quote we switched to succulents end quote. Actually, quote we switched to orchids end quote.",
+    "ideal": "Tell the @florist the Peony arrangements are CANCELED. Say \"we switched to orchids\"."
+  },
+  {
+    "id": 88,
+    "category": "hard-negative",
+    "input": "Sorry, but your theory doesn't account for the anomalous readings we observed at 3 AM.",
+    "ideal": "Sorry, but your theory doesn't account for the anomalous readings we observed at 3 AM."
+  },
+  {
+    "id": 89,
+    "category": "self-correction",
+    "input": "The backend runs on Vercel Edge Functions and AWS Lambda. Wait no, sorry, Google Cloud Run.",
+    "ideal": "The backend runs on Vercel Edge Functions and Google Cloud Run."
+  },
+  {
+    "id": 90,
+    "category": "spell",
+    "input": "The database is P-O-S-T-G-R-E-S, can you spell that, for relational storage.",
+    "ideal": "The database is Postgres for relational storage."
+  },
+  {
+    "id": 91,
+    "category": "emoji",
+    "input": "Please please please praying hands emoji I need this to work",
+    "ideal": "Please please please 🙏 I need this to work"
+  },
+  {
+    "id": 92,
+    "category": "hard-negative",
+    "input": "Poor spelling in a job application makes a terrible first impression.",
+    "ideal": "Poor spelling in a job application makes a terrible first impression."
+  },
+  {
+    "id": 93,
+    "category": "spell",
+    "input": "He founded a company called Nimble Stack, spelled N-Y-M-B-U-L-S-T-A-C-K, back in 2019.",
+    "ideal": "He founded a company called Nymbulstack back in 2019."
+  },
+  {
+    "id": 94,
+    "category": "hard-negative",
+    "input": "The security guard's caps and badges were clearly visible on his uniform.",
+    "ideal": "The security guard's caps and badges were clearly visible on his uniform."
+  },
+  {
+    "id": 95,
+    "category": "self-correction",
+    "input": "It's running on port 8080. Actually, 3000, which is what the docs say.",
+    "ideal": "It's running on port 3000 which is what the docs say."
+  },
+  {
+    "id": 96,
+    "category": "self-correction",
+    "input": "My sister's birthday is March 15th, scratch that, March 17th, so I need to book the flight for the 16th.",
+    "ideal": "My sister's birthday is March 17th, so I need to book the flight for the 16th."
+  },
+  {
+    "id": 97,
+    "category": "spell",
+    "input": "We're migrating to A-W-S, spelled, by next quarter.",
+    "ideal": "We're migrating to AWS by next quarter."
+  },
+  {
+    "id": 98,
+    "category": "disfluency",
+    "input": "the uh the TypeScript compiler is complaining about um something in the types folder",
+    "ideal": "the TypeScript compiler is complaining about something in the types folder"
+  },
+  {
+    "id": 99,
+    "category": "hard-negative",
+    "input": "The article was quoting anonymous sources from the Pentagon.",
+    "ideal": "The article was quoting anonymous sources from the Pentagon."
+  },
+  {
+    "id": 100,
+    "category": "hard-negative",
+    "input": "She spent all morning quoting obscure philosophers at the coffee shop.",
+    "ideal": "She spent all morning quoting obscure philosophers at the coffee shop."
+  },
+  {
+    "id": 101,
+    "category": "hard-negative",
+    "input": "My bad, I completely forgot that we had already discussed this timeline last quarter.",
+    "ideal": "My bad, I completely forgot that we had already discussed this timeline last quarter."
+  },
+  {
+    "id": 102,
+    "category": "hard-negative",
+    "input": "Oops, I grabbed the cayenne instead of the paprika—the chili is now inedible.",
+    "ideal": "Oops, I grabbed the cayenne instead of the paprika—the chili is now inedible."
+  },
+  {
+    "id": 103,
+    "category": "self-correction",
+    "input": "The meeting is scheduled for March 15th, actually you know, the 15th is wrong, I meant March 22nd, and please bring the quarterly reports.",
+    "ideal": "The meeting is scheduled for March 22nd, and please bring the quarterly reports."
+  },
+  {
+    "id": 104,
+    "category": "disfluency",
+    "input": "the um the uh the logs don't show anything useful unfortunately",
+    "ideal": "the logs don't show anything useful unfortunately"
+  },
+  {
+    "id": 105,
+    "category": "at-symbol",
+    "input": "I'm so happy this finally works. Show excitement and tag me with an at symbol.",
+    "ideal": "I'm so happy this finally works @me!"
+  },
+  {
+    "id": 106,
+    "category": "self-correction",
+    "input": "We're moving to- the plan is to migrate everything to the new cluster",
+    "ideal": "the plan is to migrate everything to the new cluster"
+  },
+  {
+    "id": 107,
+    "category": "camelcase",
+    "input": "I'm building a custom uselocalstorage hook that wraps the native storage api, but serializejsondata keeps throwing on circular references.",
+    "ideal": "I'm building a custom useLocalStorage hook that wraps the native storage API, but serializeJsonData keeps throwing on circular references."
+  },
+  {
+    "id": 108,
+    "category": "hard-negative",
+    "input": "I prefer to use straight quotes in my code.",
+    "ideal": "I prefer to use straight quotes in my code."
+  },
+  {
+    "id": 109,
+    "category": "hard-negative",
+    "input": "She arrived at the conclusion after weeks of careful research.",
+    "ideal": "She arrived at the conclusion after weeks of careful research."
+  },
+  {
+    "id": 110,
+    "category": "hard-negative",
+    "input": "The pharmacist warned that childproof caps can be difficult for elderly patients.",
+    "ideal": "The pharmacist warned that childproof caps can be difficult for elderly patients."
+  },
+  {
+    "id": 111,
+    "category": "multi",
+    "input": "ah Tell the pastry chef the croisant recipe needs more butter. Spell that C-R-O-I-S-S-A-N-T, capitalize normally. At symbol before pastry. Say quote use European style end quote. Scratch that, Irish butter. Emphasize Irish. Add a chef kiss emoji.",
+    "ideal": "Tell the @pastry chef the croissant recipe needs more butter. Say \"IRISH butter\". 🤌"
+  },
+  {
+    "id": 112,
+    "category": "emoji",
+    "input": "Clapping hands emoji you nailed it",
+    "ideal": "👏 you nailed it"
+  },
+  {
+    "id": 113,
+    "category": "spell",
+    "input": "The startup is called Phloem, spelled F-L-O-U-M, like the plant tissue but with a weird spelling, and they're building some kind of logistics middleware.",
+    "ideal": "The startup is called Floum, like the plant tissue but with a weird spelling, and they're building some kind of logistics middleware."
+  },
+  {
+    "id": 114,
+    "category": "self-correction",
+    "input": "We're using Python for the backend. Actually, the ML pipeline is Python but the API is Go.",
+    "ideal": "We're using Python for the backend. Actually, the ML pipeline is Python but the API is Go."
+  },
+  {
+    "id": 115,
+    "category": "hard-negative",
+    "input": "The editor explained that we don't capitalize job titles when they follow a name.",
+    "ideal": "The editor explained that we don't capitalize job titles when they follow a name."
+  },
+  {
+    "id": 116,
+    "category": "spell",
+    "input": "She recommended a book by author Chiamaka, spell that C-H-I-A-M-A-C-A, it's about Nigerian diaspora experiences.",
+    "ideal": "She recommended a book by author Chiamaca, it's about Nigerian diaspora experiences."
+  },
+  {
+    "id": 117,
+    "category": "hard-negative",
+    "input": "The password must contain at least one lowercase letter.",
+    "ideal": "The password must contain at least one lowercase letter."
+  },
+  {
+    "id": 118,
+    "category": "self-correction",
+    "input": "I think Python 3.9 is the minimum, actually, say 3.10 since we need match statements.",
+    "ideal": "I think Python 3.10 is the minimum since we need match statements."
+  },
+  {
+    "id": 119,
+    "category": "hard-negative",
+    "input": "The spelling of 'color' versus 'colour' depends on which country you're in.",
+    "ideal": "The spelling of 'color' versus 'colour' depends on which country you're in."
+  },
+  {
+    "id": 120,
+    "category": "hard-negative",
+    "input": "Oops, I spilled the turmeric—now everything in this kitchen is permanently yellow.",
+    "ideal": "Oops, I spilled the turmeric—now everything in this kitchen is permanently yellow."
+  },
+  {
+    "id": 121,
+    "category": "caps",
+    "input": "Critical error occurred. Use uppercase.",
+    "ideal": "CRITICAL ERROR OCCURRED."
+  },
+  {
+    "id": 122,
+    "category": "caps",
+    "input": "The quarterly revenue exceeded our projections by fourteen percent, which means we can finally expand the engineering department. Make it all lowercase.",
+    "ideal": "the quarterly revenue exceeded our projections by fourteen percent, which means we can finally expand the engineering department."
+  },
+  {
+    "id": 123,
+    "category": "caps",
+    "input": "Type this in lowercase. The Quick Brown Fox Jumps Over The Lazy Dog.",
+    "ideal": "the quick brown fox jumps over the lazy dog."
+  },
+  {
+    "id": 124,
+    "category": "multi",
+    "input": "We need two cups of flour. Actually, three cups. Make everything lowercase.",
+    "ideal": "we need three cups of flour."
+  },
+  {
+    "id": 125,
+    "category": "quote",
+    "input": "The so-called guarantee states quote we will make it right or your money back. end quote Sounds good until you read the fine print.",
+    "ideal": "The so-called guarantee states \"we will make it right or your money back\". Sounds good until you read the fine print."
+  },
+  {
+    "id": 126,
+    "category": "quote",
+    "input": "That's their quote-unquote premium service where you still wait on hold for forty-five minutes before talking to anyone.",
+    "ideal": "That's their \"premium\" service where you still wait on hold for forty-five minutes before talking to anyone."
+  },
+  {
+    "id": 127,
+    "category": "self-correction",
+    "input": "She went to the- actually she drove to the airport",
+    "ideal": "actually she drove to the airport"
+  },
+  {
+    "id": 128,
+    "category": "multi",
+    "input": "Tell Aunt Rosa about the flight. Tag Rosa with an at symbol. Say quote I land at noon end quote. Actually, say two in the afternoon.",
+    "ideal": "Tell Aunt @Rosa about the flight. Say \"I land at two in the afternoon\"."
+  },
+  {
+    "id": 129,
+    "category": "spell",
+    "input": "The protocol is called Kademlia, spelled K-A-D-E-M-L-I-A-H, which is that distributed hash table we discussed.",
+    "ideal": "The protocol is called Kademliah, which is that distributed hash table we discussed."
+  },
+  {
+    "id": 130,
+    "category": "self-correction",
+    "input": "The team uses Slack, Zoom, and Notion. Wait, no, Asana not Notion.",
+    "ideal": "The team uses Slack, Zoom, and Asana."
+  },
+  {
+    "id": 131,
+    "category": "disfluency",
+    "input": "umm so I was thinking maybe we could add some rate limiting to the endpoints",
+    "ideal": "so I was thinking maybe we could add some rate limiting to the endpoints"
+  }
+]
