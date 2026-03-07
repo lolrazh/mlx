@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-07 (Gemma 3n E4B v5 2k: 83% core, 64% broad — step 2000 identical to best ckpt. V5 interference confirmed on Gemma 3n.)
+> Last updated: 2026-03-08 (T5-v4prompt: richer training prompt HURTS — 79%/73% vs 82% baseline. "Train lean, deploy lean" confirmed. Finding #91.)
 
 ## How to Read This
 
@@ -88,6 +88,7 @@ All runs use Qwen3-4B-Instruct-2507-bf16 unless noted. All use `mask_prompt: tru
 | **T3-v5** | 03-05 | LoRA | r=8 | adam | flat | **v5 (1287)** | 2000 | — | **Cloud (Modal L40S, HF+PEFT).** V5 data (1201 v4 + 86 targeted: multi-step, spell-compound, emphasis-caps, meta-language). Trained with v2 prompt. Checkpoint 1200 selected. **100% on v3 test (23/23), 69% on broad eval (58 ex). Fixes Wispr Flow scoping bug. Model at `spoke/models/spoke-qwen3-t3-v5-mlx/`.** |
 | **EPO-w3** | 03-07 | LoRA | r=8 | adam | flat | **v5 (1287)** | 1200 | — | **Cloud (Modal L40S, HF+PEFT). EPO loss (edit_weight=3.0).** Same config as T3-v5 except EPO loss upweights edit tokens 3x. Best eval_loss at step 600. **87% core23 (-13 pts), 66% broad58 (-3 pts). REGRESSION. Over-editing failure: drops words, over-scopes. Dead end.** |
 | **T4-v5split** | 03-07 | LoRA | r=8 | adam | flat | **v5-split (1046)** | 1000 | 0.115 @1000 | **Cloud (Modal L40S, HF+PEFT). 80:10:10 stratified split** (1046 train / 131 valid / 131 test). Same recipe as T3-v5. Eval loss monotonically decreasing (131 val examples = actually meaningful). **100% on v3 test (23 ex), 79% on v5 test (131 ex). 0 fails. Hard-neg 100%, at-symbol 20%, multi 50%, spell 67%.** |
+| **T5-v4prompt** | 03-08 | LoRA | r=8 | adam | flat | **v5-split (1046)** | 2000 | 0.152 @1000 | **Cloud (Modal L40S, HF+PEFT). V4 prompt in training data** (v2 + quote/at-symbol/multi rules, 121 tok). Same split as T4. Tests "train rich, deploy lean" hypothesis. **79% with v4 inference (-3 vs baseline), 73% with v2 inference (-9). REGRESSION. Richer prompt creates dependency — model relies on explicit rules at inference. 4 hard fails with v2 (vs 1 for T4). "Train lean, deploy lean" confirmed as correct strategy (finding #91).** |
 
 ### Alternative Models
 
@@ -223,6 +224,8 @@ All from Qwen3-4B base.
 | T4-v5split-ckpt1000 | bf16 (Modal) | v2 | 131 | 79% | 96 | 7 | 28 | 0 | 0.26s | Step 1000 (best eval_loss 0.115). 0 fails. Hard-neg 100%. at-symbol 20%. |
 | **T4-v5split-ckpt2000** | **bf16 (Modal)** | **v2** | **131** | **82%** | **103** | **4** | **24** | **0** | **0.24s** | **NEW BEST. Step 2000 beats step 1000 despite worse eval_loss (0.164 vs 0.115). at-symbol 60% (+40), self-corr 89% (+16). 6th confirmation eval_loss ≠ accuracy.** |
 | T4-v5split-ckpt2000 | bf16 (Modal) | v3 | 131 | 79% | 98 | 5 | 28 | 0 | 0.24s | v3 prompt (191 tok) helps multi (+40) and caps (+14) but kills hard-neg (-21) and emphasis (-25). Net wash. |
+| T5-v4prompt-ckpt2000 | bf16 (Modal) | v4 | 131 | 79% | 99 | 5 | 26 | 1 | 0.25s | Trained with v4 prompt (121 tok). -3 pts vs T4 baseline. 1 fail (spell). Prompt dependency created. |
+| T5-v4prompt-ckpt2000 | bf16 (Modal) | v2 | 131 | 73% | 87 | 8 | 32 | 4 | 0.25s | Same model, v2 inference. -9 pts. 4 fails (quotes output as literal "quote-unquote"). Prompt mismatch penalty. |
 
 **Category breakdown (v5 test set 131 ex, step 2000):**
 
@@ -445,6 +448,7 @@ Discovered 2026-03-01. Four test examples are exact copies of few-shot examples 
 | **Llama3-cloud-v5** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v5 data, 1200-3000 steps** | **78% at 1200 steps, 83% at 3000 steps. 0 fails at both. Below local v4 result (91%) — v5 data causes interference at 3B scale (confirmed by v4 A/B test = 87%). eval_loss best (step 200) was a trap (35%).** |
 | **Llama3-cloud-v4** | **Llama 3.2 3B Instruct, cloud HF+PEFT (Modal L40S), v4 data, 2000 steps** | **87% at step 2000. 0 fails. Confirms v5 interference: v4=87% > v5=83%. Cloud-vs-local gap only 4 pts (87% vs 91%). Pipeline is sound — data is the variable.** |
 | **T4-v5split** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5-split (1046 train), v2 prompt, 2000 steps** | **100% on v3 test (23 ex), 82% on v5 test (131 ex). 0 fails. NEW BEST on meaningful test set.** Stratified 80:10:10 split (1046/131/131). Step 2000 > step 1000 (82% vs 79%) despite worse eval_loss (0.164 vs 0.115). v3 prompt (191 tok) = net wash: helps multi (+40) but kills hard-neg (-21). Step 2000 + v2 prompt is optimal config. |
+| **T5-v4prompt** | **Qwen3-4B, cloud HF+PEFT (Modal L40S), v5-split (1046 train), v4 prompt in training data (121 tok), 2000 steps** | **79% v4 inference (-3 pts), 73% v2 inference (-9 pts). REGRESSION.** Richer prompt creates dependency — model relies on explicit rules. 4 hard fails with v2 (quotes as literal "quote-unquote"). "Train lean, deploy lean" confirmed correct (finding #91). |
 | **Gemma3n-cloud-v5** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v5 data, 1200 steps** | **70% best (step 600), 65% last (step 1200). 4 persistent fails on quotes. lr=1e-5 was 20x too low per Google's recommendation (2e-4). Novel architecture (AltUp/PLE/LAuReL) likely needs different hyperparameters.** |
 | **Gemma3n-E2B-v2** | **Gemma 3n E2B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, Google hyperparams (lr=2e-4, constant_with_warmup, warmup=0.03, grad_norm=0.3, wd=0.01, r=16)** | **91% core23 (20 exact, 1 sem, 2 partial, 0 fail). 59% broad58 (29 exact, 5 sem, 24 partial, 0 fail). 65% → 91% just from fixing hyperparams. Both ckpt 600 and 1200 identical. ~1.0 GB at 4-bit = half of Qwen3 DWQ. Disfluency (0/4) and multi (1/6) are weakest categories on broad.** |
 | **Gemma3n-E4B-v1** | **Gemma 3n E4B-it, cloud HF+PEFT (Modal L40S), v4 data, 1200 steps, same Google hyperparams as E2B-v2** | **96% core23 (20 exact, 2 sem, 1 partial, 0 fail) — MATCHES Qwen3 DWQ! 59% broad58 (32 exact, 2 sem, 24 partial, 0 fail) — same as E2B. Extra capacity closed core23 gap (+5 pts) but didn't help broad eval. Broad gap is data-limited, not capacity-limited. ~2.0 GB at 4-bit.** |
