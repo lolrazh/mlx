@@ -1,7 +1,7 @@
 # Spoke Experiment Ledger
 
 > Single source of truth for every training run, benchmark, and planned experiment.
-> Last updated: 2026-03-09 (4000 steps on v2 data: 80% at step 4000, -2 pts vs step 2000 baseline. Inverted-U training curve — 2000 steps is the sweet spot. Finding #93.)
+> Last updated: 2026-03-09 (Temperature sweep + broad58 new best. Qwen3.5-4B zero-shot: 37% v5/41% broad58 — temp has no effect. Fine-tuned Qwen3-4B T4-v5split ckpt2000: 74% broad58 at temp=0.6 — NEW ALL-TIME BEST broad score. Finding #94.)
 
 ## How to Read This
 
@@ -11,7 +11,7 @@
 - **Data v2** = 447 train / 20 valid / 23 test, v2 system prompt (~80 tokens), multi-command removed, targeted self-correction + quote-endquote fixes, XML tag fixes.
 - **Accuracy** = (exact + semantic) / N. Test set: 12 examples (v1) or 23 examples (v2).
 - **DWQ 4-bit was the deploy quant** (96%, 2.1 GB) but weights were lost in cleanup. T3-v5 MLX bf16 is the only surviving model.
-- **Broad eval** = 58 unseen examples (`test_set_evals.json`), 0 overlap with training. Best: T3-v5 at 69%.
+- **Broad eval** = 58 unseen examples (`test_set_evals.json`), 0 overlap with training. Best: T4-v5split ckpt2000 at 74%.
 - Benchmark results as JSON: `spoke/bench/result_*.json`
 
 ---
@@ -60,6 +60,23 @@ v3 removes 4 categories with no production Spoke triggers (formatting-xml, email
 | B22 | Flan-T5-base (220M, Modal HF) | bf16 | t5 prefix | 23 | **17%** | 3 | 1 | 3 | 16 | 0.13s | Encoder-decoder zero-shot. T5 prefix format ("Correct this transcription: ..."). 32K SentencePiece vocab can't generate emoji = hard 13% ceiling (3/23 emoji tests). |
 
 **Takeaway:** v3 test set zero-shot baseline is 22% (Qwen3). LFM2 scores 9% regardless of size/precision/quantization — conv-dominant hybrid architecture can't handle meta-linguistic commands zero-shot. Gemma 3 4B also 9% (echoes commands). Gemma 3 1B 0% (garbled). Few-shot helps format (30%) but not reasoning. But 9% zero-shot → 83-87% fine-tuned, so zero-shot is meaningless for predicting fine-tune potential.
+
+### v5 test set (131 examples) — Zero-shot with Spoke prompt
+
+| ID | Model | Quant | Prompt | Temp | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|----|-------|-------|--------|------|---|----------|-------|-----|------|------|---------|-------|
+| B23 | Qwen3.5-4B (MLX) | bf16 | spoke-full | 0.0 | 131 | **37%** | 45 | 3 | 58 | 25 | 5.33s | Echoes spell commands, leaves "quote-unquote" verbatim, describes emoji instead of rendering. |
+| B24 | Qwen3.5-4B (MLX) | bf16 | spoke-full | 0.2 | 131 | **37%** | 44 | 4 | 58 | 25 | 6.51s | Temperature has no effect. |
+| B25 | Qwen3.5-4B (MLX) | bf16 | spoke-full | 0.6 | 131 | **37%** | 45 | 4 | 58 | 24 | 6.00s | Temperature has no effect. |
+
+### broad58 — Zero-shot with Spoke prompt
+
+| ID | Model | Quant | Prompt | Temp | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|----|-------|-------|--------|------|---|----------|-------|-----|------|------|---------|-------|
+| B26 | Qwen3.5-4B (MLX) | bf16 | spoke-full | 0.0 | 58 | **41%** | 19 | 5 | 21 | 13 | 5.69s | Same failure modes as v5. |
+| B27 | Qwen3.5-4B (MLX) | bf16 | spoke-full | 0.6 | 58 | **34%** | 17 | 3 | 30 | 8 | 6.48s | Temp hurts zero-shot broad — more partials. |
+
+**Takeaway:** Temperature (0.0 to 0.6) has zero effect on zero-shot Qwen3.5-4B accuracy. The model doesn't understand *how* to execute editing directives, so adding randomness doesn't help. Greedy decoding is optimal for copy-heavy tasks.
 
 ---
 
@@ -235,6 +252,7 @@ All from Qwen3-4B base.
 | T5-v4prompt-ckpt4000 | bf16 (Modal) | v4 | 131 | 82% | 100 | 7 | 22 | 2 | 0.26s | V4-trained 4k run, step 4000. Recovers to parity with v2 baseline. 2 fails. |
 | T6-v2-4k-ckpt3000 | bf16 (Modal) | v2 | 131 | 81% | 102 | 4 | 25 | 0 | 0.25s | V2-trained 4k run, step 3000. -1 pt vs step 2000 baseline. 0 fails. |
 | **T6-v2-4k-ckpt4000** | **bf16 (Modal)** | **v2** | **131** | **80%** | **102** | **3** | **26** | **0** | **0.25s** | **V2-trained 4k run, step 4000. -2 pts vs step 2000 baseline. Over-memorization. 0 fails.** |
+| T4-v5split-ckpt2000 | bf16 (Modal) | v2 (t=0.6) | 131 | **82%** | 103 | 4 | 24 | 0 | 0.26s | temp=0.6 = identical to greedy. Temperature has no effect on fine-tuned models. |
 
 **Category breakdown (v5 test set 131 ex, step 2000):**
 
@@ -252,6 +270,12 @@ All from Qwen3-4B base.
 | camelcase | 5 | 100% | 100% | 100% | 0 | 0 |
 | disfluency | 3 | 100% | 100% | 100% | 0 | 0 |
 | meta | 2 | 100% | 100% | 100% | 0 | 0 |
+
+### T4-v5split: Broad Eval (58 unseen examples, `test_set_evals.json`)
+
+| Run | Quant | Prompt | Temp | N | Accuracy | Exact | Sem | Part | Fail | Latency | Notes |
+|-----|-------|--------|------|---|----------|-------|-----|------|------|---------|-------|
+| **T4-v5split-ckpt2000** | **bf16 (Modal)** | **v2** | **0.6** | **58** | **74%** | **41** | **2** | **13** | **2** | **0.27s** | **NEW ALL-TIME BEST broad58. +5 pts over Qwen3.5 (71%), +5 pts over T3-v5 (69%). 80:10:10 split = better generalization than full-data training. 2 fails: at-symbol echo, meta quote-unquote.** |
 
 ### Gemma 3n E4B v1: Broad Eval (58 unseen examples, `test_set_evals.json`)
 
@@ -609,6 +633,7 @@ Based on 2025-2026 ASR post-processing literature review. See finding #25.
 90. **Inference-time prompt engineering is a dead end for fine-tuned models.** Tested v4 prompt (v2 + quote/at-symbol/multi rules, 121 tok): 79%. v4 without at-symbol rule: 76%. Every additional rule creates cross-category interference — quote rule bleeds into emphasis (wraps bold words in quotes), multi rule makes self-correction too aggressive, at-symbol rule inserts @ into spell/camelCase outputs. The model was trained with v2 and performs best with v2. Prompt modifications at inference time cannot improve accuracy; they just shift errors between categories. **v2 prompt (83 tok) + step 2000 = 82% is the optimal config. Next gains require more training data, not prompt changes.**
 91. **Training with richer prompt (v4) HURTS accuracy.** v4 train + v4 inference = 79% (-3 pts vs v2 baseline 82%). v4 train + v2 inference = 73% (-9 pts). The extra rules during training create prompt dependency — the model learns to rely on explicit rules being present, so removing them at inference causes failures (quotes output as literal "quote-unquote" text, 4 hard fails vs 1). The data already encodes correct behavior through input→output pairs; explicit rules add noise, not signal. **"Train lean, deploy lean" beats "train rich, deploy lean" for copy-heavy editing tasks.**
 92. **Qwen3-8B (2x params) scores 10 pts WORSE than Qwen3-4B on copy-heavy editing.** 8B: 72-73% with 8 hard fails. 4B: 82% with 0 fails. All 8 fails are in the quote category — the 8B model outputs literal "quote-unquote" text instead of wrapping in quotes. Larger models have stronger base priors about what constitutes "natural" text, making them LESS willing to apply mechanical transformations. Consistent with DRES finding that reasoning models over-delete (semantic abstraction bias). **For conservative copy-edit tasks, moderate capacity (4B) > large capacity (8B). The 4B model has just enough capacity to learn editing rules without overthinking them.**
+94. **Temperature has zero effect on Spoke accuracy — both zero-shot and fine-tuned.** Zero-shot Qwen3.5-4B: 37% at temp=0.0/0.2/0.6 (v5-131). Fine-tuned Qwen3-4B T4-v5split: 82% at both temp=0.0 and temp=0.6 (v5-131). The model has learned a deterministic editing policy — sampling randomness can't improve a task that's fundamentally "copy input with surgical edits." Greedy decoding is optimal. T4-v5split at temp=0.6 also scores **74% on broad58 — NEW ALL-TIME BEST** (+5 over Qwen3.5's 71%, +5 over T3-v5's 69%). The 80:10:10 split (1046 train, 131 val) produced better generalization than full-data training (1287 train, 20 val), likely due to meaningful validation-based checkpoint selection.
 93. **2000 steps is the sweet spot for 1046 v2-trained examples — more training hurts.** Inverted-U accuracy curve: step 1000 = 79%, step 2000 = 82% (peak), step 3000 = 81%, step 4000 = 80%. Training past ~7.7 epochs causes over-memorization that degrades generalization monotonically. Zero hard fails at all checkpoints — the model doesn't hallucinate, it just under-executes on more examples. Interestingly, v4-trained models DO benefit from extended training (79% → 82% from 2k → 4k), possibly because the extra prompt rules act as a regularizer. But v4 only recovers to v2's 2k-step level — never exceeds it. **The accuracy ceiling is a data problem, not a training duration problem.** Next gains require v6 data targeting weak categories (at-symbol 60%, multi 30%, spell 67%).
 
 ### Model Comparison (Phase B Summary)

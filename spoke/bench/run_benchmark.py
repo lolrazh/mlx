@@ -40,6 +40,7 @@ MODELS = {
     "gemma3-1b-bf16": "mlx-community/gemma-3-1b-it-bf16",
     "qwen3-1.7b-bf16": "Qwen/Qwen3-1.7B-MLX-bf16",
     "qwen3-1.7b-4bit": "Qwen/Qwen3-1.7B-MLX-4bit",
+    "qwen3.5-4b-bf16": "mlx-community/Qwen3.5-4B-MLX-bf16",
 }
 
 # ── Prompts ─────────────────────────────────────────────────
@@ -276,7 +277,8 @@ def score_output(output, ideal):
 
 
 def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
-                    adapter_path=None, kv_bits=None, use_prompt_cache=False):
+                    adapter_path=None, kv_bits=None, use_prompt_cache=False,
+                    temperature=0.0):
     """Run benchmark on a single model."""
     import mlx_lm
     from mlx_lm.models.cache import make_prompt_cache, save_prompt_cache, load_prompt_cache
@@ -302,6 +304,8 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
         print(f"  prompt: {prompt_mode}")
         if opts_str:
             print(opts_str)
+        if temperature > 0:
+            print(f"  temperature: {temperature}")
         print(f"{'='*60}")
 
     # Load
@@ -318,9 +322,12 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
     if verbose:
         print(f"  Loaded in {load_time:.1f}s")
 
+    # Sampler
+    sampler = make_sampler(temp=temperature) if temperature > 0 else GREEDY
+
     # Warmup (compile kernels)
     warmup = build_prompt(tokenizer, "test", model_path, prompt_mode=prompt_mode)
-    mlx_lm.generate(model, tokenizer, prompt=warmup, max_tokens=8, sampler=GREEDY)
+    mlx_lm.generate(model, tokenizer, prompt=warmup, max_tokens=8, sampler=sampler)
 
     # Build system prompt cache if enabled
     cache_file = None
@@ -395,13 +402,13 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
             suffix_tokens = full_tokens[system_prefix_len:]
             raw_output = mlx_lm.generate(
                 model, tokenizer, prompt=suffix_tokens,
-                max_tokens=256, sampler=GREEDY,
+                max_tokens=256, sampler=sampler,
                 prompt_cache=ex_cache, **gen_kwargs,
             )
         else:
             raw_output = mlx_lm.generate(
                 model, tokenizer, prompt=prompt,
-                max_tokens=256, sampler=GREEDY,
+                max_tokens=256, sampler=sampler,
                 **gen_kwargs,
             )
         gen_time = time.time() - t_start
@@ -480,6 +487,8 @@ def main():
                         help="Quantize KV cache to N bits (e.g. 4, 8)")
     parser.add_argument("--prompt-cache", action="store_true",
                         help="Cache system prompt KV across examples")
+    parser.add_argument("--temperature", type=float, default=0.0,
+                        help="Sampling temperature (0.0 = greedy, default)")
     parser.add_argument("--verbose", action="store_true", default=True)
     args = parser.parse_args()
 
@@ -501,13 +510,15 @@ def main():
     for path in paths:
         summary = benchmark_model(path, test_set, prompt_mode=args.prompt_mode,
                                    verbose=args.verbose, adapter_path=args.adapter_path,
-                                   kv_bits=args.kv_bits, use_prompt_cache=args.prompt_cache)
+                                   kv_bits=args.kv_bits, use_prompt_cache=args.prompt_cache,
+                                   temperature=args.temperature)
         if summary is None:
             continue
         all_summaries.append(summary)
 
         # Save per-model result
-        out_name = f"result_{summary['short_name']}_{args.prompt_mode}.json"
+        temp_suffix = f"_t{args.temperature}" if args.temperature > 0 else ""
+        out_name = f"result_{summary['short_name']}_{args.prompt_mode}{temp_suffix}.json"
         out_path = BENCH_DIR / out_name
         with open(out_path, "w") as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)

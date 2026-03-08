@@ -276,6 +276,7 @@ def benchmark_remote(
     model_name: str = "",
     prompt_mode: str = "v2",
     checkpoint: int = 0,
+    temperature: float = 0.0,
 ):
     import os
     import torch
@@ -355,11 +356,15 @@ def benchmark_remote(
 
     warmup_prompt = build_prompt(tokenizer, "test", prompt_mode=prompt_mode)
     warmup_inputs = tokenizer(warmup_prompt, return_tensors="pt").to("cuda")
+    sample_kwargs = dict(do_sample=False)
+    if temperature > 0:
+        sample_kwargs = dict(do_sample=True, temperature=temperature)
+
     with torch.inference_mode():
         model.generate(
             **warmup_inputs,
             max_new_tokens=8,
-            do_sample=False,
+            **sample_kwargs,
             pad_token_id=generation_pad_token_id,
             eos_token_id=generation_eos_token_id,
         )
@@ -375,7 +380,7 @@ def benchmark_remote(
             generated = model.generate(
                 **inputs,
                 max_new_tokens=256,
-                do_sample=False,
+                **sample_kwargs,
                 pad_token_id=generation_pad_token_id,
                 eos_token_id=generation_eos_token_id,
             )
@@ -436,6 +441,7 @@ def main(
     test_set: str = "",
     suite: str = "core23",
     checkpoint: int = 0,
+    temperature: float = 0.0,
 ):
     bench_dir = Path(__file__).resolve().parents[1] / "bench"
     suite_map = {
@@ -465,6 +471,7 @@ def main(
         test_set=test_data,
         prompt_mode=prompt_mode,
         checkpoint=checkpoint,
+        temperature=temperature,
     )
     summary["test_set_path"] = str(resolved_test_set)
     summary["test_set_name"] = resolved_test_set.name
@@ -489,10 +496,11 @@ def main(
     print(f"  Avg latency: {summary['avg_latency_s']:.2f}s")
 
     result_stem = run_name if run_name else slugify_model_name(model_name)
+    temp_suffix = f"_t{temperature}" if temperature > 0 else ""
     result_path = (
         Path(__file__).resolve().parents[1]
         / "bench"
-        / f"result_{result_stem}_modal_{prompt_mode}_{resolved_test_set.stem}.json"
+        / f"result_{result_stem}_modal_{prompt_mode}_{resolved_test_set.stem}{temp_suffix}.json"
     )
     result_path.write_text(json.dumps(summary, indent=2))
     print(f"  -> {result_path}")
