@@ -1,0 +1,43 @@
+{
+  "name": "decoder-mixed-v1-json",
+  "rules": [
+    {
+      "match": {
+        "prefix": "decoder.blocks.",
+        "contains": ".cross_attn.",
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 6,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    },
+    {
+      "match": {
+        "prefix": "decoder.blocks.",
+        "contains_any": [".attn.", ".mlp"],
+        "block_lt": 24,
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 4,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    },
+    {
+      "match": {
+        "prefix": "decoder.blocks.",
+        "contains_any": [".attn.", ".mlp"],
+        "block_gte": 24,
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 6,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    }
+  ]
+}

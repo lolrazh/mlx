@@ -1,0 +1,16 @@
+{
+  "name": "decoder-uniform-3",
+  "rules": [
+    {
+      "match": {
+        "prefix": "decoder.",
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 3,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    }
+  ]
+}

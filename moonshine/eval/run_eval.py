@@ -9,9 +9,29 @@ import os
 import time
 import tracemalloc
 import numpy as np
+import mlx.core as mx
 
 from moonshine.eval.datasets import load_samples, dataset_info
 from moonshine.eval.wer import compute_wer, compute_wer_per_sample, print_summary
+
+
+def _get_mlx_memory_api():
+    get_active = getattr(mx, "get_active_memory", None)
+    get_peak = getattr(mx, "get_peak_memory", None)
+    reset_peak = getattr(mx, "reset_peak_memory", None)
+
+    if get_active and get_peak and reset_peak:
+        return get_active, get_peak, reset_peak
+
+    metal = getattr(mx, "metal", None)
+    if metal is None:
+        return None, None, None
+
+    return (
+        getattr(metal, "get_active_memory", None),
+        getattr(metal, "get_peak_memory", None),
+        getattr(metal, "reset_peak_memory", None),
+    )
 
 
 def evaluate(
@@ -44,6 +64,15 @@ def evaluate(
     total_audio_seconds = 0.0
     total_inference_seconds = 0.0
 
+    get_active_memory, get_peak_memory, reset_peak_memory = _get_mlx_memory_api()
+    mlx_active_memory_gb_start = None
+    mlx_active_memory_gb_end = None
+    mlx_peak_memory_gb = None
+
+    if get_active_memory and reset_peak_memory:
+        reset_peak_memory()
+        mlx_active_memory_gb_start = get_active_memory() / (1024**3)
+
     tracemalloc.start()
 
     for i, (audio, sr, ref_text) in enumerate(load_samples(dataset_name, max_samples, shuffle=shuffle)):
@@ -61,15 +90,24 @@ def evaluate(
         if (i + 1) % 100 == 0:
             current_wer = compute_wer(references, hypotheses)["wer"]
             rtf = total_inference_seconds / total_audio_seconds if total_audio_seconds > 0 else 0
-            print(
+            progress = (
                 f"  [{i+1}] running WER: {current_wer:.2%} | "
                 f"RTF: {rtf:.2f}x | "
                 f"audio: {total_audio_seconds:.0f}s processed"
             )
+            if get_active_memory:
+                active_gb = get_active_memory() / (1024**3)
+                progress += f" | active MLX: {active_gb:.2f} GB"
+            print(progress)
 
     _, peak_memory = tracemalloc.get_traced_memory()
     tracemalloc.stop()
     peak_memory_gb = peak_memory / (1024**3)
+
+    if get_active_memory:
+        mlx_active_memory_gb_end = get_active_memory() / (1024**3)
+    if get_peak_memory:
+        mlx_peak_memory_gb = get_peak_memory() / (1024**3)
 
     # Compute final metrics
     aggregate = compute_wer(references, hypotheses)
@@ -95,6 +133,12 @@ def evaluate(
         "real_time_factor": round(rtf, 3),
         "peak_memory_gb": round(peak_memory_gb, 2),
     }
+    if mlx_active_memory_gb_start is not None:
+        results["mlx_active_memory_gb_start"] = round(mlx_active_memory_gb_start, 2)
+    if mlx_active_memory_gb_end is not None:
+        results["mlx_active_memory_gb_end"] = round(mlx_active_memory_gb_end, 2)
+    if mlx_peak_memory_gb is not None:
+        results["mlx_peak_memory_gb"] = round(mlx_peak_memory_gb, 2)
 
     # Print summary
     print_summary(aggregate, f"{model_name} / {dataset_name}")
@@ -102,7 +146,13 @@ def evaluate(
     print(f"  Audio processed:    {total_audio_seconds:.1f}s")
     print(f"  Inference time:     {total_inference_seconds:.1f}s")
     print(f"  Real-time factor:   {rtf:.2f}x")
-    print(f"  Peak memory:        {peak_memory_gb:.2f} GB")
+    print(f"  Python peak memory: {peak_memory_gb:.2f} GB")
+    if mlx_active_memory_gb_start is not None:
+        print(f"  MLX active start:   {mlx_active_memory_gb_start:.2f} GB")
+    if mlx_active_memory_gb_end is not None:
+        print(f"  MLX active end:     {mlx_active_memory_gb_end:.2f} GB")
+    if mlx_peak_memory_gb is not None:
+        print(f"  MLX peak memory:    {mlx_peak_memory_gb:.2f} GB")
 
     # Save results
     os.makedirs(output_dir, exist_ok=True)

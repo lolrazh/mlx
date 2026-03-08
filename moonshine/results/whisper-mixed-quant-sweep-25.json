@@ -1,0 +1,66 @@
+[
+  {
+    "recipe": "decoder-uniform-4",
+    "dataset": "librispeech-clean",
+    "wer": 0.029213483146067417,
+    "rtf": 0.517,
+    "mlx_peak_memory_gb": 2.25,
+    "mlx_active_memory_gb_end": 1.76
+  },
+  {
+    "recipe": "decoder-uniform-6",
+    "dataset": "librispeech-clean",
+    "wer": 0.029213483146067417,
+    "rtf": 0.6,
+    "mlx_peak_memory_gb": 2.44,
+    "mlx_active_memory_gb_end": 1.96
+  },
+  {
+    "recipe": "decoder-mixed-v1",
+    "dataset": "librispeech-clean",
+    "wer": 0.029213483146067417,
+    "rtf": 0.493,
+    "mlx_peak_memory_gb": 2.33,
+    "mlx_active_memory_gb_end": 1.85
+  },
+  {
+    "recipe": "all-linear-mixed-v1",
+    "dataset": "librispeech-clean",
+    "wer": 0.029213483146067417,
+    "rtf": 0.506,
+    "mlx_peak_memory_gb": 1.77,
+    "mlx_active_memory_gb_end": 1.15
+  },
+  {
+    "recipe": "decoder-uniform-3",
+    "dataset": "librispeech-clean",
+    "wer": 0.02696629213483146,
+    "rtf": 0.51,
+    "mlx_peak_memory_gb": 2.15,
+    "mlx_active_memory_gb_end": 1.66
+  },
+  {
+    "recipe": "decoder-uniform-5",
+    "dataset": "librispeech-clean",
+    "wer": 0.029213483146067417,
+    "rtf": 0.517,
+    "mlx_peak_memory_gb": 2.35,
+    "mlx_active_memory_gb_end": 1.86
+  },
+  {
+    "recipe": "decoder-q3-kinda",
+    "dataset": "librispeech-clean",
+    "wer": 0.029213483146067417,
+    "rtf": 0.502,
+    "mlx_peak_memory_gb": 2.31,
+    "mlx_active_memory_gb_end": 1.82
+  },
+  {
+    "recipe": "decoder-q3-very-aggressive",
+    "dataset": "librispeech-clean",
+    "wer": 0.029213483146067417,
+    "rtf": 0.502,
+    "mlx_peak_memory_gb": 2.23,
+    "mlx_active_memory_gb_end": 1.74
+  }
+]

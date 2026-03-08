@@ -1,0 +1,16 @@
+{
+  "name": "decoder-uniform-5",
+  "rules": [
+    {
+      "match": {
+        "prefix": "decoder.",
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 5,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    }
+  ]
+}

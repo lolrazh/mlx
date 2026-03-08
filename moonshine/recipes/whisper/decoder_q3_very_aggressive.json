@@ -1,0 +1,43 @@
+{
+  "name": "decoder-q3-very-aggressive",
+  "rules": [
+    {
+      "match": {
+        "prefix": "decoder.blocks.",
+        "contains": ".cross_attn.",
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 5,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    },
+    {
+      "match": {
+        "prefix": "decoder.blocks.",
+        "contains_any": [".attn.", ".mlp"],
+        "block_lt": 28,
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 3,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    },
+    {
+      "match": {
+        "prefix": "decoder.blocks.",
+        "contains_any": [".attn.", ".mlp"],
+        "block_gte": 28,
+        "module_types": ["Linear"]
+      },
+      "quant": {
+        "bits": 6,
+        "group_size": 64,
+        "mode": "affine"
+      }
+    }
+  ]
+}

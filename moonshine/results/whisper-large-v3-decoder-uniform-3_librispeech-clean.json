@@ -1,0 +1,23 @@
+{
+  "model": "whisper-large-v3-decoder-uniform-3",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 25,
+  "wer": 0.02696629213483146,
+  "median_wer": 0.0,
+  "substitutions": 9,
+  "insertions": 1,
+  "deletions": 2,
+  "total_words": 445,
+  "total_audio_seconds": 158.3,
+  "total_inference_seconds": 80.7,
+  "real_time_factor": 0.51,
+  "peak_memory_gb": 0.0,
+  "mlx_active_memory_gb_start": 1.66,
+  "mlx_active_memory_gb_end": 1.66,
+  "mlx_peak_memory_gb": 2.15
+}
