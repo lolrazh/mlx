@@ -263,6 +263,17 @@ def train(
             "up_proj",
             "down_proj",
         ]
+        if _mtype == "qwen3_5":
+            # DeltaNet linear-attention layers have their own projections;
+            # without these, most Qwen3.5 layers get no LoRA (finding #81:
+            # the 96%/71% Qwen3.5-4B run trained 12 target modules).
+            target_modules += [
+                "in_proj_qkv",
+                "in_proj_z",
+                "in_proj_a",
+                "in_proj_b",
+                "out_proj",
+            ]
     print(f"LoRA task type: {peft_task_type}")
     print(f"LoRA target modules: {target_modules}")
 
