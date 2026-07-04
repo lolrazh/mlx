@@ -1,0 +1,23 @@
+{
+  "model": "cohere-transcribe-4bit",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 250,
+  "wer": 0.01283745516329998,
+  "median_wer": 0.0,
+  "substitutions": 56,
+  "insertions": 6,
+  "deletions": 6,
+  "total_words": 5297,
+  "total_audio_seconds": 1967.6,
+  "total_inference_seconds": 99.0,
+  "real_time_factor": 0.05,
+  "peak_memory_gb": 0.08,
+  "mlx_active_memory_gb_start": 1.41,
+  "mlx_active_memory_gb_end": 1.41,
+  "mlx_peak_memory_gb": 1.89
+}
