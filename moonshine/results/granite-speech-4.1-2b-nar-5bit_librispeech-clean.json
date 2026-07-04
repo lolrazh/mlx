@@ -1,0 +1,23 @@
+{
+  "model": "granite-speech-4.1-2b-nar-5bit",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 250,
+  "wer": 0.012082310741929394,
+  "median_wer": 0.0,
+  "substitutions": 50,
+  "insertions": 5,
+  "deletions": 9,
+  "total_words": 5297,
+  "total_audio_seconds": 1967.6,
+  "total_inference_seconds": 111.1,
+  "real_time_factor": 0.056,
+  "peak_memory_gb": 0.05,
+  "mlx_active_memory_gb_start": 2.21,
+  "mlx_active_memory_gb_end": 2.21,
+  "mlx_peak_memory_gb": 3.26
+}
