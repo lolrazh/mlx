@@ -34,7 +34,7 @@ mamba_image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install("torch==2.9.*", "torchvision")
     .pip_install(
-        "transformers==5.3.0",
+        "transformers==4.53.0",
         "peft==0.14.0",
         "sentencepiece",
         "safetensors",
@@ -122,10 +122,17 @@ def merge_checkpoint(
         model_name,
         **model_load_kwargs,
     )
-    tokenizer = AutoTokenizer.from_pretrained(
-        str(adapter_dir),
-        trust_remote_code=True,
-    )
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(
+            str(adapter_dir),
+            trust_remote_code=True,
+        )
+    except Exception as exc:
+        # Checkpoints saved under transformers 5.x stamp tokenizer_class
+        # "TokenizersBackend", which 4.x can't resolve. The tokenizer is
+        # unchanged from the base model, so load it from there instead.
+        print(f"Adapter tokenizer unreadable ({exc}); loading base tokenizer.")
+        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 
     print(f"Loading adapter: {adapter_dir}")
     peft_model = PeftModel.from_pretrained(base_model, str(adapter_dir))

@@ -39,7 +39,7 @@ mamba_image = (
     modal.Image.debian_slim(python_version="3.11")
     .pip_install("torch==2.9.*", "torchvision")
     .pip_install(
-        "transformers==5.3.0",
+        "transformers==4.53.0",
         "accelerate==1.2.1",
         "sentencepiece",
         "safetensors",

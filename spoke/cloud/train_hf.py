@@ -46,7 +46,7 @@ mamba_image = (
     .apt_install("git")
     .pip_install("torch==2.9.*", "torchvision")
     .pip_install(
-        "transformers==5.3.0",
+        "transformers==4.53.0",
         "accelerate==1.4.0",
         "datasets==3.2.0",
         "peft==0.14.0",
