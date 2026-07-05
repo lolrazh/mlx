@@ -52,6 +52,8 @@ mamba_image = (
         "pip install --no-build-isolation --no-deps git+https://github.com/Dao-AILab/causal-conv1d.git@v1.5.0.post8",
         "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 MAMBA_FORCE_BUILD=TRUE "
         "pip install --no-build-isolation --no-deps git+https://github.com/state-spaces/mamba.git@v2.3.2.post1",
+        # mamba_ssm 2.3.x mamba3 kernels need triton.set_allocator (triton>=3.3).
+        "pip install 'triton>=3.3.0,<3.5'",
     )
 )
 
