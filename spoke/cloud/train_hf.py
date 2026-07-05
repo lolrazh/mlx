@@ -136,7 +136,7 @@ def train(
     _mtype = getattr(model_config, "model_type", "")
     _has_text_config = getattr(model_config, "text_config", None) is not None
     # Multimodal models with a usable text-only decoder path
-    MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n"}
+    MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n", "mistral3"}
     is_multimodal_text_only = bool(_mtype in MULTIMODAL_TEXT_ONLY_TYPES and _has_text_config)
     effective_model_config = model_config.text_config if is_multimodal_text_only else model_config
     is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
@@ -274,6 +274,11 @@ def train(
                 "in_proj_b",
                 "out_proj",
             ]
+        elif _mtype == "nemotron_h":
+            # Hybrid Mamba-2/attention: most layers are Mamba mixers whose
+            # projections are in_proj/out_proj — without them LoRA only
+            # touches the few attention layers.
+            target_modules += ["in_proj", "out_proj"]
     print(f"LoRA task type: {peft_task_type}")
     print(f"LoRA target modules: {target_modules}")
 

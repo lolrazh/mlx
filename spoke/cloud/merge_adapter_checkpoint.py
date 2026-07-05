@@ -74,7 +74,7 @@ def merge_checkpoint(
     model_config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
     _mtype = getattr(model_config, "model_type", "")
     _has_text_config = getattr(model_config, "text_config", None) is not None
-    MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n"}
+    MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n", "mistral3"}
     is_multimodal_text_only = bool(_mtype in MULTIMODAL_TEXT_ONLY_TYPES and _has_text_config)
     effective_model_config = model_config.text_config if is_multimodal_text_only else model_config
     is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
