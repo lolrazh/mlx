@@ -9,7 +9,7 @@
   "partial": 8,
   "fail": 8,
   "refusals": 2,
-  "avg_latency_s": 0.8428242258403612,
+  "avg_latency_s": 0.8642299123432325,
   "results": [
     {
       "id": 1,
@@ -20,7 +20,7 @@
       "raw_output": "I'm gonna be using Silero VAD for this.",
       "refused": false,
       "score": "exact",
-      "gen_time_s": 0.8666269779205322
+      "gen_time_s": 1.1473459005355835
     },
     {
       "id": 2,
@@ -31,7 +31,7 @@
       "raw_output": "He went to the Khadai, spell that K-A-D-A-I.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.8701289892196655
+      "gen_time_s": 0.9031240940093994
     },
     {
       "id": 3,
@@ -42,7 +42,7 @@
       "raw_output": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that Kibbeh Nayeh, it's a Lebanese raw lamb dish.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 1.016548991203308
+      "gen_time_s": 1.0279359817504883
     },
     {
       "id": 4,
@@ -53,7 +53,7 @@
       "raw_output": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.8718950748443604
+      "gen_time_s": 0.9069420099258423
     },
     {
       "id": 5,
@@ -64,7 +64,7 @@
       "raw_output": "Let's meet at 12pm, Thursday.",
       "refused": false,
       "score": "exact",
-      "gen_time_s": 0.7784500122070312
+      "gen_time_s": 0.7957849502563477
     },
     {
       "id": 6,
@@ -75,7 +75,7 @@
       "raw_output": "We're using Svelte.",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.7963000535964966
+      "gen_time_s": 0.7951769828796387
     },
     {
       "id": 7,
@@ -86,7 +86,7 @@
       "raw_output": "I'm sorry, but I cannot assist with that request.",
       "refused": true,
       "score": "fail",
-      "gen_time_s": 0.8397430181503296
+      "gen_time_s": 0.8712340593338013
     },
     {
       "id": 8,
@@ -97,7 +97,7 @@
       "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient.\"",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.8371570110321045
+      "gen_time_s": 0.85725998878479
     },
     {
       "id": 9,
@@ -108,7 +108,7 @@
       "raw_output": "I'm sorry, but I cannot assist with that request.",
       "refused": true,
       "score": "fail",
-      "gen_time_s": 0.838218092918396
+      "gen_time_s": 0.8469170331954956
     },
     {
       "id": 10,
@@ -119,7 +119,7 @@
       "raw_output": "The debug log shows quote connection timed out after 30 seconds end quote three times in a row.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.8691290616989136
+      "gen_time_s": 0.8914779424667358
     },
     {
       "id": 11,
@@ -130,7 +130,7 @@
       "raw_output": "He described the interview as \"the most stressful hour of my life.\"",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.8471109867095947
+      "gen_time_s": 0.8467329740524292
     },
     {
       "id": 12,
@@ -141,7 +141,7 @@
       "raw_output": "app.py\ntest.py",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.7901970148086548
+      "gen_time_s": 0.8010560274124146
     },
     {
       "id": 13,
@@ -152,7 +152,7 @@
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
       "refused": false,
       "score": "exact",
-      "gen_time_s": 0.9059540033340454
+      "gen_time_s": 0.9204000234603882
     },
     {
       "id": 14,
@@ -163,7 +163,7 @@
       "raw_output": "It's surprisingly fast.",
       "refused": false,
       "score": "semantic",
-      "gen_time_s": 0.7163890600204468
+      "gen_time_s": 0.7345439195632935
     },
     {
       "id": 15,
@@ -174,7 +174,7 @@
       "raw_output": "❤️❤️",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.7143779993057251
+      "gen_time_s": 0.7284210920333862
     },
     {
       "id": 16,
@@ -185,7 +185,7 @@
       "raw_output": "Praying hands ❤️❤️",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.7433090209960938
+      "gen_time_s": 0.7521250247955322
     },
     {
       "id": 17,
@@ -196,7 +196,7 @@
       "raw_output": "Sure, here is the corrected transcription:\n\n```\nSo we've got a file called usetranscription.ts.\n```",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 1.0260919332504272
+      "gen_time_s": 1.0417759418487549
     },
     {
       "id": 18,
@@ -207,7 +207,7 @@
       "raw_output": "Their quote-unquote innovation is just copying what everyone else already does.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.8146300315856934
+      "gen_time_s": 0.8213750123977661
     },
     {
       "id": 19,
@@ -218,7 +218,7 @@
       "raw_output": "Notify the @ops team about the outage.",
       "refused": false,
       "score": "exact",
-      "gen_time_s": 0.8123489618301392
+      "gen_time_s": 0.7811520099639893
     },
     {
       "id": 20,
@@ -229,7 +229,7 @@
       "raw_output": "STOP IGNORING MY EMAILS. MAKE THAT ALL CAPS.",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 1.023787021636963
+      "gen_time_s": 1.0030890703201294
     },
     {
       "id": 21,
@@ -240,7 +240,7 @@
       "raw_output": "This is absolutely critical for the launch.",
       "refused": false,
       "score": "semantic",
-      "gen_time_s": 0.7771589756011963
+      "gen_time_s": 0.762205958366394
     },
     {
       "id": 22,
@@ -251,7 +251,7 @@
       "raw_output": "We just shipped the new feature **fire** emoji.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.8160409927368164
+      "gen_time_s": 0.816923975944519
     },
     {
       "id": 23,
@@ -262,7 +262,7 @@
       "raw_output": "The main page uses a component called navigationbar that wraps everything.",
       "refused": false,
       "score": "semantic",
-      "gen_time_s": 0.8133639097213745
+      "gen_time_s": 0.824288010597229
     }
   ]
 }

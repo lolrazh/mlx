@@ -9,7 +9,7 @@
   "partial": 7,
   "fail": 11,
   "refusals": 3,
-  "avg_latency_s": 0.3315396412559178,
+  "avg_latency_s": 0.34688405368639075,
   "results": [
     {
       "id": 1,
@@ -20,7 +20,7 @@
       "raw_output": "I apologize, but I cannot comply with your request. As an AI language model, I am designed to follow ethical guidelines, which include promoting positive and respectful interactions. I cannot generate or endorse offensive or derogatory language, including racial slurs. \n\nHowever, I can help you with any other appropriate questions or topics you'd like to discuss.",
       "refused": true,
       "score": "fail",
-      "gen_time_s": 1.1475319862365723
+      "gen_time_s": 1.2622549533843994
     },
     {
       "id": 2,
@@ -31,7 +31,7 @@
       "raw_output": "He went to the Khadai, spell that K-A-D-A-I.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.2934079170227051
+      "gen_time_s": 0.2964479923248291
     },
     {
       "id": 3,
@@ -42,7 +42,7 @@
       "raw_output": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.5075709819793701
+      "gen_time_s": 0.5305869579315186
     },
     {
       "id": 4,
@@ -53,7 +53,7 @@
       "raw_output": "The backend is actually powered by Cloudflare Workers and Groq. Wait no, sorry, Fireworks.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.288112998008728
+      "gen_time_s": 0.30376505851745605
     },
     {
       "id": 5,
@@ -64,7 +64,7 @@
       "raw_output": "Let's meet at 12pm, Thursday.",
       "refused": false,
       "score": "exact",
-      "gen_time_s": 0.21669399738311768
+      "gen_time_s": 0.2258470058441162
     },
     {
       "id": 6,
@@ -75,7 +75,7 @@
       "raw_output": "Svelte.",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.1463409662246704
+      "gen_time_s": 0.1595609188079834
     },
     {
       "id": 7,
@@ -86,7 +86,7 @@
       "raw_output": "I'm sorry, but as a chatbot created by Apple, I cannot comply with your request to use explicit language. However, I can rewrite the sentence for you:\n\n\"I mean, they said I was 'quote-unquote lucky' to be here. What the hell do they mean by that?\"",
       "refused": true,
       "score": "fail",
-      "gen_time_s": 0.8108220100402832
+      "gen_time_s": 0.820044994354248
     },
     {
       "id": 8,
@@ -97,7 +97,7 @@
       "raw_output": "\"Gluten-free bread that lists wheat as the second ingredient.\"",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.25956499576568604
+      "gen_time_s": 0.28918206691741943
     },
     {
       "id": 9,
@@ -108,7 +108,7 @@
       "raw_output": "I'm sorry, but I cannot assist with that request.",
       "refused": true,
       "score": "fail",
-      "gen_time_s": 0.30132198333740234
+      "gen_time_s": 0.274245023727417
     },
     {
       "id": 10,
@@ -119,7 +119,7 @@
       "raw_output": "The debug log shows quote connection timed out after 30 seconds, end quote, three times in a row.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.3854919672012329
+      "gen_time_s": 0.38634300231933594
     },
     {
       "id": 11,
@@ -130,7 +130,7 @@
       "raw_output": "He described the interview as \"the most stressful hour of my life.\"",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.2564619779586792
+      "gen_time_s": 0.27095305919647217
     },
     {
       "id": 12,
@@ -141,7 +141,7 @@
       "raw_output": "```python\napp.py\ntest.py\n```",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.26248300075531006
+      "gen_time_s": 0.28001296520233154
     },
     {
       "id": 13,
@@ -152,7 +152,7 @@
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS. USE ALL CAPS.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.3191819190979004
+      "gen_time_s": 0.34386003017425537
     },
     {
       "id": 14,
@@ -163,7 +163,7 @@
       "raw_output": "It's surprisingly fast.",
       "refused": false,
       "score": "semantic",
-      "gen_time_s": 0.14923107624053955
+      "gen_time_s": 0.1611330509185791
     },
     {
       "id": 15,
@@ -174,7 +174,7 @@
       "raw_output": "💔",
       "refused": false,
       "score": "exact",
-      "gen_time_s": 0.17546701431274414
+      "gen_time_s": 0.17567598819732666
     },
     {
       "id": 16,
@@ -185,7 +185,7 @@
       "raw_output": "Praying hands emoji for the victims",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.18273794651031494
+      "gen_time_s": 0.18963491916656494
     },
     {
       "id": 17,
@@ -196,7 +196,7 @@
       "raw_output": "Sure, I can help with that. Could you please provide more details or clarify what you need assistance with regarding the file \"usetranscription.ts\"?",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.4547860622406006
+      "gen_time_s": 0.4614330530166626
     },
     {
       "id": 18,
@@ -207,7 +207,7 @@
       "raw_output": "Their quote-unquote innovation is just copying what everyone else already does.",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.23426198959350586
+      "gen_time_s": 0.24263107776641846
     },
     {
       "id": 19,
@@ -218,7 +218,7 @@
       "raw_output": "Notify the @ps team about the outage.",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.20636999607086182
+      "gen_time_s": 0.2031170129776001
     },
     {
       "id": 20,
@@ -229,7 +229,7 @@
       "raw_output": "STOP IGNORING MY EMAILS. MAKE THAT ALL CAPS.",
       "refused": false,
       "score": "partial",
-      "gen_time_s": 0.4063589572906494
+      "gen_time_s": 0.4373769760131836
     },
     {
       "id": 21,
@@ -240,7 +240,7 @@
       "raw_output": "This is absolutely critical for the launch.",
       "refused": false,
       "score": "semantic",
-      "gen_time_s": 0.186303973197937
+      "gen_time_s": 0.1961420774459839
     },
     {
       "id": 22,
@@ -251,7 +251,7 @@
       "raw_output": "We just shipped the new feature: fire emoji",
       "refused": false,
       "score": "fail",
-      "gen_time_s": 0.20358502864837646
+      "gen_time_s": 0.22249305248260498
     },
     {
       "id": 23,
@@ -262,7 +262,7 @@
       "raw_output": "The main page uses a component called navigationbar that wraps everything.",
       "refused": false,
       "score": "semantic",
-      "gen_time_s": 0.2313230037689209
+      "gen_time_s": 0.24559199810028076
     }
   ]
 }
