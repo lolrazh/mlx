@@ -11,6 +11,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 import hashlib
@@ -22,7 +23,7 @@ app = modal.App("spoke-benchmark")
 
 output_vol = modal.Volume.from_name("spoke-output", create_if_missing=False)
 
-image = (
+standard_image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .pip_install(
         "transformers==5.3.0",
@@ -31,6 +32,30 @@ image = (
         "safetensors",
     )
 )
+
+# Source-compiled Mamba kernels for Nemotron H — see train_hf.py for why
+# prebuilt wheels can't be used. Select with SPOKE_MAMBA_IMAGE=1.
+mamba_image = (
+    modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-devel")
+    .apt_install("git")
+    .pip_install(
+        "transformers==5.3.0",
+        "accelerate==1.2.1",
+        "sentencepiece",
+        "safetensors",
+        "packaging",
+        "ninja",
+        "einops",
+    )
+    .run_commands(
+        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 CAUSAL_CONV1D_FORCE_BUILD=TRUE "
+        "pip install --no-build-isolation --no-deps causal-conv1d==1.5.0.post8",
+        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 MAMBA_FORCE_BUILD=TRUE "
+        "pip install --no-build-isolation --no-deps mamba-ssm==2.3.2.post1",
+    )
+)
+
+image = mamba_image if os.environ.get("SPOKE_MAMBA_IMAGE") == "1" else standard_image
 
 GENERIC_PROMPT = (
     "Clean the transcript by executing all verbal commands "

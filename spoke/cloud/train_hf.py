@@ -11,6 +11,7 @@ Usage:
 
 from __future__ import annotations
 
+import os
 import re
 import modal
 
@@ -20,7 +21,7 @@ model_cache = modal.Volume.from_name("spoke-model-cache", create_if_missing=True
 training_data = modal.Volume.from_name("spoke-training-data", create_if_missing=True)
 output_vol = modal.Volume.from_name("spoke-output", create_if_missing=True)
 
-image = (
+standard_image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .apt_install("git", "build-essential")
     .pip_install(
@@ -33,6 +34,36 @@ image = (
         "wandb",
     )
 )
+
+# Mamba-hybrid models (Nemotron H) need the mamba-ssm/causal-conv1d CUDA
+# kernels. Every prebuilt wheel variant fails with undefined c10 symbols
+# against both conda and pip torch 2.6, so compile from source in a devel
+# image (has nvcc). TORCH_CUDA_ARCH_LIST=8.9 = L40S only, keeps the one-time
+# build short. Select with SPOKE_MAMBA_IMAGE=1 at `modal run` time.
+mamba_image = (
+    modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-devel")
+    .apt_install("git")
+    .pip_install(
+        "transformers==5.3.0",
+        "accelerate==1.4.0",
+        "datasets==3.2.0",
+        "peft==0.14.0",
+        "sentencepiece",
+        "safetensors",
+        "wandb",
+        "packaging",
+        "ninja",
+        "einops",
+    )
+    .run_commands(
+        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 CAUSAL_CONV1D_FORCE_BUILD=TRUE "
+        "pip install --no-build-isolation --no-deps causal-conv1d==1.5.0.post8",
+        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 MAMBA_FORCE_BUILD=TRUE "
+        "pip install --no-build-isolation --no-deps mamba-ssm==2.3.2.post1",
+    )
+)
+
+image = mamba_image if os.environ.get("SPOKE_MAMBA_IMAGE") == "1" else standard_image
 
 V2_SYSTEM_PROMPT = (
     "You are a verbatim ASR cleaner. Fix punctuation, capitalization, and "
