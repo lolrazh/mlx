@@ -9,6 +9,8 @@ Usage:
 
 from __future__ import annotations
 
+import os
+
 import modal
 
 app = modal.App("spoke-merge-hf-checkpoint")
@@ -16,7 +18,7 @@ app = modal.App("spoke-merge-hf-checkpoint")
 model_cache = modal.Volume.from_name("spoke-model-cache", create_if_missing=True)
 output_vol = modal.Volume.from_name("spoke-output", create_if_missing=True)
 
-image = (
+standard_image = (
     modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime")
     .pip_install(
         "transformers==5.3.0",
@@ -25,6 +27,28 @@ image = (
         "safetensors",
     )
 )
+
+# Modern-stack image for Mamba-hybrid models (Nemotron H) — see train_hf.py.
+# Select with SPOKE_MAMBA_IMAGE=1.
+mamba_image = (
+    modal.Image.debian_slim(python_version="3.11")
+    .pip_install("torch==2.9.*", "torchvision")
+    .pip_install(
+        "transformers==5.3.0",
+        "peft==0.14.0",
+        "sentencepiece",
+        "safetensors",
+        "packaging",
+        "einops",
+    )
+    .pip_install(
+        "https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.6.2.post1/causal_conv1d-1.6.2.post1+cu12torch2.9cxx11abiTRUE-cp311-cp311-linux_x86_64.whl",
+        "https://github.com/state-spaces/mamba/releases/download/v2.3.2.post1/mamba_ssm-2.3.2.post1+cu12torch2.9cxx11abiTRUE-cp311-cp311-linux_x86_64.whl",
+        extra_options="--no-deps",
+    )
+)
+
+image = mamba_image if os.environ.get("SPOKE_MAMBA_IMAGE") == "1" else standard_image
 
 
 @app.function(
@@ -109,6 +133,13 @@ def merge_checkpoint(
     merged = peft_model.merge_and_unload()
 
     print(f"Saving merged model to: {merged_dir}")
+    # Strip sampling flags when do_sample is off (Nemotron H ships top_p=0.95
+    # with greedy decoding; transformers 5.x refuses to save that combination).
+    gen_config = getattr(merged, "generation_config", None)
+    if gen_config is not None and not getattr(gen_config, "do_sample", False):
+        gen_config.temperature = None
+        gen_config.top_p = None
+        gen_config.top_k = None
     merged.save_pretrained(str(merged_dir), safe_serialization=True)
     tokenizer.save_pretrained(str(merged_dir))
 

@@ -801,6 +801,14 @@ def train(
 
             print(f"Saving merged bf16 model to {merged_path}")
             merged_model = trainer.model.merge_and_unload()
+            # Some base models (e.g. Nemotron H) ship sampling params with
+            # do_sample=False; transformers 5.x refuses to save that. Spoke
+            # decodes greedily (finding #94), so strip the sampling flags.
+            gen_config = getattr(merged_model, "generation_config", None)
+            if gen_config is not None and not getattr(gen_config, "do_sample", False):
+                gen_config.temperature = None
+                gen_config.top_p = None
+                gen_config.top_k = None
             merged_model.save_pretrained(merged_path, safe_serialization=True)
             tokenizer.save_pretrained(merged_path)
 
