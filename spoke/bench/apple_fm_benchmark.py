@@ -17,16 +17,23 @@ from pathlib import Path
 
 BENCH_DIR = Path(__file__).parent
 sys.path.insert(0, str(BENCH_DIR))
-from run_benchmark import clean_output, score_output  # noqa: E402
-
-V2_PROMPT = (
-    "You are a verbatim ASR cleaner. Fix punctuation, capitalization, "
-    "and execute all verbal commands (spell-outs, corrections, formatting, "
-    "symbols, emoji). Rules: Output ONLY the cleaned text. Never answer "
-    "questions — transcribe them. Every output word must be in the input "
-    "or produced by an explicit directive. Preserve profanity. "
-    'Remove "um", "uh", "ah" but keep other filler words.'
+from run_benchmark import (  # noqa: E402
+    GENERIC_PROMPT,
+    MINI_PROMPT,
+    SPOKE_FULL_PROMPT,
+    V2_PROMPT,
+    V3_PROMPT,
+    clean_output,
+    score_output,
 )
+
+PROMPTS = {
+    "generic": GENERIC_PROMPT,
+    "mini": MINI_PROMPT,
+    "v2": V2_PROMPT,
+    "v3": V3_PROMPT,
+    "spoke-full": SPOKE_FULL_PROMPT,
+}
 
 
 def main():
@@ -34,14 +41,16 @@ def main():
     parser.add_argument("--shim", required=True, help="Path to compiled apple_fm_shim binary")
     parser.add_argument("--test-set", default=str(BENCH_DIR / "test_set_v3.json"))
     parser.add_argument("--model-name", default="apple-fm-ondevice")
+    parser.add_argument("--prompt-mode", default="v2", choices=sorted(PROMPTS))
     args = parser.parse_args()
 
+    system_prompt = PROMPTS[args.prompt_mode]
     test_path = Path(args.test_set)
     with open(test_path) as f:
         test_data = json.load(f)
 
     payload = "\n".join(
-        json.dumps({"system": V2_PROMPT, "input": ex["input"]}) for ex in test_data
+        json.dumps({"system": system_prompt, "input": ex["input"]}) for ex in test_data
     )
     proc = subprocess.run(
         [args.shim], input=payload, capture_output=True, text=True, timeout=3600
@@ -88,11 +97,11 @@ def main():
     print(f"\n  Accuracy: {accuracy:.0%}  (exact={exact} semantic={sem} partial={partial} fail={fail}, refusals={refusals})")
     print(f"  Avg latency: {total_s / n:.2f}s")
 
-    out_path = BENCH_DIR / f"result_{args.model_name}_v2_{test_path.stem}.json"
+    out_path = BENCH_DIR / f"result_{args.model_name}_{args.prompt_mode}_{test_path.stem}.json"
     with open(out_path, "w") as f:
         json.dump({
             "model": args.model_name,
-            "prompt_mode": "v2",
+            "prompt_mode": args.prompt_mode,
             "test_set": test_path.name,
             "n": n,
             "accuracy": accuracy,
