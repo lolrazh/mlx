@@ -36,13 +36,15 @@ standard_image = (
 )
 
 # Mamba-hybrid models (Nemotron H) need the mamba-ssm/causal-conv1d CUDA
-# kernels. Every prebuilt wheel variant fails with undefined c10 symbols
-# against both conda and pip torch 2.6, so compile from source in a devel
-# image (has nvcc). TORCH_CUDA_ARCH_LIST=8.9 = L40S only, keeps the one-time
-# build short. Select with SPOKE_MAMBA_IMAGE=1 at `modal run` time.
+# kernels. mamba-ssm 2.3.x targets the torch 2.9 era (triton>=3.5); its
+# "torch2.6" wheels don't link and source builds hit triton API drift. So the
+# mamba image runs a coherent modern stack: pip torch 2.9 + torch2.9-tagged
+# prebuilt wheels (--no-deps: their metadata would drag in cu13 torch 2.12).
+# Select with SPOKE_MAMBA_IMAGE=1 at `modal run` time.
 mamba_image = (
-    modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-devel")
+    modal.Image.debian_slim(python_version="3.11")
     .apt_install("git")
+    .pip_install("torch==2.9.*", "torchvision")
     .pip_install(
         "transformers==5.3.0",
         "accelerate==1.4.0",
@@ -55,11 +57,10 @@ mamba_image = (
         "ninja",
         "einops",
     )
-    .run_commands(
-        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 CAUSAL_CONV1D_FORCE_BUILD=TRUE "
-        "pip install --no-build-isolation --no-deps git+https://github.com/Dao-AILab/causal-conv1d.git@v1.5.0.post8",
-        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 MAMBA_FORCE_BUILD=TRUE "
-        "pip install --no-build-isolation --no-deps git+https://github.com/state-spaces/mamba.git@v2.3.2.post1",
+    .pip_install(
+        "https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.6.2.post1/causal_conv1d-1.6.2.post1+cu12torch2.9cxx11abiTRUE-cp311-cp311-linux_x86_64.whl",
+        "https://github.com/state-spaces/mamba/releases/download/v2.3.2.post1/mamba_ssm-2.3.2.post1+cu12torch2.9cxx11abiTRUE-cp311-cp311-linux_x86_64.whl",
+        extra_options="--no-deps",
     )
 )
 

@@ -33,11 +33,11 @@ standard_image = (
     )
 )
 
-# Source-compiled Mamba kernels for Nemotron H — see train_hf.py for why
-# prebuilt wheels can't be used. Select with SPOKE_MAMBA_IMAGE=1.
+# Modern-stack image for Mamba-hybrid models (Nemotron H) — see train_hf.py.
+# Select with SPOKE_MAMBA_IMAGE=1.
 mamba_image = (
-    modal.Image.from_registry("pytorch/pytorch:2.6.0-cuda12.4-cudnn9-devel")
-    .apt_install("git")
+    modal.Image.debian_slim(python_version="3.11")
+    .pip_install("torch==2.9.*", "torchvision")
     .pip_install(
         "transformers==5.3.0",
         "accelerate==1.2.1",
@@ -47,11 +47,10 @@ mamba_image = (
         "ninja",
         "einops",
     )
-    .run_commands(
-        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 CAUSAL_CONV1D_FORCE_BUILD=TRUE "
-        "pip install --no-build-isolation --no-deps git+https://github.com/Dao-AILab/causal-conv1d.git@v1.5.0.post8",
-        "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 MAMBA_FORCE_BUILD=TRUE "
-        "pip install --no-build-isolation --no-deps git+https://github.com/state-spaces/mamba.git@v2.3.2.post1",
+    .pip_install(
+        "https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.6.2.post1/causal_conv1d-1.6.2.post1+cu12torch2.9cxx11abiTRUE-cp311-cp311-linux_x86_64.whl",
+        "https://github.com/state-spaces/mamba/releases/download/v2.3.2.post1/mamba_ssm-2.3.2.post1+cu12torch2.9cxx11abiTRUE-cp311-cp311-linux_x86_64.whl",
+        extra_options="--no-deps",
     )
 )
 
