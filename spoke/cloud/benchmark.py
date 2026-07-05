@@ -49,9 +49,9 @@ mamba_image = (
     )
     .run_commands(
         "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 CAUSAL_CONV1D_FORCE_BUILD=TRUE "
-        "pip install --no-build-isolation --no-deps causal-conv1d==1.5.0.post8",
+        "pip install --no-build-isolation --no-deps git+https://github.com/Dao-AILab/causal-conv1d.git@v1.5.0.post8",
         "TORCH_CUDA_ARCH_LIST=8.9 MAX_JOBS=8 MAMBA_FORCE_BUILD=TRUE "
-        "pip install --no-build-isolation --no-deps mamba-ssm==2.3.2.post1",
+        "pip install --no-build-isolation --no-deps git+https://github.com/state-spaces/mamba.git@v2.3.2.post1",
     )
 )
 
