@@ -48,7 +48,28 @@ mamba_image = (
     )
 )
 
-image = mamba_image if os.environ.get("SPOKE_MAMBA_IMAGE") == "1" else standard_image
+# Gemma 4 needs transformers>=5.5.2 + torch>=2.7 + peft>=0.19 and the FULL
+# Gemma4ForConditionalGeneration (nested language_model.* keys). See train_hf.py.
+# Select with SPOKE_GEMMA4_IMAGE=1.
+gemma4_image = (
+    modal.Image.debian_slim(python_version="3.11")
+    .apt_install("git")
+    .pip_install("torch==2.8.*", "torchvision")
+    .pip_install(
+        "transformers==5.5.2",
+        "peft==0.19.0",
+        "accelerate",
+        "sentencepiece",
+        "safetensors",
+    )
+)
+
+if os.environ.get("SPOKE_MAMBA_IMAGE") == "1":
+    image = mamba_image
+elif os.environ.get("SPOKE_GEMMA4_IMAGE") == "1":
+    image = gemma4_image
+else:
+    image = standard_image
 
 
 @app.function(
@@ -100,10 +121,16 @@ def merge_checkpoint(
     _has_text_config = getattr(model_config, "text_config", None) is not None
     MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n", "mistral3"}
     is_multimodal_text_only = bool(_mtype in MULTIMODAL_TEXT_ONLY_TYPES and _has_text_config)
+    is_gemma4 = bool(_mtype == "gemma4")
     effective_model_config = model_config.text_config if is_multimodal_text_only else model_config
     is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
     if is_encoder_decoder:
         model_cls = AutoModelForSeq2SeqLM
+    elif is_gemma4:
+        # Full multimodal load so language_model.* decoder weights map (the
+        # adapter was trained on this same full model). See train_hf.py #106.
+        from transformers import Gemma4ForConditionalGeneration
+        model_cls = Gemma4ForConditionalGeneration
     else:
         model_cls = AutoModelForCausalLM
     print(f"Detected architecture: {_mtype} ({'multimodal text-only' if is_multimodal_text_only else 'seq2seq' if is_encoder_decoder else 'causal'})")
