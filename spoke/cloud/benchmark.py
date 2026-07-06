@@ -54,7 +54,28 @@ mamba_image = (
     )
 )
 
-image = mamba_image if os.environ.get("SPOKE_MAMBA_IMAGE") == "1" else standard_image
+# Gemma 4 needs transformers>=5.5.2 + torch>=2.7 (float8 dtype) and loads via
+# the FULL Gemma4ForConditionalGeneration (the merged checkpoint keeps the
+# multimodal `model.language_model.*` nesting + towers). See train_hf.py.
+# Select with SPOKE_GEMMA4_IMAGE=1.
+gemma4_image = (
+    modal.Image.debian_slim(python_version="3.11")
+    .apt_install("git")
+    .pip_install("torch==2.8.*", "torchvision")
+    .pip_install(
+        "transformers==5.5.2",
+        "accelerate",
+        "sentencepiece",
+        "safetensors",
+    )
+)
+
+if os.environ.get("SPOKE_MAMBA_IMAGE") == "1":
+    image = mamba_image
+elif os.environ.get("SPOKE_GEMMA4_IMAGE") == "1":
+    image = gemma4_image
+else:
+    image = standard_image
 
 GENERIC_PROMPT = (
     "Clean the transcript by executing all verbal commands "
@@ -337,6 +358,10 @@ def benchmark_remote(
     _has_text_config = getattr(model_config, "text_config", None) is not None
     MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n", "mistral3"}
     is_multimodal_text_only = bool(_mtype in MULTIMODAL_TEXT_ONLY_TYPES and _has_text_config)
+    # Gemma 4 merged checkpoint keeps the multimodal nesting; load the FULL
+    # Gemma4ForConditionalGeneration (text-only classes miss the language_model.*
+    # keys -> random weights). See train_hf.py.
+    is_gemma4 = bool(_mtype == "gemma4")
     effective_model_config = model_config.text_config if is_multimodal_text_only else model_config
     is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
@@ -350,6 +375,10 @@ def benchmark_remote(
         print(f"Loading {_mtype} in text-only mode (AutoModelForCausalLM).")
     if is_encoder_decoder:
         model_cls = AutoModelForSeq2SeqLM
+    elif is_gemma4:
+        from transformers import Gemma4ForConditionalGeneration
+        model_cls = Gemma4ForConditionalGeneration
+        print("Gemma 4: loading FULL Gemma4ForConditionalGeneration (merged multimodal checkpoint).")
     else:
         model_cls = AutoModelForCausalLM
     model_load_kwargs = dict(
