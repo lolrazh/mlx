@@ -211,9 +211,9 @@ def build_prompt(tokenizer, input_text, model_path, category=None, prompt_mode="
         messages.append({"role": "system", "content": system})
     messages.append({"role": "user", "content": input_text})
 
-    # Qwen3: disable thinking mode for speed
+    # Qwen3 / Gemma 4: disable thinking mode for speed
     kwargs = {}
-    if "qwen3" in model_path.lower():
+    if "qwen3" in model_path.lower() or "gemma-4" in model_path.lower():
         try:
             return tokenizer.apply_chat_template(
                 messages, tokenize=False,
