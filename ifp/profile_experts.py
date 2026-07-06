@@ -49,10 +49,17 @@ DEFAULT_MODEL = "mlx-community/gemma-4-26B-A4B-it-qat-4bit"
 
 
 class RouterTap:
-    """Class-level patch on gemma4_text.Router that records routing decisions."""
+    """Class-level patch on the model's router that records routing decisions.
+
+    Supports two MoE families:
+    - gemma4:     dedicated Router module returning (indices, weights)
+    - qwen3.5/3.6: routing inline in Qwen3NextSparseMoeBlock.__call__ — we let
+      the block run, then recompute the gate top-k (one tiny extra matmul,
+      deterministic so bit-identical to what the block used)
+    """
 
     def __init__(self):
-        self.layer_of = {}      # id(router) -> layer index
+        self.layer_of = {}      # id(router or moe block) -> layer index
         self.records = []       # (layer_idx, top_k_indices, top_k_weights) as lazy mx arrays
         self.enabled = False
 
@@ -60,25 +67,70 @@ class RouterTap:
         layers = getattr(model, "layers", None)
         if layers is None:
             layers = model.language_model.layers
+        tap = self
+
+        if getattr(layers[0], "router", None) is not None or any(
+            getattr(l, "router", None) is not None for l in layers
+        ):
+            for i, layer in enumerate(layers):
+                router = getattr(layer, "router", None)
+                if router is not None:
+                    self.layer_of[id(router)] = i
+
+            orig_call = gemma4_text.Router.__call__
+
+            def tapped_router(router_self, x):
+                idx, w = orig_call(router_self, x)
+                if tap.enabled:
+                    layer = tap.layer_of.get(id(router_self))
+                    if layer is not None:
+                        tap.records.append((layer, idx, w))
+                return idx, w
+
+            gemma4_text.Router.__call__ = tapped_router
+            return len(self.layer_of)
+
+        # Qwen MoE blocks (qwen3_moe and qwen3_next/3.5/3.6 share the same
+        # gate/top_k/norm_topk_prob interface) — patch whichever class the
+        # model's MoE layers actually use.
+        moe_classes = []
+        try:
+            from mlx_lm.models.qwen3_next import Qwen3NextSparseMoeBlock
+            moe_classes.append(Qwen3NextSparseMoeBlock)
+        except ImportError:
+            pass
+        try:
+            from mlx_lm.models.qwen3_moe import Qwen3MoeSparseMoeBlock
+            moe_classes.append(Qwen3MoeSparseMoeBlock)
+        except ImportError:
+            pass
+
+        block_cls = None
         for i, layer in enumerate(layers):
-            router = getattr(layer, "router", None)
-            if router is not None:
-                self.layer_of[id(router)] = i
+            mlp = getattr(layer, "mlp", None)
+            if any(isinstance(mlp, c) for c in moe_classes):
+                self.layer_of[id(mlp)] = i
+                block_cls = type(mlp)
         if not self.layer_of:
             raise RuntimeError("No routers found — is this a MoE checkpoint?")
 
-        tap = self
-        orig_call = gemma4_text.Router.__call__
+        orig_moe_call = block_cls.__call__
 
-        def tapped_call(router_self, x):
-            idx, w = orig_call(router_self, x)
+        def tapped_moe(blk, x):
+            y = orig_moe_call(blk, x)
             if tap.enabled:
-                layer = tap.layer_of.get(id(router_self))
+                layer = tap.layer_of.get(id(blk))
                 if layer is not None:
-                    tap.records.append((layer, idx, w))
-            return idx, w
+                    gates = mx.softmax(blk.gate(x), axis=-1, precise=True)
+                    k = blk.top_k
+                    inds = mx.argpartition(gates, kth=-k, axis=-1)[..., -k:]
+                    scores = mx.take_along_axis(gates, inds, axis=-1)
+                    if blk.norm_topk_prob:
+                        scores = scores / scores.sum(axis=-1, keepdims=True)
+                    tap.records.append((layer, inds, scores))
+            return y
 
-        gemma4_text.Router.__call__ = tapped_call
+        block_cls.__call__ = tapped_moe
         return len(self.layer_of)
 
     def drain(self):
@@ -166,14 +218,17 @@ def main():
     model, tokenizer = load(args.model)
     print(f"  loaded in {time.time() - t0:.1f}s")
 
-    cfg = model.args if hasattr(model, "args") else None
-    text_cfg = getattr(cfg, "text_config", None)
-    if isinstance(text_cfg, dict):
-        num_experts = text_cfg["num_experts"]
-        top_k = text_cfg["top_k_experts"]
-    else:
-        num_experts = cfg.num_experts
-        top_k = cfg.top_k_experts
+    def cfg_get(c, *names):
+        for n in names:
+            v = c.get(n) if isinstance(c, dict) else getattr(c, n, None)
+            if v:
+                return v
+        return None
+
+    cfg = getattr(model, "args", None)
+    text_cfg = getattr(cfg, "text_config", None) or cfg
+    num_experts = cfg_get(text_cfg, "num_experts")
+    top_k = cfg_get(text_cfg, "top_k_experts", "num_experts_per_tok")
 
     tap = RouterTap()
     n_layers = tap.install(model)
@@ -247,9 +302,10 @@ def main():
     med90 = int(np.median([p["coverage_all"]["0.9"] for p in per_layer]))
     print(f"\n  median experts for 90% of routing mass: {med90}/{num_experts} per layer")
 
+    model_slug = args.model.rstrip("/").split("/")[-1].lower()
     out_path = Path(args.out) if args.out else (
         Path(__file__).parent
-        / f"profile_{test_path.stem}_{args.prompt_mode}.json"
+        / f"profile_{model_slug}_{test_path.stem}_{args.prompt_mode}.json"
     )
     with open(out_path, "w") as f:
         json.dump({
