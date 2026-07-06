@@ -64,7 +64,44 @@ mamba_image = (
     )
 )
 
-image = mamba_image if os.environ.get("SPOKE_MAMBA_IMAGE") == "1" else standard_image
+# Gemma 4 (gemma4 / gemma4_text) needs transformers >= 5.5.2: earlier versions
+# lack the KV-sharing fix (PR #45312) and SFT loss won't converge, and they
+# don't auto-handle mm_token_type_ids for the text-only path. We isolate this
+# in a dedicated image so the shared standard_image (Qwen champion et al.) stays
+# pinned at the proven 5.3.0. Select with SPOKE_GEMMA4_IMAGE=1 at run time.
+gemma4_image = (
+    # torch 2.8 (not the 2.6 std base): peft 0.19.0's cast_adapter_dtype
+    # references torch.float8_e8m0fnu, a dtype added in torch 2.7. On torch 2.6
+    # get_peft_model crashes with AttributeError before any training. Mirror the
+    # mamba image's pattern (debian_slim + pip torch) to control the torch pin.
+    modal.Image.debian_slim(python_version="3.11")
+    .apt_install("git", "build-essential")
+    .pip_install("torch==2.8.*", "torchvision")
+    .pip_install(
+        "transformers==5.5.2",
+        # accelerate unpinned: transformers 5.5.2 needs a newer accelerate than
+        # the std image's 1.4.0; let pip resolve a compatible one.
+        "accelerate",
+        "datasets==3.2.0",
+        # peft>=0.19.0: gemma4's text decoder nests under model.language_model.*
+        # and the vision/audio towers wrap projections in non-nn.Linear
+        # Gemma4ClippableLinear. Loading the FULL model + target_modules=None
+        # lets PEFT's built-in gemma4 mapping regex-scope LoRA to language_model
+        # layers only, skipping the towers. Explicit target lists make PEFT walk
+        # the towers and choke on ClippableLinear.
+        "peft==0.19.0",
+        "sentencepiece",
+        "safetensors",
+        "wandb",
+    )
+)
+
+if os.environ.get("SPOKE_MAMBA_IMAGE") == "1":
+    image = mamba_image
+elif os.environ.get("SPOKE_GEMMA4_IMAGE") == "1":
+    image = gemma4_image
+else:
+    image = standard_image
 
 V2_SYSTEM_PROMPT = (
     "You are a verbatim ASR cleaner. Fix punctuation, capitalization, and "
@@ -170,6 +207,14 @@ def train(
     # Multimodal models with a usable text-only decoder path
     MULTIMODAL_TEXT_ONLY_TYPES = {"qwen3_5", "gemma3n", "mistral3"}
     is_multimodal_text_only = bool(_mtype in MULTIMODAL_TEXT_ONLY_TYPES and _has_text_config)
+    # Gemma 4 nests its text decoder under `model.language_model.*` in the
+    # multimodal checkpoint. The generic text-only trick (AutoModelForCausalLM
+    # with config=text_config) builds a bare decoder expecting flat `model.*`
+    # keys, so every weight misses and the model trains from random init (loss
+    # frozen at ln(vocab), grad_norm in the thousands). The dedicated
+    # Gemma4ForCausalLM.from_pretrained strips the language_model. prefix
+    # correctly. gemma3n does NOT hit this — it stores text weights flat.
+    is_gemma4 = bool(_mtype == "gemma4")
     effective_model_config = model_config.text_config if is_multimodal_text_only else model_config
     is_encoder_decoder = bool(getattr(effective_model_config, "is_encoder_decoder", False))
     if is_multimodal_text_only:
@@ -258,6 +303,17 @@ def train(
 
     if is_encoder_decoder:
         model_cls = AutoModelForSeq2SeqLM
+    elif is_gemma4:
+        # Text-only classes (AutoModelForCausalLM w/ text_config, Gemma4ForCausalLM)
+        # do NOT remap the checkpoint's `model.language_model.*` nesting in
+        # transformers 5.5.2 -> decoder loads random (loss frozen at ln(vocab)).
+        # Load the FULL multimodal model instead: its keys match the checkpoint
+        # exactly, so every weight loads. LoRA is then scoped to the language_model
+        # layers via target_modules=None (peft>=0.19.0 gemma4 default) so the
+        # vision/audio ClippableLinear towers are never touched.
+        from transformers import Gemma4ForConditionalGeneration
+        model_cls = Gemma4ForConditionalGeneration
+        print("Gemma 4: loading FULL Gemma4ForConditionalGeneration (weights match checkpoint keys)")
     else:
         model_cls = AutoModelForCausalLM
     model_load_kwargs = dict(
@@ -283,7 +339,18 @@ def train(
         print("Gradient checkpointing: disabled")
 
     peft_task_type = "SEQ_2_SEQ_LM" if is_encoder_decoder else "CAUSAL_LM"
-    if is_encoder_decoder:
+    if is_gemma4:
+        # Regex (peft treats a str target as a full-path regex) scoped to the
+        # language_model decoder, restoring the proven 7-module Gemma recipe
+        # (q/k/v/o/gate/up/down) that got gemma3n E4B to 83/64. The bare gemma4
+        # default (target_modules=None) is q/v-only (~4.5M params, 8x smaller).
+        # "language_model" in the path excludes the vision/audio ClippableLinear
+        # towers, so no non-nn.Linear walk/crash.
+        target_modules = (
+            r".*language_model.*\.(q_proj|k_proj|v_proj|o_proj|"
+            r"gate_proj|up_proj|down_proj)"
+        )
+    elif is_encoder_decoder:
         target_modules = "all-linear"
     else:
         target_modules = [
