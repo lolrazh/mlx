@@ -168,6 +168,7 @@ def train(
     use_rslora: bool = False,
     loss_mode: str = "standard",
     epo_edit_weight: float = 3.0,
+    seed: int = 42,
 ):
     import difflib
     import json
@@ -706,10 +707,11 @@ def train(
             return len(self._indices)
 
     class MLXParityTrainer(Trainer):
-        def __init__(self, *args, use_true_adam=False, epo_mode=False, **kwargs):
+        def __init__(self, *args, use_true_adam=False, use_loraplus=False, epo_mode=False, **kwargs):
             super().__init__(*args, **kwargs)
             self.model_accepts_loss_kwargs = False
             self._use_true_adam = use_true_adam
+            self._use_loraplus = use_loraplus
             self._epo_mode = epo_mode
 
         def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
@@ -736,6 +738,22 @@ def train(
             return (loss, outputs) if return_outputs else loss
 
         def create_optimizer(self):
+            if self.optimizer is None and self._use_loraplus:
+                # LoRA+ (arXiv 2402.12354): B matrices get a 16x higher LR.
+                # torch.optim.Adam keeps parity with the champion arm so the
+                # only delta under test is the per-matrix LR ratio.
+                from peft.optimizers import create_loraplus_optimizer
+
+                print("Using LoRA+ optimizer (Adam, loraplus_lr_ratio=16).")
+                self.optimizer = create_loraplus_optimizer(
+                    model=self.model,
+                    optimizer_cls=torch.optim.Adam,
+                    lr=self.args.learning_rate,
+                    loraplus_lr_ratio=16,
+                    betas=(self.args.adam_beta1, self.args.adam_beta2),
+                    eps=self.args.adam_epsilon,
+                )
+                return self.optimizer
             if self.optimizer is None and self._use_true_adam:
                 print("Using torch.optim.Adam for parity.")
                 trainable_params = [p for p in self.model.parameters() if p.requires_grad]
@@ -780,8 +798,8 @@ def train(
         max_grad_norm=max_grad_norm,
         bf16=True,
         gradient_checkpointing=gradient_checkpointing,
-        seed=42,
-        data_seed=42,
+        seed=seed,
+        data_seed=seed,
         remove_unused_columns=False,
         label_names=["labels"],
         logging_steps=10,
@@ -803,6 +821,7 @@ def train(
         eval_dataset=valid_dataset,
         data_collator=data_collator,
         use_true_adam=(optimizer == "adam"),
+        use_loraplus=(optimizer == "loraplus"),
         epo_mode=use_epo,
         args=training_args,
     )
@@ -919,6 +938,7 @@ def main(
     use_rslora: bool = False,
     loss_mode: str = "standard",
     epo_edit_weight: float = 3.0,
+    seed: int = 42,
 ):
     print(f"Starting pure HF cloud training: {run_name}")
     print(f"  Model: {model_name}")
@@ -928,6 +948,7 @@ def main(
         f"r={rank}, alpha={lora_alpha}, dropout={lora_dropout}, rsLoRA={'on' if use_rslora else 'off'}"
     )
     print(f"  Optimizer: {optimizer}")
+    print(f"  Seed: {seed}")
     print(f"  Max grad norm: {max_grad_norm}")
     print(f"  LR scheduler: {lr_scheduler_type}")
     print(f"  Warmup ratio: {warmup_ratio}")
@@ -975,4 +996,5 @@ def main(
         use_rslora=use_rslora,
         loss_mode=loss_mode,
         epo_edit_weight=epo_edit_weight,
+        seed=seed,
     )
