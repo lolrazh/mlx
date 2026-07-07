@@ -1,0 +1,1328 @@
+{
+  "model": "/output/spoke-g4e4b-lplus-s43-20260707-ckpt900/merged",
+  "short_name": "spoke-g4e4b-lplus-s43-20260707-ckpt900-modal-hf",
+  "prompt_mode": "v2",
+  "n": 131,
+  "exact": 108,
+  "semantic": 3,
+  "partial": 20,
+  "fail": 0,
+  "accuracy": 0.8473,
+  "avg_latency_s": 0.952,
+  "results": [
+    {
+      "id": 1,
+      "category": "hard-negative",
+      "input": "The stock quote ticker froze during the market volatility.",
+      "ideal": "The stock quote ticker froze during the market volatility.",
+      "output": "The stock quote ticker froze during the market volatility.",
+      "raw_output": "The stock quote ticker froze during the market volatility.",
+      "score": "exact",
+      "gen_time_s": 0.757
+    },
+    {
+      "id": 2,
+      "category": "emphasis",
+      "input": "He's not lazy, he's energy efficient. Bold energy efficient.",
+      "ideal": "He's not lazy, he's ENERGY EFFICIENT.",
+      "output": "He's not lazy, he's ENERGY EFFICIENT.",
+      "raw_output": "He's not lazy, he's ENERGY EFFICIENT.",
+      "score": "exact",
+      "gen_time_s": 0.992
+    },
+    {
+      "id": 3,
+      "category": "hard-negative",
+      "input": "The keyboard's caps lock indicator light seems to be broken.",
+      "ideal": "The keyboard's caps lock indicator light seems to be broken.",
+      "output": "The keyboard's caps lock indicator light seems to be broken.",
+      "raw_output": "The keyboard's caps lock indicator light seems to be broken.",
+      "score": "exact",
+      "gen_time_s": 0.941
+    },
+    {
+      "id": 4,
+      "category": "hard-negative",
+      "input": "Oops, I spilled coffee on your manuscript\u2014I'll pay for the reprinting.",
+      "ideal": "Oops, I spilled coffee on your manuscript\u2014I'll pay for the reprinting.",
+      "output": "Oops, I spilled coffee on your manuscript\u2014I'll pay for the reprinting.",
+      "raw_output": "Oops, I spilled coffee on your manuscript\u2014I'll pay for the reprinting.",
+      "score": "exact",
+      "gen_time_s": 1.282
+    },
+    {
+      "id": 5,
+      "category": "self-correction",
+      "input": "I need about two cups of flour, wait no, make that three cups for the larger batch.",
+      "ideal": "I need about three cups of flour for the larger batch.",
+      "output": "I need about three cups of flour for the larger batch.",
+      "raw_output": "I need about three cups of flour for the larger batch.",
+      "score": "exact",
+      "gen_time_s": 0.868
+    },
+    {
+      "id": 6,
+      "category": "spell",
+      "input": "She founded Wisp, that's W-Y-S-P, spell that, for the mental health platform, not like the ghost.",
+      "ideal": "She founded Wysp, for the mental health platform, not like the ghost.",
+      "output": "She founded Wysp for the mental health platform, not like the ghost.",
+      "raw_output": "She founded Wysp for the mental health platform, not like the ghost.",
+      "score": "partial",
+      "gen_time_s": 1.117
+    },
+    {
+      "id": 7,
+      "category": "at-symbol",
+      "input": "The config files are settings.yaml and secrets.env. Add at symbols before both filenames.",
+      "ideal": "The config files are @settings.yaml and @secrets.env.",
+      "output": "The config files are @settings.yaml and @secrets.env.",
+      "raw_output": "The config files are @settings.yaml and @secrets.env.",
+      "score": "exact",
+      "gen_time_s": 1.024
+    },
+    {
+      "id": 8,
+      "category": "self-correction",
+      "input": "I talked to Sarah from marketing, wait no, sorry, Jessica from marketing, and she said the campaign will launch next Monday, not next Monday, the Monday after.",
+      "ideal": "I talked to Jessica from marketing and she said the campaign will launch the Monday after.",
+      "output": "I talked to Jessica from marketing, and she said the campaign will launch the Monday after next.",
+      "raw_output": "I talked to Jessica from marketing, and she said the campaign will launch the Monday after next.",
+      "score": "partial",
+      "gen_time_s": 1.335
+    },
+    {
+      "id": 9,
+      "category": "hard-negative",
+      "input": "Sorry about the short notice, but legal needs all those contracts signed by noon.",
+      "ideal": "Sorry about the short notice, but legal needs all those contracts signed by noon.",
+      "output": "Sorry about the short notice, but legal needs all those contracts signed by noon.",
+      "raw_output": "Sorry about the short notice, but legal needs all those contracts signed by noon.",
+      "score": "exact",
+      "gen_time_s": 1.136
+    },
+    {
+      "id": 10,
+      "category": "self-correction",
+      "input": "The meeting is at 2 PM. No wait, 3 PM, in the main conference room.",
+      "ideal": "The meeting is at 3 PM in the main conference room.",
+      "output": "The meeting is at 3 PM in the main conference room.",
+      "raw_output": "The meeting is at 3 PM in the main conference room.",
+      "score": "exact",
+      "gen_time_s": 0.929
+    },
+    {
+      "id": 11,
+      "category": "caps",
+      "input": "You know, like, type this in lowercase. I'm so proud of everything you've accomplished this year.",
+      "ideal": "i'm so proud of everything you've accomplished this year.",
+      "output": "i'm so proud of everything you've accomplished this year.",
+      "raw_output": "i'm so proud of everything you've accomplished this year.",
+      "score": "exact",
+      "gen_time_s": 0.993
+    },
+    {
+      "id": 12,
+      "category": "emoji",
+      "input": "The meeting was fire emoji literally",
+      "ideal": "The meeting was \ud83d\udd25 literally",
+      "output": "The meeting was \ud83d\udd25 literally",
+      "raw_output": "The meeting was \ud83d\udd25 literally",
+      "score": "exact",
+      "gen_time_s": 0.401
+    },
+    {
+      "id": 13,
+      "category": "quote",
+      "input": "Quote-unquote experts on Twitter told me to buy the dip.",
+      "ideal": "\"Experts\" on Twitter told me to buy the dip.",
+      "output": "\"Experts\" on Twitter told me to buy the dip.",
+      "raw_output": "\"Experts\" on Twitter told me to buy the dip.",
+      "score": "exact",
+      "gen_time_s": 0.869
+    },
+    {
+      "id": 14,
+      "category": "caps",
+      "input": "The function name is calculateTotal. Make it all lowercase.",
+      "ideal": "the function name is calculatetotal.",
+      "output": "The function name is calculateTotal.",
+      "raw_output": "The function name is calculateTotal.",
+      "score": "semantic",
+      "gen_time_s": 0.535
+    },
+    {
+      "id": 15,
+      "category": "hard-negative",
+      "input": "Regular expressions can use flags to make matching case-insensitive, ignoring uppercase differences.",
+      "ideal": "Regular expressions can use flags to make matching case-insensitive, ignoring uppercase differences.",
+      "output": "Regular expressions can use flags to make matching case-insensitive, ignoring uppercase differences.",
+      "raw_output": "Regular expressions can use flags to make matching case-insensitive, ignoring uppercase differences.",
+      "score": "exact",
+      "gen_time_s": 1.128
+    },
+    {
+      "id": 16,
+      "category": "at-symbol",
+      "input": "We need to notify the team. Tag channel with an at symbol. Tag here with an at symbol too. Show excitement.",
+      "ideal": "We need to notify the team. @channel @here!",
+      "output": "We need to notify the team @channel! Tag @here too!",
+      "raw_output": "We need to notify the team @channel! Tag @here too!",
+      "score": "partial",
+      "gen_time_s": 1.033
+    },
+    {
+      "id": 17,
+      "category": "spell",
+      "input": "We're traveling to Szczechin. Can you spell that S-Z-C-Z-E-C-I-N?",
+      "ideal": "We're traveling to Szczecin.",
+      "output": "We're traveling to Szczecin.",
+      "raw_output": "We're traveling to Szczecin.",
+      "score": "exact",
+      "gen_time_s": 0.673
+    },
+    {
+      "id": 18,
+      "category": "hard-negative",
+      "input": "Tag team wrestling requires perfect timing between partners.",
+      "ideal": "Tag team wrestling requires perfect timing between partners.",
+      "output": "Tag team wrestling requires perfect timing between partners.",
+      "raw_output": "Tag team wrestling requires perfect timing between partners.",
+      "score": "exact",
+      "gen_time_s": 0.674
+    },
+    {
+      "id": 19,
+      "category": "self-correction",
+      "input": "We should use the dark blue for the header, wait no, the navy one, and keep the light blue for links.",
+      "ideal": "We should use the navy for the header and keep the light blue for links.",
+      "output": "We should use the navy one for the header and keep the light blue for links.",
+      "raw_output": "We should use the navy one for the header and keep the light blue for links.",
+      "score": "partial",
+      "gen_time_s": 1.172
+    },
+    {
+      "id": 20,
+      "category": "hard-negative",
+      "input": "I'm sorry to say but your proposal didn't make it to the final round.",
+      "ideal": "I'm sorry to say but your proposal didn't make it to the final round.",
+      "output": "I'm sorry to say but your proposal didn't make it to the final round.",
+      "raw_output": "I'm sorry to say but your proposal didn't make it to the final round.",
+      "score": "exact",
+      "gen_time_s": 1.308
+    },
+    {
+      "id": 21,
+      "category": "self-correction",
+      "input": "The repo is at github.com slash acme. Wait, slash acme-corp, slash api.",
+      "ideal": "The repo is at github.com/acme-corp/api.",
+      "output": "The repo is at github.com/acme-corp/api.",
+      "raw_output": "The repo is at github.com/acme-corp/api.",
+      "score": "exact",
+      "gen_time_s": 1.023
+    },
+    {
+      "id": 22,
+      "category": "hard-negative",
+      "input": "At dawn, the fishermen cast their nets into the gray water.",
+      "ideal": "At dawn, the fishermen cast their nets into the gray water.",
+      "output": "At dawn, the fishermen cast their nets into the gray water.",
+      "raw_output": "At dawn, the fishermen cast their nets into the gray water.",
+      "score": "exact",
+      "gen_time_s": 0.932
+    },
+    {
+      "id": 23,
+      "category": "spell",
+      "input": "The dish is gochujang, that's spelled G-O-C-H-U-J-A-N-G.",
+      "ideal": "The dish is gochujang.",
+      "output": "The dish is gochujang.",
+      "raw_output": "The dish is gochujang.",
+      "score": "exact",
+      "gen_time_s": 0.606
+    },
+    {
+      "id": 24,
+      "category": "hard-negative",
+      "input": "The programming language uses lowercase for all its keywords.",
+      "ideal": "The programming language uses lowercase for all its keywords.",
+      "output": "The programming language uses lowercase for all its keywords.",
+      "raw_output": "The programming language uses lowercase for all its keywords.",
+      "score": "exact",
+      "gen_time_s": 0.739
+    },
+    {
+      "id": 25,
+      "category": "spell",
+      "input": "Push to Getup, spell that G-I-T-H-U-B. Wait no I meant GitLab, change it to GitLab.",
+      "ideal": "Push to GitLab.",
+      "output": "Push to GitLab.",
+      "raw_output": "Push to GitLab.",
+      "score": "exact",
+      "gen_time_s": 0.327
+    },
+    {
+      "id": 26,
+      "category": "hard-negative",
+      "input": "After a brief spell of unemployment, he found work at the mill.",
+      "ideal": "After a brief spell of unemployment, he found work at the mill.",
+      "output": "After a brief spell of unemployment, he found work at the mill.",
+      "raw_output": "After a brief spell of unemployment, he found work at the mill.",
+      "score": "exact",
+      "gen_time_s": 1.006
+    },
+    {
+      "id": 27,
+      "category": "emoji",
+      "input": "Victory hand sign followed by dog and cat emojis",
+      "ideal": "\u270c\ufe0f\ud83d\udc36\ud83d\udc31",
+      "output": "\u270c\ufe0f\ud83d\udc36\ud83d\udc31",
+      "raw_output": "\u270c\ufe0f\ud83d\udc36\ud83d\udc31",
+      "score": "exact",
+      "gen_time_s": 0.346
+    },
+    {
+      "id": 28,
+      "category": "spell",
+      "input": "The meeting is with Shawn from legal. It's actually S-E-A-N.",
+      "ideal": "The meeting is with Sean from legal.",
+      "output": "The meeting is with Sean from legal.",
+      "raw_output": "The meeting is with Sean from legal.",
+      "score": "exact",
+      "gen_time_s": 0.621
+    },
+    {
+      "id": 29,
+      "category": "hard-negative",
+      "input": "The cold spell brought temperatures below zero for a week.",
+      "ideal": "The cold spell brought temperatures below zero for a week.",
+      "output": "The cold spell brought temperatures below zero for a week.",
+      "raw_output": "The cold spell brought temperatures below zero for a week.",
+      "score": "exact",
+      "gen_time_s": 0.818
+    },
+    {
+      "id": 30,
+      "category": "camelcase",
+      "input": "I created a custom usewebsocket hook to handle the real-time collaboration features, but usewebsocket keeps reconnecting every few seconds.",
+      "ideal": "I created a custom useWebSocket hook to handle the real-time collaboration features, but useWebSocket keeps reconnecting every few seconds.",
+      "output": "I created a custom useWebSocket hook to handle the real-time collaboration features, but useWebSocket keeps reconnecting every few seconds.",
+      "raw_output": "I created a custom useWebSocket hook to handle the real-time collaboration features, but useWebSocket keeps reconnecting every few seconds.",
+      "score": "exact",
+      "gen_time_s": 1.808
+    },
+    {
+      "id": 31,
+      "category": "quote",
+      "input": "She was like quote I never said that end quote but we all heard her say it like ten minutes ago.",
+      "ideal": "She was like \"I never said that\" but we all heard her say it like ten minutes ago.",
+      "output": "She was like \"I never said that\" but we all heard her say it like ten minutes ago.",
+      "raw_output": "She was like \"I never said that\" but we all heard her say it like ten minutes ago.",
+      "score": "exact",
+      "gen_time_s": 1.475
+    },
+    {
+      "id": 32,
+      "category": "spell",
+      "input": "The new PM is Steven. It's S-T-E-P-H-E-N by the way.",
+      "ideal": "The new PM is Stephen.",
+      "output": "The new PM is Stephen.",
+      "raw_output": "The new PM is Stephen.",
+      "score": "exact",
+      "gen_time_s": 0.466
+    },
+    {
+      "id": 33,
+      "category": "self-correction",
+      "input": "The standup is at nine, wait no, ten thirty",
+      "ideal": "The standup is at ten thirty",
+      "output": "The standup is at ten thirty",
+      "raw_output": "The standup is at ten thirty",
+      "score": "exact",
+      "gen_time_s": 0.546
+    },
+    {
+      "id": 34,
+      "category": "multi",
+      "input": "Deploy to production. Wait, staging first. Quote unquote around staging.",
+      "ideal": "Deploy to \"staging\" first.",
+      "output": "Deploy to \"staging\" first.",
+      "raw_output": "Deploy to \"staging\" first.",
+      "score": "exact",
+      "gen_time_s": 0.556
+    },
+    {
+      "id": 35,
+      "category": "caps",
+      "input": "Make it all lowercase. The CEO announced a surprise merger with our biggest competitor yesterday morning.",
+      "ideal": "the ceo announced a surprise merger with our biggest competitor yesterday morning.",
+      "output": "the ceo announced a surprise merger with our biggest competitor yesterday morning.",
+      "raw_output": "the ceo announced a surprise merger with our biggest competitor yesterday morning.",
+      "score": "exact",
+      "gen_time_s": 0.91
+    },
+    {
+      "id": 36,
+      "category": "quote",
+      "input": "The company promised quote unlimited growth opportunities and a dynamic work environment end quote which translated to unpaid overtime and constant restructuring.",
+      "ideal": "The company promised \"unlimited growth opportunities and a dynamic work environment\" which translated to unpaid overtime and constant restructuring.",
+      "output": "The company promised \"unlimited growth opportunities and a dynamic work environment\" which translated to unpaid overtime and constant restructuring.",
+      "raw_output": "The company promised \"unlimited growth opportunities and a dynamic work environment\" which translated to unpaid overtime and constant restructuring.",
+      "score": "exact",
+      "gen_time_s": 1.563
+    },
+    {
+      "id": 37,
+      "category": "spell",
+      "input": "Our bot is called NightOwl in production. Spell Night as N-I-T-E.",
+      "ideal": "Our bot is called NiteOwl in production.",
+      "output": "Our bot is callediteOwl in production.",
+      "raw_output": "Our bot is callediteOwl in production.",
+      "score": "partial",
+      "gen_time_s": 0.668
+    },
+    {
+      "id": 38,
+      "category": "hard-negative",
+      "input": "Can you believe she won the national spelling competition?",
+      "ideal": "Can you believe she won the national spelling competition?",
+      "output": "Can you believe she won the national spelling competition?",
+      "raw_output": "Can you believe she won the national spelling competition?",
+      "score": "exact",
+      "gen_time_s": 0.73
+    },
+    {
+      "id": 39,
+      "category": "spell",
+      "input": "The dish is catchapuri, spell the first part K-H-A-C-H-A, and it's Georgian cheese bread.",
+      "ideal": "The dish is khachapuri, and it's Georgian cheese bread.",
+      "output": "The dish is khachapuri, and it's Georgian cheese bread.",
+      "raw_output": "The dish is khachapuri, and it's Georgian cheese bread.",
+      "score": "exact",
+      "gen_time_s": 1.125
+    },
+    {
+      "id": 40,
+      "category": "quote",
+      "input": "His quote-unquote best friend sold him out for a promotion.",
+      "ideal": "His \"best friend\" sold him out for a promotion.",
+      "output": "His \"best friend\" sold him out for a promotion.",
+      "raw_output": "His \"best friend\" sold him out for a promotion.",
+      "score": "exact",
+      "gen_time_s": 0.848
+    },
+    {
+      "id": 41,
+      "category": "quote",
+      "input": "The email subject was quote urgent action required end quote and it had three attachments.",
+      "ideal": "The email subject was \"urgent action required\" and it had three attachments.",
+      "output": "The email subject was \"urgent action required\" and it had three attachments.",
+      "raw_output": "The email subject was \"urgent action required\" and it had three attachments.",
+      "score": "exact",
+      "gen_time_s": 1.06
+    },
+    {
+      "id": 42,
+      "category": "hard-negative",
+      "input": "I stopped quoting that author when I learned about their controversies.",
+      "ideal": "I stopped quoting that author when I learned about their controversies.",
+      "output": "I stopped quoting that author when I learned about their controversies.",
+      "raw_output": "I stopped quoting that author when I learned about their controversies.",
+      "score": "exact",
+      "gen_time_s": 0.865
+    },
+    {
+      "id": 43,
+      "category": "spell",
+      "input": "Their competitor is called Nuvia, spelled N-O-O-V-E-A, which I always thought was strange.",
+      "ideal": "Their competitor is called Noovea, which I always thought was strange.",
+      "output": "Their competitor is called Noovea, which I always thought was strange.",
+      "raw_output": "Their competitor is called Noovea, which I always thought was strange.",
+      "score": "exact",
+      "gen_time_s": 1.072
+    },
+    {
+      "id": 44,
+      "category": "camelcase",
+      "input": "I need to add a new interface called userprops to define the shape of the data coming from the api.",
+      "ideal": "I need to add a new interface called UserProps to define the shape of the data coming from the API.",
+      "output": "I need to add a new interface called UserProps to define the shape of the data coming from the API.",
+      "raw_output": "I need to add a new interface called UserProps to define the shape of the data coming from the API.",
+      "score": "exact",
+      "gen_time_s": 1.518
+    },
+    {
+      "id": 45,
+      "category": "self-correction",
+      "input": "The pasta needs to boil for eleven minutes, sorry, eight minutes, then rest in the sauce for three more.",
+      "ideal": "The pasta needs to boil for eight minutes, then rest in the sauce for three more.",
+      "output": "The pasta needs to boil for eight minutes, then rest in the sauce for three more.",
+      "raw_output": "The pasta needs to boil for eight minutes, then rest in the sauce for three more.",
+      "score": "exact",
+      "gen_time_s": 1.248
+    },
+    {
+      "id": 46,
+      "category": "emphasis",
+      "input": "We're looking at three properties this weekend and the location matters way more than square footage. Stress location, especially for resale value down the line.",
+      "ideal": "We're looking at three properties this weekend and the LOCATION matters way more than square footage. Especially for resale value down the line.",
+      "output": "We're looking at three properties this weekend and the LOCATION matters way more than square footage. Especially for resale value down the line.",
+      "raw_output": "We're looking at three properties this weekend and the LOCATION matters way more than square footage. Especially for resale value down the line.",
+      "score": "exact",
+      "gen_time_s": 1.842
+    },
+    {
+      "id": 47,
+      "category": "self-correction",
+      "input": "I'll bring chips and guacamole to the party. Wait no, hummus.",
+      "ideal": "I'll bring chips and hummus to the party.",
+      "output": "I'll bring chips and hummus to the party.",
+      "raw_output": "I'll bring chips and hummus to the party.",
+      "score": "exact",
+      "gen_time_s": 0.776
+    },
+    {
+      "id": 48,
+      "category": "multi",
+      "input": "ah Text my sister that the Gazpacho soup is ready. Spell that G-A-Z-P-A-C-H-O, capitalize normally. Actually wait, it's Bisque. Emphasize ready. Say quote come over at six end quote. No, seven.",
+      "ideal": "Text my sister that the Bisque soup is READY. Say \"come over at seven\".",
+      "output": "Text my sister that the BISQUE is READY. Say \"come over at seven\".",
+      "raw_output": "Text my sister that the BISQUE is READY. Say \"come over at seven\".",
+      "score": "partial",
+      "gen_time_s": 1.189
+    },
+    {
+      "id": 49,
+      "category": "multi",
+      "input": "Tell the finance team about the budget. Put an at symbol before finance. Say quote we have five thousand left end quote. Actually, tag accounting instead.",
+      "ideal": "Tell the @accounting team about the budget. Say \"we have five thousand left\".",
+      "output": "Tell the @accounting team about the budget. Say \"we have five thousand left\".",
+      "raw_output": "Tell the @accounting team about the budget. Say \"we have five thousand left\".",
+      "score": "exact",
+      "gen_time_s": 1.153
+    },
+    {
+      "id": 50,
+      "category": "hard-negative",
+      "input": "Oops, I deleted the wrong branch\u2014let me check the reflog to recover it.",
+      "ideal": "Oops, I deleted the wrong branch\u2014let me check the reflog to recover it.",
+      "output": "Oops, I deleted the wrong branch\u2014let me check the reflog to recover it.",
+      "raw_output": "Oops, I deleted the wrong branch\u2014let me check the reflog to recover it.",
+      "score": "exact",
+      "gen_time_s": 1.243
+    },
+    {
+      "id": 51,
+      "category": "emoji",
+      "input": "skull emoji that meeting could have been an email",
+      "ideal": "\ud83d\udc80 that meeting could have been an email",
+      "output": "\ud83d\udc80 that meeting could have been an email",
+      "raw_output": "\ud83d\udc80 that meeting could have been an email",
+      "score": "exact",
+      "gen_time_s": 0.588
+    },
+    {
+      "id": 52,
+      "category": "self-correction",
+      "input": "He's been work- he joined the team back in November",
+      "ideal": "He joined the team back in November",
+      "output": "He's been working. He joined the team back in November.",
+      "raw_output": "He's been working. He joined the team back in November.",
+      "score": "partial",
+      "gen_time_s": 0.986
+    },
+    {
+      "id": 53,
+      "category": "hard-negative",
+      "input": "She's been studying for the spelling championship all summer.",
+      "ideal": "She's been studying for the spelling championship all summer.",
+      "output": "She's been studying for the spelling championship all summer.",
+      "raw_output": "She's been studying for the spelling championship all summer.",
+      "score": "exact",
+      "gen_time_s": 0.851
+    },
+    {
+      "id": 54,
+      "category": "multi",
+      "input": "The directory shows Fin Bar. Spell that F-I-N-B-A-R-R, capitalize normally.",
+      "ideal": "The directory shows Finbarr.",
+      "output": "The directory shows Finbar.",
+      "raw_output": "The directory shows Finbar.",
+      "score": "partial",
+      "gen_time_s": 0.463
+    },
+    {
+      "id": 55,
+      "category": "disfluency",
+      "input": "the um the build pipeline is broken again because of that dependency update",
+      "ideal": "the build pipeline is broken again because of that dependency update",
+      "output": "the build pipeline is broken again because of that dependency update",
+      "raw_output": "the build pipeline is broken again because of that dependency update",
+      "score": "exact",
+      "gen_time_s": 0.792
+    },
+    {
+      "id": 56,
+      "category": "spell",
+      "input": "We're testing with Playwright. Spell that P-L-A-Y-W-R-I-G-H-T.",
+      "ideal": "We're testing with Playwright.",
+      "output": "We're testing with Playwright.",
+      "raw_output": "We're testing with Playwright.",
+      "score": "exact",
+      "gen_time_s": 0.6
+    },
+    {
+      "id": 57,
+      "category": "at-symbol",
+      "input": "The config file is settings.yaml. Put an at before the filename, and also before the word config actually.",
+      "ideal": "The @config file is @settings.yaml.",
+      "output": "The @config file is @settings.yaml.",
+      "raw_output": "The @config file is @settings.yaml.",
+      "score": "exact",
+      "gen_time_s": 0.732
+    },
+    {
+      "id": 58,
+      "category": "spell",
+      "input": "The folder is called S-R-C, spelled, with all the source files.",
+      "ideal": "The folder is called src with all the source files.",
+      "output": "The folder is called SRC with all the source files.",
+      "raw_output": "The folder is called SRC with all the source files.",
+      "score": "semantic",
+      "gen_time_s": 0.802
+    },
+    {
+      "id": 59,
+      "category": "disfluency",
+      "input": "the uh the grocery store was out of um the good kind of olive oil again",
+      "ideal": "the grocery store was out of the good kind of olive oil again",
+      "output": "the grocery store was out of the good kind of olive oil again",
+      "raw_output": "the grocery store was out of the good kind of olive oil again",
+      "score": "exact",
+      "gen_time_s": 0.923
+    },
+    {
+      "id": 60,
+      "category": "hard-negative",
+      "input": "The stock symbol for the company changed after the merger completed.",
+      "ideal": "The stock symbol for the company changed after the merger completed.",
+      "output": "The stock symbol for the company changed after the merger completed.",
+      "raw_output": "The stock symbol for the company changed after the merger completed.",
+      "score": "exact",
+      "gen_time_s": 0.864
+    },
+    {
+      "id": 61,
+      "category": "hard-negative",
+      "input": "I mean, we've been working on this for six months now.",
+      "ideal": "I mean, we've been working on this for six months now.",
+      "output": "I mean, we've been working on this for six months now.",
+      "raw_output": "I mean, we've been working on this for six months now.",
+      "score": "exact",
+      "gen_time_s": 1.045
+    },
+    {
+      "id": 62,
+      "category": "hard-negative",
+      "input": "I mean, it's not ideal but it gets the job done.",
+      "ideal": "I mean, it's not ideal but it gets the job done.",
+      "output": "I mean, it's not ideal but it gets the job done.",
+      "raw_output": "I mean, it's not ideal but it gets the job done.",
+      "score": "exact",
+      "gen_time_s": 1.072
+    },
+    {
+      "id": 63,
+      "category": "hard-negative",
+      "input": "Actually, the team spent the entire last quarter rebuilding the authentication layer from scratch and it still has edge case bugs.",
+      "ideal": "Actually, the team spent the entire last quarter rebuilding the authentication layer from scratch and it still has edge case bugs.",
+      "output": "Actually, the team spent the entire last quarter rebuilding the authentication layer from scratch and it still has edge case bugs.",
+      "raw_output": "Actually, the team spent the entire last quarter rebuilding the authentication layer from scratch and it still has edge case bugs.",
+      "score": "exact",
+      "gen_time_s": 1.557
+    },
+    {
+      "id": 64,
+      "category": "emoji",
+      "input": "Two thumbs up and a party popper emoji it's a celebration",
+      "ideal": "\ud83d\udc4d\ud83d\udc4d\ud83c\udf89 it's a celebration",
+      "output": "\ud83d\udc4d\ud83d\udc4d \ud83c\udf89 it's a celebration",
+      "raw_output": "\ud83d\udc4d\ud83d\udc4d \ud83c\udf89 it's a celebration",
+      "score": "partial",
+      "gen_time_s": 0.6
+    },
+    {
+      "id": 65,
+      "category": "hard-negative",
+      "input": "The freight quote includes customs clearance fees.",
+      "ideal": "The freight quote includes customs clearance fees.",
+      "output": "The freight quote includes customs clearance fees.",
+      "raw_output": "The freight quote includes customs clearance fees.",
+      "score": "exact",
+      "gen_time_s": 0.601
+    },
+    {
+      "id": 66,
+      "category": "hard-negative",
+      "input": "I mean, the director's earlier films were so much more visually ambitious than this one.",
+      "ideal": "I mean, the director's earlier films were so much more visually ambitious than this one.",
+      "output": "I mean, the director's earlier films were so much more visually ambitious than this one.",
+      "raw_output": "I mean, the director's earlier films were so much more visually ambitious than this one.",
+      "score": "exact",
+      "gen_time_s": 1.33
+    },
+    {
+      "id": 67,
+      "category": "quote",
+      "input": "His voicemail said quote hey call me back when you get a chance end quote.",
+      "ideal": "His voicemail said \"hey call me back when you get a chance\".",
+      "output": "His voicemail said \"hey call me back when you get a chance\".",
+      "raw_output": "His voicemail said \"hey call me back when you get a chance\".",
+      "score": "exact",
+      "gen_time_s": 0.986
+    },
+    {
+      "id": 68,
+      "category": "multi",
+      "input": "Merge into develop. Wait no, into release. All capital letters.",
+      "ideal": "Merge into RELEASE.",
+      "output": "Merge into RELEASE.",
+      "raw_output": "Merge into RELEASE.",
+      "score": "exact",
+      "gen_time_s": 0.329
+    },
+    {
+      "id": 69,
+      "category": "hard-negative",
+      "input": "He kept quoting statistics from a study that was later retracted.",
+      "ideal": "He kept quoting statistics from a study that was later retracted.",
+      "output": "He kept quoting statistics from a study that was later retracted.",
+      "raw_output": "He kept quoting statistics from a study that was later retracted.",
+      "score": "exact",
+      "gen_time_s": 0.874
+    },
+    {
+      "id": 70,
+      "category": "emoji",
+      "input": "sparkles emoji finally polished and ready",
+      "ideal": "\u2728 finally polished and ready",
+      "output": "\u2728 finally polished and ready",
+      "raw_output": "\u2728 finally polished and ready",
+      "score": "exact",
+      "gen_time_s": 0.405
+    },
+    {
+      "id": 71,
+      "category": "at-symbol",
+      "input": "The decorator property needs to go above the method. Add an at symbol before property.",
+      "ideal": "The decorator @property needs to go above the method.",
+      "output": "The @property needs to go above the method.",
+      "raw_output": "The @property needs to go above the method.",
+      "score": "partial",
+      "gen_time_s": 0.726
+    },
+    {
+      "id": 72,
+      "category": "spell",
+      "input": "The dish is called khachapuri, spelled H-A-C-H-A-P-U-R-I, a Georgian cheese bread that's absolutely incredible.",
+      "ideal": "The dish is called hachapuri, a Georgian cheese bread that's absolutely incredible.",
+      "output": "The dish is called hachapuri, a Georgian cheese bread that's absolutely incredible.",
+      "raw_output": "The dish is called hachapuri, a Georgian cheese bread that's absolutely incredible.",
+      "score": "exact",
+      "gen_time_s": 1.339
+    },
+    {
+      "id": 73,
+      "category": "self-correction",
+      "input": "We need to hire two backend engineers, sorry, three, one for the payments team and two for infrastructure.",
+      "ideal": "We need to hire three backend engineers, one for the payments team and two for infrastructure.",
+      "output": "We need to hire three backend engineers, one for the payments team and two for infrastructure.",
+      "raw_output": "We need to hire three backend engineers, one for the payments team and two for infrastructure.",
+      "score": "exact",
+      "gen_time_s": 1.27
+    },
+    {
+      "id": 74,
+      "category": "multi",
+      "input": "The actor on the list is Killian. Spell that C-I-L-L-I-A-N, capitalize normally.",
+      "ideal": "The actor on the list is Cillian.",
+      "output": "The actor on the list is Cillian.",
+      "raw_output": "The actor on the list is Cillian.",
+      "score": "exact",
+      "gen_time_s": 0.653
+    },
+    {
+      "id": 75,
+      "category": "caps",
+      "input": "The server returned a forbidden error. Make forbidden all uppercase.",
+      "ideal": "The server returned a FORBIDDEN error.",
+      "output": "The server returned a FORBIDDEN error.",
+      "raw_output": "The server returned a FORBIDDEN error.",
+      "score": "exact",
+      "gen_time_s": 0.672
+    },
+    {
+      "id": 76,
+      "category": "camelcase",
+      "input": "The component library exports a defaultlayout component that includes the navbar and footer, so every page should wrap its content with defaultlayout to keep the design consistent.",
+      "ideal": "The component library exports a DefaultLayout component that includes the navbar and footer, so every page should wrap its content with DefaultLayout to keep the design consistent.",
+      "output": "The component library exports a DefaultLayout component that includes the Navbar and Footer, so every page should wrap its content with DefaultLayout to keep the design consistent.",
+      "raw_output": "The component library exports a DefaultLayout component that includes the Navbar and Footer, so every page should wrap its content with DefaultLayout to keep the design consistent.",
+      "score": "semantic",
+      "gen_time_s": 2.125
+    },
+    {
+      "id": 77,
+      "category": "self-correction",
+      "input": "I'll pick up the dry cleaning, you know, the one on Oak Street, not the place near the mall, on my way home.",
+      "ideal": "I'll pick up the dry cleaning on Oak Street, not the place near the mall, on my way home.",
+      "output": "I'll pick up the dry cleaning on Oak Street on my way home.",
+      "raw_output": "I'll pick up the dry cleaning on Oak Street on my way home.",
+      "score": "partial",
+      "gen_time_s": 1.129
+    },
+    {
+      "id": 78,
+      "category": "hard-negative",
+      "input": "She knitted warm caps for the newborn babies at the hospital.",
+      "ideal": "She knitted warm caps for the newborn babies at the hospital.",
+      "output": "She knitted warm caps for the newborn babies at the hospital.",
+      "raw_output": "She knitted warm caps for the newborn babies at the hospital.",
+      "score": "exact",
+      "gen_time_s": 0.862
+    },
+    {
+      "id": 79,
+      "category": "spell",
+      "input": "The spice is called Garam, spell that G-H-A-R-A-M, in Punjabi cooking.",
+      "ideal": "The spice is called Gharam in Punjabi cooking.",
+      "output": "The spice is called Gharam in Punjabi cooking.",
+      "raw_output": "The spice is called Gharam in Punjabi cooking.",
+      "score": "exact",
+      "gen_time_s": 0.737
+    },
+    {
+      "id": 80,
+      "category": "spell",
+      "input": "The new database is called SuperBase. Can you spell that S-U-P-A-B-A-S-E?",
+      "ideal": "The new database is called Supabase.",
+      "output": "The new database is called Supabase.",
+      "raw_output": "The new database is called Supabase.",
+      "score": "exact",
+      "gen_time_s": 0.584
+    },
+    {
+      "id": 81,
+      "category": "spell",
+      "input": "The meeting is at noon pacific time, spell that P-S-T. Wait no that's wrong, it's eastern time.",
+      "ideal": "The meeting is at noon eastern time.",
+      "output": "The meeting is at noon eastern time.",
+      "raw_output": "The meeting is at noon eastern time.",
+      "score": "exact",
+      "gen_time_s": 0.592
+    },
+    {
+      "id": 82,
+      "category": "spell",
+      "input": "I need you to reach out to Jianwei, that's J-I-E-N-W-E-I, at the Beijing office about the Q3 numbers, and also cc Priya from procurement.",
+      "ideal": "I need you to reach out to Jienwei at the Beijing office about the Q3 numbers, and also cc Priya from procurement.",
+      "output": "I need you to reach out to Jienwei at the Beijing office about the Q3 numbers, and also cc Priya from procurement.",
+      "raw_output": "I need you to reach out to Jienwei at the Beijing office about the Q3 numbers, and also cc Priya from procurement.",
+      "score": "exact",
+      "gen_time_s": 1.837
+    },
+    {
+      "id": 83,
+      "category": "quote",
+      "input": "His quote-unquote investment strategy was just gambling on meme stocks.",
+      "ideal": "His \"investment\" strategy was just gambling on meme stocks.",
+      "output": "His \"investment strategy\" was just gambling on meme stocks.",
+      "raw_output": "His \"investment strategy\" was just gambling on meme stocks.",
+      "score": "partial",
+      "gen_time_s": 0.857
+    },
+    {
+      "id": 84,
+      "category": "emoji",
+      "input": "chef's kiss emoji this pasta is perfect",
+      "ideal": "\ud83e\udd0c this pasta is perfect",
+      "output": "\ud83e\udd0c this pasta is perfect",
+      "raw_output": "\ud83e\udd0c this pasta is perfect",
+      "score": "exact",
+      "gen_time_s": 0.398
+    },
+    {
+      "id": 85,
+      "category": "multi",
+      "input": "Her quote-unquote expertise was lacking. Make expertise all caps.",
+      "ideal": "Her \"EXPERTISE\" was lacking.",
+      "output": "Her \"EXPERTISE\" was lacking.",
+      "raw_output": "Her \"EXPERTISE\" was lacking.",
+      "score": "exact",
+      "gen_time_s": 0.601
+    },
+    {
+      "id": 86,
+      "category": "at-symbol",
+      "input": "The decorator pattern uses at symbol before function to wrap it. Add an at symbol before function.",
+      "ideal": "The decorator pattern uses @function to wrap it.",
+      "output": "The decorator pattern uses @ before function to wrap it.",
+      "raw_output": "The decorator pattern uses @ before function to wrap it.",
+      "score": "partial",
+      "gen_time_s": 0.798
+    },
+    {
+      "id": 87,
+      "category": "spell",
+      "input": "The founder is named Jai, that's J-A-Y-V-E-E, and he runs the startup.",
+      "ideal": "The founder is named Jayvee, and he runs the startup.",
+      "output": "The founder is named Jayvee, and he runs the startup.",
+      "raw_output": "The founder is named Jayvee, and he runs the startup.",
+      "score": "exact",
+      "gen_time_s": 0.91
+    },
+    {
+      "id": 88,
+      "category": "spell",
+      "input": "Her manager is Neve. Write that as N-I-A-M-H.",
+      "ideal": "Her manager is Niamh.",
+      "output": "Her manager is Niamh.",
+      "raw_output": "Her manager is Niamh.",
+      "score": "exact",
+      "gen_time_s": 0.525
+    },
+    {
+      "id": 89,
+      "category": "hard-negative",
+      "input": "The military dog tag tradition dates back to the Civil War era.",
+      "ideal": "The military dog tag tradition dates back to the Civil War era.",
+      "output": "The military dog tag tradition dates back to the Civil War era.",
+      "raw_output": "The military dog tag tradition dates back to the Civil War era.",
+      "score": "exact",
+      "gen_time_s": 0.926
+    },
+    {
+      "id": 90,
+      "category": "hard-negative",
+      "input": "Wait until the sourdough has doubled in volume before shaping the loaf.",
+      "ideal": "Wait until the sourdough has doubled in volume before shaping the loaf.",
+      "output": "Wait until the sourdough has doubled in volume before shaping the loaf.",
+      "raw_output": "Wait until the sourdough has doubled in volume before shaping the loaf.",
+      "score": "exact",
+      "gen_time_s": 0.913
+    },
+    {
+      "id": 91,
+      "category": "hard-negative",
+      "input": "Actually, I think we should go with the third option instead.",
+      "ideal": "Actually, I think we should go with the third option instead.",
+      "output": "Actually, I think we should go with the third option instead.",
+      "raw_output": "Actually, I think we should go with the third option instead.",
+      "score": "exact",
+      "gen_time_s": 0.928
+    },
+    {
+      "id": 92,
+      "category": "caps",
+      "input": "Write that in caps. This proposal will transform how we approach customer retention.",
+      "ideal": "THIS PROPOSAL WILL TRANSFORM HOW WE APPROACH CUSTOMER RETENTION.",
+      "output": "THIS PROPOSAL WILL TRANSFORM HOW WE APPROACH CUSTOMER RETENTION.",
+      "raw_output": "THIS PROPOSAL WILL TRANSFORM HOW WE APPROACH CUSTOMER RETENTION.",
+      "score": "exact",
+      "gen_time_s": 0.925
+    },
+    {
+      "id": 93,
+      "category": "self-correction",
+      "input": "The team is eight people. Sorry, that's including me. Seven without me.",
+      "ideal": "The team is seven people.",
+      "output": "The team is seven people.",
+      "raw_output": "The team is seven people.",
+      "score": "exact",
+      "gen_time_s": 0.458
+    },
+    {
+      "id": 94,
+      "category": "emoji",
+      "input": "The sunset last night was beautiful heart eyes emoji",
+      "ideal": "The sunset last night was beautiful \ud83d\ude0d",
+      "output": "The sunset last night was beautiful \ud83d\ude0d",
+      "raw_output": "The sunset last night was beautiful \ud83d\ude0d",
+      "score": "exact",
+      "gen_time_s": 0.535
+    },
+    {
+      "id": 95,
+      "category": "quote",
+      "input": "He called the feature quote a game changer for the industry end quote.",
+      "ideal": "He called the feature \"a game changer for the industry\".",
+      "output": "He called the feature \"a game changer\" for the industry.",
+      "raw_output": "He called the feature \"a game changer\" for the industry.",
+      "score": "partial",
+      "gen_time_s": 0.925
+    },
+    {
+      "id": 96,
+      "category": "emoji",
+      "input": "Five clapping hands emojis for that performance",
+      "ideal": "\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f for that performance",
+      "output": "\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f",
+      "raw_output": "\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f\ud83d\udc4f",
+      "score": "partial",
+      "gen_time_s": 0.195
+    },
+    {
+      "id": 97,
+      "category": "meta",
+      "input": "Help me brainstorm a name for my new podcast about the history of jazz fusion from like 1970 to 1985.",
+      "ideal": "Help me brainstorm a name for my new podcast about the history of jazz fusion from like 1970 to 1985.",
+      "output": "Help me brainstorm a name for my new podcast about the history of jazz fusion from like 1970 to 1985.",
+      "raw_output": "Help me brainstorm a name for my new podcast about the history of jazz fusion from like 1970 to 1985.",
+      "score": "exact",
+      "gen_time_s": 2.024
+    },
+    {
+      "id": 98,
+      "category": "quote",
+      "input": "Quote we are committed to transparency and open communication end quote said the CEO while deleting every critical comment.",
+      "ideal": "\"We are committed to transparency and open communication\" said the CEO while deleting every critical comment.",
+      "output": "\"We are committed to transparency and open communication\" said the CEO while deleting every critical comment.",
+      "raw_output": "\"We are committed to transparency and open communication\" said the CEO while deleting every critical comment.",
+      "score": "exact",
+      "gen_time_s": 1.293
+    },
+    {
+      "id": 99,
+      "category": "camelcase",
+      "input": "The new usethrottle hook I wrote works great for the search input, but I'm wondering if I should extract usethrottle into its own package since three other teams want to use it.",
+      "ideal": "The new useThrottle hook I wrote works great for the search input, but I'm wondering if I should extract useThrottle into its own package since three other teams want to use it.",
+      "output": "The new useThrottle hook I wrote works great for the search input, but I'm wondering if I should extract useThrottle into its own package since three other teams want to use it.",
+      "raw_output": "The new useThrottle hook I wrote works great for the search input, but I'm wondering if I should extract useThrottle into its own package since three other teams want to use it.",
+      "score": "exact",
+      "gen_time_s": 2.574
+    },
+    {
+      "id": 100,
+      "category": "emphasis",
+      "input": "We need to notify the team immediately. Stress need and immediately.",
+      "ideal": "We NEED to notify the team IMMEDIATELY.",
+      "output": "We NEED to notify the team IMMEDIATELY.",
+      "raw_output": "We NEED to notify the team IMMEDIATELY.",
+      "score": "exact",
+      "gen_time_s": 0.705
+    },
+    {
+      "id": 101,
+      "category": "emphasis",
+      "input": "It's a feature, not a bug, but try telling that to the users. Bold feature and bug.",
+      "ideal": "It's a FEATURE, not a BUG, but try telling that to the users.",
+      "output": "It's a FEATURE, not a BUG, but try telling that to the users.",
+      "raw_output": "It's a FEATURE, not a BUG, but try telling that to the users.",
+      "score": "exact",
+      "gen_time_s": 1.24
+    },
+    {
+      "id": 102,
+      "category": "multi",
+      "input": "The ticket says quote escalate to engineering end quote. Tag the oncall.",
+      "ideal": "The ticket says \"escalate to engineering\". @oncall",
+      "output": "The ticket says \"escalate to engineering\". @oncall",
+      "raw_output": "The ticket says \"escalate to engineering\". @oncall",
+      "score": "exact",
+      "gen_time_s": 0.854
+    },
+    {
+      "id": 103,
+      "category": "self-correction",
+      "input": "I mean, it's not rocket science, but you do need to understand the basics first.",
+      "ideal": "I mean, it's not rocket science, but you do need to understand the basics first.",
+      "output": "I mean, it's not rocket science, but you do need to understand the basics first.",
+      "raw_output": "I mean, it's not rocket science, but you do need to understand the basics first.",
+      "score": "exact",
+      "gen_time_s": 1.419
+    },
+    {
+      "id": 104,
+      "category": "multi",
+      "input": "Contact sarah about the deploy. Wait no, contact mike. At symbol before his name.",
+      "ideal": "Contact @mike about the deploy.",
+      "output": "Contact @mike about the deploy.",
+      "raw_output": "Contact @mike about the deploy.",
+      "score": "exact",
+      "gen_time_s": 0.539
+    },
+    {
+      "id": 105,
+      "category": "caps",
+      "input": "Warning unauthorized access detected. All caps on warning.",
+      "ideal": "WARNING unauthorized access detected.",
+      "output": "WARNING unauthorized access detected.",
+      "raw_output": "WARNING unauthorized access detected.",
+      "score": "exact",
+      "gen_time_s": 0.441
+    },
+    {
+      "id": 106,
+      "category": "disfluency",
+      "input": "we should probably um refactor this whole thing before the uh release next week",
+      "ideal": "we should probably refactor this whole thing before the release next week",
+      "output": "we should probably refactor this whole thing before the release next week",
+      "raw_output": "we should probably refactor this whole thing before the release next week",
+      "score": "exact",
+      "gen_time_s": 1.006
+    },
+    {
+      "id": 107,
+      "category": "self-correction",
+      "input": "I'll be flying into JFK, no no, sorry, Newark, and then taking the train into the city for the conference.",
+      "ideal": "I'll be flying into Newark, and then taking the train into the city for the conference.",
+      "output": "I'll be flying into Newark and then taking the train into the city for the conference.",
+      "raw_output": "I'll be flying into Newark and then taking the train into the city for the conference.",
+      "score": "partial",
+      "gen_time_s": 1.92
+    },
+    {
+      "id": 108,
+      "category": "quote",
+      "input": "He was quote-unquote too busy to help, which we all know is bullshit.",
+      "ideal": "He was \"too busy\" to help, which we all know is bullshit.",
+      "output": "He was \"too\" busy to help, which we all know is bullshit.",
+      "raw_output": "He was \"too\" busy to help, which we all know is bullshit.",
+      "score": "partial",
+      "gen_time_s": 1.128
+    },
+    {
+      "id": 109,
+      "category": "multi",
+      "input": "The keynote speaker is from Google. No wait, she's from Anthropic. Make that all caps.",
+      "ideal": "The keynote speaker is from ANTHROPIC.",
+      "output": "The keynote speaker is from ANTHROPIC.",
+      "raw_output": "The keynote speaker is from ANTHROPIC.",
+      "score": "exact",
+      "gen_time_s": 0.728
+    },
+    {
+      "id": 110,
+      "category": "emphasis",
+      "input": "The backup took fourteen hours and restored in fourteen minutes. Make fourteen hours and fourteen minutes bold.",
+      "ideal": "The backup took FOURTEEN HOURS and restored in FOURTEEN MINUTES.",
+      "output": "The backup took FOURTEEN HOURS and restored in FOURTEEN MINUTES.",
+      "raw_output": "The backup took FOURTEEN HOURS and restored in FOURTEEN MINUTES.",
+      "score": "exact",
+      "gen_time_s": 1.061
+    },
+    {
+      "id": 111,
+      "category": "meta",
+      "input": "Could you write me a short poem about the fog rolling into San Francisco at dawn?",
+      "ideal": "Could you write me a short poem about the fog rolling into San Francisco at dawn?",
+      "output": "Could you write me a short poem about the fog rolling into San Francisco at dawn?",
+      "raw_output": "Could you write me a short poem about the fog rolling into San Francisco at dawn?",
+      "score": "exact",
+      "gen_time_s": 1.263
+    },
+    {
+      "id": 112,
+      "category": "self-correction",
+      "input": "The meeting is with Sarah from marketing, wait no, that's next week, this week it's with David from product.",
+      "ideal": "The meeting is with David from product.",
+      "output": "The meeting is with David from product.",
+      "raw_output": "The meeting is with David from product.",
+      "score": "exact",
+      "gen_time_s": 0.6
+    },
+    {
+      "id": 113,
+      "category": "emoji",
+      "input": "thinking face emoji should we refactor this now or later",
+      "ideal": "\ud83e\udd14 should we refactor this now or later",
+      "output": "\ud83e\udd14 should we refactor this now or later",
+      "raw_output": "\ud83e\udd14 should we refactor this now or later",
+      "score": "exact",
+      "gen_time_s": 0.685
+    },
+    {
+      "id": 114,
+      "category": "emoji",
+      "input": "That was hilarious crying laughing emoji",
+      "ideal": "That was hilarious \ud83d\ude02",
+      "output": "That was hilarious \ud83d\ude02",
+      "raw_output": "That was hilarious \ud83d\ude02",
+      "score": "exact",
+      "gen_time_s": 0.331
+    },
+    {
+      "id": 115,
+      "category": "hard-negative",
+      "input": "I mean, if you look at the archaeological evidence, the settlement predates the Romans by centuries.",
+      "ideal": "I mean, if you look at the archaeological evidence, the settlement predates the Romans by centuries.",
+      "output": "I mean, if you look at the archaeological evidence, the settlement predates the Romans by centuries.",
+      "raw_output": "I mean, if you look at the archaeological evidence, the settlement predates the Romans by centuries.",
+      "score": "exact",
+      "gen_time_s": 1.38
+    },
+    {
+      "id": 116,
+      "category": "self-correction",
+      "input": "We tested it on Samsung Galaxy S24 and Google Pixel 8. Scratch that, iPhone 15 Pro.",
+      "ideal": "We tested it on Samsung Galaxy S24 and iPhone 15 Pro.",
+      "output": "We tested it on Samsung Galaxy S24 and iPhone 15 Pro.",
+      "raw_output": "We tested it on Samsung Galaxy S24 and iPhone 15 Pro.",
+      "score": "exact",
+      "gen_time_s": 1.085
+    },
+    {
+      "id": 117,
+      "category": "emphasis",
+      "input": "The load balancer configuration was misconfigured. Emphasize misconfigured.",
+      "ideal": "The load balancer configuration was MISCONFIGURED.",
+      "output": "The load balancer configuration was MISCONFIGURED.",
+      "raw_output": "The load balancer configuration was MISCONFIGURED.",
+      "score": "exact",
+      "gen_time_s": 0.652
+    },
+    {
+      "id": 118,
+      "category": "quote",
+      "input": "The architect insisted on quote form follows function end quote as the guiding principle.",
+      "ideal": "The architect insisted on \"form follows function\" as the guiding principle.",
+      "output": "The architect insisted on \"form follows function\" as the guiding principle.",
+      "raw_output": "The architect insisted on \"form follows function\" as the guiding principle.",
+      "score": "exact",
+      "gen_time_s": 0.974
+    },
+    {
+      "id": 119,
+      "category": "hard-negative",
+      "input": "Oops, I set the torque wrench to newton-meters instead of foot-pounds\u2014that cylinder head is now warped.",
+      "ideal": "Oops, I set the torque wrench to newton-meters instead of foot-pounds\u2014that cylinder head is now warped.",
+      "output": "Oops, I set the torque wrench to newton-meters instead of foot-pounds\u2014that cylinder head is now warped.",
+      "raw_output": "Oops, I set the torque wrench to newton-meters instead of foot-pounds\u2014that cylinder head is now warped.",
+      "score": "exact",
+      "gen_time_s": 1.666
+    },
+    {
+      "id": 120,
+      "category": "spell",
+      "input": "The dish is called Zoi, that's X-O-I, sticky rice with mung bean \u2014 spell that M-U-N-G, not mong like the verb.",
+      "ideal": "The dish is called Xoi, sticky rice with mung bean \u2014 not mong like the verb.",
+      "output": "The dish is called Zoi, sticky rice with mung bean.",
+      "raw_output": "The dish is called Zoi, sticky rice with mung bean.",
+      "score": "partial",
+      "gen_time_s": 0.932
+    },
+    {
+      "id": 121,
+      "category": "hard-negative",
+      "input": "Wait, I think I left my passport in the hotel safe\u2014can you call the front desk?",
+      "ideal": "Wait, I think I left my passport in the hotel safe\u2014can you call the front desk?",
+      "output": "Wait, I think I left my passport in the hotel safe\u2014can you call the front desk?",
+      "raw_output": "Wait, I think I left my passport in the hotel safe\u2014can you call the front desk?",
+      "score": "exact",
+      "gen_time_s": 1.379
+    },
+    {
+      "id": 122,
+      "category": "caps",
+      "input": "This is a test environment. Use all caps.",
+      "ideal": "THIS IS A TEST ENVIRONMENT.",
+      "output": "THIS IS A TEST ENVIRONMENT.",
+      "raw_output": "THIS IS A TEST ENVIRONMENT.",
+      "score": "exact",
+      "gen_time_s": 0.473
+    },
+    {
+      "id": 123,
+      "category": "self-correction",
+      "input": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Kim. Actually, Dr. Martinez.",
+      "ideal": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Martinez.",
+      "output": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Martinez.",
+      "raw_output": "The guest speakers are Dr. Lee, Professor Walsh, and Dr. Martinez.",
+      "score": "exact",
+      "gen_time_s": 1.086
+    },
+    {
+      "id": 124,
+      "category": "spell",
+      "input": "She recommended this place called Saffa, spelled S-A-F-F-R-A-H, for authentic Yemeni coffee and I finally went yesterday morning.",
+      "ideal": "She recommended this place called Saffrah, for authentic Yemeni coffee and I finally went yesterday morning.",
+      "output": "She recommended this place called Saffrah for authentic Yemeni coffee and I finally went yesterday morning.",
+      "raw_output": "She recommended this place called Saffrah for authentic Yemeni coffee and I finally went yesterday morning.",
+      "score": "partial",
+      "gen_time_s": 1.289
+    },
+    {
+      "id": 125,
+      "category": "emphasis",
+      "input": "He claimed the outage was planned maintenance. Bold outage and planned maintenance.",
+      "ideal": "He claimed the OUTAGE was PLANNED MAINTENANCE.",
+      "output": "He claimed the OUTAGE was PLANNED MAINTENANCE.",
+      "raw_output": "He claimed the OUTAGE was PLANNED MAINTENANCE.",
+      "score": "exact",
+      "gen_time_s": 0.784
+    },
+    {
+      "id": 126,
+      "category": "camelcase",
+      "input": "The entry point is in maincontroller.py, that's where the api routes are defined.",
+      "ideal": "The entry point is in MainController.py, that's where the API routes are defined.",
+      "output": "The entry point is in MainController.py, that's where the API routes are defined.",
+      "raw_output": "The entry point is in MainController.py, that's where the API routes are defined.",
+      "score": "exact",
+      "gen_time_s": 1.341
+    },
+    {
+      "id": 127,
+      "category": "spell",
+      "input": "The ORM is called Prisma. Can you spell that P-R-I-S-M-A?",
+      "ideal": "The ORM is called Prisma.",
+      "output": "The ORM is called Prisma.",
+      "raw_output": "The ORM is called Prisma.",
+      "score": "exact",
+      "gen_time_s": 0.508
+    },
+    {
+      "id": 128,
+      "category": "emphasis",
+      "input": "The query optimization reduced execution time dramatically. Bold query, execution, and dramatically.",
+      "ideal": "The QUERY optimization reduced EXECUTION time DRAMATICALLY.",
+      "output": "The QUERY optimization reduced EXECUTON TIME DRAMATICALLY.",
+      "raw_output": "The QUERY optimization reduced EXECUTON TIME DRAMATICALLY.",
+      "score": "partial",
+      "gen_time_s": 0.854
+    },
+    {
+      "id": 129,
+      "category": "quote",
+      "input": "She's his quote-unquote work wife but we all know what's going on.",
+      "ideal": "She's his \"work wife\" but we all know what's going on.",
+      "output": "She's his \"work wife\" but we all know what's going on.",
+      "raw_output": "She's his \"work wife\" but we all know what's going on.",
+      "score": "exact",
+      "gen_time_s": 1.227
+    },
+    {
+      "id": 130,
+      "category": "self-correction",
+      "input": "I mean, it's fine, I guess, but I was expecting something a little different.",
+      "ideal": "I mean, it's fine, I guess, but I was expecting something a little different.",
+      "output": "I mean, it's fine, I guess, but I was expecting something a little different.",
+      "raw_output": "I mean, it's fine, I guess, but I was expecting something a little different.",
+      "score": "exact",
+      "gen_time_s": 1.339
+    },
+    {
+      "id": 131,
+      "category": "self-correction",
+      "input": "The package weighs 2 kilos. Actually, 2.5 kilos, so shipping costs more.",
+      "ideal": "The package weighs 2.5 kilos so shipping costs more.",
+      "output": "The package weighs 2.5 kilos so shipping costs more.",
+      "raw_output": "The package weighs 2.5 kilos so shipping costs more.",
+      "score": "exact",
+      "gen_time_s": 0.902
+    }
+  ],
+  "test_set_path": "spoke/bench/test_set_v5.json",
+  "test_set_name": "test_set_v5.json",
+  "test_set_sha256": "22967f8ed9f94af1a7abfe79f407207e113bdb7d21dffa49dee43ff126942743",
+  "suite": "core23"
+}
