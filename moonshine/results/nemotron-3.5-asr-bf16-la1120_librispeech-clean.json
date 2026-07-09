@@ -1,0 +1,23 @@
+{
+  "model": "nemotron-3.5-asr-bf16-la1120",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 250,
+  "wer": 0.032282424013592596,
+  "median_wer": 0.0,
+  "substitutions": 138,
+  "insertions": 13,
+  "deletions": 20,
+  "total_words": 5297,
+  "total_audio_seconds": 1967.6,
+  "total_inference_seconds": 309.6,
+  "real_time_factor": 0.157,
+  "peak_memory_gb": 0.07,
+  "mlx_active_memory_gb_start": 1.23,
+  "mlx_active_memory_gb_end": 1.23,
+  "mlx_peak_memory_gb": 1.89
+}

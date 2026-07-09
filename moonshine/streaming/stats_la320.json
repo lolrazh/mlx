@@ -1,0 +1,774 @@
+{
+  "label": "test_clip.wav (48.7s), lookahead 320ms",
+  "lookahead_ms": 320,
+  "partials": [
+    {
+      "lag": 0.18612912513315677,
+      "text": "",
+      "delta": ""
+    },
+    {
+      "lag": 0.1877146250475198,
+      "text": "",
+      "delta": ""
+    },
+    {
+      "lag": 0.1870434169750661,
+      "text": "",
+      "delta": ""
+    },
+    {
+      "lag": 0.19384087508544323,
+      "text": "They",
+      "delta": "They"
+    },
+    {
+      "lag": 0.19084275010973206,
+      "text": "They were",
+      "delta": " were"
+    },
+    {
+      "lag": 0.1910610000323505,
+      "text": "They were absor",
+      "delta": " absor"
+    },
+    {
+      "lag": 0.19395191710442283,
+      "text": "They were absorbed",
+      "delta": "bed"
+    },
+    {
+      "lag": 0.19290974997915322,
+      "text": "They were absorbed in",
+      "delta": " in"
+    },
+    {
+      "lag": 0.19290362496860336,
+      "text": "They were absorbed in his",
+      "delta": " his"
+    },
+    {
+      "lag": 0.19513904205523414,
+      "text": "They were absorbed in his theolo",
+      "delta": " theolo"
+    },
+    {
+      "lag": 0.1965547921322286,
+      "text": "They were absorbed in his theology",
+      "delta": "gy"
+    },
+    {
+      "lag": 0.19299820795655265,
+      "text": "They were absorbed in his theology and",
+      "delta": " and"
+    },
+    {
+      "lag": 0.1892196251172571,
+      "text": "They were absorbed in his theology and were",
+      "delta": " were"
+    },
+    {
+      "lag": 0.19280900012701707,
+      "text": "They were absorbed in his theology and were under the",
+      "delta": " under the"
+    },
+    {
+      "lag": 0.19337466713041085,
+      "text": "They were absorbed in his theology and were under the dominion",
+      "delta": " dominion"
+    },
+    {
+      "lag": 0.19103112502023567,
+      "text": "They were absorbed in his theology and were under the dominion of his",
+      "delta": " of his"
+    },
+    {
+      "lag": 0.18257241690531334,
+      "text": "They were absorbed in his theology and were under the dominion of his name",
+      "delta": " name"
+    },
+    {
+      "lag": 0.18061104208230994,
+      "text": "They were absorbed in his theology and were under the dominion of his name",
+      "delta": ""
+    },
+    {
+      "lag": 0.181129125021398,
+      "text": "They were absorbed in his theology and were under the dominion of his name",
+      "delta": ""
+    },
+    {
+      "lag": 0.19473316697403753,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while",
+      "delta": ", while"
+    },
+    {
+      "lag": 0.19252200002782072,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that",
+      "delta": " that"
+    },
+    {
+      "lag": 0.19676770809106525,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which",
+      "delta": " which"
+    },
+    {
+      "lag": 0.19088683310896126,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was",
+      "delta": " was"
+    },
+    {
+      "lag": 0.1889374579116705,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly",
+      "delta": " truly"
+    },
+    {
+      "lag": 0.1862132081296295,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly",
+      "delta": ""
+    },
+    {
+      "lag": 0.19535537512972923,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great",
+      "delta": " great"
+    },
+    {
+      "lag": 0.19309766696765962,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great",
+      "delta": ""
+    },
+    {
+      "lag": 0.19828945813700471,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly",
+      "delta": " and truly"
+    },
+    {
+      "lag": 0.19222479199990694,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly",
+      "delta": ""
+    },
+    {
+      "lag": 0.20033366708084976,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly charact",
+      "delta": " charact"
+    },
+    {
+      "lag": 0.20024120800197132,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic",
+      "delta": "eristic"
+    },
+    {
+      "lag": 0.20641620805487015,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him",
+      "delta": " in him"
+    },
+    {
+      "lag": 0.1965919579938049,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him",
+      "delta": ""
+    },
+    {
+      "lag": 0.18667629210278314,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him",
+      "delta": ""
+    },
+    {
+      "lag": 0.19039575005881382,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his",
+      "delta": " his"
+    },
+    {
+      "lag": 0.2037025001086299,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort",
+      "delta": " effort"
+    },
+    {
+      "lag": 0.1968388330098243,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to",
+      "delta": " to"
+    },
+    {
+      "lag": 0.1952431249991058,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to",
+      "delta": ""
+    },
+    {
+      "lag": 0.20057291698642032,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to reali",
+      "delta": " reali"
+    },
+    {
+      "lag": 0.19795129196718264,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize",
+      "delta": "ze"
+    },
+    {
+      "lag": 0.2023018329590549,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect",
+      "delta": " and connect"
+    },
+    {
+      "lag": 0.1948963330965494,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect",
+      "delta": ""
+    },
+    {
+      "lag": 0.2061026669200512,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstraction",
+      "delta": " abstraction"
+    },
+    {
+      "lag": 0.19570520807057612,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions",
+      "delta": "s"
+    },
+    {
+      "lag": 0.19735237504355574,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions",
+      "delta": ""
+    },
+    {
+      "lag": 0.1949940421339118,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was",
+      "delta": " was"
+    },
+    {
+      "lag": 0.19409295803867188,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not",
+      "delta": " not"
+    },
+    {
+      "lag": 0.19709783290512917,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not",
+      "delta": ""
+    },
+    {
+      "lag": 0.18878066696226625,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not under",
+      "delta": " under"
+    },
+    {
+      "lag": 0.19830533303320408,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by",
+      "delta": "stood by"
+    },
+    {
+      "lag": 0.20070441702380748,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them",
+      "delta": " them"
+    },
+    {
+      "lag": 0.19218454197049084,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them",
+      "delta": ""
+    },
+    {
+      "lag": 0.20142229200340722,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all",
+      "delta": " at all"
+    },
+    {
+      "lag": 0.19155070793814843,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all",
+      "delta": ""
+    },
+    {
+      "lag": 0.1919057919643805,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all",
+      "delta": ""
+    },
+    {
+      "lag": 0.19096016713417896,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all",
+      "delta": ""
+    },
+    {
+      "lag": 0.19335924996062914,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all",
+      "delta": ""
+    },
+    {
+      "lag": 0.19137450010515877,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when",
+      "delta": " when"
+    },
+    {
+      "lag": 0.19420070795342426,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had",
+      "delta": " this had"
+    },
+    {
+      "lag": 0.20504216705448997,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomp",
+      "delta": " been accomp"
+    },
+    {
+      "lag": 0.20248904197476847,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished",
+      "delta": "lished"
+    },
+    {
+      "lag": 0.19761733300052597,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the",
+      "delta": ", the"
+    },
+    {
+      "lag": 0.19712075000628815,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolar",
+      "delta": " boolar"
+    },
+    {
+      "lag": 0.19784170806407886,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo le",
+      "delta": "oo le"
+    },
+    {
+      "lag": 0.20175991700962115,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over",
+      "delta": "aned over"
+    },
+    {
+      "lag": 0.1997948329616328,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to",
+      "delta": " to"
+    },
+    {
+      "lag": 0.19945866702124349,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to",
+      "delta": " try to"
+    },
+    {
+      "lag": 0.2047010001353904,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a disco",
+      "delta": " a disco"
+    },
+    {
+      "lag": 0.19397674997336978,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover",
+      "delta": "ver"
+    },
+    {
+      "lag": 0.19744879207573618,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the",
+      "delta": " why the"
+    },
+    {
+      "lag": 0.19832204209640736,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the fram",
+      "delta": " fram"
+    },
+    {
+      "lag": 0.1849334580264994,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame ro",
+      "delta": "e ro"
+    },
+    {
+      "lag": 0.1991451670043176,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away",
+      "delta": "lled away"
+    },
+    {
+      "lag": 0.1894877920206639,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away",
+      "delta": ""
+    },
+    {
+      "lag": 0.18981454195454717,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away see",
+      "delta": " see"
+    },
+    {
+      "lag": 0.19007287506945403,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly",
+      "delta": "mingly"
+    },
+    {
+      "lag": 0.20315458312630597,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its",
+      "delta": " of its"
+    },
+    {
+      "lag": 0.20226587491109882,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own",
+      "delta": " own"
+    },
+    {
+      "lag": 0.20161787493154293,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord",
+      "delta": " accord"
+    },
+    {
+      "lag": 0.19529945808462656,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord",
+      "delta": ""
+    },
+    {
+      "lag": 0.19038104211911389,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord",
+      "delta": ""
+    },
+    {
+      "lag": 0.2031745419278721,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was",
+      "delta": ", and he was"
+    },
+    {
+      "lag": 0.19526008312590193,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more",
+      "delta": " the more"
+    },
+    {
+      "lag": 0.19970020803623,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzz",
+      "delta": " puzz"
+    },
+    {
+      "lag": 0.19614754193462502,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle",
+      "delta": "le"
+    },
+    {
+      "lag": 0.19864170790649993,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had",
+      "delta": " because it had"
+    },
+    {
+      "lag": 0.19844104195013657,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never",
+      "delta": " never"
+    },
+    {
+      "lag": 0.20129045812413082,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done",
+      "delta": " done"
+    },
+    {
+      "lag": 0.20554316693916874,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a",
+      "delta": " such a"
+    },
+    {
+      "lag": 0.19949362501501966,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing be",
+      "delta": " thing be"
+    },
+    {
+      "lag": 0.18777637497521837,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before",
+      "delta": "fore"
+    },
+    {
+      "lag": 0.18845158297568432,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before",
+      "delta": ""
+    },
+    {
+      "lag": 0.19102500007487677,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before",
+      "delta": ""
+    },
+    {
+      "lag": 0.19213162509724313,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before",
+      "delta": ""
+    },
+    {
+      "lag": 0.1887710000388303,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before",
+      "delta": ""
+    },
+    {
+      "lag": 0.18630045812577123,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before",
+      "delta": ""
+    },
+    {
+      "lag": 0.2007380000222483,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why",
+      "delta": " why"
+    },
+    {
+      "lag": 0.1917244581133133,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if",
+      "delta": " if"
+    },
+    {
+      "lag": 0.18889783293008833,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we",
+      "delta": " we"
+    },
+    {
+      "lag": 0.18201941694132984,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we",
+      "delta": ""
+    },
+    {
+      "lag": 0.193661333126947,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect",
+      "delta": " erect"
+    },
+    {
+      "lag": 0.19788870810531023,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station",
+      "delta": " a station"
+    },
+    {
+      "lag": 0.1910871250648043,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the",
+      "delta": " at the"
+    },
+    {
+      "lag": 0.19913724998943394,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls",
+      "delta": " falls"
+    },
+    {
+      "lag": 0.18790595801547028,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls",
+      "delta": ""
+    },
+    {
+      "lag": 0.19269279196858236,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is",
+      "delta": ", it is"
+    },
+    {
+      "lag": 0.1948915000446121,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a",
+      "delta": " a"
+    },
+    {
+      "lag": 0.19657729199155938,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great",
+      "delta": " great"
+    },
+    {
+      "lag": 0.19855966710485262,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great econo",
+      "delta": " econo"
+    },
+    {
+      "lag": 0.19628908294252767,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to",
+      "delta": "my to"
+    },
+    {
+      "lag": 0.19539783291518376,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get",
+      "delta": " get"
+    },
+    {
+      "lag": 0.19855829196981745,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up",
+      "delta": " it up"
+    },
+    {
+      "lag": 0.20211729212663698,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the",
+      "delta": " to the"
+    },
+    {
+      "lag": 0.20139908299780984,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.",
+      "delta": " city."
+    },
+    {
+      "lag": 0.1895019999239551,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.",
+      "delta": ""
+    },
+    {
+      "lag": 0.1886176249198641,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.",
+      "delta": ""
+    },
+    {
+      "lag": 0.18676266697235633,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I",
+      "delta": "  I"
+    },
+    {
+      "lag": 0.19873862504959305,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish",
+      "delta": " wish"
+    },
+    {
+      "lag": 0.19465700008906595,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good",
+      "delta": " you good"
+    },
+    {
+      "lag": 0.19831620799377703,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.",
+      "delta": " night."
+    },
+    {
+      "lag": 0.1927172920852911,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.",
+      "delta": ""
+    },
+    {
+      "lag": 0.1961065829172739,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She la",
+      "delta": "  She la"
+    },
+    {
+      "lag": 0.18915045807138142,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her",
+      "delta": "id her"
+    },
+    {
+      "lag": 0.19624612497165828,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony",
+      "delta": " bony"
+    },
+    {
+      "lag": 0.20240954193286598,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on",
+      "delta": " hands on"
+    },
+    {
+      "lag": 0.19692700013518305,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of",
+      "delta": " the back of"
+    },
+    {
+      "lag": 0.1913877501059318,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister",
+      "delta": " Mister"
+    },
+    {
+      "lag": 0.19318333311006342,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Meda",
+      "delta": " Meda"
+    },
+    {
+      "lag": 0.1937316670361895,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft",
+      "delta": "croft"
+    },
+    {
+      "lag": 0.19612466692924357,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid",
+      "delta": "'s invalid"
+    },
+    {
+      "lag": 0.19517287511378356,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair",
+      "delta": " chair"
+    },
+    {
+      "lag": 0.18858916707336704,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair,",
+      "delta": ","
+    },
+    {
+      "lag": 0.19728812511078786,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him",
+      "delta": " cut him"
+    },
+    {
+      "lag": 0.19970070792361838,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short",
+      "delta": " short"
+    },
+    {
+      "lag": 0.19331883308477416,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his",
+      "delta": " in his"
+    },
+    {
+      "lag": 0.2302113750670074,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his fare",
+      "delta": " fare"
+    },
+    {
+      "lag": 0.23083020801655607,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell",
+      "delta": "well"
+    },
+    {
+      "lag": 0.21454958306625116,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salu",
+      "delta": " salu"
+    },
+    {
+      "lag": 0.23262633311561842,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation",
+      "delta": "tation"
+    },
+    {
+      "lag": 0.21847637491300276,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me",
+      "delta": " to me"
+    },
+    {
+      "lag": 0.21161904197186487,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me",
+      "delta": ""
+    },
+    {
+      "lag": 0.22808679210953642,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheel",
+      "delta": ", and wheel"
+    },
+    {
+      "lag": 0.23591454211622676,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to",
+      "delta": "ed him out to"
+    },
+    {
+      "lag": 0.23032137502916328,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed",
+      "delta": " his bed"
+    },
+    {
+      "lag": 0.2223759169224664,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as",
+      "delta": " as"
+    },
+    {
+      "lag": 0.19028491710312778,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she",
+      "delta": " if she"
+    },
+    {
+      "lag": 0.2035410420876005,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were",
+      "delta": " were"
+    },
+    {
+      "lag": 0.19308516696095523,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were whee",
+      "delta": " whee"
+    },
+    {
+      "lag": 0.19706395797431497,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were wheeling him out",
+      "delta": "ling him out"
+    },
+    {
+      "lag": 0.2002894999459386,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were wheeling him out to his",
+      "delta": " to his"
+    },
+    {
+      "lag": 0.20513220813125344,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were wheeling him out to his grave",
+      "delta": " grave"
+    },
+    {
+      "lag": 0.15381650011055115,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were wheeling him out to his grave",
+      "delta": ""
+    },
+    {
+      "lag": 0.09637350011616519,
+      "text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were wheeling him out to his grave.",
+      "delta": "."
+    }
+  ],
+  "prefix_violations": 0,
+  "time_to_final_ms": 213.6494170408696,
+  "final_text": "They were absorbed in his theology and were under the dominion of his name, while that which was truly great and truly characteristic in him his effort to realize and connect abstractions was not understood by them at all when this had been accomplished, the boolaroo leaned over to try to a discover why the frame rolled away seemingly of its own accord, and he was the more puzzle because it had never done such a thing before why if we erect a station at the falls, it is a great economy to get it up to the city.  I wish you good night.  She laid her bony hands on the back of Mister Medacroft's invalid chair, cut him short in his farewell salutation to me, and wheeled him out to his bed as if she were wheeling him out to his grave."
+}
