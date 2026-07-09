@@ -17,10 +17,30 @@ import tempfile
 from pathlib import Path
 
 import mlx.core as mx
-from mlx_lm.sample_utils import make_sampler
+from mlx_lm.sample_utils import make_sampler, make_logits_processors
 
 BENCH_DIR = Path(__file__).parent
 GREEDY = make_sampler(temp=0.0)
+
+# Reasoning-model chat templates (e.g. Gemma 4) can open a hidden "thinking"
+# channel via <|think|> / <|channel>thought. Even fine-tuned to answer directly,
+# these models slip into thinking on hard examples under MLX greedy decoding,
+# which tanks copy-edit accuracy (~-17 pts broad58). Banning the channel-opening
+# tokens forces a direct answer. Self-gating: only fires when a marker encodes to
+# a SINGLE special token (Gemma 4), a no-op for models without these tokens.
+_THINK_MARKERS = ("<|think|>", "<|channel>")
+
+
+def make_no_think_processors(tokenizer):
+    bias = {}
+    for marker in _THINK_MARKERS:
+        try:
+            ids = tokenizer.encode(marker, add_special_tokens=False)
+        except Exception:
+            continue
+        if len(ids) == 1:  # a real single special token, not sub-word pieces
+            bias[ids[0]] = -1e9
+    return make_logits_processors(logit_bias=bias) if bias else None
 
 # ── Models ──────────────────────────────────────────────────
 MODELS = {
@@ -386,6 +406,11 @@ def benchmark_model(model_path, test_set, prompt_mode="generic", verbose=True,
     if kv_bits:
         gen_kwargs["kv_bits"] = kv_bits
         gen_kwargs["kv_group_size"] = 64
+    no_think = make_no_think_processors(tokenizer)
+    if no_think:
+        gen_kwargs["logits_processors"] = no_think
+        if verbose:
+            print("  no-think logit bias active (banned thinking-channel tokens)")
 
     results = []
     for ex in test_set:
