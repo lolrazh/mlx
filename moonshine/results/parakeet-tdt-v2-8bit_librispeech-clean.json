@@ -1,0 +1,23 @@
+{
+  "model": "parakeet-tdt-v2-8bit",
+  "dataset": "librispeech-clean",
+  "dataset_info": {
+    "name": "librispeech-clean",
+    "hf_path": "openslr/librispeech_asr/clean",
+    "split": "test"
+  },
+  "num_samples": 250,
+  "wer": 0.019067396639607326,
+  "median_wer": 0.0,
+  "substitutions": 79,
+  "insertions": 8,
+  "deletions": 14,
+  "total_words": 5297,
+  "total_audio_seconds": 1967.6,
+  "total_inference_seconds": 47.6,
+  "real_time_factor": 0.024,
+  "peak_memory_gb": 0.02,
+  "mlx_active_memory_gb_start": 0.72,
+  "mlx_active_memory_gb_end": 0.72,
+  "mlx_peak_memory_gb": 1.26
+}
