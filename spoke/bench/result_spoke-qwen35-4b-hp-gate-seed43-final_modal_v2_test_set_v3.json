@@ -1,6 +1,6 @@
 {
-  "model": "/output/spoke-qwen35-4b-hf-v5-v2prompt-1500-20260306-0625/merged",
-  "short_name": "spoke-qwen35-4b-hf-v5-v2prompt-1500-20260306-0625-modal-hf",
+  "model": "/output/spoke-qwen35-4b-hp-gate-seed43-final/merged",
+  "short_name": "spoke-qwen35-4b-hp-gate-seed43-final-modal-hf",
   "prompt_mode": "v2",
   "n": 23,
   "exact": 22,
@@ -8,7 +8,8 @@
   "partial": 1,
   "fail": 0,
   "accuracy": 0.9565,
-  "avg_latency_s": 0.699,
+  "avg_latency_s": 0.458,
+  "budget_hits": 0,
   "results": [
     {
       "id": 1,
@@ -18,27 +19,30 @@
       "output": "I'm gonna be using Silero VAD for this.",
       "raw_output": "I'm gonna be using Silero VAD for this.",
       "score": "exact",
-      "gen_time_s": 0.725
+      "gen_time_s": 0.441,
+      "hit_token_budget": false
     },
     {
       "id": 2,
       "category": "spell-replace",
       "input": "He went to the Khadai, spell that K-A-D-A-I.",
       "ideal": "He went to the Kadai.",
-      "output": "He went to the Kadai.",
-      "raw_output": "He went to the Kadai.",
-      "score": "exact",
-      "gen_time_s": 0.479
+      "output": "He went to the Kada\u00ef.",
+      "raw_output": "He went to the Kada\u00ef.",
+      "score": "partial",
+      "gen_time_s": 0.338,
+      "hit_token_budget": false
     },
     {
       "id": 3,
       "category": "spell-replace",
       "input": "The new restaurant on 4th serves amazing Kibbeh Nayeh, spell that K-I-B-B-I-N-A-Y, it's a Lebanese raw lamb dish.",
       "ideal": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
-      "output": "The new restaurant on 4th serves amazing Kibinaay, it's a Lebanese raw lamb dish.",
-      "raw_output": "The new restaurant on 4th serves amazing Kibinaay, it's a Lebanese raw lamb dish.",
-      "score": "partial",
-      "gen_time_s": 1.122
+      "output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "raw_output": "The new restaurant on 4th serves amazing Kibbinay, it's a Lebanese raw lamb dish.",
+      "score": "exact",
+      "gen_time_s": 0.751,
+      "hit_token_budget": false
     },
     {
       "id": 4,
@@ -48,7 +52,8 @@
       "output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
       "raw_output": "The backend is actually powered by Cloudflare Workers and Fireworks.",
       "score": "exact",
-      "gen_time_s": 0.74
+      "gen_time_s": 0.499,
+      "hit_token_budget": false
     },
     {
       "id": 5,
@@ -58,7 +63,8 @@
       "output": "Let's meet at 12pm, Thursday.",
       "raw_output": "Let's meet at 12pm, Thursday.",
       "score": "exact",
-      "gen_time_s": 0.644
+      "gen_time_s": 0.432,
+      "hit_token_budget": false
     },
     {
       "id": 6,
@@ -68,7 +74,8 @@
       "output": "We're using React and Svelte.",
       "raw_output": "We're using React and Svelte.",
       "score": "exact",
-      "gen_time_s": 0.526
+      "gen_time_s": 0.368,
+      "hit_token_budget": false
     },
     {
       "id": 7,
@@ -78,7 +85,8 @@
       "output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky\" to be here. What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 1.228
+      "gen_time_s": 0.771,
+      "hit_token_budget": false
     },
     {
       "id": 8,
@@ -88,7 +96,8 @@
       "output": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
       "raw_output": "\"Gluten-free\" bread that lists wheat as the second ingredient.",
       "score": "exact",
-      "gen_time_s": 0.78
+      "gen_time_s": 0.518,
+      "hit_token_budget": false
     },
     {
       "id": 9,
@@ -98,7 +107,8 @@
       "output": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
       "raw_output": "I mean they said I was \"lucky to be here\". What the fuck do they mean by that?",
       "score": "exact",
-      "gen_time_s": 1.143
+      "gen_time_s": 0.754,
+      "hit_token_budget": false
     },
     {
       "id": 10,
@@ -108,7 +118,8 @@
       "output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
       "raw_output": "The debug log shows \"connection timed out after 30 seconds\" three times in a row.",
       "score": "exact",
-      "gen_time_s": 1.052
+      "gen_time_s": 0.696,
+      "hit_token_budget": false
     },
     {
       "id": 11,
@@ -118,7 +129,8 @@
       "output": "He described the interview as \"the most stressful hour of my life\".",
       "raw_output": "He described the interview as \"the most stressful hour of my life\".",
       "score": "exact",
-      "gen_time_s": 0.782
+      "gen_time_s": 0.529,
+      "hit_token_budget": false
     },
     {
       "id": 12,
@@ -128,7 +140,8 @@
       "output": "I wanna fix @app.py and @test.py.",
       "raw_output": "I wanna fix @app.py and @test.py.",
       "score": "exact",
-      "gen_time_s": 0.654
+      "gen_time_s": 0.437,
+      "hit_token_budget": false
     },
     {
       "id": 13,
@@ -138,7 +151,8 @@
       "output": "WE'RE SO EXCITED TO MAKE THIS.",
       "raw_output": "WE'RE SO EXCITED TO MAKE THIS.",
       "score": "exact",
-      "gen_time_s": 0.604
+      "gen_time_s": 0.408,
+      "hit_token_budget": false
     },
     {
       "id": 14,
@@ -148,7 +162,8 @@
       "output": "It's SURPRISINGLY fast.",
       "raw_output": "It's SURPRISINGLY fast.",
       "score": "exact",
-      "gen_time_s": 0.524
+      "gen_time_s": 0.34,
+      "hit_token_budget": false
     },
     {
       "id": 15,
@@ -158,7 +173,8 @@
       "output": "\ud83d\udc94",
       "raw_output": "\ud83d\udc94",
       "score": "exact",
-      "gen_time_s": 0.27
+      "gen_time_s": 0.168,
+      "hit_token_budget": false
     },
     {
       "id": 16,
@@ -168,7 +184,8 @@
       "output": "\ud83d\ude4f for the victims",
       "raw_output": "\ud83d\ude4f for the victims",
       "score": "exact",
-      "gen_time_s": 0.437
+      "gen_time_s": 0.286,
+      "hit_token_budget": false
     },
     {
       "id": 17,
@@ -178,7 +195,8 @@
       "output": "So we've got a file called useTranscription.ts.",
       "raw_output": "So we've got a file called useTranscription.ts.",
       "score": "exact",
-      "gen_time_s": 0.689
+      "gen_time_s": 0.439,
+      "hit_token_budget": false
     },
     {
       "id": 18,
@@ -188,7 +206,8 @@
       "output": "Their \"innovation\" is just copying what everyone else already does.",
       "raw_output": "Their \"innovation\" is just copying what everyone else already does.",
       "score": "exact",
-      "gen_time_s": 0.735
+      "gen_time_s": 0.464,
+      "hit_token_budget": false
     },
     {
       "id": 19,
@@ -198,7 +217,8 @@
       "output": "Notify the @ops team about the outage.",
       "raw_output": "Notify the @ops team about the outage.",
       "score": "exact",
-      "gen_time_s": 0.564
+      "gen_time_s": 0.363,
+      "hit_token_budget": false
     },
     {
       "id": 20,
@@ -208,7 +228,8 @@
       "output": "STOP IGNORING MY EMAILS.",
       "raw_output": "STOP IGNORING MY EMAILS.",
       "score": "exact",
-      "gen_time_s": 0.52
+      "gen_time_s": 0.331,
+      "hit_token_budget": false
     },
     {
       "id": 21,
@@ -218,7 +239,8 @@
       "output": "This is absolutely CRITICAL for the launch.",
       "raw_output": "This is absolutely CRITICAL for the launch.",
       "score": "exact",
-      "gen_time_s": 0.572
+      "gen_time_s": 0.363,
+      "hit_token_budget": false
     },
     {
       "id": 22,
@@ -228,7 +250,8 @@
       "output": "We just shipped the new feature \ud83d\udd25",
       "raw_output": "We just shipped the new feature \ud83d\udd25",
       "score": "exact",
-      "gen_time_s": 0.537
+      "gen_time_s": 0.344,
+      "hit_token_budget": false
     },
     {
       "id": 23,
@@ -238,7 +261,8 @@
       "output": "The main page uses a component called NavigationBar that wraps everything.",
       "raw_output": "The main page uses a component called NavigationBar that wraps everything.",
       "score": "exact",
-      "gen_time_s": 0.749
+      "gen_time_s": 0.504,
+      "hit_token_budget": false
     }
   ],
   "test_set_path": "/Users/lolrazh/Documents/Projects/mlx/spoke/bench/test_set_v3.json",

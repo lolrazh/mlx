@@ -887,14 +887,30 @@ def train(
 
             print(f"Saving merged bf16 model to {merged_path}")
             merged_model = trainer.model.merge_and_unload()
-            # Some base models (e.g. Nemotron H) ship sampling params with
-            # do_sample=False; transformers 5.x refuses to save that. Spoke
-            # decodes greedily (finding #94), so strip the sampling flags.
             gen_config = getattr(merged_model, "generation_config", None)
-            if gen_config is not None and not getattr(gen_config, "do_sample", False):
-                gen_config.temperature = None
-                gen_config.top_p = None
-                gen_config.top_k = None
+            if gen_config is not None:
+                # Some base models (e.g. Nemotron H) ship sampling params with
+                # do_sample=False; transformers 5.x refuses to save that. Spoke
+                # decodes greedily (finding #94), so strip the sampling flags.
+                if not getattr(gen_config, "do_sample", False):
+                    gen_config.temperature = None
+                    gen_config.top_p = None
+                    gen_config.top_k = None
+                # config.json's eos_token_id can be stale/wrong for a chat
+                # fine-tune (see merge_adapter_checkpoint.py for the incident
+                # this guards against). Always fold in the tokenizer's own eos.
+                existing_eos = gen_config.eos_token_id
+                eos_ids = (
+                    [] if existing_eos is None
+                    else [existing_eos] if isinstance(existing_eos, int)
+                    else list(existing_eos)
+                )
+                if tokenizer.eos_token_id is not None and tokenizer.eos_token_id not in eos_ids:
+                    eos_ids.append(tokenizer.eos_token_id)
+                gen_config.eos_token_id = eos_ids
+                if gen_config.pad_token_id is None and tokenizer.pad_token_id is not None:
+                    gen_config.pad_token_id = tokenizer.pad_token_id
+                print(f"  Generation config: eos_token_id={eos_ids}, pad_token_id={gen_config.pad_token_id}")
             merged_model.save_pretrained(merged_path, safe_serialization=True)
             tokenizer.save_pretrained(merged_path)
 

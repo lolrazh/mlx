@@ -398,6 +398,20 @@ def benchmark_remote(
     generation_eos_token_id = model.generation_config.eos_token_id
     if generation_eos_token_id is None:
         generation_eos_token_id = tokenizer.eos_token_id
+    else:
+        # Defense-in-depth: a merged model's generation_config can be missing
+        # the tokenizer's real chat eos (e.g. Qwen/Qwen3.5-4B's config.json
+        # lists only the base-LM <|endoftext|>, not <|im_end|> -- this caused
+        # runaway generation graded as 0% accuracy, see LEDGER). Union it in
+        # here too so old volume artifacts and future producer bugs are both
+        # covered, not just newly-merged models.
+        eos_ids = (
+            [generation_eos_token_id] if isinstance(generation_eos_token_id, int)
+            else list(generation_eos_token_id)
+        )
+        if tokenizer.eos_token_id is not None and tokenizer.eos_token_id not in eos_ids:
+            eos_ids.append(tokenizer.eos_token_id)
+        generation_eos_token_id = eos_ids
     generation_pad_token_id = model.generation_config.pad_token_id
     if generation_pad_token_id is None:
         generation_pad_token_id = tokenizer.pad_token_id
@@ -443,6 +457,11 @@ def benchmark_remote(
             new_tokens = generated[0]
         else:
             new_tokens = generated[0, prompt_len:]
+        # A model that never hits its stop condition burns the full budget
+        # every time (the tell behind the eos_token_id bug above: 6-7s/example
+        # instead of ~0.4s). Track it so a broken generation_config reads as
+        # a loud warning instead of a silent 0%-accuracy result.
+        hit_token_budget = (not is_encoder_decoder) and (new_tokens.shape[0] >= 256)
         raw_output = tokenizer.decode(new_tokens, skip_special_tokens=True)
         output = clean_output(raw_output)
         score = score_output(output, ex["ideal"])
@@ -456,6 +475,7 @@ def benchmark_remote(
             "raw_output": raw_output.strip()[:500],
             "score": score,
             "gen_time_s": round(latency, 3),
+            "hit_token_budget": hit_token_budget,
         })
 
     scores = [r["score"] for r in results]
@@ -466,6 +486,14 @@ def benchmark_remote(
     fail = scores.count("fail")
     accuracy = (exact + semantic) / n
     avg_latency = sum(r["gen_time_s"] for r in results) / n
+    budget_hits = sum(1 for r in results if r["hit_token_budget"])
+    if budget_hits / n > 0.2:
+        print(
+            f"  WARNING: {budget_hits}/{n} examples ({budget_hits / n:.0%}) hit the "
+            "max_new_tokens budget without stopping naturally. This usually means "
+            "eos_token_id/generation_config is wrong, not that the model is bad -- "
+            "check generation_config before trusting this accuracy number."
+        )
 
     summary = {
         "model": model_path,
@@ -478,6 +506,7 @@ def benchmark_remote(
         "fail": fail,
         "accuracy": round(accuracy, 4),
         "avg_latency_s": round(avg_latency, 3),
+        "budget_hits": budget_hits,
         "results": results,
     }
 

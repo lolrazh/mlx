@@ -167,30 +167,56 @@ def merge_checkpoint(
     merged = peft_model.merge_and_unload()
 
     print(f"Saving merged model to: {merged_dir}")
-    # Strip sampling flags when do_sample is off (Nemotron H ships top_p=0.95
-    # with greedy decoding; transformers 5.x refuses to save that combination).
     gen_config = getattr(merged, "generation_config", None)
-    if gen_config is not None and not getattr(gen_config, "do_sample", False):
-        gen_config.temperature = None
-        gen_config.top_p = None
-        gen_config.top_k = None
+    if gen_config is not None:
+        # Strip sampling flags when do_sample is off (Nemotron H ships top_p=0.95
+        # with greedy decoding; transformers 5.x refuses to save that combination).
+        if not getattr(gen_config, "do_sample", False):
+            gen_config.temperature = None
+            gen_config.top_p = None
+            gen_config.top_k = None
+        # config.json's eos_token_id can be stale/wrong for a chat fine-tune --
+        # Qwen/Qwen3.5-4B's config.json lists only the base-LM <|endoftext|>,
+        # not the <|im_end|> turn-end token the model actually emits, and ships
+        # no generation_config.json at all. That silently produced a merged
+        # model that never stops generating (0%-accuracy runaway generation,
+        # incidents on 2026-03-06 and 2026-07-09). Always fold the tokenizer's
+        # own eos/pad token in so a missing or incomplete upstream
+        # generation_config can't do that again.
+        existing_eos = gen_config.eos_token_id
+        eos_ids = (
+            [] if existing_eos is None
+            else [existing_eos] if isinstance(existing_eos, int)
+            else list(existing_eos)
+        )
+        if tokenizer.eos_token_id is not None and tokenizer.eos_token_id not in eos_ids:
+            eos_ids.append(tokenizer.eos_token_id)
+        gen_config.eos_token_id = eos_ids
+        if gen_config.pad_token_id is None and tokenizer.pad_token_id is not None:
+            gen_config.pad_token_id = tokenizer.pad_token_id
+        print(f"  Generation config: eos_token_id={eos_ids}, pad_token_id={gen_config.pad_token_id}")
     merged.save_pretrained(str(merged_dir), safe_serialization=True)
     tokenizer.save_pretrained(str(merged_dir))
 
-    # Copy generation_config from the training run's final merged model if available,
-    # otherwise from the base model. This ensures correct EOS/pad token IDs.
+    # If the training run also did its own full export, prefer copying that
+    # file over (it may carry vintage-specific fixups) -- but still assert the
+    # tokenizer's eos token is present rather than trusting it blindly.
     final_merged_gen_config = Path(f"/output/{run_name}/merged/generation_config.json")
     if final_merged_gen_config.exists():
         import shutil
         shutil.copy(str(final_merged_gen_config), str(merged_dir / "generation_config.json"))
-        print(f"  Copied generation_config from {final_merged_gen_config}")
-    else:
-        try:
-            gen_config = GenerationConfig.from_pretrained(model_name)
-            gen_config.save_pretrained(str(merged_dir))
-            print(f"  Saved generation_config from base model: eos={gen_config.eos_token_id}")
-        except Exception as e:
-            print(f"  Warning: could not save generation_config: {e}")
+        copied = GenerationConfig.from_pretrained(str(merged_dir))
+        copied_eos = copied.eos_token_id
+        copied_eos_ids = (
+            [] if copied_eos is None
+            else [copied_eos] if isinstance(copied_eos, int)
+            else list(copied_eos)
+        )
+        if tokenizer.eos_token_id is not None and tokenizer.eos_token_id not in copied_eos_ids:
+            copied_eos_ids.append(tokenizer.eos_token_id)
+            copied.eos_token_id = copied_eos_ids
+            copied.save_pretrained(str(merged_dir))
+        print(f"  Copied + tokenizer-verified generation_config from {final_merged_gen_config}: eos={copied_eos_ids}")
 
     output_vol.commit()
     print("Merge complete.")
