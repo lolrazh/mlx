@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-12 → 2026-07-13 (overnight)
 **Agent:** Claude Opus 4.8 (1M context), main loop, with 5 research/execution subagents (3 Sonnet research, 2 Opus execution)
-**Status:** IN PROGRESS. Feasibility of sub-3 GB dense shrink PROVEN (2-bit embeddings + DWQ = 3.3 GB @ broad58 78% local, matches 4-bit baseline's 76%, 0 hard fails, heal loss 0.038). Latency/PLD lever now being explored by an Opus subagent. Push to ~2.5 GB (mixed-precision body) parked for a follow-up.
+**Status:** IN PROGRESS. Feasibility of sub-3 GB dense shrink PROVEN (2-bit embeddings + DWQ = 3.3 GB @ broad58 78% local, matches 4-bit baseline's 76%, 0 hard fails, heal loss 0.038). PLD latency lever explored and RULED OUT (finding #113 — a bust on this 262K-vocab model, and not bit-lossless); the real latency win is **persistent system-prompt caching** (~35%, lossless, median ~500 ms), deferred for wiring per user (focus on shrink first). Push to ~2.5 GB (mixed-precision body) is the next shrink step. Durable backlog + inference recipe now live in `spoke/TODO.md`.
 
 ## User Intention
 User proposed running a **Mixture-of-Experts model with experts streamed/flashed from SSD** (à la Apple's "LLM in a Flash" + the GLM-on-25GB-RAM repos) to slash memory. Specifically wanted to fine-tune the **Gemma 4 26B-A4B** MoE and flash its experts so a big-capacity "mug-it-up" model could run cheaply. Hard product constraints stated explicitly: **latency <400–800 ms**, **RAM ~2–3 GB**, reasonable size. Disciplined ask: *prove the method is possible before spending any money/mental bandwidth on fine-tuning.* Then, once streaming was ruled out, pivoted to **shrinking the existing dense Gemma 4 E4B champion below 3 GB** without losing its 82.8 broad58. Requested Sonnet subagents for research, Opus subagents for code/execution, an agent-log, and bite-sized git commits.
@@ -23,8 +23,11 @@ User proposed running a **Mixture-of-Experts model with experts streamed/flashed
 - Asymmetric quant (`spoke/shrink/asym_quant.py`): `embed_tokens` + `embed_tokens_per_layer` → 2-bit (group 32 and group 64 variants), body stays 4-bit g64, then DWQ-heal (512 calibration samples) against the bf16 teacher.
 - **Result (g32 variant): 3.3 GB, broad58 78% (42 exact / 3 semantic / 13 partial / 0 fail), heal val-loss 0.038** — vs the re-run 4-bit baseline 3.9 GB / 76% / 0 fail / loss 0.039. i.e. **2-bit embeddings MATCH 4-bit at 0.6 GB smaller and ~40% faster wall-clock, zero garbage/thinking-runaway.** The g64 raw variant is 3.1 GB (not yet healed). Feasibility of sub-3.2 GB at champion-parity: PROVEN on the first experiment.
 
-### 4. Now: latency / PLD lever (in progress)
-Pivoted (per user) to prompt-lookup decoding — the task-matched latency multiplier (Spoke output echoes its input, so PLD gives 2–4× lossless). Classic draft-model speculative decoding was ruled out (draft overhead erases the win on a 4 GB model). An Opus subagent is implementing a minimal PLD loop against mlx-lm and benchmarking latency vs plain greedy on broad58. Persistent prompt-cache hygiene + an optional llama-bench-vs-MLX comparison are stretch goals.
+### 4. Latency / PLD lever — DONE, verdict: cache the system prompt, skip PLD (finding #113)
+Prompt-lookup decoding *should* fit a text-cleaner (output echoes input) but is a **bust** here: best config ~1.05×, aggressive k=8 actually *slower* (0.86×). Cause: the 262K-vocab lm_head makes multi-token verification non-free (forward flat only to a 2-token block: 47.6→45 ms, then steep: block-4 61 ms, block-9 161 ms). Worse, PLD is **not bit-lossless** on this MLX/gemma3n stack — block-forward numerics flip the argmax on near-ties (0.5-logit gap in the 262K head), silently dropping a clause on broad58 id53. **The real lever the sweep surfaced: the fixed v2 system prompt is ~75% of the prompt and its prefill is ~half of total latency**, so persistent `make_prompt_cache()` of it cuts mean 1044→~640 ms / median 928→~505 ms (~35%), fully lossless (bit-identical on all 58). Sub-500 ms is a *median* reality with caching alone. **Decision (user): defer wiring prompt-caching, focus on shrink first.** Tooling committed: `spoke/bench/pld_bench.py`, `pld_sweep.py`, `pld_cache_bench.py`.
+
+### 5. Next: shrink round 2 (in progress)
+Heal + benchmark the g64 variant (3.1 GB) and build a `mixed_3_6`-body + 2-bit-embeddings variant → target ~2.5 GB. See `spoke/TODO.md` for the full durable backlog and the inference-time recipe.
 
 ## Key results table
 | Model | Emb bits | Size | broad58 (local) | Hard fails | Heal loss |
