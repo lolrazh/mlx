@@ -1,0 +1,58 @@
+{
+  "model": "spoke/models/g4e4b-emb2g32-dwq",
+  "base_len": 89,
+  "results": [
+    {
+      "mean_ms": 632.9,
+      "median_ms": 499.2,
+      "p90_ms": 1372.4,
+      "label": "greedy+cache",
+      "accepted_per_step": 0.0,
+      "tokens_per_step": 1.17
+    },
+    {
+      "mean_ms": 486.9,
+      "median_ms": 395.4,
+      "p90_ms": 864.3,
+      "label": "pld_n2_k1+cache",
+      "accepted_per_step": 0.59,
+      "tokens_per_step": 1.74,
+      "identical_to_greedy_cache": true,
+      "mismatches": []
+    },
+    {
+      "mean_ms": 529.4,
+      "median_ms": 452.5,
+      "p90_ms": 948.1,
+      "label": "pld_n3_k3+cache",
+      "accepted_per_step": 1.1,
+      "tokens_per_step": 2.21,
+      "identical_to_greedy_cache": false,
+      "mismatches": [
+        23
+      ]
+    },
+    {
+      "mean_ms": 677.4,
+      "median_ms": 573.6,
+      "p90_ms": 1207.0,
+      "label": "pld_n3_k4+cache",
+      "accepted_per_step": 1.31,
+      "tokens_per_step": 2.4,
+      "identical_to_greedy_cache": false,
+      "mismatches": [
+        23
+      ]
+    },
+    {
+      "mean_ms": 745.3,
+      "median_ms": 611.1,
+      "p90_ms": 1357.7,
+      "label": "pld_n2_k4+cache",
+      "accepted_per_step": 1.86,
+      "tokens_per_step": 2.91,
+      "identical_to_greedy_cache": true,
+      "mismatches": []
+    }
+  ]
+}
