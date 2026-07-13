@@ -36,7 +36,9 @@ Companion to `LEDGER.md`. **LEDGER** = everything tried + numbered findings. **T
 ### Track C — Model shrink (Gemma cleaner) → 2–3 GB RAM (local, free)
 - [x] **g64 = DEPLOY PICK: 3.1 GB / broad58 79.3%** (2-bit emb group-64 + DWQ) — beats g32 (3.3 GB/78%) and the 3.9 GB baseline (76%) on both axes.
 - [x] ~~`mixed_3_6` body~~ **DEAD END (confirmed): 3.1 GB / broad58 62.1%** — 3-bit body craters quality ~17 pts with NO size win (embeddings dominate). Body must stay 4-bit.
-- [ ] **Vocab pruning → ~2.3 GB — the ONLY remaining <3 GB lever.** ⚠️ CAVEAT: domain-locks the vocab, RISKY for a general dictation cleaner (arbitrary spoken input) — needs a *moderate* prune (keep broad English coverage) + out-of-distribution validation, not an aggressive cut. Decide if worth it vs. shipping the 3.1 GB g64 (already at the top of the 2–3 GB target).
+- [x] ~~Vocab pruning~~ **DONE — NOT WORTH IT.** English-safe 165K-vocab prune (kept 63%, zero-OOV validated) → 2.8 GB / **3.01 GB peak / broad58 72%** (1 hard fail). Traded **7 pts of quality (79→72)** for only 0.4 GB peak RAM, plus an English-lock. Byte-fallback re-decomposition of dropped tokens is the quality cost. **g64 stays the deploy pick.**
+- [x] ~~MatFormer E2B slice~~ **IMPOSSIBLE for free** — Gemma 4 dropped MatFormer; E2B is a separately-trained, differently-shaped model (hidden 1536 vs 2560), not sliceable from E4B. Under-2 GB requires a fresh **Modal fine-tune of `gemma-4-E2B`** (paid, smaller-model quality unproven).
+- **SHRINK VERDICT: g64 (3.1 GB / 3.41 GB peak / 79.3%) is the pick. Quantization floored ~3.1 GB; nothing free goes lower without losing quality. Comfortably-under-3 or under-2 GB ⇒ paid E2B fine-tune.**
 
 ### Track D — Accuracy / training / data [audit]
 - [ ] **v6 training data** targeting weak categories (at-symbol/multi/spell/emoji) — ledger's own HIGH-priority "only remaining accuracy lever" (#90/#93/#107/#110). Never built.
