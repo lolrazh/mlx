@@ -34,9 +34,9 @@ Companion to `LEDGER.md`. **LEDGER** = everything tried + numbered findings. **T
 - [ ] Validation: idle-machine 8-bit-vs-bf16 rematch + real short-dictation-audio latency (past benches ran under load / on 8 s LibriSpeech clips) + mic-mode subjective test + LibriSpeech test-other/noisy confirmation.
 
 ### Track C — Model shrink (Gemma cleaner) → 2–3 GB RAM (local, free)
-- [ ] **Confirm g64 variant (3.1 GB):** DWQ-heal + broad58 bench. *(in progress)*
-- [ ] ~~`mixed_3_6` body → 2.5 GB~~ — **[audit-updated] weak lever**: 2-bit embeddings dominate size, so mixed-body only trims ~0.28 GB (lands ~3.1–3.26 GB, not 2.5). Confirming, then likely shelve.
-- [ ] **Vocab pruning → ~2.3 GB — now the PRIMARY path to 2.5 GB** (shrinks the 262K-vocab embedding tables proportionally). Needs a heal-tune, domain-locks the model. Prune→Distill→Quantize order.
+- [x] **g64 = DEPLOY PICK: 3.1 GB / broad58 79.3%** (2-bit emb group-64 + DWQ) — beats g32 (3.3 GB/78%) and the 3.9 GB baseline (76%) on both axes.
+- [x] ~~`mixed_3_6` body~~ **DEAD END (confirmed): 3.1 GB / broad58 62.1%** — 3-bit body craters quality ~17 pts with NO size win (embeddings dominate). Body must stay 4-bit.
+- [ ] **Vocab pruning → ~2.3 GB — the ONLY remaining <3 GB lever.** ⚠️ CAVEAT: domain-locks the vocab, RISKY for a general dictation cleaner (arbitrary spoken input) — needs a *moderate* prune (keep broad English coverage) + out-of-distribution validation, not an aggressive cut. Decide if worth it vs. shipping the 3.1 GB g64 (already at the top of the 2–3 GB target).
 
 ### Track D — Accuracy / training / data [audit]
 - [ ] **v6 training data** targeting weak categories (at-symbol/multi/spell/emoji) — ledger's own HIGH-priority "only remaining accuracy lever" (#90/#93/#107/#110). Never built.
