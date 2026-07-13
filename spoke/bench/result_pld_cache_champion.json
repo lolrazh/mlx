@@ -1,54 +1,52 @@
 {
-  "model": "spoke/models/g4e4b-champion-mlx-dwq4-g64",
+  "model": "spoke/models/g4e4b-emb2g64-dwq",
   "base_len": 89,
   "results": [
     {
-      "mean_ms": 737.3,
-      "median_ms": 599.0,
-      "p90_ms": 1580.0,
+      "mean_ms": 628.2,
+      "median_ms": 488.2,
+      "p90_ms": 1207.4,
       "label": "greedy+cache",
       "accepted_per_step": 0.0,
-      "tokens_per_step": 1.15
+      "tokens_per_step": 1.17
     },
     {
-      "mean_ms": 599.9,
-      "median_ms": 496.0,
-      "p90_ms": 1054.6,
+      "mean_ms": 576.9,
+      "median_ms": 489.0,
+      "p90_ms": 1065.5,
       "label": "pld_n2_k1+cache",
-      "accepted_per_step": 0.61,
-      "tokens_per_step": 1.76,
-      "identical_to_greedy_cache": false,
-      "mismatches": [
-        53
-      ]
+      "accepted_per_step": 0.58,
+      "tokens_per_step": 1.74,
+      "identical_to_greedy_cache": true,
+      "mismatches": []
     },
     {
-      "mean_ms": 639.0,
-      "median_ms": 526.3,
-      "p90_ms": 1166.3,
+      "mean_ms": 1018.8,
+      "median_ms": 858.9,
+      "p90_ms": 2010.7,
       "label": "pld_n3_k3+cache",
-      "accepted_per_step": 1.07,
-      "tokens_per_step": 2.16,
+      "accepted_per_step": 1.03,
+      "tokens_per_step": 2.15,
       "identical_to_greedy_cache": true,
       "mismatches": []
     },
     {
-      "mean_ms": 659.3,
-      "median_ms": 535.0,
-      "p90_ms": 1239.1,
+      "mean_ms": 1134.8,
+      "median_ms": 869.7,
+      "p90_ms": 1964.7,
       "label": "pld_n3_k4+cache",
-      "accepted_per_step": 1.25,
-      "tokens_per_step": 2.31,
+      "accepted_per_step": 1.23,
+      "tokens_per_step": 2.32,
       "identical_to_greedy_cache": true,
       "mismatches": []
     },
     {
-      "mean_ms": 664.0,
-      "median_ms": 546.0,
-      "p90_ms": 1288.5,
+      "mean_ms": 915.5,
+      "median_ms": 757.1,
+      "p90_ms": 1698.1,
       "label": "pld_n2_k4+cache",
-      "accepted_per_step": 1.87,
-      "tokens_per_step": 2.88,
+      "accepted_per_step": 1.78,
+      "tokens_per_step": 2.84,
       "identical_to_greedy_cache": true,
       "mismatches": []
     }
